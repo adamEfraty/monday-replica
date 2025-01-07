@@ -34,3 +34,19 @@
     }
   }
 }
+
+.icons-section {
+  display: flex;
+  align-items: center;
+}
+
+.vertical-line {
+  width: 1px;
+  height: 24px; /* Adjust height as needed */
+  background-color: #000; /* Adjust color as needed */
+  margin: 0 8px; /* Adjust spacing as needed */
+}
+
+.header-sentance{
+  display: flex;
+}

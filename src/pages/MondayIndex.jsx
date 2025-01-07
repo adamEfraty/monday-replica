@@ -1,18 +1,23 @@
 
 import { useSelector } from "react-redux";
+import { AppHeader } from "../cmps/AppHeader";
+import { SideBar } from "../cmps/SideBar";
+import { MainInnerIndex } from "../cmps/MainInnerIndex";
+import { useParams } from "react-router";
 
-
-export function MondayIndex() {
-
-
+export function MondayIndex({isBoard = false}) {
+    const { boardId } = useParams()
     const user = useSelector(state => state.userModule.user)
+    const boards = useSelector(state => state.boardModule.boards)
 
 
     return (
         <div className="index-container">
-            <h1>You Logged In !</h1>
-            <h2>{user.fullName || 'no user'}</h2>
-            <img src={user.imgUrl} width={'300px'} alt="" />
+            <AppHeader userData={user} />
+            <section className="content">
+            <SideBar />
+            <MainInnerIndex user={user} isBoard={isBoard} boards={boards} />
+            </section>
         </div>
     )
 }
