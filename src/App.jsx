@@ -8,6 +8,8 @@ import { SignUp } from './pages/SignUp'
 import { MondayIndex } from './pages/MondayIndex'
 function App() {
 
+  console.log('hello')
+
   return (
     <div >
       <Router>
