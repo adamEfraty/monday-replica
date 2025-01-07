@@ -1,13 +1,9 @@
 import { storageService } from './async-storage.service'
 
 const STORAGE_KEY_LOGGEDIN_USER = 'loggedinUser'
-const STORAGE_KEY_USER_DB = 'user'
+const STORAGE_KEY_USER_DB = 'boards'
 
-export const userService = {
-  login,
-  logout,
-  signup,
-  getLoggedinUser,
+export const boardService = {
   saveLocalUser,
   getUsers,
   getById,
