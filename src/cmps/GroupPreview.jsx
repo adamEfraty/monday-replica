@@ -1,8 +1,8 @@
 import Date from "./dynamicCmps/Date";
-import Member from "./dynamicCmps/Member";
+import { Member } from "./dynamicCmps/Member";
 import { Status } from "./dynamicCmps/Status";
 import TaskTitle from "./dynamicCmps/TaskTitle";
-import Priority from "./dynamicCmps/Priority";
+import { Priority } from "./dynamicCmps/Priority";
 import { useState } from "react";
 
 const GroupPreview = ({ labels, group, cmpOrder, progress }) => {
@@ -10,8 +10,22 @@ const GroupPreview = ({ labels, group, cmpOrder, progress }) => {
     const [expanded, setExpanded] = useState(true)
 
 
-    function onTaskUpdate(taskInfo) {
-        console.log("onTaskUpdate", taskInfo);
+    // summerize the updating data
+    function onTaskUpdate(changeInfo) {
+
+        switch (changeInfo.type){
+            case 'title update':
+                console.log(`inTaskId:${changeInfo.taskId},${changeInfo.type}: ${changeInfo.value}`)
+                break
+            case 'priority update':
+                console.log(`inTaskId:${changeInfo.taskId},${changeInfo.type}: ${changeInfo.value}`)
+                break
+            case 'status update':
+                console.log(`inTaskId:${changeInfo.taskId},${changeInfo.type}: ${changeInfo.value}`)
+                break
+            default:
+                console.error(`Unknown taskInfo type: ${changeInfo.type}`)
+        }
     }
 
     const style = { borderLeft: `0.3rem solid ${group.color}` }
@@ -38,6 +52,7 @@ const GroupPreview = ({ labels, group, cmpOrder, progress }) => {
                                 key={`task-${task.id}-cmp-${idx}`}
                             >
                                 <DynamicCmp
+                                    taskId={task.id}
                                     cmpType={cmp}
                                     info={task[cmp]}
                                     onTaskUpdate={onTaskUpdate}
@@ -68,21 +83,21 @@ const GroupPreview = ({ labels, group, cmpOrder, progress }) => {
     );
 };
 
-const DynamicCmp = ({ cmpType, info, onTaskUpdate }) => {
+const DynamicCmp = ({ cmpType, info, onTaskUpdate, taskId }) => {
     console.log("Rendering component:", cmpType, "with info:", info);
 
     switch (cmpType) {
 
         case "priority":
-            return <Priority info={info} onTaskUpdate={onTaskUpdate} />;
+            return <Priority taskId={taskId} info={info} onTaskUpdate={onTaskUpdate} />;
         case "taskTitle":
-            return <TaskTitle info={info} onTaskUpdate={onTaskUpdate} />;
+            return <TaskTitle taskId={taskId} info={info} onTaskUpdate={onTaskUpdate} />;
         case "status":
-            return <Status info={info} onTaskUpdate={onTaskUpdate} />;
+            return <Status taskId={taskId} info={info} onTaskUpdate={onTaskUpdate} />;
         case "members":
-            return <Member info={info} onTaskUpdate={onTaskUpdate} />;
+            return <Member taskId={taskId} info={info} onTaskUpdate={onTaskUpdate} />;
         case "date":
-            return <Date info={info} onTaskUpdate={onTaskUpdate} />;
+            return <Date taskId={taskId} info={info} onTaskUpdate={onTaskUpdate} />;
         default:
             console.error(`Unknown component type: ${cmpType}`);
             return <div>Unknown component: {cmpType}</div>;

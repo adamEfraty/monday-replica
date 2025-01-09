@@ -1,69 +1,61 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react'
+import { PriorityModal } from './modals/PriorityModal.jsx'
 
-function Priority({ info, onTaskUpdate }) {
-    const [modal, setModal] = useState(false);
-    const [currentPriority, setCurrentPriority] = useState(info);
+export function Priority({taskId, info, onTaskUpdate }) {
 
-    // Function to set the background color based on priority
-    function color(priority) {
-        if (priority === 'HIGH') return '#fdab3d'; // orangeish
-        if (priority === 'MEDIUM') return '#579bfc'; // blue
-        if (priority === 'LOW') return '#4eb648'; // green
-        return 'coral'; // default color for other priorities
+    const [modal, setModal] = useState(false)
+    const [priority, setPriority] = useState({text: info, color: '#cdcdcd'})
+
+    const modalRef = useRef(null)
+    const priorityCellRef = useRef(null)
+
+    // clase and open modal as needed
+    function modalToggle() {
+        setModal(prev => !prev)
     }
 
-    // Inline style for the priority background color
-    const style = { backgroundColor: color(currentPriority), width: '100%', height: '100%' };
+    function onPriorityChange(priority){
+        setPriority(priority)
+        modalToggle()
+        onTaskUpdate({taskId, type:'priority update', value: priority.text})
+    }
 
+    //if user click outside modal close it
+    function handleClickOutsideModal(event) {
+        if (!modalRef.current.contains(event.target)
+            && !priorityCellRef.current.contains(event.target))
+            modalToggle()
+    }
 
-    const handlePriorityClick = (priority) => {
-        setCurrentPriority(priority);
-        setModal(false);
-    };
+    // open listener to handleClickOutsideModal only when modal open
+    useEffect(() => {
+        if (modal) document.addEventListener
+            ('mousedown', handleClickOutsideModal)
+         else document.removeEventListener
+            ('mousedown', handleClickOutsideModal)
+        return () => document.removeEventListener
+            ('mousedown', handleClickOutsideModal)
 
-
-    const handleOutsideClick = () => {
-        setModal(false);
-    };
+    }, [modal])
 
     return (
-        <div className="item white has-modal" onClick={() => setModal(true)} style={style}>
-            {currentPriority}
+        <section className="priority">
+            {/* priority cell*/}
+            <div 
+            className="priority-cell" 
+            ref={priorityCellRef}
+            onClick={modalToggle}
+            style={{ backgroundColor: priority.color }}>
+                {priority.text}
+            </div>
 
-            {modal && (
-                <div className="modal-backdrop" onClick={handleOutsideClick} style={{ zIndex: 1000 }}>
-                    <div className="modal" onClick={(e) => e.stopPropagation()} style={{ zIndex: 1001 }}>
-                        <h3>Choose a Priority</h3>
-                        <div className="color-list">
-                            <div
-                                className="color-box"
-                                onClick={() => handlePriorityClick('HIGH')}
-                                style={{ backgroundColor: '#fdab3d' }}
-                            >
-                                HIGH
-                            </div>
-                            <div
-                                className="color-box"
-                                onClick={() => handlePriorityClick('MEDIUM')}
-                                style={{ backgroundColor: '#579bfc' }}
-                            >
-                                MEDIUM
-                            </div>
-                            <div
-                                className="color-box"
-                                onClick={() => handlePriorityClick('LOW')}
-                                style={{ backgroundColor: '#4eb648' }}
-                            >
-                                LOW
-                            </div>
-
-                        </div>
-                        <button className="btn" onClick={() => setModal(false)}>Close</button>
-                    </div>
+            {/* priority modal*/}
+            {modal && 
+                <div ref={modalRef}>
+                    <PriorityModal 
+                    onPriorityChange={onPriorityChange}/>
                 </div>
-            )}
-        </div>
-    );
+            }
+        </section>
+    )
 }
-
-export default Priority;

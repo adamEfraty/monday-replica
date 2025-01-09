@@ -1,0 +1,19 @@
+@use "./modals/StatusModal";
+
+.grid-item.status{
+
+    .status{
+        width: 100%;
+        height: 100%;
+        color: white;
+
+        .status-cell{
+            display: grid;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+
+        }
+    }
+}
+

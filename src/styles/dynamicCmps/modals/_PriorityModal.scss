@@ -1,0 +1,31 @@
+.grid-item.priority{
+    position:relative;
+    
+    .priority-modal{
+        z-index: 1;
+        position: absolute;
+        top: 75px; // temporary
+        left: 0px; // temporary
+        width: 175px;
+        height: 250px;
+        background-color: white;
+        border: solid black 2px;
+        border-radius: 5px;
+
+        ul {
+            list-style: none;
+            gap: 20px;
+        }
+
+        li {
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        button{
+            margin-top: 50px;
+        }
+
+    }
+}
+

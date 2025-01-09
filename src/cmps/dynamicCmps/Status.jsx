@@ -1,68 +1,61 @@
-import { useState } from "react";
+import React, { useState, useEffect, useRef } from 'react'
+import { StatusModal } from './modals/StatusModal.jsx'
 
-export function Status({ info }) {
-    const [modal, setModal] = useState(false);
-    const [currentStatus, setCurrentStatus] = useState(info);
+export function Status({taskId, info, onTaskUpdate }) {
 
-    // Function to set the background color based on the status
-    function color(status) {
-        if (status === 'IN PROGRESS') return '#fdab3d'; // orangeish
-        if (status === 'STUCK') return '#e2445c'; // red
-        if (status === 'DONE') return '#00c875'; // green
-        return 'coral'; // default color for other statuses
+    const [modal, setModal] = useState(false)
+    const [status, setStatus] = useState({text: info, color: '#cdcdcd'})
+
+    const modalRef = useRef(null)
+    const statusCellRef = useRef(null)
+
+    // clase and open modal as needed
+    function modalToggle() {
+        setModal(prev => !prev)
     }
 
-    // Inline style for the status background color
-    const style = { backgroundColor: color(currentStatus), width: '100%', height: '100%' };
+    function onStatusChange(status){
+        setStatus(status)
+        modalToggle()
+        onTaskUpdate({taskId, type:'status update', value: status.text})
+    }
 
-    // Function to handle the color change when a user clicks a color box
-    const handleColorClick = (status) => {
-        setCurrentStatus(status);
-        setModal(false); // Close the modal after the color is selected
-    };
+    //if user click outside modal close it
+    function handleClickOutsideModal(event) {
+        if (!modalRef.current.contains(event.target)
+            && !statusCellRef.current.contains(event.target))
+            modalToggle()
+    }
 
-    // Function to close the modal when clicking outside of it
-    const handleOutsideClick = () => {
-        setModal(false); // Close modal when clicking outside of it
-    };
+    // open listener to handleClickOutsideModal only when modal open
+    useEffect(() => {
+        if (modal) document.addEventListener
+            ('mousedown', handleClickOutsideModal)
+         else document.removeEventListener
+            ('mousedown', handleClickOutsideModal)
+        return () => document.removeEventListener
+            ('mousedown', handleClickOutsideModal)
+
+    }, [modal])
 
     return (
-        <div className="item white has-modal" onClick={() => setModal(true)} style={style}>
-            {currentStatus}
+        <section className="status">
+            {/* status cell*/}
+            <div 
+                className="status-cell" 
+                ref={statusCellRef}
+                onClick={modalToggle}
+                style={{ backgroundColor: status.color }}>
+                {status.text}
+            </div>
 
-            {/* Modal for selecting the status */}
-            {modal && (
-                <div className="modal-backdrop" onClick={handleOutsideClick} style={{ zIndex: 1000 }}>
-                    <div className="modal" onClick={(e) => e.stopPropagation()} style={{ zIndex: 1001 }}>
-                        <h3>Choose a Status</h3>
-                        <div className="color-list">
-                            <div
-                                className="color-box"
-                                onClick={() => handleColorClick('IN PROGRESS')}
-                                style={{ backgroundColor: '#fdab3d' }}
-                            >
-                                IN PROGRESS
-                            </div>
-                            <div
-                                className="color-box"
-                                onClick={() => handleColorClick('STUCK')}
-                                style={{ backgroundColor: '#e2445c' }}
-                            >
-                                STUCK
-                            </div>
-                            <div
-                                className="color-box"
-                                onClick={() => handleColorClick('DONE')}
-                                style={{ backgroundColor: '#00c875' }}
-                            >
-                                DONE
-                            </div>
-
-                        </div>
-                        <button className="btn" onClick={() => setModal(false)}>Close</button>
-                    </div>
+            {/* status modal*/}
+            {modal && 
+                <div ref={modalRef}>
+                    <StatusModal 
+                    onStatusChange={onStatusChange}/>
                 </div>
-            )}
-        </div>
-    );
+            }
+        </section>
+    )
 }
