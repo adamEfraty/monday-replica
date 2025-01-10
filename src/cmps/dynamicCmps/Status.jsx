@@ -4,7 +4,7 @@ import { StatusModal } from './modals/StatusModal.jsx'
 export function Status({taskId, info, onTaskUpdate }) {
 
     const [modal, setModal] = useState(false)
-    const [status, setStatus] = useState({text: info, color: '#cdcdcd'})
+    const [status, setStatus] = useState(info)
 
     const modalRef = useRef(null)
     const statusCellRef = useRef(null)
@@ -17,7 +17,7 @@ export function Status({taskId, info, onTaskUpdate }) {
     function onStatusChange(status){
         setStatus(status)
         modalToggle()
-        onTaskUpdate({taskId, type:'status update', value: status.text})
+        onTaskUpdate({taskId, type:'status update', value: status})
     }
 
     //if user click outside modal close it

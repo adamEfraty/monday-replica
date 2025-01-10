@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { MembersModal } from './modals/membersModal.jsx'
+import { MembersModal } from './modals/MembersModal.jsx'
 
-export function Member({taskId, info, onTaskUpdate}) {
+export function Members({taskId, info, onTaskUpdate}) {
 
     const [modal, setModal] = useState(false)
     const [members, setMembers] = useState(info)
@@ -9,19 +9,25 @@ export function Member({taskId, info, onTaskUpdate}) {
     const modalRef = useRef(null)
     const membersCellRef = useRef(null)
 
-    useEffect(()=>{
-        if(!members.length) 
-            setMembers([{ image: '' }]) // add defualt image later ****************
-    },[members])
+    // defult image in case there is no members
+    const defultImg = 'https://upload.wikimedia.org/wikipedia/commons/2/2c/Default_pfp.svg'
 
     // clase and open modal as needed
     function modalToggle() {
         setModal(prev => !prev)
     }
 
-    function onMembersChange(members){
-        setMembers(members)
+    function onAddMember(member){
+        setMembers([...members, member])
         modalToggle()
+        onTaskUpdate({taskId, type:'members update', value: members})
+
+    }
+
+    function onRemoveMember(memberToRemove){
+        const newMembers = members.filter(member=>
+            memberToRemove.id !== member.id)
+        setMembers(newMembers)
         onTaskUpdate({taskId, type:'members update', value: members})
     }
 
@@ -51,19 +57,24 @@ export function Member({taskId, info, onTaskUpdate}) {
             ref={membersCellRef}
             onClick={modalToggle}>
                 {
+                members.length ?
                 members.map(member => 
-                    <span key={member}>
+                    <span key={member.id}>
                         <img src={member.image}/>
                     </span>
                     )
+                
+                : <img src={defultImg}/>
                 }
             </div>
 
             {/* members modal*/}
             {modal && 
                 <div ref={modalRef}>
-                    {/* <MembersModal 
-                    onMembersChange={onMembersChange}/> */}
+                    <MembersModal 
+                    ParticipateMembers={members}
+                    onAddMember={onAddMember}
+                    onRemoveMember={onRemoveMember}/>
                 </div>
             }
         </section>

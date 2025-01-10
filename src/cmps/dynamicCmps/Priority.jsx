@@ -4,7 +4,7 @@ import { PriorityModal } from './modals/PriorityModal.jsx'
 export function Priority({taskId, info, onTaskUpdate }) {
 
     const [modal, setModal] = useState(false)
-    const [priority, setPriority] = useState({text: info, color: '#cdcdcd'})
+    const [priority, setPriority] = useState(info)
 
     const modalRef = useRef(null)
     const priorityCellRef = useRef(null)
@@ -17,7 +17,7 @@ export function Priority({taskId, info, onTaskUpdate }) {
     function onPriorityChange(priority){
         setPriority(priority)
         modalToggle()
-        onTaskUpdate({taskId, type:'priority update', value: priority.text})
+        onTaskUpdate({taskId, type:'priority update', value: priority})
     }
 
     //if user click outside modal close it
