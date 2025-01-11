@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { MembersModal } from './modals/MembersModal.jsx'
 
-export function Members({taskId, info, onTaskUpdate}) {
+export function Members({usersInBoard, taskId, info, onTaskUpdate}) {
 
     const [modal, setModal] = useState(false)
     const [members, setMembers] = useState(info)
@@ -74,7 +74,8 @@ export function Members({taskId, info, onTaskUpdate}) {
                     <MembersModal 
                     ParticipateMembers={members}
                     onAddMember={onAddMember}
-                    onRemoveMember={onRemoveMember}/>
+                    onRemoveMember={onRemoveMember}
+                    usersInBoard={usersInBoard}/>
                 </div>
             }
         </section>

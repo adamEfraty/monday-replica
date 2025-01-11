@@ -1,11 +1,11 @@
 import { Date } from "./dynamicCmps/Date";
 import { Members } from "./dynamicCmps/Members";
 import { Status } from "./dynamicCmps/Status";
-import TaskTitle from "./dynamicCmps/TaskTitle";
+import { TaskTitle } from "./dynamicCmps/TaskTitle";
 import { Priority } from "./dynamicCmps/Priority";
 import { useState } from "react";
 
-const GroupPreview = ({ labels, group, cmpOrder, progress }) => {
+const GroupPreview = ({ labels, group, cmpOrder, progress, usersInBoard }) => {
 
     const [expanded, setExpanded] = useState(true)
 
@@ -45,6 +45,8 @@ const GroupPreview = ({ labels, group, cmpOrder, progress }) => {
                                     cmpType={cmp}
                                     info={task[cmp]}
                                     onTaskUpdate={onTaskUpdate}
+                                    usersInBoard={usersInBoard} // temporary for demo data
+                                    chat={task.chat} // temporary for demo data
                                 />
                             </section>
                         ))}
@@ -72,7 +74,7 @@ const GroupPreview = ({ labels, group, cmpOrder, progress }) => {
     );
 };
 
-const DynamicCmp = ({ cmpType, info, onTaskUpdate, taskId }) => {
+const DynamicCmp = ({ cmpType, info, onTaskUpdate, taskId, usersInBoard, chat}) => {
     console.log("Rendering component:", cmpType, "with info:", info);
 
     switch (cmpType) {
@@ -80,11 +82,11 @@ const DynamicCmp = ({ cmpType, info, onTaskUpdate, taskId }) => {
         case "priority":
             return <Priority taskId={taskId} info={info} onTaskUpdate={onTaskUpdate} />;
         case "taskTitle":
-            return <TaskTitle taskId={taskId} info={info} onTaskUpdate={onTaskUpdate} />;
+            return <TaskTitle chat={chat} taskId={taskId} info={info} onTaskUpdate={onTaskUpdate} />;
         case "status":
             return <Status taskId={taskId} info={info} onTaskUpdate={onTaskUpdate} />;
         case "members":
-            return <Members taskId={taskId} info={info} onTaskUpdate={onTaskUpdate} />;
+            return <Members usersInBoard={usersInBoard} taskId={taskId} info={info} onTaskUpdate={onTaskUpdate} />;
         case "date":
             return <Date taskId={taskId} info={info} onTaskUpdate={onTaskUpdate} />;
         default:

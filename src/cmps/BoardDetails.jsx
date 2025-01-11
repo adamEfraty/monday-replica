@@ -13,8 +13,6 @@ const BoardDetails = () => {
         {id: 'userid2', name: "bal", color: "black", image: imageLinks[2] },
         {id: 'userid3', name: "shal", color: "green", image: imageLinks[3] }]
 
-
-
     const groups = [
         {
             id: Math.random().toString(36).slice(2),
@@ -29,6 +27,13 @@ const BoardDetails = () => {
                     date: "27-02-2022",
                     status: {text:'Working on it', color:'#FDAB3D'},
                     priority: {text:'Low', color:'#86B6FB'},
+                    chat: [{userId: 'userid0', 
+                        sendingTime: new Date(), 
+                        text: 'comment comment comment...', 
+                        replys:[{userId: 'userid1', 
+                            sendingTime: new Date(), 
+                            text:'reply reply reply...'}]
+                    }]
                 },
                 {
                     id: "t102",
@@ -38,6 +43,7 @@ const BoardDetails = () => {
                     date: "28-02-2022",
                     status: {text:'Stuck', color:'#DF2F4A'},
                     priority: {text:'Medium', color:'#5559DF'},
+                    chat:[],
                 },
                 {
                     id: "t103",
@@ -47,6 +53,7 @@ const BoardDetails = () => {
                     date: "01-03-2022",
                     status: {text:'Done', color:'#00C875'},
                     priority: {text:'Medium', color:'#5559DF'},
+                    chat:[],
                 },
             ],
         },
@@ -64,6 +71,7 @@ const BoardDetails = () => {
                     date: "03-03-2022",
                     status: {text:'Working on it', color:'#FDAB3D'},
                     priority: {text:'Critical ⚠️', color:'#333333'},
+                    chat:[],
                 },
                 {
                     id: "t202",
@@ -73,6 +81,7 @@ const BoardDetails = () => {
                     date: "05-03-2022",
                     status: {text:'Stuck', color:'#DF2F4A'},
                     priority: {text:'Low', color:'#86B6FB'},
+                    chat:[],
                 },
                 {
                     id: "t203",
@@ -82,6 +91,7 @@ const BoardDetails = () => {
                     date: "06-03-2022",
                     status: {text:'Done', color:'#00C875'},
                     priority: {text:'High', color:'#401694'},
+                    chat:[],
                 },
             ],
         },
@@ -99,6 +109,7 @@ const BoardDetails = () => {
                     date: "07-03-2022",
                     status: {text:'Not Started', color:'#C4C4C4'},
                     priority: {text:'High', color:'#401694'},
+                    chat:[],
                 },
                 {
                     id: "t302",
@@ -108,6 +119,7 @@ const BoardDetails = () => {
                     date: "08-03-2022",
                     status: {text:'Working on it', color:'#FDAB3D'},
                     priority: {text:'Low', color:'#86B6FB'},
+                    chat:[],
                 },
             ],
         },
@@ -139,6 +151,7 @@ const BoardDetails = () => {
                     cmpOrder={cmpOrder}
                     progress={progress}
                     key={uid()}
+                    usersInBoard={usersInBoard}
                 />
             ))}
         </section>
