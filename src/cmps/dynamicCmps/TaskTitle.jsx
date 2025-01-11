@@ -116,4 +116,3 @@ export function TaskTitle ({chat, taskId, info, onTaskUpdate }) {
 
   )
 }
-

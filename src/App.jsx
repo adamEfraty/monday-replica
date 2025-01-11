@@ -11,8 +11,6 @@ import { useSelector } from "react-redux";
 function App() {
   const loggedInUser = useSelector((state) => state.userModule.user);
 
-  console.log('sean')
-
   return (
     <div>
       <Router>
