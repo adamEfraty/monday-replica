@@ -109,6 +109,7 @@ export function TaskTitle ({chat, taskId, info, onTaskUpdate }) {
             <ChatModal chat={chat}/>
           </div>
         }
+        
 
     </>
     
