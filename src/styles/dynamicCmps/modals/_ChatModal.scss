@@ -1,0 +1,18 @@
+.content{
+    position: relative;
+
+    .chat-modal{
+        z-index: 1;
+        position: absolute;
+        top: 0px; // temporary
+        right: 0px; // temporary
+        width: 50%;
+        height: 100%;
+        background-color: white;
+        border: solid black 2px;
+        border-radius: 5px;
+    }
+
+}
+
+

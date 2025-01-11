@@ -53,19 +53,6 @@
     background: white;
   }
   
-  /* Sticky Task Title */
-  .grid-item.taskTitle,
-  .grid-item.side {
-    position: sticky;
-    z-index: 10;
-    left: 0;
-    border-right: 1px solid #d3d3d3;
-  }
-  
-  .grid-item.taskTitle {
-    width: 100%;
-  }
-  
   /* Labels and Progress Sections */
   .labels-grid,
   .progress-grid {

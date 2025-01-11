@@ -1,0 +1,29 @@
+.grid-item.date{
+    position:relative;
+    
+    .date-modal{
+        z-index: 1;
+        position: absolute;
+        top: 75px; // temporary
+        left: -200px; // temporary
+        width: 350px;
+        height: 350px;
+        background-color: white;
+        border: solid black 2px;
+        border-radius: 5px;
+
+        // the year picking part
+        .MuiPickersCalendarHeader-labelContainer.css-cyfsxc-MuiPickersCalendarHeader-labelContainer{
+            pointer-events: none;
+            
+            // the year picking part's arrow
+            .MuiButtonBase-root.MuiIconButton-root.MuiIconButton-sizeSmall.MuiPickersCalendarHeader-switchViewButton.css-iupya1-MuiButtonBase-root-MuiIconButton-root-MuiPickersCalendarHeader-switchViewButton{
+                display: none;
+            }
+        }
+
+
+    }
+}
+
+

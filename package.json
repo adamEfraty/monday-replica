@@ -10,6 +10,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@mui/icons-material": "^6.3.1",
+    "@mui/x-date-pickers": "^7.23.6",
+    "dayjs": "^1.11.13",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
     "@mui/icons-material": "^6.3.1",

@@ -9,6 +9,11 @@
 @use "mainInnerIndex";
 @use "mondayIndex";
 @use "Board-details";
+@use "./dynamicCmps/TaskTitle";
+@use "./dynamicCmps/Priority";
+@use "./dynamicCmps/Status";
+@use "./dynamicCmps/Members";
+@use "./dynamicCmps/Date";
 
 * {
   padding: 0;

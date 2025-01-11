@@ -8,7 +8,10 @@ const BoardDetails = () => {
         "https://images.pexels.com/photos/30071289/pexels-photo-30071289/free-photo-of-portrait-of-a-bearded-man-outdoors.jpeg?auto=compress&cs=tinysrgb&w=600",
     ];
 
-
+    const usersInBoard = [{id: 'userid0', name: "tal", color: "red", image: imageLinks[0]},
+        {id: 'userid1', name: "shal", color: "green", image: imageLinks[1] },
+        {id: 'userid2', name: "bal", color: "black", image: imageLinks[2] },
+        {id: 'userid3', name: "shal", color: "green", image: imageLinks[3] }]
 
     const groups = [
         {
@@ -20,40 +23,37 @@ const BoardDetails = () => {
                     id: "t101",
                     side: "null",
                     taskTitle: "learn CSS",
-                    members: [
-
-                        { name: "bal", color: "black", image: imageLinks[2] },
-                        { name: "shal", color: "green", image: imageLinks[1] },
-                    ],
+                    members: [usersInBoard[1],usersInBoard[2]],
                     date: "27-02-2022",
-                    status: "IN PROGRESS",
-                    priority: "LOW",
+                    status: {text:'Working on it', color:'#FDAB3D'},
+                    priority: {text:'Low', color:'#86B6FB'},
+                    chat: [{userId: 'userid0', 
+                        sendingTime: new Date(), 
+                        text: 'comment comment comment...', 
+                        replys:[{userId: 'userid1', 
+                            sendingTime: new Date(), 
+                            text:'reply reply reply...'}]
+                    }]
                 },
                 {
                     id: "t102",
                     side: "null",
                     taskTitle: "learn Vue.js",
-                    members: [
-                        { name: "tal", color: "red", image: imageLinks[0] },
-                        { name: "bal", color: "black", image: imageLinks[1] },
-                        { name: "shal", color: "green", image: imageLinks[2] },
-                    ],
+                    members: [usersInBoard[0],usersInBoard[1],usersInBoard[2]],
                     date: "28-02-2022",
-                    status: "STUCK",
-                    priority: "HIGH",
+                    status: {text:'Stuck', color:'#DF2F4A'},
+                    priority: {text:'Medium', color:'#5559DF'},
+                    chat:[],
                 },
                 {
                     id: "t103",
                     side: "null",
                     taskTitle: "learn JavaScript",
-                    members: [
-                        { name: "tal", color: "red", image: imageLinks[1] },
-                        { name: "bal", color: "black", image: imageLinks[1] },
-                        { name: "shal", color: "green", image: imageLinks[3] },
-                    ],
+                    members: [usersInBoard[1],usersInBoard[2],usersInBoard[3]],
                     date: "01-03-2022",
-                    status: "DONE",
-                    priority: "LOW",
+                    status: {text:'Done', color:'#00C875'},
+                    priority: {text:'Medium', color:'#5559DF'},
+                    chat:[],
                 },
             ],
         },
@@ -67,39 +67,31 @@ const BoardDetails = () => {
                     id: "t201",
                     side: "null",
                     taskTitle: "write API documentation",
-                    members: [
-                        { name: "yal", color: "blue", image: imageLinks[3] },
-                        { name: "bal", color: "black", image: imageLinks[1] },
-                        { name: "shal", color: "green", image: imageLinks[2] },
-                        { name: "shal", color: "green", image: imageLinks[0] },
-                    ],
+                    members: [usersInBoard[0],usersInBoard[1],usersInBoard[2],usersInBoard[3]],
                     date: "03-03-2022",
-                    status: "IN PROGRESS",
-                    priority: "HIGH",
+                    status: {text:'Working on it', color:'#FDAB3D'},
+                    priority: {text:'Critical ⚠️', color:'#333333'},
+                    chat:[],
                 },
                 {
                     id: "t202",
                     side: "null",
                     taskTitle: "debug front-end code",
-                    members: [
-                        { name: "yal", color: "blue", image: imageLinks[3] },
-                        { name: "shal", color: "green", image: imageLinks[2] },
-                    ],
+                    members: [usersInBoard[2],usersInBoard[3]],
                     date: "05-03-2022",
-                    status: "STUCK",
-                    priority: "LOW",
+                    status: {text:'Stuck', color:'#DF2F4A'},
+                    priority: {text:'Low', color:'#86B6FB'},
+                    chat:[],
                 },
                 {
                     id: "t203",
                     side: "null",
                     taskTitle: "deploy application",
-                    members: [
-                        { name: "yal", color: "blue", image: imageLinks[3] },
-                        { name: "bal", color: "black", image: imageLinks[1] },
-                    ],
+                    members: [usersInBoard[1],usersInBoard[3]],
                     date: "06-03-2022",
-                    status: "DONE",
-                    priority: "HIGH",
+                    status: {text:'Done', color:'#00C875'},
+                    priority: {text:'High', color:'#401694'},
+                    chat:[],
                 },
             ],
         },
@@ -113,25 +105,21 @@ const BoardDetails = () => {
                     id: "t301",
                     side: "null",
                     taskTitle: "set up database schema",
-                    members: [
-                        { name: "kal", color: "green", image: imageLinks[0] },
-                        { name: "yal", color: "blue", image: imageLinks[3] },
-                    ],
+                    members: [usersInBoard[0],usersInBoard[3]],
                     date: "07-03-2022",
-                    status: "IN PROGRESS",
-                    priority: "HIGH",
+                    status: {text:'Not Started', color:'#C4C4C4'},
+                    priority: {text:'High', color:'#401694'},
+                    chat:[],
                 },
                 {
                     id: "t302",
                     side: "null",
                     taskTitle: "optimize queries",
-                    members: [
-                        { name: "kal", color: "green", image: imageLinks[0] },
-                        { name: "bal", color: "black", image: imageLinks[1] },
-                    ],
+                    members: [usersInBoard[0],usersInBoard[1]],
                     date: "08-03-2022",
-                    status: "DONE",
-                    priority: "LOW",
+                    status: {text:'Working on it', color:'#FDAB3D'},
+                    priority: {text:'Low', color:'#86B6FB'},
+                    chat:[],
                 },
             ],
         },
@@ -163,6 +151,7 @@ const BoardDetails = () => {
                     cmpOrder={cmpOrder}
                     progress={progress}
                     key={uid()}
+                    usersInBoard={usersInBoard}
                 />
             ))}
         </section>

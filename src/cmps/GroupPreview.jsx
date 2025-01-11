@@ -1,24 +1,27 @@
-import Date from "./dynamicCmps/Date";
-import Member from "./dynamicCmps/Member";
+import { Date } from "./dynamicCmps/Date";
+import { Members } from "./dynamicCmps/Members";
 import { Status } from "./dynamicCmps/Status";
-import TaskTitle from "./dynamicCmps/TaskTitle";
-import Priority from "./dynamicCmps/Priority";
+import { TaskTitle } from "./dynamicCmps/TaskTitle";
+import { Priority } from "./dynamicCmps/Priority";
 import { useState } from "react";
 
-const GroupPreview = ({ labels, group, cmpOrder, progress }) => {
+const GroupPreview = ({ labels, group, cmpOrder, progress, usersInBoard }) => {
 
     const [expanded, setExpanded] = useState(true)
 
 
-    function onTaskUpdate(taskInfo) {
-        console.log("onTaskUpdate", taskInfo);
+    // summerize the updating data
+    function onTaskUpdate(changeInfo) {
+        const updateInfo = `inTaskId:${changeInfo.taskId},${changeInfo.type}: ${changeInfo.value}`
+        console.log(updateInfo)
     }
 
     const style = { borderLeft: `0.3rem solid ${group.color}` }
     const titleHead = { color: group.color }
     const progressComponents = ["date", "priority", "status"];
     return (<>
-        <h2 style={titleHead}>{group.title} <span className="arrow" onClick={(() => setExpanded(prev => !prev))}>{expanded ? '👇🏻' : '👉🏻'}</span> </h2>
+        <h2 style={titleHead}>{group.title} <span className="arrow" 
+            onClick={(() => setExpanded(prev => !prev))}>{expanded ? '👇🏻' : '👉🏻'}</span> </h2>
 
         <section className="group-list">
             {/* Render group labels by labels array */}
@@ -38,9 +41,12 @@ const GroupPreview = ({ labels, group, cmpOrder, progress }) => {
                                 key={`task-${task.id}-cmp-${idx}`}
                             >
                                 <DynamicCmp
+                                    taskId={task.id}
                                     cmpType={cmp}
                                     info={task[cmp]}
                                     onTaskUpdate={onTaskUpdate}
+                                    usersInBoard={usersInBoard} // temporary for demo data
+                                    chat={task.chat} // temporary for demo data
                                 />
                             </section>
                         ))}
@@ -68,21 +74,21 @@ const GroupPreview = ({ labels, group, cmpOrder, progress }) => {
     );
 };
 
-const DynamicCmp = ({ cmpType, info, onTaskUpdate }) => {
+const DynamicCmp = ({ cmpType, info, onTaskUpdate, taskId, usersInBoard, chat}) => {
     console.log("Rendering component:", cmpType, "with info:", info);
 
     switch (cmpType) {
 
         case "priority":
-            return <Priority info={info} onTaskUpdate={onTaskUpdate} />;
+            return <Priority taskId={taskId} info={info} onTaskUpdate={onTaskUpdate} />;
         case "taskTitle":
-            return <TaskTitle info={info} onTaskUpdate={onTaskUpdate} />;
+            return <TaskTitle chat={chat} taskId={taskId} info={info} onTaskUpdate={onTaskUpdate} />;
         case "status":
-            return <Status info={info} onTaskUpdate={onTaskUpdate} />;
+            return <Status taskId={taskId} info={info} onTaskUpdate={onTaskUpdate} />;
         case "members":
-            return <Member info={info} onTaskUpdate={onTaskUpdate} />;
+            return <Members usersInBoard={usersInBoard} taskId={taskId} info={info} onTaskUpdate={onTaskUpdate} />;
         case "date":
-            return <Date info={info} onTaskUpdate={onTaskUpdate} />;
+            return <Date taskId={taskId} info={info} onTaskUpdate={onTaskUpdate} />;
         default:
             console.error(`Unknown component type: ${cmpType}`);
             return <div>Unknown component: {cmpType}</div>;
