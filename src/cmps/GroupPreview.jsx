@@ -1,4 +1,4 @@
-import Date from "./dynamicCmps/Date";
+import { Date } from "./dynamicCmps/Date";
 import { Members } from "./dynamicCmps/Members";
 import { Status } from "./dynamicCmps/Status";
 import TaskTitle from "./dynamicCmps/TaskTitle";

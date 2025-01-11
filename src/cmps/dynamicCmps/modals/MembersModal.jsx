@@ -24,6 +24,7 @@ export function MembersModal({ParticipateMembers, onAddMember, onRemoveMember}){
     return (
         <section className="members-modal">
 
+            {/* list of members you can remove from task*/}
             <ul className="participate-list">
                 {
                     ParticipateMembers.map(member=>
@@ -35,6 +36,8 @@ export function MembersModal({ParticipateMembers, onAddMember, onRemoveMember}){
                     )
                 }
             </ul>
+
+            {/* list of members you can add to task*/}
 
             <div className="non-participate-part">
 
