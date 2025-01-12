@@ -72,4 +72,31 @@ export const utilService = {
 
     return `${day}-${month}-${year}`
   }
+
+  export function simplifyTimeToStr(time){
+    const now = new Date().getTime()
+    const timeSince = {timeUnit: 's',
+         number: (now - time) / 1000}
+    
+    if(timeSince.number > 3600*24*7)
+        {timeSince.timeUnit = 'w',
+        timeSince.number /= 3600*24*7}
+ 
+    else if(timeSince.number > 3600*24)
+        {timeSince.timeUnit = 'd',
+        timeSince.number /= 3600*24}
+          
+    else if(timeSince.number > 3600) 
+        {timeSince.timeUnit = 'h',
+        timeSince.number /= 3600}
+
+    else if(timeSince.number > 60) 
+        {timeSince.timeUnit = 'm',
+        timeSince.number /= 60}
+    
+    const timeObj = {timeUnit: timeSince.timeUnit,
+        number: parseInt(timeSince.number)}
+    
+    return timeObj.timeUnit + timeObj.number
+}
   

@@ -2,10 +2,9 @@ import { useState, useRef, useEffect } from "react"
 import { showErrorMsg } from '../../services/event-bus.service.js'
 import { ChatModal } from "./modals/ChatModal.jsx"
 
-export function TaskTitle ({chat, taskId, info, onTaskUpdate }) {
+export function TaskTitle ({usersInBoard, chat, group, task, text, onTaskUpdate }) {
   const [onEditMode, setOnEditMode] = useState(false)
-  const [textToEdit, setTextToEdit] = useState(info)
-  const [text, setText] = useState(info)
+  const [textToEdit, setTextToEdit] = useState(text)
 
   const [modal, setModal] = useState(false)
   const modalRef = useRef(null)
@@ -44,8 +43,7 @@ export function TaskTitle ({chat, taskId, info, onTaskUpdate }) {
         }
         // if everyting ok update title changes
         else {
-            setText(textToEdit)
-            onTaskUpdate({taskId, type: 'title update', value: textToEdit})
+            onTaskUpdate({group, task, type: 'title update', value: textToEdit})
         }
     }
       
@@ -98,22 +96,16 @@ export function TaskTitle ({chat, taskId, info, onTaskUpdate }) {
         onClick={modalToggle}
         >💬</button>
 
-        
-
-
       </section>
 
       {/*chat modal*/}
       {modal && 
           <div ref={modalRef}>
-            <ChatModal chat={chat}/>
+            <ChatModal usersInBoard={usersInBoard} chat={chat}/>
           </div>
         }
-        
 
     </>
-    
-
   )
 }
 

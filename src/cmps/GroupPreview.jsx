@@ -5,16 +5,11 @@ import { TaskTitle } from "./dynamicCmps/TaskTitle";
 import { Priority } from "./dynamicCmps/Priority";
 import { useState } from "react";
 
-const GroupPreview = ({ labels, group, cmpOrder, progress, usersInBoard }) => {
+const GroupPreview = ({ labels, group, cmpOrder, progress, usersInBoard, onTaskUpdate }) => {
 
     const [expanded, setExpanded] = useState(true)
 
 
-    // summerize the updating data
-    function onTaskUpdate(changeInfo) {
-        const updateInfo = `inTaskId:${changeInfo.taskId},${changeInfo.type}: ${changeInfo.value}`
-        console.log(updateInfo)
-    }
 
     const style = { borderLeft: `0.3rem solid ${group.color}` }
     const titleHead = { color: group.color }
@@ -41,7 +36,8 @@ const GroupPreview = ({ labels, group, cmpOrder, progress, usersInBoard }) => {
                                 key={`task-${task.id}-cmp-${idx}`}
                             >
                                 <DynamicCmp
-                                    taskId={task.id}
+                                    group={group}
+                                    task={task}
                                     cmpType={cmp}
                                     info={task[cmp]}
                                     onTaskUpdate={onTaskUpdate}
@@ -67,28 +63,56 @@ const GroupPreview = ({ labels, group, cmpOrder, progress, usersInBoard }) => {
                 </section>
             </>
             }
-
-
         </section>
     </>
     );
 };
 
-const DynamicCmp = ({ cmpType, info, onTaskUpdate, taskId, usersInBoard, chat}) => {
-    console.log("Rendering component:", cmpType, "with info:", info);
+const DynamicCmp = ({ cmpType, info, onTaskUpdate, task, group, usersInBoard, chat}) => {
+    // console.log("Rendering component:", cmpType, "with info:", info);
 
     switch (cmpType) {
 
         case "priority":
-            return <Priority taskId={taskId} info={info} onTaskUpdate={onTaskUpdate} />;
+            return <Priority 
+            group={group}
+            task={task}
+            priority={info} 
+            onTaskUpdate={onTaskUpdate} />
+
         case "taskTitle":
-            return <TaskTitle chat={chat} taskId={taskId} info={info} onTaskUpdate={onTaskUpdate} />;
+            return <TaskTitle 
+            group={group}
+            task={task}
+            usersInBoard={usersInBoard} 
+            chat={chat} 
+            text={info} 
+            onTaskUpdate={onTaskUpdate} />
+
         case "status":
-            return <Status taskId={taskId} info={info} onTaskUpdate={onTaskUpdate} />;
+            return <Status 
+            group={group}
+            task={task}
+            taskId={task.id} 
+            status={info} 
+            onTaskUpdate={onTaskUpdate} />
+
         case "members":
-            return <Members usersInBoard={usersInBoard} taskId={taskId} info={info} onTaskUpdate={onTaskUpdate} />;
+            return <Members 
+            group={group}
+            task={task}
+            usersInBoard={usersInBoard} 
+            taskId={task.id} 
+            members={info} 
+            onTaskUpdate={onTaskUpdate} />
+
         case "date":
-            return <Date taskId={taskId} info={info} onTaskUpdate={onTaskUpdate} />;
+            return <Date 
+            group={group}
+            task={task}
+            date={info} 
+            onTaskUpdate={onTaskUpdate} />
+
         default:
             console.error(`Unknown component type: ${cmpType}`);
             return <div>Unknown component: {cmpType}</div>;

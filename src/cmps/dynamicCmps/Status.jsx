@@ -1,10 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { StatusModal } from './modals/StatusModal.jsx'
 
-export function Status({taskId, info, onTaskUpdate }) {
+export function Status({group, task, status, onTaskUpdate }) {
 
     const [modal, setModal] = useState(false)
-    const [status, setStatus] = useState(info)
 
     const modalRef = useRef(null)
     const statusCellRef = useRef(null)
@@ -15,9 +14,8 @@ export function Status({taskId, info, onTaskUpdate }) {
     }
 
     function onStatusChange(status){
-        setStatus(status)
         modalToggle()
-        onTaskUpdate({taskId, type:'status update', value: status})
+        onTaskUpdate({group, task, type:'status update', value: status})
     }
 
     //if user click outside modal close it

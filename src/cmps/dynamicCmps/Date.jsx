@@ -1,10 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { DateModal } from './modals/DateModal.jsx'
 
-export function Date({taskId, info, onTaskUpdate }) {
+export function Date({group, task, date, onTaskUpdate }) {
 
     const [modal, setModal] = useState(false)
-    const [date, setDate] = useState(info)
 
     const modalRef = useRef(null)
     const dateCellRef = useRef(null)
@@ -15,9 +14,8 @@ export function Date({taskId, info, onTaskUpdate }) {
     }
 
     function onDateChange(date){
-        setDate(date)
         modalToggle()
-        onTaskUpdate({taskId, type:'date update', value: date})
+        onTaskUpdate({group, task, type:'date update', value: date})
     }
 
     //if user click outside modal close it
