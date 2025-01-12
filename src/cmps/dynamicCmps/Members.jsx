@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { MembersModal } from './modals/MembersModal.jsx'
+import { SsidChartSharp } from '@mui/icons-material'
 
-export function Members({usersInBoard, taskId, info, onTaskUpdate}) {
+export function Members({group, task, usersInBoard, members, onTaskUpdate}) {
 
     const [modal, setModal] = useState(false)
-    const [members, setMembers] = useState(info)
 
     const modalRef = useRef(null)
     const membersCellRef = useRef(null)
@@ -18,17 +18,14 @@ export function Members({usersInBoard, taskId, info, onTaskUpdate}) {
     }
 
     function onAddMember(member){
-        setMembers([...members, member])
         modalToggle()
-        onTaskUpdate({taskId, type:'members update', value: members})
-
+        onTaskUpdate({group, task, type:'members add', value: [...members, member]})
     }
 
     function onRemoveMember(memberToRemove){
         const newMembers = members.filter(member=>
             memberToRemove.id !== member.id)
-        setMembers(newMembers)
-        onTaskUpdate({taskId, type:'members update', value: members})
+        onTaskUpdate({group, task, type:'members remove', value: newMembers})
     }
 
     //if user click outside modal close it
