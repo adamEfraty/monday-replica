@@ -77,7 +77,7 @@ export function TaskTitle ({loggedinUser, usersInBoard, chat, group, task, text,
     if(title === '') return false
     return true
   }
-
+ 
   // if user press enter go to spectate mode
   function handleKeyDown(event) {
     if (event.key === "Enter")
