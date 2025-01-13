@@ -8,6 +8,7 @@ import { useState } from "react";
 const GroupPreview = ({
   labels,
   group,
+  loggedinUser,
   cmpOrder,
   progress,
   usersInBoard,
@@ -67,6 +68,7 @@ const GroupPreview = ({
                     <DynamicCmp
                       group={group}
                       task={task}
+                      loggedinUser={loggedinUser}
                       cmpType={cmp}
                       info={task[cmp]}
                       onTaskUpdate={onTaskUpdate}
@@ -105,6 +107,7 @@ const DynamicCmp = ({
   group,
   usersInBoard,
   chat,
+  loggedinUser
 }) => {
   // console.log("Rendering component:", cmpType, "with info:", info);
 
@@ -124,6 +127,7 @@ const DynamicCmp = ({
         <TaskTitle
           group={group}
           task={task}
+          loggedinUser={loggedinUser}
           usersInBoard={usersInBoard}
           chat={chat}
           text={info}
