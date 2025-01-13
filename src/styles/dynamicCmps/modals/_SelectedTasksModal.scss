@@ -1,0 +1,72 @@
+.selected-tasks-modal {
+  position: fixed;
+  border-radius: 10px;;
+  bottom: 20px; /* Adjust this value to move it slightly above the bottom */
+  left: 50%;
+  transform: translateX(-50%); /* Center horizontally */
+  background-color: #ffffff;
+  box-shadow: 0px 0px 2px 4px rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  z-index: 1000;
+
+  &-header {
+    display: flex;
+    align-items: center;
+
+    &-blur {
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(10px);
+      padding: 5px 10px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      margin: 0;
+      font-size: 2.5rem;
+    }
+
+    h4 {
+      margin: 0 0 0 10px;
+      font-size: 1rem;
+      color: #666;
+    }
+  }
+
+  &-icons {
+    display: flex;
+    align-items: center;
+
+    div {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 0 10px;
+      cursor: pointer;
+
+      svg {
+        font-size: 1.5rem;
+        color: #666;
+      }
+
+      h4 {
+        margin: 5px 0 0;
+        font-size: 0.75rem;
+        color: #666;
+      }
+
+      &:hover {
+        svg {
+          color: #0666b4;
+        }
+
+        h4 {
+          color: #0666b4;
+        }
+      }
+    }
+  }
+}

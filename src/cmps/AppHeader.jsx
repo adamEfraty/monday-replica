@@ -26,7 +26,7 @@ export function AppHeader({ userData = null }) {
         <QuestionMarkIcon />
         <div className="vertical-line"></div> {/* Vertical line separator */}
         <AppsIcon />
-        <img src="" alt="Main Workspace" />
+        <img onClick={() => navigate('/users')} src="" alt="Main Workspace" />
       </section>
     </div>
   ) : (
