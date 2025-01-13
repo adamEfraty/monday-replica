@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from "react"
 import { showErrorMsg } from '../../services/event-bus.service.js'
 import { ChatModal } from "./modals/ChatModal.jsx"
 
-export function TaskTitle ({usersInBoard, chat, group, task, text, onTaskUpdate }) {
+export function TaskTitle ({loggedinUser, usersInBoard, chat, group, task, text, onTaskUpdate }) {
   const [onEditMode, setOnEditMode] = useState(false)
   const [textToEdit, setTextToEdit] = useState(text)
 
@@ -32,6 +32,27 @@ export function TaskTitle ({usersInBoard, chat, group, task, text, onTaskUpdate 
           ('mousedown', handleClickOutsideModal)
   
   }, [modal])
+
+  function onAddComment(comment){
+    const newComment = {userId: loggedinUser.id, // temporary defult user
+      sentAt: new Date(), 
+      text: comment, 
+      replies:[]
+  }
+    onTaskUpdate({group, task, type:'add comment', value: [newComment, ...chat]})
+  }
+
+  function onAddReply(commentSentTime, replyTxt){
+    const newReply = {userId: loggedinUser.id, sentAt: new Date(), text: replyTxt}
+    const updatedChat = chat.map(comment => {
+      return comment.sentAt === commentSentTime
+      ? {...comment, replies: [newReply, ...comment.replies]}
+      : comment
+  })
+   
+    console.log(updatedChat[0].replies) // reply not here
+    onTaskUpdate({group, task, type:'add comment', value: updatedChat})
+  }
 
   // toggel btween spectate and edit mode
   function toggleEditMode() {
@@ -101,10 +122,15 @@ export function TaskTitle ({usersInBoard, chat, group, task, text, onTaskUpdate 
       {/*chat modal*/}
       {modal && 
           <div ref={modalRef}>
-            <ChatModal usersInBoard={usersInBoard} chat={chat}/>
+            <ChatModal 
+              onAddReply={onAddReply} 
+              onAddComment={onAddComment} 
+              usersInBoard={usersInBoard} 
+              chat={chat}/>
           </div>
         }
 
     </>
   )
 }
+

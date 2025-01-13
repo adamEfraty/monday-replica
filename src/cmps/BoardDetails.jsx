@@ -16,6 +16,8 @@ const BoardDetails = () => {
         {id: 'userid1', name: "shal", color: "green", image: imageLinks[1] },
         {id: 'userid2', name: "bal", color: "black", image: imageLinks[2] },
         {id: 'userid3', name: "shal", color: "green", image: imageLinks[3] }]
+    
+    const loggedinUser = usersInBoard[0] // also temorary part of the demo data
 
     const [groups, setGroups] = useState(
         [
@@ -35,7 +37,7 @@ const BoardDetails = () => {
                         chat: [{userId: 'userid0', 
                             sentAt: new Date(), 
                             text: 'comment comment comment...', 
-                            replys:[{userId: 'userid1', 
+                            replies:[{userId: 'userid1', 
                                 sentAt: new Date(), 
                                 text:'reply reply reply...'}]
                         }]
@@ -154,6 +156,7 @@ const BoardDetails = () => {
             case "date update": updatedField = 'date'; break
             case "members add": updatedField = 'members'; break
             case "members remove": updatedField = 'members'; break
+            case "add comment": updatedField = 'chat'; break;
             default: console.error(`Unknown update task type: ${changeInfo.type}`)
         }
 
@@ -214,6 +217,7 @@ const BoardDetails = () => {
                 <GroupPreview
                     group={group}
                     labels={labels}
+                    loggedinUser={loggedinUser}
                     cmpOrder={cmpOrder}
                     progress={progress}
                     key={uid()}
