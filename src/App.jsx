@@ -7,9 +7,13 @@ import { HomePage } from "./pages/HomePage";
 import { SignUp } from "./pages/SignUp";
 import { MondayIndex } from "./pages/MondayIndex";
 import { useSelector } from "react-redux";
+import { useEffect } from "react";
 
 function App() {
   const loggedInUser = useSelector((state) => state.userModule.user);
+  useEffect(() => {
+    console.log(loggedInUser)
+  }, [])
 
   return (
     <div>

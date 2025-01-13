@@ -1,7 +1,10 @@
 import "../styles/_Board-Details.scss";
 import GroupPreview from "./GroupPreview";
 import { useState } from 'react'
+import { SelectedTasksModal } from "./dynamicCmps/modals/SelectedTasksModal";
 const BoardDetails = () => {
+    const [checkedBoxes, setCheckedBoxes] = useState([])
+    const [checkedGroups, setCheckedGroups] = useState([])
     const imageLinks = [
         "https://images.pexels.com/photos/30061809/pexels-photo-30061809/free-photo-of-fashionable-woman-posing-with-colorful-headscarf.jpeg?auto=compress&cs=tinysrgb&w=600",
         "https://images.pexels.com/photos/30007901/pexels-photo-30007901/free-photo-of-thoughtful-man-in-grey-coat-outdoors.jpeg?auto=compress&cs=tinysrgb&w=600",
@@ -183,6 +186,28 @@ const BoardDetails = () => {
 
     const progress = [null, "priority", "status", null, "date"];
 
+    const handleCheckBoxClick = (taskId) => {
+        setCheckedBoxes((prev) => {
+          if (prev.includes(taskId)) {
+            return prev.filter((id) => id !== taskId);
+          } else {
+            return [...prev, taskId];
+          }
+        });
+      };
+
+      const handleMasterCheckboxClick = (group) => {
+        setCheckedGroups(prev => {
+            if(prev.includes(group.id)){
+                setCheckedBoxes([]);
+                return prev.filter((id) => id !== group.id)
+            }else{
+                setCheckedBoxes(group.tasks.map((task) => task.id));
+                return [...prev, group.id]
+            }
+        })
+      };
+
     return (
         <section className="group-list">
             {groups.map((group) => (
@@ -194,8 +219,13 @@ const BoardDetails = () => {
                     key={uid()}
                     usersInBoard={usersInBoard}
                     onTaskUpdate={onTaskUpdate}
+                    checkedBoxes={checkedBoxes}
+                    checkedGroups={checkedGroups}
+                    handleMasterCheckboxClick={handleMasterCheckboxClick}
+                    handleCheckBoxClick={handleCheckBoxClick}
                 />
             ))}
+            {checkedBoxes.length > 0 && <SelectedTasksModal data={checkedBoxes} />}
         </section>
     )
 }
