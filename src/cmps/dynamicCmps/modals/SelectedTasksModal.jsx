@@ -4,15 +4,20 @@ import ArchiveIcon from "@mui/icons-material/Inventory2Outlined";
 import DeleteIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import MoveToIcon from "@mui/icons-material/ArrowForwardOutlined";
 import AppsIcon from "@mui/icons-material/ExtensionOutlined";
+import { removeTask } from "../../../store/actions/boards.actions";
 
-export function SelectedTasksModal({ data }) {
+export function SelectedTasksModal({ checkedTasks, handleDeleteTasks }) {
+  function onDuplicate(){
+
+  }
+
   return (
     <footer className="selected-tasks-modal">
       <section className="selected-tasks-modal-header">
         <div className="selected-tasks-modal-header-blur">
-          <h2>{data.length}</h2>
+          <h2>{checkedTasks.length}</h2>
         </div>
-        <h4>Task{data.length > 1 && "'s"} selected</h4>
+        <h4>Task{checkedTasks.length > 1 && "'s"} selected</h4>
       </section>
       <section className="selected-tasks-modal-icons">
         <div>
@@ -27,7 +32,7 @@ export function SelectedTasksModal({ data }) {
           <ArchiveIcon />
           <h4>Archive</h4>
         </div>
-        <div>
+        <div onClick={handleDeleteTasks}>
           <DeleteIcon />
           <h4>Delete</h4>
         </div>

@@ -46,16 +46,17 @@ export function Members({group, task, usersInBoard, members, onTaskUpdate}) {
 
     }, [modal])
 
+    const displayedMembers = members.slice(0, 3);
+    const extraMembersCount = members.length - 3;
     return (
         <section className="members">
-            {/* members cell*/}
             <div 
             className="members-cell" 
             ref={membersCellRef}
             onClick={modalToggle}>
                 {
                 members.length ?
-                members.map(member => 
+                displayedMembers.map(member => 
                     <span key={member.id}>
                         <img src={member.image}/>
                     </span>
@@ -63,6 +64,9 @@ export function Members({group, task, usersInBoard, members, onTaskUpdate}) {
                 
                 : <img src={defultImg}/>
                 }
+                {extraMembersCount > 0 && (
+                    <div className="extra-members" style={{color: 'black'}}>+{extraMembersCount}</div>
+                )}
             </div>
 
             {/* members modal*/}

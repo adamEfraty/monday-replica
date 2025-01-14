@@ -39,7 +39,7 @@ export function TaskTitle ({loggedinUser, usersInBoard, chat, group, task, text,
       text: comment, 
       replies:[]
   }
-    onTaskUpdate({group, task, type:'add comment', value: [newComment, ...chat]})
+    onTaskUpdate({group, task, type:'chat', value: [newComment, ...chat]})
   }
 
   function onAddReply(commentSentTime, replyTxt){
@@ -51,7 +51,7 @@ export function TaskTitle ({loggedinUser, usersInBoard, chat, group, task, text,
   })
    
     console.log(updatedChat[0].replies) // reply not here
-    onTaskUpdate({group, task, type:'add comment', value: updatedChat})
+    onTaskUpdate({group, task, type:'chat', value: updatedChat})
   }
 
   // toggel btween spectate and edit mode
@@ -64,7 +64,7 @@ export function TaskTitle ({loggedinUser, usersInBoard, chat, group, task, text,
         }
         // if everyting ok update title changes
         else {
-            onTaskUpdate({group, task, type: 'title update', value: textToEdit})
+            onTaskUpdate({group, task, type: 'taskTitle', value: textToEdit})
         }
     }
       
