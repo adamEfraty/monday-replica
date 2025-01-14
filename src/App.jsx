@@ -18,7 +18,6 @@ function App() {
   return (
     <div>
       <Router>
-        <Routes>
         {!loggedInUser ? (
           <Routes>
             <Route path="/" element={<HomePage />} />
@@ -32,7 +31,6 @@ function App() {
             <Route path={`/${loggedInUser.fullName}'s-team/board`} element={<MondayIndex isBoard={true} />} />
           </Routes>
         )}
-        </Routes>
       </Router>
       <UserMsg />
     </div>
