@@ -23,9 +23,10 @@ export function Members({group, task, usersInBoard, members, onTaskUpdate}) {
     }
 
     function onRemoveMember(memberToRemove){
+        console.log('data: ', members, memberToRemove)
         const newMembers = members.filter(member=>
             memberToRemove.id !== member.id)
-        onTaskUpdate({group, task, type:'members remove', value: newMembers})
+        onTaskUpdate({group, task, type:'members', value: newMembers})
     }
 
     //if user click outside modal close it
