@@ -28,7 +28,7 @@ export const boardReducer = (state = initialState, action) => {
       return {
         ...state,
         boards: state.boards.map((board) =>
-          board._id === action.boardId
+          board.id === action.boardId
             ? {
                 ...action.updatedBoard,
                 groups: [...action.updatedBoard.groups],

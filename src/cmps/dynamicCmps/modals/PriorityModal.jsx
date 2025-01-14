@@ -14,7 +14,9 @@ export function PriorityModal({onPriorityChange}){
                 {
                     priorities.map(priority =>
                         <li key={priority.text}
-                            onClick={()=>onPriorityChange(priority)}
+                            onClick={()=>{
+                                console.log(priority)
+                                onPriorityChange(priority)}}
                             style={{backgroundColor: priority.color}}>
                             {priority.text}
                         </li>

@@ -1,3 +1,4 @@
+import { updateTask } from "../store/actions/boards.actions.js";
 import { storageService } from "./async-storage.service.js";
 
 const imageLinks = [
@@ -43,6 +44,7 @@ async function addBoard() {
 async function query() {
   try {
     let boards = await storageService.query(STORAGE_KEY);
+    console.log(boards)
     if (!boards || boards.length === 0) {
       await makeFirstBoard();
       boards = await storageService.query(STORAGE_KEY);
@@ -63,7 +65,8 @@ function remove(id) {
 }
 
 async function save(boardToSave) {
-  if (boardToSave._id) {
+  console.log('this is the board to save: ', boardToSave)
+  if (boardToSave.id) {
     return storageService.put(STORAGE_KEY, boardToSave);
   } else {
     return storageService.post(STORAGE_KEY, boardToSave);
@@ -124,18 +127,22 @@ async function removeTaskFromGroup(boardId, groupId, taskId) {
   }
 }
 
-async function updateTaskInGroup(boardId, groupId, taskId, updatedTask) {
+async function updateTaskInGroup(boardId, info) {
   try {
+    console.log(info)
+    console.log(boardId, info.group.id, info.task.id, info.type, info.value)
     const board = await getById(boardId); // Call directly without 'this'
-    const group = board.groups.find((group) => group.id === groupId);
+    const group = board.groups.find((group) => group.id === info.group.id);
     if (!group) throw new Error("Group not found");
 
-    const taskIndex = group.tasks.findIndex((task) => task.id === taskId);
+    const taskIndex = group.tasks.findIndex((task) => task.id === info.task.id);
     if (taskIndex === -1) throw new Error("Task not found");
 
-    group.tasks[taskIndex] = { ...group.tasks[taskIndex], ...updatedTask };
-
-    await save(board);
+    group.tasks[taskIndex][info.type] = info.value;
+    console.log(info.type)
+    await save(board).then(() => {
+      console.log(group.tasks[taskIndex][info.type], taskIndex, group, info.value)
+    })
 
     return group.tasks[taskIndex];
   } catch (error) {
@@ -182,6 +189,7 @@ const usersInBoard = [
 
   const board = {
     title: "SAR default board",
+    members: usersInBoard,
     groups: [
       {
         id: Math.random().toString(36).slice(2),

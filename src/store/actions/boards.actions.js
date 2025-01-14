@@ -159,25 +159,29 @@ export async function removeTask(boardId, groupId, taskId) {
   showSuccessMsg('Task removed successfully')
 }
 
-export async function updateTask(boardId, groupId, taskId, updatedTask) {
-  await boardService.updateTaskInGroup(boardId, groupId, taskId, updatedTask)
+export async function updateTask(boardId, info) {
+  await boardService.updateTaskInGroup(boardId, info)
 
   const board = await boardService.getById(boardId)
   if (!board) return
 
+  console.log('hi im here')
+
   const updatedBoard = {
     ...board,
     groups: board.groups.map((group) =>
-      group.id === groupId
+      group.id === info.group.id
         ? {
             ...group,
             tasks: group.tasks.map((task) =>
-              task.id === taskId ? { ...task, ...updatedTask } : task
+              task.id === info.task.id ? { ...task, ...info.value } : task
             ),
           }
         : group
     ),
   }
+
+  console.log(updatedBoard)
 
   await store.dispatch({
     type: EDIT_BOARD,
