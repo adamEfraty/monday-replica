@@ -15,7 +15,7 @@ export function Date({group, task, date, onTaskUpdate }) {
 
     function onDateChange(date){
         modalToggle()
-        onTaskUpdate({group, task, type:'date update', value: date})
+        onTaskUpdate({group, task, type:'date', value: date})
     }
 
     //if user click outside modal close it

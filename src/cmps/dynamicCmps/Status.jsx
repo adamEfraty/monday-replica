@@ -15,7 +15,7 @@ export function Status({group, task, status, onTaskUpdate }) {
 
     function onStatusChange(status){
         modalToggle()
-        onTaskUpdate({group, task, type:'status update', value: status})
+        onTaskUpdate({group, task, type:'status', value: status})
     }
 
     //if user click outside modal close it

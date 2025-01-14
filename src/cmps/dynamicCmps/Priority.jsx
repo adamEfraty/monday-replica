@@ -15,7 +15,7 @@ export function Priority({group, task, priority, onTaskUpdate }) {
 
     function onPriorityChange(priority){
         modalToggle()
-        onTaskUpdate({group, task, type:'priority update', value: priority})
+        onTaskUpdate({group, task, type:'priority', value: priority})
     }
 
     //if user click outside modal close it
