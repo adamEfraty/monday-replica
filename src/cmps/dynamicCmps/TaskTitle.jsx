@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from "react"
 import { showErrorMsg } from '../../services/event-bus.service.js'
 import { ChatModal } from "./modals/ChatModal.jsx"
+import ChatIcon from '@mui/icons-material/MapsUgcOutlined';
 
 export function TaskTitle ({loggedinUser, usersInBoard, chat, group, task, text, onTaskUpdate }) {
   const [onEditMode, setOnEditMode] = useState(false)
@@ -110,13 +111,7 @@ export function TaskTitle ({loggedinUser, usersInBoard, chat, group, task, text,
             />
           }
         </div>
-
-        
-        <button 
-        ref={ChatButtonRef} 
-        onClick={modalToggle}
-        >💬</button>
-
+        <ChatIcon onClick={modalToggle} ref={ChatButtonRef} />
       </section>
 
       {/*chat modal*/}
