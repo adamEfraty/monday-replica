@@ -1,0 +1,32 @@
+.task-input {
+  border: none;
+  font-size: 1rem;
+  padding: 10px;
+}
+
+.inner-flex {
+  display: flex;
+}
+
+.chat-btn {
+  width: 20%;
+}
+
+.task-title-flex {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.remove-btn {
+  border: none;
+  color: rgb(247, 113, 65);
+  padding: 0 5px;
+  background-color: #fff;
+
+  &:hover {
+    background-color: #dedede;
+    font-weight: 600;
+  }
+}

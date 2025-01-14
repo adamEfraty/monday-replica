@@ -1,0 +1,27 @@
+@use 'homePage';
+@use 'Header';
+@use 'vars';
+@use 'footer';
+@use 'login';
+@use 'index';
+@use 'usermsg';
+@use 'sideBar';
+@use 'mainInnerIndex';
+@use 'mondayIndex';
+@use 'Board-details';
+@use './dynamicCmps/TaskTitle';
+@use './dynamicCmps/Priority';
+@use './dynamicCmps/Status';
+@use './dynamicCmps/Members';
+@use './dynamicCmps/Date';
+@use './dynamicCmps/modals/SelectedTasksModal';
+@use './task-title2';
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Quicksand';
+}
