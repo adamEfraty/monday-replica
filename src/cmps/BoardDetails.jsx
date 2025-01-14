@@ -18,7 +18,7 @@ const BoardDetails = () => {
   const loggedinUser = useSelector((state) => state.userModule.user);
   const users = useSelector((state) => state.userModule.users);
 
-  const currentBoard = boards.find((board) => board._id === boardId);
+  const currentBoard = boards.find(board => board.id === boardId);
 
   const groups = currentBoard?.groups || [];
 
@@ -55,7 +55,7 @@ const BoardDetails = () => {
   const uid = () => Math.random().toString(36).slice(2);
   const labels = ["item", "priority", "status", "members", "date"];
 
-  const progress = [null, "priority", "status", null, "date"];
+  const progress = [null, null, "priority", "status", null, "date"];
 
   const handleCheckBoxClick = (groupId, taskId) => {
     console.log(groupId, taskId)
