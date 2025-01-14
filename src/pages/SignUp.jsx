@@ -21,9 +21,10 @@ export function SignUp() {
     e.preventDefault();
 
     try {
-      signup(user);
-      showSuccessMsg("made a new account");
-      navigate("/index");
+      await signup(user).then((returnedUser) => {
+        showSuccessMsg("made a new account");
+        navigate(`/${returnedUser.fullName}'s-team`);
+      });
     } catch (err) {
       showErrorMsg("something went wrong");
       console.log(err);
