@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router";
-import { login, signup } from "../store/actions/user.actions";
+import { signup } from "../store/actions/user.actions";
 import { useState } from "react";
 import { showErrorMsg, showSuccessMsg } from "../services/event-bus.service";
 import { AppHeader } from "../cmps/AppHeader";
@@ -23,7 +23,7 @@ export function SignUp() {
     try {
       signup(user);
       showSuccessMsg("made a new account");
-      navigate("/index");
+      navigate(`/${user.fullName}'s-team`);
     } catch (err) {
       showErrorMsg("something went wrong");
       console.log(err);

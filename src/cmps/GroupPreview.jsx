@@ -23,6 +23,7 @@ const GroupPreview = ({
   const style = { borderLeft: `0.3rem solid ${group.color}` };
   const titleHead = { color: group.color };
   const progressComponents = ["date", "priority", "status"];
+
   return (
     <>
       <h2 style={titleHead}>
@@ -40,6 +41,7 @@ const GroupPreview = ({
             <section className="labels-grid" style={style}>
               <input
                 type="checkbox"
+                onChange={() =>{}}
                 onClick={() => handleMasterCheckboxClick(group)}
                 checked={checkedGroups.includes(group.id)}
               />
@@ -57,8 +59,8 @@ const GroupPreview = ({
               >
                 <input
                   type="checkbox"
-                  checked={checkedBoxes.includes(task.id)}
-                  onChange={() => handleCheckBoxClick(task.id)}
+                  checked={checkedBoxes.some(subArr => subArr[1] == task.id)}
+                  onChange={() => handleCheckBoxClick(group.id, task.id)}
                 />
                 {cmpOrder.map((cmp, idx) => (
                   <section
@@ -82,13 +84,13 @@ const GroupPreview = ({
 
             {/* Render progress by progress array */}
             <section className="progress-grid" style={style}>
-              {cmpOrder.map((cmp, index) =>
-                progressComponents.includes(cmp) ? (
-                  <div className={`with-${cmp}`} key={`progress-${index}`}>
+              {progress.map((prog, index) =>
+                cmpOrder.includes(prog) ? (
+                  <div className={`with-${prog}`} key={`progress-${index}`}>
                     {progress[index]}
                   </div>
                 ) : (
-                  <div className={cmp} key={`progress-${index} `}></div>
+                  <div className={prog} key={`progress-${index} `}></div>
                 )
               )}
             </section>

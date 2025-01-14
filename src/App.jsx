@@ -18,19 +18,22 @@ function App() {
   return (
     <div>
       <Router>
-        {!loggedInUser ? (
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<SignUp />} />
-          </Routes>
-        ) : (
-          <Routes>
-            <Route path={`/${loggedInUser.fullName}'s-team`} element={<MondayIndex />} />
-            <Route path={`/${loggedInUser.fullName}'s-team/boards/:boardId`} element={<MondayIndex />} />
-            <Route path={`/${loggedInUser.fullName}'s-team/board`} element={<MondayIndex isBoard={true} />} />
-          </Routes>
-        )}
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<SignUp />} />
+
+          {loggedInUser && <>
+              <Route path={`/${loggedInUser.fullName}'s-team`} 
+            element={<MondayIndex />} />
+            <Route path={`/${loggedInUser.fullName}'s-team/boards/:boardId`} 
+              element={<MondayIndex isBoard={true} />} />
+            <Route path={`/${loggedInUser.fullName}'s-team/board`} 
+            element={<MondayIndex isBoard={true} />} />
+          </>
+          }
+
+        </Routes>
       </Router>
       <UserMsg />
     </div>
