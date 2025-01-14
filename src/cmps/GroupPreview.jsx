@@ -40,6 +40,7 @@ const GroupPreview = ({
             <section className="labels-grid" style={style}>
               <input
                 type="checkbox"
+                onChange={() =>{}}
                 onClick={() => handleMasterCheckboxClick(group)}
                 checked={checkedGroups.includes(group.id)}
               />
@@ -57,8 +58,8 @@ const GroupPreview = ({
               >
                 <input
                   type="checkbox"
-                  checked={checkedBoxes.includes(task.id)}
-                  onChange={() => handleCheckBoxClick(task.id)}
+                  checked={checkedBoxes.some(subArr => subArr[1] == task.id)}
+                  onChange={() => handleCheckBoxClick(group.id, task.id)}
                 />
                 {cmpOrder.map((cmp, idx) => (
                   <section

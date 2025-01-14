@@ -112,6 +112,7 @@ async function removeTaskFromGroup(boardId, groupId, taskId) {
   try {
     const board = await getById(boardId);
     if (!board) throw new Error("Board not found");
+    console.log('this is the board: ', board)
 
     const group = board.groups.find((group) => group.id === groupId);
     if (!group) throw new Error("Group not found");
@@ -209,7 +210,7 @@ const usersInBoard = [
                 userId: "userid0",
                 sentAt: new Date(),
                 text: "comment comment comment...",
-                replys: [
+                replies: [
                   {
                     userId: "userid1",
                     sentAt: new Date(),

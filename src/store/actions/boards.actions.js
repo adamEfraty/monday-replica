@@ -133,6 +133,7 @@ export async function updateGroup(boardId, groupId, updatedGroupData) {
 }
 
 export async function removeTask(boardId, groupId, taskId) {
+  console.log('been here', groupId, taskId)
   await boardService.removeTaskFromGroup(boardId, groupId, taskId)
 
   const board = await boardService.getById(boardId)
