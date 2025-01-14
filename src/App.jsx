@@ -27,7 +27,7 @@ function App() {
         ) : (
           <Routes>
             <Route path={`/${loggedInUser.fullName}'s-team`} element={<MondayIndex />} />
-            <Route path={`/${loggedInUser.fullName}'s-team/boards/:boardId`} element={<MondayIndex />} />
+            <Route path={`/${loggedInUser.fullName}'s-team/boards/:boardId`} element={<MondayIndex isBoard={true} />} />
             <Route path={`/${loggedInUser.fullName}'s-team/board`} element={<MondayIndex isBoard={true} />} />
           </Routes>
         )}
