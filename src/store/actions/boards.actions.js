@@ -54,11 +54,8 @@ export async function addGroup(boardId) {
 }
 
 export async function addItem(boardId, groupId, itemTitle) {
-  const formattedDate = new Date().toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  })
+  const today = new Date()
+  const formattedDate = utilService.formatDateToStr(today)
 
   const newItem = {
     id: utilService.makeId(),
