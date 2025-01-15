@@ -16,9 +16,15 @@ const GroupPreview = ({
   checkedBoxes,
   checkedGroups,
   handleCheckBoxClick,
-  handleMasterCheckboxClick
+  handleMasterCheckboxClick,
+  handleAddTask,
+  handleGroupNameChange,
+  handleDelete,
+  boardId,
 }) => {
   const [expanded, setExpanded] = useState(true);
+  const [newTaskTitle, setNewTaskTitle] = useState("");
+  const [groupTitle, setGroupTitle] = useState(group.title);
 
   const style = { borderLeft: `0.3rem solid ${group.color}` };
   const titleHead = { color: group.color };
@@ -26,22 +32,35 @@ const GroupPreview = ({
 
   return (
     <>
-      <h2 style={titleHead}>
-        {group.title}{" "}
+      <div className="group-title-flex">
+        <input
+          onBlur={() => handleGroupNameChange(groupTitle, group)}
+          style={titleHead}
+          className="task-input hov"
+          type="text"
+          value={groupTitle}
+          onChange={(e) => setGroupTitle(e.target.value)}
+        />
+
         <span className="arrow" onClick={() => setExpanded((prev) => !prev)}>
           {expanded ? "👇🏻" : "👉🏻"}
-        </span>{" "}
-      </h2>
+        </span>
+
+        <button onClick={() => handleDelete(group.id, boardId)}>X</button>
+      </div>
 
       <section className="group-list">
         {/* Render group labels by labels array */}
 
         {expanded && (
-          <>
-            <section className="labels-grid" style={style}>
+          <div>
+            <section
+              className="labels-grid"
+              style={{ ...style, borderTopLeftRadius: 14 }}
+            >
               <input
                 type="checkbox"
-                onChange={() =>{}}
+                onChange={() => {}}
                 onClick={() => handleMasterCheckboxClick(group)}
                 checked={checkedGroups.includes(group.id)}
               />
@@ -59,7 +78,7 @@ const GroupPreview = ({
               >
                 <input
                   type="checkbox"
-                  checked={checkedBoxes.some(subArr => subArr[1] == task.id)}
+                  checked={checkedBoxes.some((subArr) => subArr[1] == task.id)}
                   onChange={() => handleCheckBoxClick(group.id, task.id)}
                 />
                 {cmpOrder.map((cmp, idx) => (
@@ -81,9 +100,23 @@ const GroupPreview = ({
                 ))}
               </section>
             ))}
+            <div>
+              <input
+                className="add-input"
+                style={{ borderLeft: `5px solid ${group?.color}` }}
+                onBlur={() => handleAddTask(group, newTaskTitle)}
+                type="text"
+                placeholder="+Add Task"
+                value={newTaskTitle}
+                onChange={(e) => setNewTaskTitle(e.target.value)}
+              />
+            </div>
 
             {/* Render progress by progress array */}
-            <section className="progress-grid" style={style}>
+            <section
+              className="progress-grid"
+              style={{ ...style, borderBottomLeftRadius: 14 }}
+            >
               {progress.map((prog, index) =>
                 cmpOrder.includes(prog) ? (
                   <div className={`with-${prog}`} key={`progress-${index}`}>
@@ -94,7 +127,7 @@ const GroupPreview = ({
                 )
               )}
             </section>
-          </>
+          </div>
         )}
       </section>
     </>
@@ -109,7 +142,7 @@ const DynamicCmp = ({
   group,
   usersInBoard,
   chat,
-  loggedinUser
+  loggedinUser,
 }) => {
   // console.log("Rendering component:", cmpType, "with info:", info);
 
