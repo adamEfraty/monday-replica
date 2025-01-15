@@ -3,8 +3,10 @@
 export function PriorityModal({onPriorityChange}){
 
     //temporary priorities selection
-    const priorities = [{text:'Low', color:'#86B6FB'},{text:'Medium', color:'#5559DF'},
-        {text:'High', color:'#401694'},{text:'Critical ⚠️', color:'#333333'}]
+
+
+    const priorities = [ {text:'Low', color:'#86B6FB'},{text:'Medium', color:'#5559DF'},
+        {text:'High', color:'#401694'},{text:'Critical ⚠️', color:'#333333'},{text:' ', color:'#C4C4C4'}]
 
 
     return (
@@ -12,19 +14,18 @@ export function PriorityModal({onPriorityChange}){
             {/* list of quick access prioritise */}
             <ul>
                 {
-                    priorities.map(priority =>
-                        <li key={priority.text}
+                    priorities.map((priority,index) =>
+                        <li key={index}
                             onClick={()=>{
                                 console.log(priority)
                                 onPriorityChange(priority)}}
                             style={{backgroundColor: priority.color}}>
-                            {priority.text}
+                            <p>{priority.text}</p>
                         </li>
                     )
                 }
             </ul>
 
-            <button>Edit Labels</button>
         </section>
     )
 }

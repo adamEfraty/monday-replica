@@ -35,27 +35,15 @@ function createEventEmitter() {
   export function showErrorMsg(txt) {
     showUserMsg({ txt, type: 'error' })
   }
+
+  // mabye the modals will be open from here..
+
+  function showModal(modalType, ...props){
+      console.log(props[0])
+  }
+
+  export function showPriorityModal(onPriorityChange){
+      showModal('priorityModal', {onPriorityChange})
+  }
   
-  //* Use this to demo the service from the console
-  // window.ebs = eventBusService
-  
-  // //* Example for using the service
-  // eventBusService.on('some-event', (data) => {
-  //     console.log('Listener 1 got some-event:', data)
-  // })
-  
-  // const unsubscribe = eventBusService.on('some-event', (data) => {
-  //     console.log('Listener 2 - Me Too!', data)
-  // })
-  
-  // window.unsubscribe = unsubscribe
-  
-  // eventBusService.emit('some-event', { num: 999 })
-  
-  //*  Just as example - unsubscribe after 2 secs
-  // setTimeout(() => {
-  //     console.log('Unsubscribing second listener');
-  //     unsubscribe()
-  // }, 2000)
-  // setTimeout(() => eventBusService.emit('some-event', { num: 1111 }), 3000)
-  
+
