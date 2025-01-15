@@ -74,9 +74,9 @@
   margin-top: 1em;
   padding: 10px;
   font-size: 13px;
-  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   width: 100%; /* Set a fixed width */
-  & input[type="checkbox"]{
+  & input[type='checkbox'] {
     width: 20px;
     height: 20px;
     display: flex;
@@ -159,4 +159,21 @@ div {
 .add-input {
   border: none;
   padding: 1rem 1rem;
+}
+
+.modal-save-btn {
+  background-color: #67bfec;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  width: 10rem;
+
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: #2d98ce;
+  }
 }

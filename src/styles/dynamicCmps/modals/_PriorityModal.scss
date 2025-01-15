@@ -1,34 +1,32 @@
-.grid-item.priority{
-    position:relative;
-    
-    .priority-modal{
-        z-index: 1;
-        position: absolute;
-        top: 75px; // temporary
-        left: 0px; // temporary
-        width: 175px;
-        height: 250px;
-        background-color: white;
-        border: solid black 2px;
-        border-radius: 5px;
+.grid-item.priority {
+  position: relative;
 
-        ul {
-            list-style: none;
-        }
+  .priority-modal {
+    z-index: 1;
+    position: absolute;
+    top: 75px; // temporary
+    left: 0px; // temporary
+    width: 175px;
+    height: 250px;
+    background-color: white;
+    border: solid rgb(133, 126, 126) 1px;
+    border-radius: 5px;
 
-        li {
-            display: grid;
-            align-content: center;
-            cursor: pointer;
-            height: 30px;
-            margin-top: 15px;
-
-            p{
-                border: none;
-                padding-top: 0px;
-            }
-        }
-
+    ul {
+      list-style: none;
     }
-}
 
+    li {
+      display: grid;
+      align-content: center;
+      cursor: pointer;
+      height: 30px;
+      margin-top: 15px;
+
+      p {
+        border: none;
+        padding-top: 0px;
+      }
+    }
+  }
+}
