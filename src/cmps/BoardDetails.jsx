@@ -8,6 +8,9 @@ import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router";
 import { addGroup } from "../store/actions/boards.actions";
 import { removeTask } from "../store/actions/boards.actions";
+import { addItem } from "../store/actions/boards.actions";
+import { updateGroup } from "../store/actions/boards.actions";
+import { removeGroup } from "../store/actions/boards.actions";
 
 const BoardDetails = () => {
   const { boardId } = useParams();
@@ -90,6 +93,25 @@ const BoardDetails = () => {
       }
     }
 
+    function handleAddTask(group, taskTitle) {
+        addItem(boardId, group.id, taskTitle)
+      }
+    
+      async function handleGroupNameChange(groupTitle, group) {
+        const updatedTask = { title: groupTitle };
+    
+        try {
+          await updateGroup(boardId, group.id, updatedTask);
+        } catch (error) {
+          console.error('Error updating group', error);
+    
+        }
+      }
+
+    function handleDelete(groupId, boardId) {
+        removeGroup(boardId, groupId)
+      }
+
   return (
     <section className="group-list">
       {groups.map((group) => (
@@ -106,6 +128,10 @@ const BoardDetails = () => {
           checkedGroups={checkedGroups}
           handleMasterCheckboxClick={handleMasterCheckboxClick}
           handleCheckBoxClick={handleCheckBoxClick}
+          handleAddTask={handleAddTask}
+          handleGroupNameChange={handleGroupNameChange}
+          handleDelete={handleDelete}
+          boardId={boardId}
         />
       ))}
       <button className="modal-save-btn" onClick={handleAddGroup}>

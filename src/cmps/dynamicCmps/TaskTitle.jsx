@@ -101,6 +101,7 @@ export function TaskTitle ({loggedinUser, usersInBoard, chat, group, task, text,
             !onEditMode
             ? <span onClick={toggleEditMode}>{handleLongText(text)}</span> 
             : <input
+            style={{width: 120}}
               autoFocus={true}
               value={textToEdit}
               onChange={event => setTextToEdit(event.target.value)}
@@ -111,7 +112,9 @@ export function TaskTitle ({loggedinUser, usersInBoard, chat, group, task, text,
             />
           }
         </div>
+        <div style={{marginRight: 10}}>
         <ChatIcon onClick={modalToggle} ref={ChatButtonRef} />
+        </div>
       </section>
 
       {/*chat modal*/}
