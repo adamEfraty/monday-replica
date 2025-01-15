@@ -12,7 +12,7 @@ import { useEffect } from "react";
 function App() {
   const loggedInUser = useSelector((state) => state.userModule.user);
   useEffect(() => {
-    console.log(loggedInUser)
+    console.log('loggedInUser', loggedInUser)
   }, [])
 
   return (

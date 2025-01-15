@@ -4,7 +4,8 @@ export const utilService = {
     loadFromStorage,
     debounce,
     animateCSS,
-    getRandomColor
+    getRandomColor,
+    formatDateToStr
   }
   
   function makeId(length = 5) {
@@ -108,4 +109,11 @@ function getRandomColor() {
     color += letters[Math.floor(Math.random() * 16)]
   }
   return color
+}
+
+function formatDateToStr(date){
+  const day = String(date.getDate()).padStart(2, '0')
+  const month = String(date.getMonth() + 1).padStart(2, '0')
+  const year = date.getFullYear() 
+  return `${day}-${month}-${year}`
 }

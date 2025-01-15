@@ -3,6 +3,7 @@ import { Members } from "./dynamicCmps/Members";
 import { Status } from "./dynamicCmps/Status";
 import { TaskTitle } from "./dynamicCmps/TaskTitle";
 import { Priority } from "./dynamicCmps/Priority";
+import { AddTask } from "./AddTask.jsx";
 import { useState } from "react";
 
 const GroupPreview = ({
@@ -23,12 +24,10 @@ const GroupPreview = ({
   boardId,
 }) => {
   const [expanded, setExpanded] = useState(true);
-  const [newTaskTitle, setNewTaskTitle] = useState("");
   const [groupTitle, setGroupTitle] = useState(group.title);
 
   const style = { borderLeft: `0.3rem solid ${group.color}` };
   const titleHead = { color: group.color };
-  const progressComponents = ["date", "priority", "status"];
 
   return (
     <>
@@ -100,17 +99,7 @@ const GroupPreview = ({
                 ))}
               </section>
             ))}
-            <div>
-              <input
-                className="add-input"
-                style={{ borderLeft: `5px solid ${group?.color}` }}
-                onBlur={() => handleAddTask(group, newTaskTitle)}
-                type="text"
-                placeholder="+Add Task"
-                value={newTaskTitle}
-                onChange={(e) => setNewTaskTitle(e.target.value)}
-              />
-            </div>
+            <AddTask group={group} handleAddTask={handleAddTask}/>
 
             {/* Render progress by progress array */}
             <section

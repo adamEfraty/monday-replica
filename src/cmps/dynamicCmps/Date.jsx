@@ -14,7 +14,6 @@ export function Date({group, task, date, onTaskUpdate }) {
     }
 
     function onDateChange(date){
-        modalToggle()
         onTaskUpdate({group, task, type:'date', value: date})
     }
 
