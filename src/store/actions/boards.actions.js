@@ -64,6 +64,7 @@ export async function addItem(boardId, groupId, itemTitle) {
     date: formattedDate, // Updated to show the formatted date
     status: 'IN PROGRESS',
     priority: 'LOW',
+    chat:[]
   }
   await boardService.addItemToGroup(boardId, groupId, newItem)
 

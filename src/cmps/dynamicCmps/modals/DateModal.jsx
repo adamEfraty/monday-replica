@@ -12,8 +12,6 @@ export function DateModal({currentDate, onDateChange }) {
     // the currant day on date cell that convert to dayjs style that DateCalendar supports
     const [newJday,setNewJday] = useState(dayjs(currentDate, 'DD-MM-YYYY'))
 
-    console.log('newJday',newJday)
-
     // fixing some library problem with DD-MM form...
     useEffect(()=>{
         setNewJday(dayjs(currentDate, 'DD-MM-YYYY'))
@@ -21,7 +19,6 @@ export function DateModal({currentDate, onDateChange }) {
 
     const handleDateChange = newDate => {
         // Format the date to MM-DD-YYYY
-        console.log(newDate)
         const formattedDate = newDate.format('DD-MM-YYYY')
         onDateChange(formattedDate)
     }

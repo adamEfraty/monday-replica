@@ -18,7 +18,6 @@ export function Members({group, task, usersInBoard, members, onTaskUpdate}) {
     }
 
     function onAddMember(member){
-        modalToggle()
         onTaskUpdate({group, task, type:'members', value: [...members, member]})
     }
 
