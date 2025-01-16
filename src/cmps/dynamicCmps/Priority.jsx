@@ -1,19 +1,30 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { PriorityModal } from './modals/PriorityModal.jsx'
+import { openModal } from '../../store/actions/boards.actions.js'
+import { useSelector } from 'react-redux'
 
 export function Priority({group, task, priority, onTaskUpdate }) {
 
-    const [modal, setModal] = useState(false)
+    const openModalId = useSelector(state => state.boardModule.openModal)
+    const toOpenModalAfterRender = (openModalId === task.id)
+
+    const [modal, setModal] = useState(toOpenModalAfterRender)
 
     const modalRef = useRef(null)
     const priorityCellRef = useRef(null)
 
     // clase and open modal as needed
     function modalToggle() {
-        setModal(prev => !prev)
+        setModal(prev => {
+            !prev
+            ? openModal(task.id)
+            : openModal(null)
+            return !prev
+        })
     }
 
     function onPriorityChange(priority){
+        modalToggle()
         onTaskUpdate({group, task, type:'priority', value: priority})
     }
 

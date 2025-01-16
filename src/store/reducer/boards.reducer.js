@@ -2,9 +2,11 @@ export const SET_BOARDS = 'SET_BOARDS'
 export const EDIT_BOARD = 'EDIT_BOARD'
 export const REMOVE_BOARD = 'REMOVE_BOARD'
 export const ADD_BOARD = 'ADD_BOARD'
+export const OPEN_MODAL = 'OPEN_MODAL'
 
 const initialState = {
   boards: [],
+  openModal: null,
 }
 
 export const boardReducer = (state = initialState, action) => {
@@ -35,6 +37,11 @@ export const boardReducer = (state = initialState, action) => {
               }
             : { ...board }
         ),
+      }
+    case OPEN_MODAL:
+      return {
+        ...state,
+        openModal: action.taskId
       }
 
     default:
