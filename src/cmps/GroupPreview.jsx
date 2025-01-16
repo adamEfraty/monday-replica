@@ -46,7 +46,7 @@ export const GroupPreview = ({
           {expanded ? "👇🏻" : "👉🏻"}
         </span>
 
-        <button onClick={() => handleDelete(group.id, boardId)}>X</button>
+        <button className="remove" onClick={() => handleDelete(group.id, boardId)}>X</button>
       </div>
 
       <section className="group-list">

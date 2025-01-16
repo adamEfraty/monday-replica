@@ -8,7 +8,7 @@ export function ChatModal({ usersInBoard, chat = [], onAddComment, onAddReply })
     );
 
     function getUserById(userId) {
-        return usersInBoard.find(member => member.id === userId) || {};
+        return usersInBoard?.find(member => member.id === userId) || {};
     }
 
     function handleCommentSubmit(event) {
