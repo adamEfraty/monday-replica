@@ -1,4 +1,4 @@
-import { updateTask } from "../store/actions/boards.actions.js";
+import { removeTasks, updateTask } from "../store/actions/boards.actions.js";
 import { storageService } from "./async-storage.service.js";
 
 const imageLinks = [
@@ -20,6 +20,7 @@ export const boardService = {
   addItemToGroup,
   removeGroupFromBoard,
   removeTaskFromGroup,
+  removeTasksFromGroup,
   updateTaskInGroup,
   updateGroupInBoard,
   addBoard,
@@ -44,7 +45,7 @@ async function addBoard() {
 async function query() {
   try {
     let boards = await storageService.query(STORAGE_KEY);
-    console.log(boards)
+    console.log(boards);
     if (!boards || boards.length === 0) {
       await makeFirstBoard();
       boards = await storageService.query(STORAGE_KEY);
@@ -65,7 +66,7 @@ function remove(id) {
 }
 
 async function save(boardToSave) {
-  console.log('this is the board to save: ', boardToSave)
+  console.log("this is the board to save: ", boardToSave);
   if (boardToSave.id) {
     return storageService.put(STORAGE_KEY, boardToSave);
   } else {
@@ -108,18 +109,37 @@ async function removeGroupFromBoard(boardId, groupId) {
   await save(board);
 }
 
+async function removeTasksFromGroup(boardId, tasksToRemove) {
+  try {
+    const board = await getById(boardId);
+    if (!board) throw new Error("Board not found");
+
+    tasksToRemove.forEach((task) => {
+      const group = board.groups.find((group) => group.id === task[0]);
+      if (!group) throw new Error("Group not found");
+
+      group.tasks = group.tasks.filter((t) => t.id !== task[1]);
+    });
+
+    return await save(board);
+  } catch (error) {
+    console.error("Error removing tasks:", error);
+    throw error;
+  }
+}
+
 async function removeTaskFromGroup(boardId, groupId, taskId) {
   try {
     const board = await getById(boardId);
     if (!board) throw new Error("Board not found");
-    console.log('this is the board: ', board)
+    console.log("this is the board: ", board);
 
     const group = board.groups.find((group) => group.id === groupId);
     if (!group) throw new Error("Group not found");
 
     group.tasks = group.tasks.filter((task) => task.id !== taskId);
 
-    await save(board);
+    return await save(board);
 
     console.log("Task removed from group and local storage");
   } catch (error) {
@@ -130,8 +150,8 @@ async function removeTaskFromGroup(boardId, groupId, taskId) {
 
 async function updateTaskInGroup(boardId, info) {
   try {
-    console.log(info)
-    console.log(boardId, info.group.id, info.task.id, info.type, info.value)
+    console.log(info);
+    console.log(boardId, info.group.id, info.task.id, info.type, info.value);
     const board = await getById(boardId); // Call directly without 'this'
     const group = board.groups.find((group) => group.id === info.group.id);
     if (!group) throw new Error("Group not found");
@@ -140,10 +160,15 @@ async function updateTaskInGroup(boardId, info) {
     if (taskIndex === -1) throw new Error("Task not found");
 
     group.tasks[taskIndex][info.type] = info.value;
-    console.log(info.type)
+    console.log(info.type);
     await save(board).then(() => {
-      console.log(group.tasks[taskIndex][info.type], taskIndex, group, info.value)
-    })
+      console.log(
+        group.tasks[taskIndex][info.type],
+        taskIndex,
+        group,
+        info.value
+      );
+    });
 
     return group.tasks[taskIndex];
   } catch (error) {
@@ -179,14 +204,14 @@ async function makeFirstBoard() {
     "https://images.pexels.com/photos/30007901/pexels-photo-30007901/free-photo-of-thoughtful-man-in-grey-coat-outdoors.jpeg?auto=compress&cs=tinysrgb&w=600",
     "https://images.pexels.com/photos/28773362/pexels-photo-28773362/free-photo-of-dynamic-black-and-white-portrait-of-young-man-on-phone.jpeg?auto=compress&cs=tinysrgb&w=600",
     "https://images.pexels.com/photos/30071289/pexels-photo-30071289/free-photo-of-portrait-of-a-bearded-man-outdoors.jpeg?auto=compress&cs=tinysrgb&w=600",
-];
+  ];
 
-const usersInBoard = [
-  {id: 'userid0', name: "tal", color: "red", image: imageLinks[0]},
-  {id: 'userid1', name: "shal", color: "green", image: imageLinks[1] },
-  {id: 'userid2', name: "bal", color: "black", image: imageLinks[2] },
-  {id: 'userid3', name: "shal", color: "green", image: imageLinks[3]}
-]
+  const usersInBoard = [
+    { id: "userid0", name: "tal", color: "red", image: imageLinks[0] },
+    { id: "userid1", name: "shal", color: "green", image: imageLinks[1] },
+    { id: "userid2", name: "bal", color: "black", image: imageLinks[2] },
+    { id: "userid3", name: "shal", color: "green", image: imageLinks[3] },
+  ];
 
   const board = {
     title: "SAR default board",

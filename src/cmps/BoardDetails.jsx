@@ -2,12 +2,11 @@ import "../styles/_Board-Details.scss";
 import GroupPreview from "./GroupPreview";
 import { useState, useEffect } from "react";
 import { logout, loadUsers } from "../store/actions/user.actions";
-import { loadBoards, updateTask } from "../store/actions/boards.actions";
+import { loadBoards, removeTasks, updateTask } from "../store/actions/boards.actions";
 import { SelectedTasksModal } from "./dynamicCmps/modals/SelectedTasksModal";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router";
 import { addGroup } from "../store/actions/boards.actions";
-import { removeTask } from "../store/actions/boards.actions";
 import { addItem } from "../store/actions/boards.actions";
 import { updateGroup } from "../store/actions/boards.actions";
 import { removeGroup } from "../store/actions/boards.actions";
@@ -87,11 +86,17 @@ const BoardDetails = () => {
   };
     async function handleDeleteTasks() {
       for (const [groupId, taskId] of checkedBoxes) {
-        await removeTask(currentBoard.id, groupId, taskId).then(() => {
+        await removeTasks(currentBoard.id, groupId, taskId).then(() => {
             setCheckedBoxes(prev => prev.filter(scdArr => scdArr[1] !== taskId))
         })
       }
     }
+    async function handleDeleteTasks() {
+        await removeTasks(currentBoard.id, checkedBoxes).then(() => {
+            setCheckedBoxes([])
+        })
+    }
+
 
     function handleAddTask(group, taskTitle) {
         addItem(boardId, group.id, taskTitle)

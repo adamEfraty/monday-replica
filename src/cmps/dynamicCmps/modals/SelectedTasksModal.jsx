@@ -4,7 +4,6 @@ import ArchiveIcon from "@mui/icons-material/Inventory2Outlined";
 import DeleteIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import MoveToIcon from "@mui/icons-material/ArrowForwardOutlined";
 import AppsIcon from "@mui/icons-material/ExtensionOutlined";
-import { removeTask } from "../../../store/actions/boards.actions";
 
 export function SelectedTasksModal({ checkedTasks, handleDeleteTasks }) {
   function onDuplicate(){
