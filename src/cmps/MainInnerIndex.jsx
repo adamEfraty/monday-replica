@@ -12,19 +12,12 @@ export function MainInnerIndex({ user, isBoard, boards }) {
     loadBoardsAndUsers()
   }, []);
 
-  function handleAddBoard() {
-    addBoard();
-
-  }
 
   function loadBoardsAndUsers() {
     loadBoards()
     loadUsers()
   }
-  function onLogOut() {
-    navigate("/");
-    logout();
-  }
+
 
   function onUpdateBoardName(id, title) {
     updateBoardName(id, title)
@@ -36,12 +29,9 @@ export function MainInnerIndex({ user, isBoard, boards }) {
         <h3>Hello {user.fullName}!</h3>
         <h3>Quickly access your recent boards, Inbox and workspaces</h3>
       </section>
-      <button className="btn" onClick={onLogOut}>log out</button>
       <section className="recently-viewed-section">
         <h3>Recently viewed</h3>
-        <button className="btn" onClick={handleAddBoard}>
-          +Add a new board
-        </button>
+
         <div className="boards-container">
           {boards.map((board) => (
             <BoardCard key={board.id} board={board} onUpdateBoardName={onUpdateBoardName} />

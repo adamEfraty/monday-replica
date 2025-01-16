@@ -6,7 +6,7 @@ import { Priority } from "./dynamicCmps/Priority";
 import { AddTask } from "./AddTask.jsx";
 import { useState } from "react";
 
-const GroupPreview = ({
+export const GroupPreview = ({
   labels,
   group,
   loggedinUser,
@@ -45,7 +45,7 @@ const GroupPreview = ({
           {expanded ? "👇🏻" : "👉🏻"}
         </span>
 
-        <button onClick={() => handleDelete(group.id, boardId)}>X</button>
+        <button className="remove" onClick={() => handleDelete(group.id, boardId)}>X</button>
       </div>
 
       <section className="group-list">
@@ -55,10 +55,11 @@ const GroupPreview = ({
           <div>
             <section
               className="labels-grid"
-              style={{ ...style, borderTopLeftRadius: 14 }}
+              style={{ ...style, borderTopLeftRadius: 5 }}
             >
               <input
                 type="checkbox"
+                className="checkbox"
                 onChange={() => { }}
                 onClick={() => handleMasterCheckboxClick(group)}
                 checked={checkedGroups.includes(group.id)}
@@ -104,11 +105,10 @@ const GroupPreview = ({
             {/* Render progress by progress array */}
             <section
               className="progress-grid"
-              style={{ ...style, borderBottomLeftRadius: 14 }}
             >
               {progress.map((prog, index) =>
                 cmpOrder.includes(prog) ? (
-                  <div className={`with-${prog}`} key={`progress-${index}`}>
+                  <div className={`prog-box with-${prog}`} key={`progress-${index}`}>
                     {progress[index]}
                   </div>
                 ) : (
@@ -198,4 +198,4 @@ const DynamicCmp = ({
   }
 };
 
-export default GroupPreview;
+
