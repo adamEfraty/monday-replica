@@ -1,11 +1,11 @@
 
-export function MembersModal({ParticipateMembers, onAddMember, onRemoveMember, usersInBoard}){
+export function MembersModal({ ParticipateMembers, onAddMember, onRemoveMember, usersInBoard, users }) {
 
     //temporary taking from demo data
-    const membersInBoard = [...usersInBoard]
+    const membersInBoard = [...users]
 
-    const nonParticipateMembers = membersInBoard.filter(member=> 
-        !ParticipateMembers.find(cMember=> cMember.id === member.id))
+    const nonParticipateMembers = membersInBoard.filter(member =>
+        !ParticipateMembers.find(cMember => cMember.id === member.id))
 
 
     return (
@@ -14,11 +14,11 @@ export function MembersModal({ParticipateMembers, onAddMember, onRemoveMember, u
             {/* list of members you can remove from task*/}
             <ul className="participate-list">
                 {
-                    ParticipateMembers.map(member=>
+                    ParticipateMembers.map(member =>
                         <li key={member.id}>
-                            <img src={member.image}/>
-                            <p>{member.name}</p>
-                            <button onClick={()=>onRemoveMember(member)}>x</button>
+                            <img src={member.imgUrl} />
+                            <p>{member.fullName}</p>
+                            <button onClick={() => onRemoveMember(member)}>x</button>
                         </li>
                     )
                 }
@@ -32,18 +32,18 @@ export function MembersModal({ParticipateMembers, onAddMember, onRemoveMember, u
 
                 <ul className="non-participate-list">
                     {
-                        nonParticipateMembers.map(member=>
+                        nonParticipateMembers.map(member =>
                             <li key={member.id}
-                            onClick={()=>onAddMember(member)}>
-                                <img src={member.image}/>
-                                <p>{member.name}</p>
+                                onClick={() => onAddMember(member)}>
+                                <img src={member.imgUrl} />
+                                <p>{member.fullName}</p>
                             </li>
                         )
                     }
                 </ul>
 
             </div>
-            
+
 
         </section>
     )

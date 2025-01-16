@@ -22,6 +22,7 @@ const GroupPreview = ({
   handleGroupNameChange,
   handleDelete,
   boardId,
+  users
 }) => {
   const [expanded, setExpanded] = useState(true);
   const [groupTitle, setGroupTitle] = useState(group.title);
@@ -59,7 +60,7 @@ const GroupPreview = ({
             >
               <input
                 type="checkbox"
-                onChange={() => {}}
+                onChange={() => { }}
                 onClick={() => handleMasterCheckboxClick(group)}
                 checked={checkedGroups.includes(group.id)}
               />
@@ -94,12 +95,13 @@ const GroupPreview = ({
                       onTaskUpdate={onTaskUpdate}
                       usersInBoard={usersInBoard} // temporary for demo data
                       chat={task.chat} // temporary for demo data
+                      users={users}
                     />
                   </section>
                 ))}
               </section>
             ))}
-            <AddTask group={group} handleAddTask={handleAddTask}/>
+            <AddTask group={group} handleAddTask={handleAddTask} />
 
             {/* Render progress by progress array */}
             <section
@@ -132,6 +134,7 @@ const DynamicCmp = ({
   usersInBoard,
   chat,
   loggedinUser,
+  users,
 }) => {
   // console.log("Rendering component:", cmpType, "with info:", info);
 
@@ -179,6 +182,7 @@ const DynamicCmp = ({
           taskId={task.id}
           members={info}
           onTaskUpdate={onTaskUpdate}
+          users={users}
         />
       );
 
