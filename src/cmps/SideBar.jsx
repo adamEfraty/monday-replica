@@ -3,6 +3,7 @@ import MyWorkIcon from "@mui/icons-material/EventAvailableOutlined";
 import FavoritesIcon from "@mui/icons-material/StarBorderRounded";
 import WorkspacesIcon from "@mui/icons-material/GridViewOutlined";
 import { useNavigate, useLocation } from "react-router";
+import { addBoard } from "../store/actions/boards.actions";
 
 export function SideBar({ boards, user, onRemoveBoard }) {
   const location = useLocation();
@@ -17,6 +18,12 @@ export function SideBar({ boards, user, onRemoveBoard }) {
     if (location.pathname !== targetURL) {
       navigate(targetURL);
     }
+  }
+
+
+  function handleAddBoard() {
+    addBoard();
+
   }
 
   return (
@@ -49,6 +56,10 @@ export function SideBar({ boards, user, onRemoveBoard }) {
         <h4>Workspaces</h4>
       </section>
 
+      <button className="add-board" onClick={handleAddBoard}>
+        +Add a new board
+      </button>
+
       {/* Board List */}
       <ul className="sidebar-boardlist">
         {boards.map((board) => (
@@ -64,7 +75,7 @@ export function SideBar({ boards, user, onRemoveBoard }) {
               </p>
 
               <button
-                className="btn"
+                className="remove"
                 onClick={() => onRemoveBoard(board.id)}
               >
                 X

@@ -6,14 +6,22 @@ import ExtensionIcon from "@mui/icons-material/Extension";
 import PersonAddAltIcon from "@mui/icons-material/PersonAddAlt";
 import InboxIcon from "@mui/icons-material/Inbox";
 import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
+import { logout } from "../store/actions/user.actions";
 
 export function AppHeader({ userData = null }) {
   const navigate = useNavigate();
 
+
+  function onLogOut() {
+    navigate('/')
+    logout()
+  }
+
+
   return userData ? (
     <div className="header-flex">
       <section className="header-sentance">
-        <h4>Monday </h4>
+        <h4>SomeDay 🥳 </h4>
         <h4>work management</h4>
       </section>
       <section className="icons-section">
@@ -28,6 +36,8 @@ export function AppHeader({ userData = null }) {
         <AppsIcon />
         <img onClick={() => navigate('/users')} src="https://agenda.agami-network.com/static/media/agenda-logo-color.cb0ce09dcc5b97c18eb5755c559acc2a.svg"
           alt="Main Workspace" />
+        <button onClick={onLogOut} >log out</button>
+
       </section>
     </div>
   ) : (

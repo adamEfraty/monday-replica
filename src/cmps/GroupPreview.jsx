@@ -6,7 +6,7 @@ import { Priority } from "./dynamicCmps/Priority";
 import { AddTask } from "./AddTask.jsx";
 import { useState } from "react";
 
-const GroupPreview = ({
+export const GroupPreview = ({
   labels,
   group,
   loggedinUser,
@@ -202,4 +202,4 @@ const DynamicCmp = ({
   }
 };
 
-export default GroupPreview;
+

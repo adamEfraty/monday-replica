@@ -2,7 +2,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.5rem 4rem;
+  padding: 0.9rem 4rem;
   position: sticky;
   background-color: #fff;
   box-shadow: 4px 4px 20px #e8e5e5;
@@ -38,6 +38,7 @@
 .icons-section {
   display: flex;
   align-items: center;
+  gap: 1rem;
 }
 
 .vertical-line {
@@ -47,6 +48,6 @@
   margin: 0 8px; /* Adjust spacing as needed */
 }
 
-.header-sentance{
+.header-sentance {
   display: flex;
 }
