@@ -3,7 +3,7 @@ import { showErrorMsg } from '../../services/event-bus.service.js'
 import { ChatModal } from "./modals/ChatModal.jsx"
 import ChatIcon from '@mui/icons-material/MapsUgcOutlined';
 
-export function TaskTitle({ loggedinUser, usersInBoard, chat, group, task, text, onTaskUpdate }) {
+export function TaskTitle ({users, loggedinUser, chat, group, task, text, onTaskUpdate }) {
   const [onEditMode, setOnEditMode] = useState(false)
   const [textToEdit, setTextToEdit] = useState(text)
 
@@ -31,18 +31,17 @@ export function TaskTitle({ loggedinUser, usersInBoard, chat, group, task, text,
 
   }, [modal])
 
-  function onAddComment(comment) {
-    const newComment = {
-      userId: loggedinUser.id,
-      sentAt: new Date(),
-      text: comment,
-      replies: []
-    }
-    onTaskUpdate({ group, task, type: 'chat', value: [newComment, ...chat] })
+  function onAddComment(comment){
+    const newComment = {userId: loggedinUser.id,
+      sentAt: new Date().getTime(), 
+      text: comment, 
+      replies:[]
+  }
+    onTaskUpdate({group, task, type:'chat', value: [newComment, ...chat]})
   }
 
-  function onAddReply(commentSentTime, replyTxt) {
-    const newReply = { userId: loggedinUser.id, sentAt: new Date(), text: replyTxt }
+  function onAddReply(commentSentTime, replyTxt){
+    const newReply = {userId: loggedinUser.id, sentAt: new Date().getTime(), text: replyTxt}
     const updatedChat = chat.map(comment => {
       return comment.sentAt === commentSentTime
         ? { ...comment, replies: [newReply, ...comment.replies] }
@@ -115,16 +114,16 @@ export function TaskTitle({ loggedinUser, usersInBoard, chat, group, task, text,
       </section >
 
       {/*chat modal*/}
-      {
-        modal &&
-        <div ref={modalRef}>
-          <ChatModal
-            onAddReply={onAddReply}
-            onAddComment={onAddComment}
-            usersInBoard={usersInBoard}
-            chat={chat} />
-        </div>
-      }
+      {modal && 
+          <div ref={modalRef}>
+            <ChatModal 
+              onAddReply={onAddReply} 
+              onAddComment={onAddComment} 
+              chat={chat}
+              users={[...users]}
+              loggedinUser={loggedinUser}/>
+          </div>
+        }
 
     </>
   )

@@ -16,9 +16,9 @@ const BoardDetails = () => {
   const navigate = useNavigate();
   const [checkedBoxes, setCheckedBoxes] = useState([]);
   const [checkedGroups, setCheckedGroups] = useState([]);
-  const boards = useSelector((state) => state.boardModule.boards);
-  const loggedinUser = useSelector((state) => state.userModule.user);
-  const users = useSelector((state) => state.userModule.users);
+  const boards = useSelector(state => state.boardModule.boards);
+  const loggedinUser = useSelector(state => state.userModule.user);
+  const users = useSelector(state => state.userModule.users);
 
   const currentBoard = boards.find(board => board.id === boardId);
 
@@ -123,7 +123,6 @@ const BoardDetails = () => {
           cmpOrder={cmpOrder}
           progress={progress}
           key={uid()}
-          usersInBoard={currentBoard.members}
           onTaskUpdate={onTaskUpdate}
           checkedBoxes={checkedBoxes}
           checkedGroups={checkedGroups}

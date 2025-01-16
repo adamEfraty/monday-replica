@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { MembersModal } from './modals/MembersModal.jsx'
-import { SsidChartSharp } from '@mui/icons-material'
 
-export function Members({ group, task, usersInBoard, members, onTaskUpdate, users }) {
+export function Members({ group, task, members, onTaskUpdate, users }) {
 
     const [modal, setModal] = useState(false)
 
@@ -73,7 +72,6 @@ export function Members({ group, task, usersInBoard, members, onTaskUpdate, user
                         ParticipateMembers={members}
                         onAddMember={onAddMember}
                         onRemoveMember={onRemoveMember}
-                        usersInBoard={usersInBoard}
                         users={users} />
 
                 </div>

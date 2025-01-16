@@ -12,7 +12,6 @@ export const GroupPreview = ({
   loggedinUser,
   cmpOrder,
   progress,
-  usersInBoard,
   onTaskUpdate,
   checkedBoxes,
   checkedGroups,
@@ -94,7 +93,6 @@ export const GroupPreview = ({
                       cmpType={cmp}
                       info={task[cmp]}
                       onTaskUpdate={onTaskUpdate}
-                      usersInBoard={usersInBoard} // temporary for demo data
                       chat={task.chat} // temporary for demo data
                       users={users}
                     />
@@ -131,7 +129,6 @@ const DynamicCmp = ({
   onTaskUpdate,
   task,
   group,
-  usersInBoard,
   chat,
   loggedinUser,
   users,
@@ -155,7 +152,7 @@ const DynamicCmp = ({
           group={group}
           task={task}
           loggedinUser={loggedinUser}
-          usersInBoard={usersInBoard}
+          users ={users}
           chat={chat}
           text={info}
           onTaskUpdate={onTaskUpdate}
@@ -178,7 +175,6 @@ const DynamicCmp = ({
         <Members
           group={group}
           task={task}
-          usersInBoard={usersInBoard}
           taskId={task.id}
           members={info}
           onTaskUpdate={onTaskUpdate}
