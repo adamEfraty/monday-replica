@@ -24,9 +24,6 @@ const BoardDetails = () => {
 
   const groups = currentBoard?.groups || [];
 
-  useEffect(() => {
-  }, []);
-
   //.........................
   useEffect(() => {
     onLoadBoards();
