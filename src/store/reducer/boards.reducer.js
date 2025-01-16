@@ -36,7 +36,6 @@ export const boardReducer = (state = initialState, action) => {
             : { ...board }
         ),
       }
-
     default:
       return state
   }

@@ -4,6 +4,7 @@ import { ChatModal } from "./modals/ChatModal.jsx"
 import ChatIcon from '@mui/icons-material/MapsUgcOutlined';
 
 export function TaskTitle ({users, loggedinUser, chat, group, task, text, onTaskUpdate }) {
+  // isModalOpen = "" | "22gueyg"
   const [onEditMode, setOnEditMode] = useState(false)
   const [textToEdit, setTextToEdit] = useState(text)
 
