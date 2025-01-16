@@ -3,7 +3,7 @@ import { showSuccessMsg } from '../../services/event-bus.service'
 import { utilService } from '../../services/util.service'
 import { store } from '../store'
 
-import { EDIT_BOARD, SET_BOARDS } from '../reducer/boards.reducer'
+import { EDIT_BOARD, REMOVE_BOARD, SET_BOARDS } from '../reducer/boards.reducer'
 
 export async function addBoard() {
   try {
@@ -61,10 +61,10 @@ export async function addItem(boardId, groupId, itemTitle) {
     id: utilService.makeId(),
     taskTitle: itemTitle,
     members: [],
-    date: formattedDate, // Updated to show the formatted date
-    status: {text:'', color:'#C4C4C4'},
-    priority: {text:'', color:'#C4C4C4'},
-    chat:[]
+    date: formattedDate,
+    status: { text: '', color: '#C4C4C4' },
+    priority: { text: '', color: '#C4C4C4' },
+    chat: [],
   }
   await boardService.addItemToGroup(boardId, groupId, newItem)
 
@@ -108,7 +108,6 @@ export async function removeGroup(boardId, groupId) {
 }
 
 export async function updateGroup(boardId, groupId, updatedGroupData) {
-  // Update the group in the board service
   await boardService.updateGroupInBoard(boardId, groupId, updatedGroupData)
 
   const board = await boardService.getById(boardId)
@@ -158,13 +157,20 @@ export async function removeTask(boardId, groupId, taskId) {
   showSuccessMsg('Task removed successfully')
 }
 
+export async function removeBoard(boardId) {
+  try {
+    await boardService.remove(boardId)
+    store.dispatch({ type: REMOVE_BOARD, boardId })
+  } catch (err) {
+    console.error('Failed to remove board:', err)
+  }
+}
+
 export async function updateTask(boardId, info) {
   await boardService.updateTaskInGroup(boardId, info)
 
   const board = await boardService.getById(boardId)
   if (!board) return
-
-  console.log('hi im here')
 
   const updatedBoard = {
     ...board,
@@ -189,4 +195,14 @@ export async function updateTask(boardId, info) {
   })
 
   showSuccessMsg('Task updated successfully')
+}
+
+export async function updateBoardName(boardId, newName) {
+  try {
+    const updatedBoard = await boardService.updateBoardName(boardId, newName)
+
+    store.dispatch({ type: EDIT_BOARD, boardId, updatedBoard })
+  } catch (error) {
+    console.error('error dispatching board name update:', error)
+  }
 }

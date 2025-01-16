@@ -3,56 +3,75 @@ import MyWorkIcon from "@mui/icons-material/EventAvailableOutlined";
 import FavoritesIcon from "@mui/icons-material/StarBorderRounded";
 import WorkspacesIcon from "@mui/icons-material/GridViewOutlined";
 import { useNavigate, useLocation } from "react-router";
-import { useSelector } from "react-redux";
 
-
-
-export function SideBar() {
-  const user = useSelector(state => state.userModule.user)
-  const boards = useSelector(state => state.boardModule.boards)
+export function SideBar({ boards, user, onRemoveBoard }) {
   const location = useLocation();
   const navigate = useNavigate();
 
   function convertAddressToURL(address) {
-    return address.split(' ').join('%20');
+    return encodeURIComponent(address);
   }
 
-  function onChangeAdressOnce(fullAdress){
-    (location.pathname === convertAddressToURL(fullAdress)) 
-    ? null
-    : navigate(fullAdress)}
+  function onChangeAdressOnce(fullAddress) {
+    const targetURL = `/${convertAddressToURL(fullAddress)}`;
+    if (location.pathname !== targetURL) {
+      navigate(targetURL);
+    }
+  }
 
   return (
     <nav className="side-bar">
-      <section onClick={()=>onChangeAdressOnce(`/${user.fullName}'s-team`)}>
+      {/* Home Section */}
+      <section onClick={() => onChangeAdressOnce(`${user.fullName}'s-team`)}>
         <HomeIcon />
         <h4>Home</h4>
       </section>
+
+      {/* My Work Section */}
       <section>
         <MyWorkIcon />
         <h4>My Work</h4>
       </section>
+
       <hr />
+
+      {/* Favorites Section */}
       <section>
         <FavoritesIcon />
         <h4>Favorites</h4>
       </section>
+
       <hr />
+
+      {/* Workspaces Section */}
       <section>
         <WorkspacesIcon />
         <h4>Workspaces</h4>
       </section>
+
+      {/* Board List */}
       <ul className="sidebar-boardlist">
-        {
-          boards.map(board=> <li key={board.id}>
-            <div 
-            className="sidebar-board"
-            onClick={()=>onChangeAdressOnce
-              (`/${user.fullName}'s-team/boards/${board.id}`)}>
-              <p>{board.title}</p>
+        {boards.map((board) => (
+          <li key={board.id}>
+            <div className="sidebar-board">
+              {/* Board Title Navigation */}
+              <p
+                onClick={() =>
+                  navigate(`/${user.fullName}'s-team/boards/${board.id}`)
+                }
+              >
+                {board.title}
+              </p>
+
+              <button
+                className="btn"
+                onClick={() => onRemoveBoard(board.id)}
+              >
+                X
+              </button>
             </div>
-          </li>)
-        }
+          </li>
+        ))}
       </ul>
     </nav>
   );

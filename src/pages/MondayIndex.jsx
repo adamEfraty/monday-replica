@@ -3,20 +3,25 @@ import { useSelector } from "react-redux";
 import { AppHeader } from "../cmps/AppHeader";
 import { SideBar } from "../cmps/SideBar";
 import { MainInnerIndex } from "../cmps/MainInnerIndex";
-import { useParams } from "react-router";
+import { removeBoard } from "../store/actions/boards.actions";
 
-export function MondayIndex({isBoard = false}) {
-    const { boardId } = useParams()
+
+export function MondayIndex({ isBoard = false }) {
     const user = useSelector(state => state.userModule.user)
     const boards = useSelector(state => state.boardModule.boards)
 
+
+    function onRemoveBoard(id) {
+        removeBoard(id);
+        console.log(boards)
+    }
 
     return (
         <div className="index-container">
             <AppHeader userData={user} />
             <section className="content">
-            <SideBar />
-            <MainInnerIndex user={user} isBoard={isBoard} boards={boards} />
+                <SideBar boards={boards} user={user} onRemoveBoard={onRemoveBoard} />
+                <MainInnerIndex user={user} isBoard={isBoard} boards={boards} />
             </section>
         </div>
     )

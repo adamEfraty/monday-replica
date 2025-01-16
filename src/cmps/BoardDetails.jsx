@@ -1,7 +1,7 @@
 import "../styles/_Board-Details.scss";
 import GroupPreview from "./GroupPreview";
 import { useState, useEffect } from "react";
-import { logout, loadUsers } from "../store/actions/user.actions";
+import { loadUsers } from "../store/actions/user.actions";
 import { loadBoards, updateTask } from "../store/actions/boards.actions";
 import { SelectedTasksModal } from "./dynamicCmps/modals/SelectedTasksModal";
 import { useSelector } from "react-redux";
@@ -26,7 +26,6 @@ const BoardDetails = () => {
   const groups = currentBoard?.groups || [];
 
   useEffect(() => {
-    console.log(currentBoard);
   }, []);
 
   //.........................
@@ -39,10 +38,7 @@ const BoardDetails = () => {
     await loadUsers();
   }
 
-  function onLogout() {
-    navigate("/");
-    logout();
-  }
+
 
   //...............................
 
@@ -85,32 +81,32 @@ const BoardDetails = () => {
       }
     });
   };
-    async function handleDeleteTasks() {
-      for (const [groupId, taskId] of checkedBoxes) {
-        await removeTask(currentBoard.id, groupId, taskId).then(() => {
-            setCheckedBoxes(prev => prev.filter(scdArr => scdArr[1] !== taskId))
-        })
-      }
+  async function handleDeleteTasks() {
+    for (const [groupId, taskId] of checkedBoxes) {
+      await removeTask(currentBoard.id, groupId, taskId).then(() => {
+        setCheckedBoxes(prev => prev.filter(scdArr => scdArr[1] !== taskId))
+      })
     }
+  }
 
-    function handleAddTask(group, taskTitle) {
-        addItem(boardId, group.id, taskTitle)
-      }
-    
-      async function handleGroupNameChange(groupTitle, group) {
-        const updatedTask = { title: groupTitle };
-    
-        try {
-          await updateGroup(boardId, group.id, updatedTask);
-        } catch (error) {
-          console.error('Error updating group', error);
-    
-        }
-      }
+  function handleAddTask(group, taskTitle) {
+    addItem(boardId, group.id, taskTitle)
+  }
 
-    function handleDelete(groupId, boardId) {
-        removeGroup(boardId, groupId)
-      }
+  async function handleGroupNameChange(groupTitle, group) {
+    const updatedTask = { title: groupTitle };
+
+    try {
+      await updateGroup(boardId, group.id, updatedTask);
+    } catch (error) {
+      console.error('Error updating group', error);
+
+    }
+  }
+
+  function handleDelete(groupId, boardId) {
+    removeGroup(boardId, groupId)
+  }
 
   return (
     <section className="group-list">
@@ -132,6 +128,7 @@ const BoardDetails = () => {
           handleGroupNameChange={handleGroupNameChange}
           handleDelete={handleDelete}
           boardId={boardId}
+          users={users}
         />
       ))}
       <button className="modal-save-btn" onClick={handleAddGroup}>

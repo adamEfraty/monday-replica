@@ -22,6 +22,7 @@ export function Status({ group, task, status, onTaskUpdate }) {
         if (!modalRef.current.contains(event.target)
             && !statusCellRef.current.contains(event.target))
             modalToggle()
+
     }
 
     // open listener to handleClickOutsideModal only when modal open

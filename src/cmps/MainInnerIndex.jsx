@@ -1,18 +1,33 @@
 import { useEffect } from "react";
 import BoardDetails from "./BoardDetails";
-import { use } from "react";
 import { useNavigate } from "react-router";
 import { loadBoards } from "../store/actions/boards.actions.js";
-import { addBoard } from "../store/actions/boards.actions.js";
+import { addBoard, updateBoardName } from "../store/actions/boards.actions.js";
+import { loadUsers, logout } from "../store/actions/user.actions.js";
+import { BoardCard } from "./BoardCard.jsx";
 
 export function MainInnerIndex({ user, isBoard, boards }) {
   const navigate = useNavigate();
   useEffect(() => {
-    loadBoards();
+    loadBoardsAndUsers()
   }, []);
 
   function handleAddBoard() {
     addBoard();
+
+  }
+
+  function loadBoardsAndUsers() {
+    loadBoards()
+    loadUsers()
+  }
+  function onLogOut() {
+    navigate("/");
+    logout();
+  }
+
+  function onUpdateBoardName(id, title) {
+    updateBoardName(id, title)
   }
 
   return !isBoard ? (
@@ -21,6 +36,7 @@ export function MainInnerIndex({ user, isBoard, boards }) {
         <h3>Hello {user.fullName}!</h3>
         <h3>Quickly access your recent boards, Inbox and workspaces</h3>
       </section>
+      <button className="btn" onClick={onLogOut}>log out</button>
       <section className="recently-viewed-section">
         <h3>Recently viewed</h3>
         <button className="btn" onClick={handleAddBoard}>
@@ -28,17 +44,7 @@ export function MainInnerIndex({ user, isBoard, boards }) {
         </button>
         <div className="boards-container">
           {boards.map((board) => (
-            <div
-              className="board-card"
-              key={board.id}
-              onClick={() => navigate(`./boards/${board.id}`)}
-            >
-              <img
-                src="https://cdn.monday.com/images/quick_search_recent_board2.svg"
-                alt="Board Thumbnail"
-              />
-              <h4>{board.title}</h4>
-            </div>
+            <BoardCard key={board.id} board={board} onUpdateBoardName={onUpdateBoardName} />
           ))}
         </div>
       </section>

@@ -26,7 +26,8 @@ export function AppHeader({ userData = null }) {
         <QuestionMarkIcon />
         <div className="vertical-line"></div> {/* Vertical line separator */}
         <AppsIcon />
-        <img onClick={() => navigate('/users')} src="" alt="Main Workspace" />
+        <img onClick={() => navigate('/users')} src="https://agenda.agami-network.com/static/media/agenda-logo-color.cb0ce09dcc5b97c18eb5755c559acc2a.svg"
+          alt="Main Workspace" />
       </section>
     </div>
   ) : (

@@ -51,17 +51,24 @@
     color: #888;
   }
 
-  .sidebar-boardlist{
+  .sidebar-boardlist {
     list-style: none;
 
-    .sidebar-board{
+    .sidebar-board {
       cursor: pointer;
-  
-      &:hover{
+
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #333;
+
+      &:hover {
         background-color: rgb(216, 253, 255);
       }
-    }
 
+      p {
+        border: none;
+      }
+    }
   }
-  
 }
