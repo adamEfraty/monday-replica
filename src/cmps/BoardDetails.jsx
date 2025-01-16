@@ -25,7 +25,6 @@ const BoardDetails = () => {
   const groups = currentBoard?.groups || [];
 
   useEffect(() => {
-    console.log(currentBoard);
   }, []);
 
   //.........................
@@ -38,10 +37,7 @@ const BoardDetails = () => {
     await loadUsers();
   }
 
-  function onLogout() {
-    navigate("/");
-    logout();
-  }
+
 
   //...............................
 
@@ -98,24 +94,24 @@ const BoardDetails = () => {
     }
 
 
-    function handleAddTask(group, taskTitle) {
-        addItem(boardId, group.id, taskTitle)
-      }
-    
-      async function handleGroupNameChange(groupTitle, group) {
-        const updatedTask = { title: groupTitle };
-    
-        try {
-          await updateGroup(boardId, group.id, updatedTask);
-        } catch (error) {
-          console.error('Error updating group', error);
-    
-        }
-      }
+  function handleAddTask(group, taskTitle) {
+    addItem(boardId, group.id, taskTitle)
+  }
 
-    function handleDelete(groupId, boardId) {
-        removeGroup(boardId, groupId)
-      }
+  async function handleGroupNameChange(groupTitle, group) {
+    const updatedTask = { title: groupTitle };
+
+    try {
+      await updateGroup(boardId, group.id, updatedTask);
+    } catch (error) {
+      console.error('Error updating group', error);
+
+    }
+  }
+
+  function handleDelete(groupId, boardId) {
+    removeGroup(boardId, groupId)
+  }
 
   return (
     <section className="group-list">
@@ -137,6 +133,7 @@ const BoardDetails = () => {
           handleGroupNameChange={handleGroupNameChange}
           handleDelete={handleDelete}
           boardId={boardId}
+          users={users}
         />
       ))}
       <button className="modal-save-btn" onClick={handleAddGroup}>

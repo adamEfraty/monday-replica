@@ -1,20 +1,20 @@
-@use "homePage";
-@use "Header";
-@use "vars";
-@use "footer";
-@use "login";
-@use "index";
-@use "usermsg";
-@use "sideBar";
-@use "mainInnerIndex";
-@use "mondayIndex";
-@use "Board-details";
-@use "./dynamicCmps/TaskTitle";
-@use "./dynamicCmps/Priority";
-@use "./dynamicCmps/Status";
-@use "./dynamicCmps/Members";
-@use "./dynamicCmps/Date";
-@use "./dynamicCmps/modals/SelectedTasksModal";
+@use 'homePage';
+@use 'Header';
+@use 'vars';
+@use 'footer';
+@use 'login';
+@use 'index';
+@use 'usermsg';
+@use 'sideBar';
+@use 'mainInnerIndex';
+@use 'mondayIndex';
+@use 'Board-details';
+@use './dynamicCmps/TaskTitle';
+@use './dynamicCmps/Priority';
+@use './dynamicCmps/Status';
+@use './dynamicCmps/Members';
+@use './dynamicCmps/Date';
+@use './dynamicCmps/modals/SelectedTasksModal';
 
 * {
   padding: 0;
@@ -23,5 +23,11 @@
 }
 
 body {
-  font-family: "Quicksand";
+  font-family: 'Quicksand';
+}
+
+.hov {
+  &:hover {
+    border: 1px solid #cecece;
+  }
 }

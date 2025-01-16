@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { StatusModal } from './modals/StatusModal.jsx'
 
-export function Status({group, task, status, onTaskUpdate }) {
+export function Status({ group, task, status, onTaskUpdate }) {
 
     const [modal, setModal] = useState(false)
 
@@ -13,8 +13,8 @@ export function Status({group, task, status, onTaskUpdate }) {
         setModal(prev => !prev)
     }
 
-    function onStatusChange(status){
-        onTaskUpdate({group, task, type:'status', value: status})
+    function onStatusChange(status) {
+        onTaskUpdate({ group, task, type: 'status', value: status })
     }
 
     //if user click outside modal close it
@@ -22,13 +22,14 @@ export function Status({group, task, status, onTaskUpdate }) {
         if (!modalRef.current.contains(event.target)
             && !statusCellRef.current.contains(event.target))
             modalToggle()
+
     }
 
     // open listener to handleClickOutsideModal only when modal open
     useEffect(() => {
         if (modal) document.addEventListener
             ('mousedown', handleClickOutsideModal)
-         else document.removeEventListener
+        else document.removeEventListener
             ('mousedown', handleClickOutsideModal)
         return () => document.removeEventListener
             ('mousedown', handleClickOutsideModal)
@@ -38,8 +39,8 @@ export function Status({group, task, status, onTaskUpdate }) {
     return (
         <section className="status">
             {/* status cell*/}
-            <div 
-                className="status-cell" 
+            <div
+                className="status-cell"
                 ref={statusCellRef}
                 onClick={modalToggle}
                 style={{ backgroundColor: status.color }}>
@@ -47,10 +48,10 @@ export function Status({group, task, status, onTaskUpdate }) {
             </div>
 
             {/* status modal*/}
-            {modal && 
+            {modal &&
                 <div ref={modalRef}>
-                    <StatusModal 
-                    onStatusChange={onStatusChange}/>
+                    <StatusModal
+                        onStatusChange={onStatusChange} />
                 </div>
             }
         </section>

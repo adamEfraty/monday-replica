@@ -3,7 +3,7 @@ import { showSuccessMsg } from "../../services/event-bus.service";
 import { utilService } from "../../services/util.service";
 import { store } from "../store";
 
-import { EDIT_BOARD, SET_BOARDS } from "../reducer/boards.reducer";
+import { EDIT_BOARD, REMOVE_BOARD, SET_BOARDS } from '../reducer/boards.reducer'
 
 export async function addBoard() {
   try {
@@ -110,6 +110,7 @@ export async function removeGroup(boardId, groupId) {
 export async function updateGroup(boardId, groupId, updatedGroupData) {
   // Update the group in the board service
   await boardService.updateGroupInBoard(boardId, groupId, updatedGroupData);
+  await boardService.updateGroupInBoard(boardId, groupId, updatedGroupData)
 
   const board = await boardService.getById(boardId);
   if (!board) throw new Error("Board not found");
@@ -155,13 +156,20 @@ export async function removeTasks(boardId, tasksArr) {
   });
 }
 
+export async function removeBoard(boardId) {
+  try {
+    await boardService.remove(boardId)
+    store.dispatch({ type: REMOVE_BOARD, boardId })
+  } catch (err) {
+    console.error('Failed to remove board:', err)
+  }
+}
+
 export async function updateTask(boardId, info) {
   await boardService.updateTaskInGroup(boardId, info);
 
-  const board = await boardService.getById(boardId);
-  if (!board) return;
-
-  console.log("hi im here");
+  const board = await boardService.getById(boardId)
+  if (!board) return
 
   const updatedBoard = {
     ...board,
@@ -186,4 +194,14 @@ export async function updateTask(boardId, info) {
   });
 
   showSuccessMsg("Task updated successfully");
+}
+
+export async function updateBoardName(boardId, newName) {
+  try {
+    const updatedBoard = await boardService.updateBoardName(boardId, newName)
+
+    store.dispatch({ type: EDIT_BOARD, boardId, updatedBoard })
+  } catch (error) {
+    console.error('error dispatching board name update:', error)
+  }
 }
