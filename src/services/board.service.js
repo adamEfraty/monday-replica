@@ -1,4 +1,12 @@
-import { storageService } from './async-storage.service.js'
+import { updateTask } from "../store/actions/boards.actions.js";
+import { storageService } from "./async-storage.service.js";
+
+const imageLinks = [
+  "https://images.pexels.com/photos/30061809/pexels-photo-30061809/free-photo-of-fashionable-woman-posing-with-colorful-headscarf.jpeg?auto=compress&cs=tinysrgb&w=600",
+  "https://images.pexels.com/photos/30007901/pexels-photo-30007901/free-photo-of-thoughtful-man-in-grey-coat-outdoors.jpeg?auto=compress&cs=tinysrgb&w=600",
+  "https://images.pexels.com/photos/28773362/pexels-photo-28773362/free-photo-of-dynamic-black-and-white-portrait-of-young-man-on-phone.jpeg?auto=compress&cs=tinysrgb&w=600",
+  "https://images.pexels.com/photos/30071289/pexels-photo-30071289/free-photo-of-portrait-of-a-bearded-man-outdoors.jpeg?auto=compress&cs=tinysrgb&w=600",
+];
 
 const STORAGE_KEY = 'boards'
 
@@ -12,6 +20,7 @@ export const boardService = {
   addItemToGroup,
   removeGroupFromBoard,
   removeTaskFromGroup,
+  removeTasksFromGroup,
   updateTaskInGroup,
   updateGroupInBoard,
   addBoard,
@@ -58,7 +67,7 @@ function remove(id) {
 }
 
 async function save(boardToSave) {
-  console.log('this is the board to save: ', boardToSave)
+  console.log("this is the board to save: ", boardToSave);
   if (boardToSave.id) {
     return storageService.put(STORAGE_KEY, boardToSave)
   } else {
@@ -101,18 +110,37 @@ async function removeGroupFromBoard(boardId, groupId) {
   await save(board)
 }
 
+async function removeTasksFromGroup(boardId, tasksToRemove) {
+  try {
+    const board = await getById(boardId);
+    if (!board) throw new Error("Board not found");
+
+    tasksToRemove.forEach((task) => {
+      const group = board.groups.find((group) => group.id === task[0]);
+      if (!group) throw new Error("Group not found");
+
+      group.tasks = group.tasks.filter((t) => t.id !== task[1]);
+    });
+
+    return await save(board);
+  } catch (error) {
+    console.error("Error removing tasks:", error);
+    throw error;
+  }
+}
+
 async function removeTaskFromGroup(boardId, groupId, taskId) {
   try {
-    const board = await getById(boardId)
-    if (!board) throw new Error('Board not found')
-    console.log('this is the board: ', board)
+    const board = await getById(boardId);
+    if (!board) throw new Error("Board not found");
+    console.log("this is the board: ", board);
 
     const group = board.groups.find((group) => group.id === groupId)
     if (!group) throw new Error('Group not found')
 
     group.tasks = group.tasks.filter((task) => task.id !== taskId)
 
-    await save(board)
+    return await save(board);
 
     console.log('Task removed from group and local storage')
   } catch (error) {
