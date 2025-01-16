@@ -63,12 +63,35 @@
       border-bottom: 1px solid #333;
 
       &:hover {
-        background-color: rgb(216, 253, 255);
+        background-color: #f0f0f0;
       }
 
       p {
         border: none;
       }
     }
+  }
+}
+
+.add-board {
+  width: 100%;
+  background-color: #fff;
+  padding: 0.5em;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+  border: 0.01em solid #d1d1d1;
+
+  &:hover {
+    border: 1px solid #333;
+  }
+}
+
+.remove {
+  border: 1px solid #cfcece;
+  padding: 0.4em;
+  background-color: #fff;
+
+  &:hover {
+    border: 1px solid #333;
   }
 }

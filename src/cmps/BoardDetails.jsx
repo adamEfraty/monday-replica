@@ -1,5 +1,5 @@
 import "../styles/_Board-Details.scss";
-import GroupPreview from "./GroupPreview";
+import { GroupPreview } from "./GroupPreview";
 import { useState, useEffect } from "react";
 import { logout, loadUsers } from "../store/actions/user.actions";
 import { loadBoards, removeTasks, updateTask } from "../store/actions/boards.actions";
