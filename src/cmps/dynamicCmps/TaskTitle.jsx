@@ -3,7 +3,7 @@ import { showErrorMsg } from '../../services/event-bus.service.js'
 import { ChatModal } from "./modals/ChatModal.jsx"
 import ChatIcon from '@mui/icons-material/MapsUgcOutlined';
 
-export function TaskTitle ({loggedinUser, usersInBoard, chat, group, task, text, onTaskUpdate }) {
+export function TaskTitle ({users, loggedinUser, chat, group, task, text, onTaskUpdate }) {
   const [onEditMode, setOnEditMode] = useState(false)
   const [textToEdit, setTextToEdit] = useState(text)
 
@@ -35,8 +35,8 @@ export function TaskTitle ({loggedinUser, usersInBoard, chat, group, task, text,
   }, [modal])
 
   function onAddComment(comment){
-    const newComment = {userId: loggedinUser.id, // temporary defult user
-      sentAt: new Date(), 
+    const newComment = {userId: loggedinUser.id,
+      sentAt: new Date().getTime(), 
       text: comment, 
       replies:[]
   }
@@ -44,7 +44,7 @@ export function TaskTitle ({loggedinUser, usersInBoard, chat, group, task, text,
   }
 
   function onAddReply(commentSentTime, replyTxt){
-    const newReply = {userId: loggedinUser.id, sentAt: new Date(), text: replyTxt}
+    const newReply = {userId: loggedinUser.id, sentAt: new Date().getTime(), text: replyTxt}
     const updatedChat = chat.map(comment => {
       return comment.sentAt === commentSentTime
       ? {...comment, replies: [newReply, ...comment.replies]}
@@ -123,8 +123,9 @@ export function TaskTitle ({loggedinUser, usersInBoard, chat, group, task, text,
             <ChatModal 
               onAddReply={onAddReply} 
               onAddComment={onAddComment} 
-              usersInBoard={usersInBoard} 
-              chat={chat}/>
+              chat={chat}
+              users={[...users]}
+              loggedinUser={loggedinUser}/>
           </div>
         }
 

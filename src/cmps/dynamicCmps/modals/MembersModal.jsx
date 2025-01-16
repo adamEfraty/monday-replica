@@ -1,5 +1,5 @@
 
-export function MembersModal({ ParticipateMembers, onAddMember, onRemoveMember, usersInBoard, users }) {
+export function MembersModal({ ParticipateMembers, onAddMember, onRemoveMember, users }) {
 
     //temporary taking from demo data
     const membersInBoard = [...users]

@@ -1,50 +1,52 @@
 import { simplifyTimeToStr } from "../../../services/util.service.js";
 import { useState } from "react";
 
-export function ChatModal({ usersInBoard, chat = [], onAddComment, onAddReply }) {
+export function ChatModal({ loggedinUser, users, chat = [], onAddComment, onAddReply }) {
+
     const [newComment, setNewComment] = useState("");
     const [newReplies, setNewReplies] = useState(
         chat.map(comment => ({ id: comment.sentAt, text: "" }))
-    );
+    )
 
+    // later users going to be the only users in board,
+    // therfore im not using getById function in user service
     function getUserById(userId) {
-        return usersInBoard.find(member => member.id === userId) || {};
+        return users.find(member => member.id === userId) || {}
     }
 
     function handleCommentSubmit(event) {
-        event.preventDefault();
+        event.preventDefault()
         if (newComment !== "") {
-            onAddComment(newComment);
-            setNewComment("");
+            onAddComment(newComment)
+            setNewComment("")
         }
     }
 
     function findNewReplyByComment(comment) {
-        return newReplies.find(newReply => newReply.id === comment.sentAt) || { text: "" };
+        return newReplies.find(newReply => newReply.id === comment.sentAt) 
     }
 
     function handleReplyChange(event, toWhichComment) {
-        const reply = event.target.value;
+        const reply = event.target.value
         setNewReplies(newReplies.map(newReply =>
             newReply.id === toWhichComment.sentAt
                 ? { ...newReply, text: reply }
                 : newReply
-        ));
+        ))
     }
 
     function handleReplySubmit(event, toWhichComment) {
-        event.preventDefault();
-        const newReplyText = findNewReplyByComment(toWhichComment).text;
+        event.preventDefault()
+        const newReplyText = findNewReplyByComment(toWhichComment).text
 
-        if (newReplyText !== "") {
-            onAddReply(toWhichComment.sentAt, newReplyText);
-        }
+        if (newReplyText !== "") 
+            onAddReply(toWhichComment.sentAt, newReplyText)
 
         setNewReplies(newReplies.map(newReply =>
             newReply.id === toWhichComment.sentAt
                 ? { ...newReply, text: "" }
                 : newReply
-        ));
+        ))
     }
 
     return (
@@ -65,8 +67,8 @@ export function ChatModal({ usersInBoard, chat = [], onAddComment, onAddReply })
                     return (
                         <li key={comment.sentAt} className="comment">
                             <div className="comment-info">
-                                <img src={commenter.image} alt={commenter.name} />
-                                <p>{commenter.name}</p>
+                                <img src={commenter.imgUrl} alt={commenter.name} />
+                                <p>{commenter.fullName}</p>
                                 <p>{simplifyTimeToStr(comment.sentAt)}</p>
                             </div>
                             <p>{comment.text}</p>
@@ -75,19 +77,21 @@ export function ChatModal({ usersInBoard, chat = [], onAddComment, onAddReply })
                                     const replier = getUserById(reply.userId);
                                     return (
                                         <li key={`${reply.sentAt}-${reply.userId}`} className="reply">
-                                            <img src={replier.image} alt={replier.name} />
+                                            <img src={replier.imgUrl} alt={replier.name} />
                                             <div className="replay-container">
                                                 <p>{replier.name}</p>
                                                 <p className="reply-text">{reply.text}</p>
                                             </div>
                                             <p className="reply-time">{simplifyTimeToStr(reply.sentAt)}</p>
                                         </li>
-                                    );
+                                    )
                                 })}
                             </ul>
 
                             <div className="create-reply">
-                                <form onSubmit={event => handleReplySubmit(event, comment)}>
+                                <img src={loggedinUser.imgUrl}/>
+                                <form 
+                                onSubmit={event => handleReplySubmit(event, comment)}>
                                     <textarea
                                         value={findNewReplyByComment(comment)?.text || ""}
                                         onChange={event => handleReplyChange(event, comment)}
@@ -97,9 +101,9 @@ export function ChatModal({ usersInBoard, chat = [], onAddComment, onAddReply })
                                 </form>
                             </div>
                         </li>
-                    );
+                    )
                 })}
             </ul>
         </section>
-    );
+    )
 }

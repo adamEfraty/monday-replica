@@ -36,14 +36,4 @@ function createEventEmitter() {
     showUserMsg({ txt, type: 'error' })
   }
 
-  // mabye the modals will be open from here..
-
-  function showModal(modalType, ...props){
-      console.log(props[0])
-  }
-
-  export function showPriorityModal(onPriorityChange){
-      showModal('priorityModal', {onPriorityChange})
-  }
-  
 
