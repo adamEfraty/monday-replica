@@ -53,8 +53,7 @@
 }
 
 /* Labels and Progress Sections */
-.labels-grid,
-.progress-grid {
+.labels-grid {
   display: grid;
   grid-template-columns: 40px 175px repeat(4, 1fr); /* Match grid structure */
   border: 1px solid #eae6e6;
@@ -62,8 +61,25 @@
   width: 100%; /* Set a fixed width */
 }
 
-.labels-grid div,
+.progress-grid {
+  display: grid;
+  grid-template-columns: 40px 175px repeat(4, 1fr); /* Match grid structure */
+  width: 100%; /* Set a fixed width */
+}
+
+.prog-box {
+  border: 1px solid #e0dede; /* Ensure cell borders match */
+}
+
 .progress-grid div {
+  border-top: 1px solid #e0dede; /* Ensure cell borders match */
+
+  padding: 0.7rem;
+  text-align: center;
+  font-weight: 800;
+}
+
+.labels-grid div {
   border: 1px solid #e0dede; /* Ensure cell borders match */
   padding: 0.7rem;
   text-align: center;

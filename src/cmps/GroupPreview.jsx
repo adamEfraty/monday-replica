@@ -56,7 +56,7 @@ export const GroupPreview = ({
           <div>
             <section
               className="labels-grid"
-              style={{ ...style, borderTopLeftRadius: 14 }}
+              style={{ ...style, borderTopLeftRadius: 5 }}
             >
               <input
                 type="checkbox"
@@ -106,11 +106,10 @@ export const GroupPreview = ({
             {/* Render progress by progress array */}
             <section
               className="progress-grid"
-              style={{ ...style, borderBottomLeftRadius: 14 }}
             >
               {progress.map((prog, index) =>
                 cmpOrder.includes(prog) ? (
-                  <div className={`with-${prog}`} key={`progress-${index}`}>
+                  <div className={`prog-box with-${prog}`} key={`progress-${index}`}>
                     {progress[index]}
                   </div>
                 ) : (
