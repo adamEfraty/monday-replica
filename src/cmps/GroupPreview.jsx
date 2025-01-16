@@ -60,6 +60,7 @@ export const GroupPreview = ({
             >
               <input
                 type="checkbox"
+                className="checkbox"
                 onChange={() => { }}
                 onClick={() => handleMasterCheckboxClick(group)}
                 checked={checkedGroups.includes(group.id)}
