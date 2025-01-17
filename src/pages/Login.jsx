@@ -4,6 +4,7 @@ import { useState } from "react";
 import { showErrorMsg, showSuccessMsg } from "../services/event-bus.service";
 import { AppHeader } from "../cmps/AppHeader";
 import { Link } from "react-router-dom";
+import { utilService } from "../services/util.service";
 
 export function Login() {
   const [user, setUser] = useState({});
@@ -25,7 +26,7 @@ export function Login() {
     }
     await login(user)
       .then((returnedUser) => {
-        navigate(`/${returnedUser.fullName}'s-team`);
+        navigate(`/${utilService.getNameFromEmail(returnedUser.email)}s-team.sunday.com`);
       })
       .then(() => {
         showSuccessMsg("Logged in successfully");

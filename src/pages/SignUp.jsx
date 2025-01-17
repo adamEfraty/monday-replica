@@ -5,6 +5,7 @@ import { showErrorMsg, showSuccessMsg } from "../services/event-bus.service";
 import { AppHeader } from "../cmps/AppHeader";
 import { Link } from "react-router-dom";
 import { ImgUploader } from "../cmps/ImageUploader";
+import { utilService } from "../services/util.service";
 
 export function SignUp() {
   const [user, setUser] = useState({});
@@ -23,7 +24,7 @@ export function SignUp() {
     try {
       signup(user);
       showSuccessMsg("made a new account");
-      navigate(`/${user.fullName}'s-team`);
+      navigate(`/${utilService.getNameFromEmail(user.email)}s-team.sunday.com`);
     } catch (err) {
       showErrorMsg("something went wrong");
       console.log(err);
