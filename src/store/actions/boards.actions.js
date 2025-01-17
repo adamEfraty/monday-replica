@@ -3,7 +3,7 @@ import { showSuccessMsg } from "../../services/event-bus.service";
 import { utilService } from "../../services/util.service";
 import { store } from "../store";
 
-import { EDIT_BOARD, REMOVE_BOARD, SET_BOARDS } from '../reducer/boards.reducer'
+import { EDIT_BOARD, REMOVE_BOARD, SET_BOARDS, OPEN_MODAL } from '../reducer/boards.reducer'
 
 export async function addBoard() {
   try {
@@ -204,4 +204,8 @@ export async function updateBoardName(boardId, newName) {
   } catch (error) {
     console.error('error dispatching board name update:', error)
   }
+}
+
+export async function openModal(taskId){
+  store.dispatch({ type: OPEN_MODAL, taskId })
 }
