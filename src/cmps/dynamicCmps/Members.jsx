@@ -1,17 +1,22 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { MembersModal } from './modals/MembersModal.jsx'
+import { openModal } from '../../store/actions/boards.actions.js'
+import { useSelector } from "react-redux";
 
-export function Members({ group, task, members, onTaskUpdate, users }) {
-
-    const [modal, setModal] = useState(false)
+export function Members({ cellId, group, task, members, onTaskUpdate, users }) {
+    const openModalId = useSelector(state => state.boardModule.openModal)
+    const modal = (openModalId === cellId)
 
     const modalRef = useRef(null)
     const membersCellRef = useRef(null)
 
     const defultImg = 'https://upload.wikimedia.org/wikipedia/commons/2/2c/Default_pfp.svg'
 
+    // close and open modal as needed
     function modalToggle() {
-        setModal(prev => !prev)
+        modal
+        ? openModal(null)
+        : openModal(cellId)
     }
 
     function onAddMember(member) {
@@ -20,7 +25,6 @@ export function Members({ group, task, members, onTaskUpdate, users }) {
     }
 
     function onRemoveMember(memberToRemove) {
-        console.log('data: ', members, memberToRemove)
         const newMembers = members.filter(member =>
             memberToRemove.id !== member.id)
         onTaskUpdate({ group, task, type: 'members', value: newMembers })

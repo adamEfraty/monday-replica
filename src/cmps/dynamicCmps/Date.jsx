@@ -1,28 +1,32 @@
-import { useState, useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { DateModal } from './modals/DateModal.jsx';
+import { openModal } from '../../store/actions/boards.actions.js'
+import { useSelector } from "react-redux";
 
-export function Date({ group, task, date, onTaskUpdate }) {
+export function Date({ cellId, group, task, date, onTaskUpdate }) {
+    const openModalId = useSelector(state => state.boardModule.openModal)
+    const modal = (openModalId === cellId)
 
-    const [modal, setModal] = useState(false);
     const modalRef = useRef(null);
     const dateCellRef = useRef(null);
 
+    // close and open modal as needed
     function modalToggle() {
-        setModal(prev => !prev);
+        modal
+        ? openModal(null)
+        : openModal(cellId)
     }
 
     function onDateChange(date) {
         onTaskUpdate({ group, task, type: 'date', value: date });
+        modalToggle()
     }
 
     function handleClickOutsideModal(event) {
-        if (
-            modalRef.current &&
+        if ( modalRef.current &&
             !modalRef.current.contains(event.target) &&
             !dateCellRef.current.contains(event.target)
-        ) {
-            modalToggle();
-        }
+        ) modalToggle()
     }
 
     useEffect(() => {

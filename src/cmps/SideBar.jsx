@@ -1,35 +1,30 @@
 import HomeIcon from "@mui/icons-material/HomeOutlined";
-import MyWorkIcon from "@mui/icons-material/EventAvailableOutlined";
-import FavoritesIcon from "@mui/icons-material/StarBorderRounded";
-import WorkspacesIcon from "@mui/icons-material/GridViewOutlined";
-import { useNavigate, useLocation } from "react-router";
-import { addBoard } from "../store/actions/boards.actions";
+import MyWorkIcon from "@mui/icons-material/EventAvailableOutlined"
+import FavoritesIcon from "@mui/icons-material/StarBorderRounded"
+import WorkspacesIcon from "@mui/icons-material/GridViewOutlined"
+import { useNavigate, useLocation } from "react-router"
+import { addBoard } from "../store/actions/boards.actions"
+import { utilService } from "../services/util.service";
 
 export function SideBar({ boards, user, onRemoveBoard }) {
-  const location = useLocation();
-  const navigate = useNavigate();
-
-  function convertAddressToURL(address) {
-    return encodeURIComponent(address);
-  }
+  const location = useLocation()
+  const navigate = useNavigate()
 
   function onChangeAdressOnce(fullAddress) {
-    const targetURL = `/${convertAddressToURL(fullAddress)}`;
-    if (location.pathname !== targetURL) {
-      navigate(targetURL);
+    if (location.pathname !== fullAddress) {
+      navigate(fullAddress)
     }
   }
 
-
   function handleAddBoard() {
-    addBoard();
-
+    addBoard()
   }
 
   return (
     <nav className="side-bar">
       {/* Home Section */}
-      <section onClick={() => onChangeAdressOnce(`${user.fullName}'s-team`)}>
+      <section onClick={() => onChangeAdressOnce(
+        `/${utilService.getNameFromEmail(user.email)}s-team.sunday.com`)}>
         <HomeIcon />
         <h4>Home</h4>
       </section>
@@ -68,7 +63,8 @@ export function SideBar({ boards, user, onRemoveBoard }) {
               {/* Board Title Navigation */}
               <p
                 onClick={() =>
-                  navigate(`/${user.fullName}'s-team/boards/${board.id}`)
+                  onChangeAdressOnce(
+                    `/${utilService.getNameFromEmail(user.email)}s-team.sunday.com/boards/${board.id}`)
                 }
               >
                 {board.title}
@@ -85,5 +81,5 @@ export function SideBar({ boards, user, onRemoveBoard }) {
         ))}
       </ul>
     </nav>
-  );
+  )
 }

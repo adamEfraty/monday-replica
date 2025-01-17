@@ -5,7 +5,8 @@ export const utilService = {
     debounce,
     animateCSS,
     getRandomColor,
-    formatDateToStr
+    formatDateToStr,
+    getNameFromEmail
   }
   
   function makeId(length = 5) {
@@ -116,4 +117,9 @@ function formatDateToStr(date){
   const month = String(date.getMonth() + 1).padStart(2, '0')
   const year = date.getFullYear() 
   return `${day}-${month}-${year}`
+}
+
+function getNameFromEmail(emailStr){
+  const atIndex = emailStr.indexOf("@");
+  return emailStr.slice(0, atIndex)
 }
