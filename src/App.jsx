@@ -8,6 +8,7 @@ import { SignUp } from "./pages/SignUp";
 import { MondayIndex } from "./pages/MondayIndex";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
+import { utilService } from "./services/util.service";
 
 function App() {
   const loggedInUser = useSelector((state) => state.userModule.user);
@@ -26,9 +27,9 @@ function App() {
           </Routes>
         ) : (
           <Routes>
-            <Route path={`/${loggedInUser.fullName}'s-team`} element={<MondayIndex />} />
-            <Route path={`/${loggedInUser.fullName}'s-team/boards/:boardId`} element={<MondayIndex isBoard={true} />} />
-            <Route path={`/${loggedInUser.fullName}'s-team/board`} element={<MondayIndex isBoard={true} />} />
+            <Route path={`/${utilService.getNameFromEmail(loggedInUser.email)}s-team.sunday.com`} element={<MondayIndex />} />
+            <Route path={`/${utilService.getNameFromEmail(loggedInUser.email)}s-team.sunday.com/boards/:boardId`} element={<MondayIndex isBoard={true} />} />
+            <Route path={`/${utilService.getNameFromEmail(loggedInUser.email)}s-team.sunday.com/board`} element={<MondayIndex isBoard={true} />} />
           </Routes>
         )}
       </Router>

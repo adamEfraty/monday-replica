@@ -1,20 +1,26 @@
-import { useState, useRef, useEffect } from "react"
+import {useState, useRef, useEffect } from "react"
 import { showErrorMsg } from '../../services/event-bus.service.js'
 import { ChatModal } from "./modals/ChatModal.jsx"
 import ChatIcon from '@mui/icons-material/MapsUgcOutlined';
+import { openModal } from '../../store/actions/boards.actions.js'
+import { useSelector } from "react-redux";
 
-export function TaskTitle ({users, loggedinUser, chat, group, task, text, onTaskUpdate }) {
-  // isModalOpen = "" | "22gueyg"
+export function TaskTitle ({cellId, users, loggedinUser, chat, group, task, text, onTaskUpdate }) {
   const [onEditMode, setOnEditMode] = useState(false)
   const [textToEdit, setTextToEdit] = useState(text)
 
-  const [modal, setModal] = useState(false)
+  const openModalId = useSelector(state => state.boardModule.openModal)
+  const modal = (openModalId === cellId)
+
   const modalRef = useRef(null)
   const ChatButtonRef = useRef(null)
 
-  function modalToggle() {
-    setModal(prev => !prev)
-  }
+    // close and open modal as needed
+    function modalToggle() {
+        modal
+        ? openModal(null)
+        : openModal(cellId)
+    }
 
   function handleClickOutsideModal(event) {
     if (!modalRef.current.contains(event.target)
