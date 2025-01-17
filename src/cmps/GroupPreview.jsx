@@ -139,6 +139,7 @@ const DynamicCmp = ({
     case "priority":
       return (
         <Priority
+          cellId={task.id+'priority'}
           group={group}
           task={task}
           priority={info}
@@ -149,6 +150,7 @@ const DynamicCmp = ({
     case "taskTitle":
       return (
         <TaskTitle
+          cellId={task.id+'title'}
           group={group}
           task={task}
           loggedinUser={loggedinUser}
@@ -162,6 +164,7 @@ const DynamicCmp = ({
     case "status":
       return (
         <Status
+          cellId={task.id+'status'}
           group={group}
           task={task}
           taskId={task.id}
@@ -173,6 +176,7 @@ const DynamicCmp = ({
     case "members":
       return (
         <Members
+          cellId={task.id+'members'}
           group={group}
           task={task}
           taskId={task.id}
@@ -185,12 +189,13 @@ const DynamicCmp = ({
     case "date":
       return (
         <Date
+          cellId={task.id+'date'}
           group={group}
           task={task}
           date={info}
           onTaskUpdate={onTaskUpdate}
         />
-      );
+      )
 
     default:
       console.error(`Unknown component type: ${cmpType}`);

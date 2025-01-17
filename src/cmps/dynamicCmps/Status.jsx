@@ -1,20 +1,25 @@
-import { useState, useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import { StatusModal } from './modals/StatusModal.jsx'
+import { openModal } from '../../store/actions/boards.actions.js'
+import { useSelector } from "react-redux";
 
-export function Status({ group, task, status, onTaskUpdate }) {
-
-    const [modal, setModal] = useState(false)
+export function Status({ cellId, group, task, status, onTaskUpdate }) {
+    const openModalId = useSelector(state => state.boardModule.openModal)
+    const modal = (openModalId === cellId)
 
     const modalRef = useRef(null)
     const statusCellRef = useRef(null)
 
-    // clase and open modal as needed
+    // close and open modal as needed
     function modalToggle() {
-        setModal(prev => !prev)
+        modal
+        ? openModal(null)
+        : openModal(cellId)
     }
 
     function onStatusChange(status) {
         onTaskUpdate({ group, task, type: 'status', value: status })
+        modalToggle()
     }
 
     //if user click outside modal close it
