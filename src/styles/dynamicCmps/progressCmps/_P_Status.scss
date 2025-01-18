@@ -1,0 +1,17 @@
+
+.prog-box.with-status{
+    padding: none;
+
+    .progress-status{
+        display: flex;
+        padding: 0px;
+        width: 100%;
+        height: 100%;
+        border: none;
+    
+        .color-block{
+            height: 100%;
+        }
+    }
+
+}

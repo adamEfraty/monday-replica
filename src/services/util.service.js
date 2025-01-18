@@ -6,6 +6,9 @@ export const utilService = {
     animateCSS,
     getRandomColor,
     formatDateToStr,
+    formatStrToDate,
+    formatDateToPerfectStr,
+    formatPerfectStrToDate,
     getNameFromEmail
   }
   
@@ -112,11 +115,37 @@ function getRandomColor() {
   return color
 }
 
-function formatDateToStr(date){
+function formatStrToDate(string) {
+  const [day, month, year] = string.split('-')
+  const monthIndex = Number(month) - 1
+  return new Date(Number(year), monthIndex, Number(day))
+}
+
+function formatDateToStr(date) {
   const day = String(date.getDate()).padStart(2, '0')
   const month = String(date.getMonth() + 1).padStart(2, '0')
-  const year = date.getFullYear() 
+  const year = date.getFullYear()
+
   return `${day}-${month}-${year}`
+}
+
+function formatDateToPerfectStr(date){
+  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 
+    'Aug', 'Sep', 'Oct', 'Nov', 'Dec'] 
+
+  const day = String(date.getDate())
+  const month = date.getMonth()
+  const year = String(date.getFullYear())
+
+  return {day, month: months[month], year}
+}
+
+function formatPerfectStrToDate(string) {
+  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 
+    'Aug', 'Sep', 'Oct', 'Nov', 'Dec'] 
+
+  const monthIndex = months.findIndex(string.month)
+  return new Date(Number(year), monthIndex, Number(day))
 }
 
 function getNameFromEmail(emailStr){
