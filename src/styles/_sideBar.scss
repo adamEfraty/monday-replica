@@ -1,35 +1,38 @@
+@import "./vars";
+
 .side-bar {
-  width: 250px;
-  background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 200px;
+  background: linear-gradient(
+    135deg,
+    #ffffff 5%,
+    #eceff8 100%
+  );
+  // background: linear-gradient(135deg, #0073ea 5%, #00c6ff 100%);
   display: flex;
   flex-direction: column;
-  padding: 1rem;
-  font-family: 'Roboto', sans-serif;
+  padding-left: 1rem;
+  font-family: "Roboto", sans-serif;
+  border-top-right-radius: 12px;
+  // border-bottom-right-radius: 12px;
+  font-size: 10px;
+  overflow-x: hidden;
 
   section {
+    font-size: 12px;
     display: flex;
     align-items: center;
-    padding: 0.75rem 0;
+    margin: 0.3rem 0;
     cursor: pointer;
     transition: background-color 0.3s;
 
     &:hover {
-      background-color: #f0f0f0;
+      background-color: #f5f0f0;
     }
 
     h4 {
       margin-left: 0.5rem;
-      font-size: 1rem;
       font-weight: 500;
       color: #333;
-    }
-
-    img {
-      width: 24px;
-      height: 24px;
-      border-radius: 50%;
-      margin-right: 0.5rem;
     }
 
     i {
@@ -42,7 +45,10 @@
   hr {
     border: none;
     border-top: 1px solid #e0e0e0;
-    margin: 0.5rem 0;
+    margin: 0.15rem 0;
+    position: relative;
+    right: 14px;
+    width: 120%;
   }
 
   .side-bar-footer {
@@ -95,3 +101,4 @@
     border: 1px solid #333;
   }
 }
+

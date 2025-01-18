@@ -1,23 +1,24 @@
 import ArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import HomeIcon from '@mui/icons-material/HomeOutlined';
-import HorizDotsIcon from '@mui/icons-material/MoreHorizOutlined';
+import HomeIcon from "@mui/icons-material/HomeOutlined";
+import HorizDotsIcon from "@mui/icons-material/MoreHorizOutlined";
 export function BoardDetailsHeader({ boardTitle }) {
+    const iconStyle = { width: 18 };
   return (
     <header className="board-details-header">
       <br />
-      <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
+      <div className="boardTitle">
         <h2>{boardTitle}</h2>
         <ArrowDownIcon />
       </div>
-      <br />
-      <section>
+      <section className="board-nav">
         <div>
-            <HomeIcon />
-          <p>Main Table</p>
-          <HorizDotsIcon />
+          <HomeIcon style={iconStyle} />
+          <h6>Main Table</h6>
+          <HorizDotsIcon style={iconStyle} />
+          <hr className="highlight" />
         </div>
       </section>
-      <hr style={{ width: "95%" }} />
+      <hr />
     </header>
   );
 }

@@ -20,18 +20,19 @@ export function SideBar({ boards, user, onRemoveBoard }) {
     addBoard()
   }
 
+  const iconStyle= {width: 18}
+
   return (
     <nav className="side-bar">
       {/* Home Section */}
       <section onClick={() => onChangeAdressOnce(
         `/${utilService.getNameFromEmail(user.email)}s-team.sunday.com`)}>
-        <HomeIcon />
+        <HomeIcon className="side-bar-icon home" style={iconStyle} />
         <h4>Home</h4>
       </section>
-
       {/* My Work Section */}
       <section>
-        <MyWorkIcon />
+        <MyWorkIcon className="side-bar-icon myWork" style={iconStyle} />
         <h4>My Work</h4>
       </section>
 
@@ -39,7 +40,7 @@ export function SideBar({ boards, user, onRemoveBoard }) {
 
       {/* Favorites Section */}
       <section>
-        <FavoritesIcon />
+        <FavoritesIcon className="side-bar-icon favorites" style={iconStyle} />
         <h4>Favorites</h4>
       </section>
 
@@ -47,7 +48,7 @@ export function SideBar({ boards, user, onRemoveBoard }) {
 
       {/* Workspaces Section */}
       <section>
-        <WorkspacesIcon />
+        <WorkspacesIcon className="side-bar-icon work" style={iconStyle} />
         <h4>Workspaces</h4>
       </section>
 

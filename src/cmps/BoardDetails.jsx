@@ -116,9 +116,11 @@ const BoardDetails = () => {
     removeGroup(boardId, groupId);
   }
 
+  if (!currentBoard) return <div>Loading...</div>;
+
   return (
-    <div style={{ display: "flex", flexDirection: "column" }}>
-    <BoardDetailsHeader board={currentBoard.title} />
+    <div className="board-details">
+    <BoardDetailsHeader boardTitle={currentBoard.title} />
       <section className="group-list">
         {groups.map((group) => (
           <GroupPreview
