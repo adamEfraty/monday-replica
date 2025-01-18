@@ -15,6 +15,11 @@
 @use './dynamicCmps/Members';
 @use './dynamicCmps/Date';
 @use './dynamicCmps/modals/SelectedTasksModal';
+@use './dynamicCmps/progressCmps/P_Priority';
+@use './dynamicCmps/progressCmps/P_Status';
+@use './dynamicCmps/progressCmps/P_Members';
+@use './dynamicCmps/progressCmps/P_Date';
+
 
 * {
   padding: 0;

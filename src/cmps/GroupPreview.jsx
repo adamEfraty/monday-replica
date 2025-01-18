@@ -4,6 +4,12 @@ import { Status } from "./dynamicCmps/Status";
 import { TaskTitle } from "./dynamicCmps/TaskTitle";
 import { Priority } from "./dynamicCmps/Priority";
 import { AddTask } from "./AddTask.jsx";
+import { P_Priority } from "./dynamicCmps/progressCmps/P_Priority.jsx";
+import { P_Status } from "./dynamicCmps/progressCmps/P_Status.jsx";
+import { P_Date } from "./dynamicCmps/progressCmps/P_Date.jsx";
+import { P_Members } from "./dynamicCmps/progressCmps/P_Members.jsx";
+
+
 import { useState } from "react";
 
 export const GroupPreview = ({
@@ -109,7 +115,11 @@ export const GroupPreview = ({
               {progress.map((prog, index) =>
                 cmpOrder.includes(prog) ? (
                   <div className={`prog-box with-${prog}`} key={`progress-${index}`}>
-                    {progress[index]}
+                    <ProgressCmd
+                      progressType={progress[index]}
+                      tasks={group.tasks}
+
+                    />
                   </div>
                 ) : (
                   <div className={prog} key={`progress-${index} `}></div>
@@ -145,7 +155,7 @@ const DynamicCmp = ({
           priority={info}
           onTaskUpdate={onTaskUpdate}
         />
-      );
+      )
 
     case "taskTitle":
       return (
@@ -159,7 +169,7 @@ const DynamicCmp = ({
           text={info}
           onTaskUpdate={onTaskUpdate}
         />
-      );
+      )
 
     case "status":
       return (
@@ -171,7 +181,7 @@ const DynamicCmp = ({
           status={info}
           onTaskUpdate={onTaskUpdate}
         />
-      );
+      )
 
     case "members":
       return (
@@ -184,7 +194,7 @@ const DynamicCmp = ({
           onTaskUpdate={onTaskUpdate}
           users={users}
         />
-      );
+      )
 
     case "date":
       return (
@@ -198,9 +208,50 @@ const DynamicCmp = ({
       )
 
     default:
-      console.error(`Unknown component type: ${cmpType}`);
-      return <div>Unknown component: {cmpType}</div>;
+      console.error(`Unknown component type: ${cmpType}`)
+      return <div>Unknown component: {cmpType}</div>
   }
-};
+}
+
+const ProgressCmd = ({
+  progressType,
+  tasks,
+
+}) => {
+
+  switch (progressType) {
+    case "priority":
+      return (
+        <P_Priority
+          tasks={tasks}
+        />
+      )
+    
+      case "status":
+      return (
+        <P_Status
+        tasks={tasks}
+        />
+      )
+
+      case "date":
+      return (
+        <P_Date
+          tasks={tasks}
+        />
+      )
+
+      case "members":
+      return (
+        <P_Members
+          tasks={tasks}
+        />
+      )
+
+    default:
+      console.error(`Unknown progress component type: ${progressType}`)
+      return <div>Unknown component: {progressType}</div>
+  }
+}
 
 
