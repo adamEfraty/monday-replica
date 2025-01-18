@@ -52,6 +52,13 @@
   width: 95%;
 }
 
+header.board-details-header {
+  position: sticky;
+  top: 0;
+  background-color: #fff;
+  z-index: 11;
+}
+
 .board-header-actions{
     display: flex;
     align-items: center;

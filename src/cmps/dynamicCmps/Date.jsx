@@ -13,8 +13,8 @@ export function Date({ cellId, group, task, date, onTaskUpdate }) {
     // close and open modal as needed
     function modalToggle() {
         modal
-        ? openModal(null)
-        : openModal(cellId)
+            ? openModal(null)
+            : openModal(cellId)
     }
 
     function onDateChange(date) {
@@ -23,11 +23,13 @@ export function Date({ cellId, group, task, date, onTaskUpdate }) {
     }
 
     function handleClickOutsideModal(event) {
-        if ( modalRef.current &&
+        if (modalRef.current &&
             !modalRef.current.contains(event.target) &&
             !dateCellRef.current.contains(event.target)
         ) modalToggle()
     }
+
+
 
     useEffect(() => {
         if (modal) {
@@ -42,8 +44,6 @@ export function Date({ cellId, group, task, date, onTaskUpdate }) {
 
 
 
-
-
     return (
         <section className="date">
             {/* Date cell */}
@@ -51,6 +51,7 @@ export function Date({ cellId, group, task, date, onTaskUpdate }) {
                 className="date-cell"
                 ref={dateCellRef}
                 onClick={modalToggle}>
+
                 {date}
             </div>
 
