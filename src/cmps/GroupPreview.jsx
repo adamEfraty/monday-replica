@@ -11,6 +11,10 @@ import { P_Members } from "./dynamicCmps/progressCmps/P_Members.jsx";
 
 
 import { useState } from "react";
+import ArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import { ArrowRightIcon } from "@mui/x-date-pickers/icons";
+import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+
 
 export const GroupPreview = ({
   labels,
@@ -32,12 +36,22 @@ export const GroupPreview = ({
   const [expanded, setExpanded] = useState(true);
   const [groupTitle, setGroupTitle] = useState(group.title);
 
-  const style = { borderLeft: `0.3rem solid ${group.color}` };
+  const style = {
+    borderRight: '1px solid #e0dede',
+    borderLeft: `0.3rem solid ${group.color}`,
+    borderTop: '1px solid #e0dede',
+
+
+  };
   const titleHead = { color: group.color };
 
   return (
     <>
       <div className="group-title-flex">
+        <button className="remove" onClick={() => handleDelete(group.id, boardId)}><MoreHorizIcon /></button>
+        <span className="arrow" onClick={() => setExpanded((prev) => !prev)}>
+          {expanded ? <ArrowDownIcon /> : <ArrowRightIcon />}
+        </span>
         <input
           onBlur={() => handleGroupNameChange(groupTitle, group)}
           style={titleHead}
@@ -47,11 +61,9 @@ export const GroupPreview = ({
           onChange={(e) => setGroupTitle(e.target.value)}
         />
 
-        <span className="arrow" onClick={() => setExpanded((prev) => !prev)}>
-          {expanded ? "👇🏻" : "👉🏻"}
-        </span>
 
-        <button className="remove" onClick={() => handleDelete(group.id, boardId)}>X</button>
+
+
       </div>
 
       <section className="group-list">
@@ -69,14 +81,16 @@ export const GroupPreview = ({
                 onChange={() => { }}
                 onClick={() => handleMasterCheckboxClick(group)}
                 checked={checkedGroups.includes(group.id)}
+
               />
               {cmpOrder.map((cmp, index) => (
-                <div key={`label-${index}`}>{labels[index] || ""}</div>
+                <div style={{ textAlign: `${labels[index] === '+' ? 'start' : 'center'}` }} key={`label-${index}`}>{labels[index] || ""}</div>
               ))}
             </section>
 
             {/* Render tasks by cmp order */}
             {group.tasks.map((task) => (
+
               <section
                 className="group grid"
                 key={`task-${task.id}`}
@@ -149,7 +163,7 @@ const DynamicCmp = ({
     case "priority":
       return (
         <Priority
-          cellId={task.id+'priority'}
+          cellId={task.id + 'priority'}
           group={group}
           task={task}
           priority={info}
@@ -160,11 +174,11 @@ const DynamicCmp = ({
     case "taskTitle":
       return (
         <TaskTitle
-          cellId={task.id+'title'}
+          cellId={task.id + 'title'}
           group={group}
           task={task}
           loggedinUser={loggedinUser}
-          users ={users}
+          users={users}
           chat={chat}
           text={info}
           onTaskUpdate={onTaskUpdate}
@@ -174,7 +188,7 @@ const DynamicCmp = ({
     case "status":
       return (
         <Status
-          cellId={task.id+'status'}
+          cellId={task.id + 'status'}
           group={group}
           task={task}
           taskId={task.id}
@@ -186,7 +200,7 @@ const DynamicCmp = ({
     case "members":
       return (
         <Members
-          cellId={task.id+'members'}
+          cellId={task.id + 'members'}
           group={group}
           task={task}
           taskId={task.id}
@@ -199,12 +213,18 @@ const DynamicCmp = ({
     case "date":
       return (
         <Date
-          cellId={task.id+'date'}
+          cellId={task.id + 'date'}
           group={group}
           task={task}
           date={info}
           onTaskUpdate={onTaskUpdate}
         />
+      )
+    case "+":
+      return (
+        <div >
+
+        </div>
       )
 
     default:

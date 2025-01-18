@@ -1,29 +1,26 @@
-@use "./modals/MembersModal";
+@use './modals/MembersModal';
 
-.grid-item.members{
+.grid-item.members {
+  .members {
+    width: 100%;
+    height: 100%;
+    color: white;
 
-    .members{
-        width: 100%;
-        height: 100%;
-        color: white;
+    .members-cell {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+      margin-left: 5px;
 
-        .members-cell{
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
-            height: 100%;
-            margin-left: 5px;
-
-            img{
-                width: 35px;
-                height: 35px;
-                border-radius: 50%;
-                border: solid white 2px;
-                margin-left: -10px;
-
-            }
-
-        }
+      img {
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        border: solid white 2px;
+        margin-left: -10px;
+      }
     }
+  }
 }

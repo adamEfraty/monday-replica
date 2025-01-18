@@ -1,16 +1,56 @@
 /* Main Grid */
 .grid {
   display: grid;
-  grid-template-columns: 40px 175px repeat(4, 1fr); /* Match grid structure */
-  // justify-content: center;
-  background: white; /* Background for grid */
+  grid-template-columns: 40px 400px repeat(4, 1fr) 500px;
+  grid-template-rows: 34px;
+  background: white;
   border-left: 0.3rem rgb(148, 182, 210) solid;
 }
+.labels-grid {
+  display: grid;
+  grid-template-columns: 40px 400px repeat(4, 1fr) 500px;
 
+  grid-template-rows: 34px;
+
+  width: 100%;
+}
+
+.progress-grid {
+  display: grid;
+  grid-template-columns: 40px 400px repeat(4, 1fr) 500px;
+
+  grid-template-rows: 34px;
+  width: 100%; /* Set a fixed width */
+}
+
+.group-list {
+  font-size: 13px;
+  width: 110%;
+  position: relative;
+
+  & input[type='checkbox'] {
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-self: center;
+    justify-self: center;
+    cursor: pointer;
+  }
+}
+
+.board-details {
+  overflow: auto;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  border-top-left-radius: 12px;
+  padding-left: 3rem;
+}
 /* Grid Items */
 .grid-item {
-  border: 1px solid #d3d3d3; /* Border for individual cells */
   text-align: center;
+  border-left: 1px solid #e0dede;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -53,19 +93,6 @@
 }
 
 /* Labels and Progress Sections */
-.labels-grid {
-  display: grid;
-  grid-template-columns: 40px 175px repeat(4, 1fr); /* Match grid structure */
-  border: 1px solid #eae6e6;
-  border-left: 0.3rem rgb(148, 182, 210) solid;
-  width: 100%; /* Set a fixed width */
-}
-
-.progress-grid {
-  display: grid;
-  grid-template-columns: 40px 175px repeat(4, 1fr); /* Match grid structure */
-  width: 100%; /* Set a fixed width */
-}
 
 .prog-box {
   border: 1px solid #e0dede; /* Ensure cell borders match */
@@ -80,26 +107,10 @@
 }
 
 .labels-grid div {
-  border: 1px solid #e0dede; /* Ensure cell borders match */
+  border-left: 1px solid #e0dede; /* Ensure cell borders match */
   padding: 0.7rem;
   text-align: center;
   font-weight: 800;
-}
-
-.group-list {
-  font-size: 13px;
-  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-  width: 100%; /* Set a fixed width */
-  padding: 1rem 0;
-  padding-right: 1rem;
-  & input[type='checkbox'] {
-    width: 20px;
-    height: 20px;
-    display: flex;
-    align-self: center;
-    justify-self: center;
-    cursor: pointer;
-  }
 }
 
 div {
@@ -175,7 +186,7 @@ div {
 
 .add-input {
   border: none;
-  padding: 1rem 1rem;
+  padding: 0.5rem 3rem;
 }
 
 .modal-save-btn {
@@ -204,10 +215,43 @@ div {
 
 .group-title-flex {
   display: flex;
-  align-items: center;
-  gap: 1rem;
+  gap: 10px;
 }
 
 .checkbox {
-  border: 1px solid #333;
+  border: 1px solid #e0dddd;
+}
+
+.nothing {
+  border: 1px solid #e1dede;
+}
+
+.add-column {
+}
+
+.add-task {
+  opacity: 0.5;
+  border-top: 1px solid #e0dede;
+}
+
+.chat-icon {
+  color: rgb(128, 128, 128);
+  cursor: pointer;
+  border-left: 1px solid #e1e1e1;
+  padding: 0.2rem 1rem;
+}
+section.labels-grid {
+  position: sticky;
+  top: 170px;
+  z-index: 10;
+  background-color: #fff;
+  border: 1px solid #e0dddd;
+}
+
+div.group-title-flex {
+  position: sticky;
+  padding: 1rem;
+  top: 120px;
+  background-color: #fff;
+  z-index: 8;
 }

@@ -2,9 +2,9 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.9rem 4rem;
-  background-color: #fff;
-  box-shadow: 4px 4px 20px #e8e5e5;
+  padding:3px;
+  padding-left: 20px;
+  padding-right: 12px;
 
   top: 0;
   div {
@@ -48,4 +48,38 @@
 
 .header-sentance {
   display: flex;
+  align-items: center;
+  gap: 6px;
+  &  .lighter{
+    font-weight: 450;
+  }
+}
+
+.account-logo{
+  display: flex;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.5);
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  padding:1px;
+  padding-left: 5px;
+  & h4{
+    color: white;
+    background-color: black;
+    padding: 4px;
+    padding-right:10px;
+    padding-left:10px;
+    border-radius: 20px;
+  }
+  .account-logo-img{
+    width: 22px;
+    border-radius: 50%;
+  }
+
+  &:hover {
+    cursor: pointer;
+    background-color: rgba(103, 104, 121, 0.1);
+  }
 }

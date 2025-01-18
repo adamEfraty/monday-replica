@@ -2,7 +2,7 @@
   position: relative;
 
   .chat-modal {
-    z-index: 1;
+    z-index: 10;
     position: absolute;
     top: 0px; // temporary
     right: 0px; // temporary
@@ -17,7 +17,7 @@
       list-style: none;
     }
 
-    .exis-button{
+    .exis-button {
       margin-bottom: 10px;
       display: flex;
       width: 25px;
@@ -33,14 +33,13 @@
       align-items: start;
       width: 100%;
       text-align: left;
-    
+
       textarea {
         font-size: 30px;
         width: 100%;
         padding: 10px;
       }
     }
-    
 
     .create-comment {
       display: flex;
@@ -128,16 +127,15 @@
     .create-reply {
       margin-top: 30px;
       display: flex;
-      gap:10px;
+      gap: 10px;
 
-      img{
+      img {
         width: 35px;
         height: 35px;
         border-radius: 50%;
       }
 
-      form{
-
+      form {
         display: flex;
         flex-direction: column;
         width: 100%;
@@ -152,15 +150,12 @@
           border: none;
           outline: none;
         }
-  
+
         button {
           width: 50px;
           align-self: end;
         }
-
       }
-
-
     }
   }
 }
