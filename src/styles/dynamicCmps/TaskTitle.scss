@@ -46,3 +46,9 @@
     font-weight: 600;
   }
 }
+
+section.task-title {
+  position: sticky;
+  left: 0;
+  z-index: 6;
+}

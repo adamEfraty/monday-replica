@@ -41,3 +41,10 @@
 .board-details-header > hr {
   width: 95%;
 }
+
+header.board-details-header {
+  position: sticky;
+  top: 0;
+  background-color: #fff;
+  z-index: 11;
+}

@@ -63,19 +63,19 @@ export function TaskTitle({ cellId,
         : comment
     })
 
-    console.log(updatedChat[0].replies) // reply not here
+    console.log(updatedChat[0].replies)
     onTaskUpdate({ group, task, type: 'chat', value: updatedChat })
   }
 
-  // toggel btween spectate and edit mode
+
   function toggleEditMode() {
     if (onEditMode) {
-      // not alowing user insert unvalid title
+
       if (!checkTitleValidation(textToEdit)) {
         setTextToEdit(text)
         showErrorMsg("Name can't be empty")
       }
-      // if everyting ok update title changes
+
       else {
         onTaskUpdate({ group, task, type: 'taskTitle', value: textToEdit })
       }

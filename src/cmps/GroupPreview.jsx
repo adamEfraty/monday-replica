@@ -5,6 +5,10 @@ import { TaskTitle } from "./dynamicCmps/TaskTitle";
 import { Priority } from "./dynamicCmps/Priority";
 import { AddTask } from "./AddTask.jsx";
 import { useState } from "react";
+import ArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import { ArrowRightIcon } from "@mui/x-date-pickers/icons";
+import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+
 
 export const GroupPreview = ({
   labels,
@@ -38,6 +42,10 @@ export const GroupPreview = ({
   return (
     <>
       <div className="group-title-flex">
+        <button className="remove" onClick={() => handleDelete(group.id, boardId)}><MoreHorizIcon /></button>
+        <span className="arrow" onClick={() => setExpanded((prev) => !prev)}>
+          {expanded ? <ArrowDownIcon /> : <ArrowRightIcon />}
+        </span>
         <input
           onBlur={() => handleGroupNameChange(groupTitle, group)}
           style={titleHead}
@@ -47,11 +55,9 @@ export const GroupPreview = ({
           onChange={(e) => setGroupTitle(e.target.value)}
         />
 
-        <span className="arrow" onClick={() => setExpanded((prev) => !prev)}>
-          {expanded ? "👇🏻" : "👉🏻"}
-        </span>
 
-        <button className="remove" onClick={() => handleDelete(group.id, boardId)}>X</button>
+
+
       </div>
 
       <section className="group-list">
