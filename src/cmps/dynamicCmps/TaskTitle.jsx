@@ -5,7 +5,16 @@ import ChatIcon from '@mui/icons-material/MapsUgcOutlined';
 import { openModal } from '../../store/actions/boards.actions.js'
 import { useSelector } from "react-redux";
 
-export function TaskTitle ({cellId, users, loggedinUser, chat, group, task, text, onTaskUpdate }) {
+export function TaskTitle ({cellId, 
+  users, 
+  loggedinUser, 
+  chat, 
+  group, 
+  task, 
+  text, 
+  onTaskUpdate }) 
+
+  {
   const [onEditMode, setOnEditMode] = useState(false)
   const [textToEdit, setTextToEdit] = useState(text)
 
@@ -43,7 +52,7 @@ export function TaskTitle ({cellId, users, loggedinUser, chat, group, task, text
       sentAt: new Date().getTime(), 
       text: comment, 
       replies:[]
-  }
+    }
     onTaskUpdate({group, task, type:'chat', value: [newComment, ...chat]})
   }
 
@@ -97,15 +106,18 @@ export function TaskTitle ({cellId, users, loggedinUser, chat, group, task, text
     }
   }
 
+  function onUpdateTitleInChat(text){
+    onTaskUpdate({ group, task, type: 'taskTitle', value: text })
+  }
+
   return (
     <>
       <section className="task-title">
         <div className="title-part">
           {
             !onEditMode
-              ? <span onClick={toggleEditMode}>{handleLongText(text)}</span>
+              ? <span onClick={toggleEditMode}>{handleLongText(text, 12)}</span>
               : <input
-                style={{ width: 120 }}
                 autoFocus={true}
                 value={textToEdit}
                 onChange={event => setTextToEdit(event.target.value)}
@@ -128,7 +140,10 @@ export function TaskTitle ({cellId, users, loggedinUser, chat, group, task, text
               onAddComment={onAddComment} 
               chat={chat}
               users={[...users]}
-              loggedinUser={loggedinUser}/>
+              loggedinUser={loggedinUser}
+              text={text}
+              onUpdateTitleInChat={onUpdateTitleInChat}
+              modalToggle={modalToggle}/>
           </div>
         }
 

@@ -1,12 +1,44 @@
 import { simplifyTimeToStr } from "../../../services/util.service.js";
 import { useState } from "react";
+import { showErrorMsg } from '../../../services/event-bus.service.js'
 
-export function ChatModal({ loggedinUser, users, chat = [], onAddComment, onAddReply }) {
+export function ChatModal({ 
+    loggedinUser, 
+    users, 
+    chat = [], 
+    onAddComment, 
+    onAddReply,
+    text, 
+    onUpdateTitleInChat,
+    modalToggle}) 
+    
+    {
+    const [onEditMode, setOnEditMode] = useState(false)
+    const [textToEdit, setTextToEdit] = useState(text)
 
     const [newComment, setNewComment] = useState("");
     const [newReplies, setNewReplies] = useState(
-        chat.map(comment => ({ id: comment.sentAt, text: "" }))
-    )
+        chat.map(comment => ({ id: comment.sentAt, text: "" })))
+
+    // toggel btween spectate and edit mode
+    function toggleEditMode() {
+        if (onEditMode) {
+            // not alowing user insert unvalid title
+            if (!checkTitleValidation(textToEdit)) {
+                setTextToEdit(text)
+                showErrorMsg("Name can't be empty")
+            }
+            // if everyting ok update title changes
+            else onUpdateTitleInChat(textToEdit)
+        }
+        setOnEditMode(prev => !prev)
+    }
+
+      function checkTitleValidation(title) {
+        // not alowing user insert blank title
+        if (title === '') return false
+        return true
+      }
 
     // later users going to be the only users in board,
     // therfore im not using getById function in user service
@@ -20,6 +52,12 @@ export function ChatModal({ loggedinUser, users, chat = [], onAddComment, onAddR
             onAddComment(newComment)
             setNewComment("")
         }
+    }
+
+    // if user press enter go to spectate mode
+    function handleKeyDown(event) {
+    if (event.key === "Enter")
+      toggleEditMode()
     }
 
     function findNewReplyByComment(comment) {
@@ -51,6 +89,26 @@ export function ChatModal({ loggedinUser, users, chat = [], onAddComment, onAddR
 
     return (
         <section className="chat-modal">
+
+            <button className="exis-button" onClick={modalToggle}>X</button>
+
+            {/* Edit Task Title */}
+            <div className="chat-edit-title">
+                {
+                    !onEditMode 
+                    ? 
+                    <span onClick={toggleEditMode}>{text}</span>
+                    : 
+                    <textarea
+                        value={textToEdit}
+                        onChange={event => setTextToEdit(event.target.value)}
+                        onBlur={toggleEditMode}
+                        onKeyDown={handleKeyDown}/>
+                }
+            </div>
+            
+
+            {/* Create Comment */}
             <form onSubmit={handleCommentSubmit} className="create-comment">
                 <textarea
                     value={newComment}
@@ -61,6 +119,7 @@ export function ChatModal({ loggedinUser, users, chat = [], onAddComment, onAddR
                 <button type="submit">Update</button>
             </form>
 
+            {/* Comment List */}
             <ul className="comments-list">
                 {chat.map(comment => {
                     const commenter = getUserById(comment.userId);
@@ -72,6 +131,8 @@ export function ChatModal({ loggedinUser, users, chat = [], onAddComment, onAddR
                                 <p>{simplifyTimeToStr(comment.sentAt)}</p>
                             </div>
                             <p>{comment.text}</p>
+
+                            {/* Replaies List to The Comment */}
                             <ul className="replies-list">
                                 {comment.replies.map(reply => {
                                     const replier = getUserById(reply.userId);
@@ -87,7 +148,8 @@ export function ChatModal({ loggedinUser, users, chat = [], onAddComment, onAddR
                                     )
                                 })}
                             </ul>
-
+                            
+                            {/* Create New Reply to Comment */}
                             <div className="create-reply">
                                 <img src={loggedinUser.imgUrl}/>
                                 <form 

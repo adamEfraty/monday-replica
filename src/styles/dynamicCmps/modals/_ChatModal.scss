@@ -17,6 +17,31 @@
       list-style: none;
     }
 
+    .exis-button{
+      margin-bottom: 10px;
+      display: flex;
+      width: 25px;
+      height: 25px;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .chat-edit-title {
+      display: flex;
+      margin-bottom: 20px;
+      font-size: 30px;
+      align-items: start;
+      width: 100%;
+      text-align: left;
+    
+      textarea {
+        font-size: 30px;
+        width: 100%;
+        padding: 10px;
+      }
+    }
+    
+
     .create-comment {
       display: flex;
       flex-direction: column;
