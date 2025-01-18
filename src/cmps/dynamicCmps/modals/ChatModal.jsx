@@ -89,7 +89,7 @@ export function ChatModal({
 
     return (
         <section className="chat-modal">
-
+            
             <button className="exis-button" onClick={modalToggle}>X</button>
 
             {/* Edit Task Title */}

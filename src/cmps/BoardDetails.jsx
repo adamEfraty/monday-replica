@@ -55,8 +55,7 @@ const BoardDetails = () => {
   const labels = ["item", "priority", "status", "members", "date", "+"];
 
   const progress = [null, null, "priority", "status", "members", "date"];
-
-  const handleCheckBoxClick = (groupId, taskId) => {
+    const handleCheckBoxClick = (groupId, taskId) => {
     console.log(groupId, taskId);
     console.log(checkedBoxes);
     setCheckedBoxes((prev) => {
