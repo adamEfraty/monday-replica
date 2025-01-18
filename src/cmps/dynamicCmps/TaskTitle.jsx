@@ -1,20 +1,18 @@
-import {useState, useRef, useEffect } from "react"
+import { useState, useRef, useEffect } from "react"
 import { showErrorMsg } from '../../services/event-bus.service.js'
 import { ChatModal } from "./modals/ChatModal.jsx"
 import ChatIcon from '@mui/icons-material/MapsUgcOutlined';
 import { openModal } from '../../store/actions/boards.actions.js'
 import { useSelector } from "react-redux";
 
-export function TaskTitle ({cellId, 
-  users, 
-  loggedinUser, 
-  chat, 
-  group, 
-  task, 
-  text, 
-  onTaskUpdate }) 
-
-  {
+export function TaskTitle({ cellId,
+  users,
+  loggedinUser,
+  chat,
+  group,
+  task,
+  text,
+  onTaskUpdate }) {
   const [onEditMode, setOnEditMode] = useState(false)
   const [textToEdit, setTextToEdit] = useState(text)
 
@@ -24,12 +22,12 @@ export function TaskTitle ({cellId,
   const modalRef = useRef(null)
   const ChatButtonRef = useRef(null)
 
-    // close and open modal as needed
-    function modalToggle() {
-        modal
-        ? openModal(null)
-        : openModal(cellId)
-    }
+  // close and open modal as needed
+  function modalToggle() {
+    modal
+      ? openModal(null)
+      : openModal(cellId)
+  }
 
   function handleClickOutsideModal(event) {
     if (!modalRef.current.contains(event.target)
@@ -47,36 +45,37 @@ export function TaskTitle ({cellId,
 
   }, [modal])
 
-  function onAddComment(comment){
-    const newComment = {userId: loggedinUser.id,
-      sentAt: new Date().getTime(), 
-      text: comment, 
-      replies:[]
+  function onAddComment(comment) {
+    const newComment = {
+      userId: loggedinUser.id,
+      sentAt: new Date().getTime(),
+      text: comment,
+      replies: []
     }
-    onTaskUpdate({group, task, type:'chat', value: [newComment, ...chat]})
+    onTaskUpdate({ group, task, type: 'chat', value: [newComment, ...chat] })
   }
 
-  function onAddReply(commentSentTime, replyTxt){
-    const newReply = {userId: loggedinUser.id, sentAt: new Date().getTime(), text: replyTxt}
+  function onAddReply(commentSentTime, replyTxt) {
+    const newReply = { userId: loggedinUser.id, sentAt: new Date().getTime(), text: replyTxt }
     const updatedChat = chat.map(comment => {
       return comment.sentAt === commentSentTime
         ? { ...comment, replies: [newReply, ...comment.replies] }
         : comment
     })
 
-    console.log(updatedChat[0].replies) // reply not here
+    console.log(updatedChat[0].replies)
     onTaskUpdate({ group, task, type: 'chat', value: updatedChat })
   }
 
-  // toggel btween spectate and edit mode
+
   function toggleEditMode() {
     if (onEditMode) {
-      // not alowing user insert unvalid title
+
       if (!checkTitleValidation(textToEdit)) {
         setTextToEdit(text)
         showErrorMsg("Name can't be empty")
       }
-      // if everyting ok update title changes
+
       else {
         onTaskUpdate({ group, task, type: 'taskTitle', value: textToEdit })
       }
@@ -106,13 +105,13 @@ export function TaskTitle ({cellId,
     }
   }
 
-  function onUpdateTitleInChat(text){
+  function onUpdateTitleInChat(text) {
     onTaskUpdate({ group, task, type: 'taskTitle', value: text })
   }
 
   return (
     <>
-      <section className="task-title">
+      <section className="task-title ">
         <div className="title-part">
           {
             !onEditMode
@@ -127,25 +126,26 @@ export function TaskTitle ({cellId,
               />
           }
         </div>
-        <div style={{ borderLeft: '1px solid rgb(232, 232, 232)', padding: '.8rem', color: 'rgb(128, 128, 128)', cursor: 'pointer' }}>
+        <div className="chat-icon">
           <ChatIcon onClick={modalToggle} ref={ChatButtonRef} />
         </div>
       </section >
 
       {/*chat modal*/}
-      {modal && 
-          <div ref={modalRef}>
-            <ChatModal 
-              onAddReply={onAddReply} 
-              onAddComment={onAddComment} 
-              chat={chat}
-              users={[...users]}
-              loggedinUser={loggedinUser}
-              text={text}
-              onUpdateTitleInChat={onUpdateTitleInChat}
-              modalToggle={modalToggle}/>
-          </div>
-        }
+      {
+        modal &&
+        <div ref={modalRef}>
+          <ChatModal
+            onAddReply={onAddReply}
+            onAddComment={onAddComment}
+            chat={chat}
+            users={[...users]}
+            loggedinUser={loggedinUser}
+            text={text}
+            onUpdateTitleInChat={onUpdateTitleInChat}
+            modalToggle={modalToggle} />
+        </div>
+      }
 
     </>
   )
