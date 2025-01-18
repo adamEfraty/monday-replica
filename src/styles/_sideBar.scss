@@ -1,13 +1,14 @@
-@import './vars';
+@import "./vars";
 
 .side-bar {
+  color: #333;
   width: 200px;
   background: linear-gradient(135deg, #ffffff 5%, #eceff8 100%);
   // background: linear-gradient(135deg, #0073ea 5%, #00c6ff 100%);
   display: flex;
   flex-direction: column;
-  padding-left: 1rem;
-  font-family: 'Roboto', sans-serif;
+  padding-left: 0.4rem;
+  font-family: "Roboto", sans-serif;
   border-top-right-radius: 12px;
   // border-bottom-right-radius: 12px;
   font-size: 10px;
@@ -17,7 +18,8 @@
     font-size: 12px;
     display: flex;
     align-items: center;
-    margin: 0.3rem 0;
+    margin: 0.3rem;
+    margin-left: 0.4rem;
     cursor: pointer;
     transition: background-color 0.3s;
 
@@ -55,14 +57,20 @@
 
   .sidebar-boardlist {
     list-style: none;
+    width: 90%;
+    margin-left: 0.4rem;
 
     .sidebar-board {
       cursor: pointer;
-
+      // padding-top: 10px;
+      padding:5px;
+      border-radius: 4px;
+      & h3 {
+        font-weight: 500;
+      }
       display: flex;
-      justify-content: space-between;
+      gap: 10px;
       align-items: center;
-      border-bottom: 1px solid #333;
 
       &:hover {
         background-color: #f0f0f0;
@@ -76,15 +84,36 @@
 }
 
 .add-board {
-  width: 100%;
+  display: grid;
+  grid-template-columns: 85% 15%;
+  width: 95%;
+  gap: 4px;
   background-color: #fff;
   padding: 0.5em;
-  margin-bottom: 1rem;
   margin-top: 1rem;
-  border: 0.01em solid #d1d1d1;
-
-  &:hover {
-    border: 1px solid #333;
+  color: #323338;
+  & > div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    padding: 3px;
+    border: 1px solid #c3c6d4;
+    border-radius: 3px;
+    &:hover {
+      background-color: rgba(103, 104, 121, 0.1);
+    }
+  }
+  & > button {
+    padding-top: 3px;
+    background-color: #0073ea;
+    border: none;
+    border-radius: 3px;
+    color: white;
+    cursor: pointer;
+    &:hover {
+      background-color: #0060b9;
+    }
   }
 }
 

@@ -9,6 +9,7 @@ import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
 import { logout } from "../store/actions/user.actions";
 
 export function AppHeader({ userData = null }) {
+  const iconStyle = {width: 16, height: 18};
   const navigate = useNavigate();
 
   function onLogOut() {
@@ -125,15 +126,13 @@ export function AppHeader({ userData = null }) {
         </div>
       </section>
       <section className="icons-section">
-        <NotificationsNoneIcon />
-        <InboxIcon />
-        <PersonAddAltIcon />
-        <ExtensionIcon />
-        <SearchIcon />
+        <NotificationsNoneIcon style={iconStyle} />
+        <InboxIcon style={iconStyle} />
+        <PersonAddAltIcon style={iconStyle} />
+        <ExtensionIcon style={iconStyle} />
         <div className="vertical-line"></div> {/* Vertical line separator */}
-        <QuestionMarkIcon />
-        <div className="vertical-line"></div> {/* Vertical line separator */}
-        <AppsIcon />
+        <SearchIcon style={iconStyle} />
+        <QuestionMarkIcon style={iconStyle} />
         <div className="account-logo" onClick={onLogOut}>
           <img
           sizes="10px"
