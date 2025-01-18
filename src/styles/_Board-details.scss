@@ -7,6 +7,14 @@
   border-left: 0.3rem rgb(148, 182, 210) solid;
 }
 
+.board-details{
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  border-top-left-radius: 12px;
+  padding-left: 3rem;
+}
+
 /* Grid Items */
 .grid-item {
   border: 1px solid #d3d3d3; /* Border for individual cells */

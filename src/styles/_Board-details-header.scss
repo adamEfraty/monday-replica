@@ -1,0 +1,43 @@
+.boardTitle {
+  font-size: 0.85rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.board-nav {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1rem;
+  & > div {
+    display: flex;
+    align-items: center;
+    gap: 0.2rem;
+    & h6 {
+      font-weight: 500;
+    }
+    margin-bottom: 0.1rem;
+    padding: 0.25rem;
+    border-radius: 6px;
+    position: relative; /* Add relative positioning */
+    .highlight {
+      position: absolute;
+      bottom: -2px; /* Adjust this value to position the hr correctly */
+      left: 0;
+      width: 100%;
+      border: none;
+      border-top: 2px solid #0073ea; /* Adjust the border style as needed */
+    }
+  }
+
+  & > div:hover {
+    cursor: pointer;
+    background-color: rgb(223, 223, 223);
+  }
+}
+
+.board-details-header > hr {
+  width: 95%;
+}

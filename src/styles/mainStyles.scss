@@ -15,6 +15,7 @@
 @use './dynamicCmps/Members';
 @use './dynamicCmps/Date';
 @use './dynamicCmps/modals/SelectedTasksModal';
+@use './Board-details-header';
 
 * {
   padding: 0;
@@ -24,6 +25,7 @@
 
 body {
   font-family: 'Quicksand';
+  background-color: #eceff8;
 }
 
 .hov {
