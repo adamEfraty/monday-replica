@@ -6,6 +6,9 @@ import { useSelector } from "react-redux";
 export function Members({ cellId, group, task, members, onTaskUpdate, users }) {
     const openModalId = useSelector(state => state.boardModule.openModal)
     const modal = (openModalId === cellId)
+    useEffect(() => {
+        console.log(members)
+    }, [])
 
     const modalRef = useRef(null)
     const membersCellRef = useRef(null)
