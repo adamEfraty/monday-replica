@@ -41,8 +41,10 @@ export const GroupPreview = ({
 
   return (
     <>
+
       <div className="group-title-flex">
         <button className="remove" onClick={() => handleDelete(group.id, boardId)}><MoreHorizIcon /></button>
+
         <span className="arrow" onClick={() => setExpanded((prev) => !prev)}>
           {expanded ? <ArrowDownIcon /> : <ArrowRightIcon />}
         </span>
@@ -83,6 +85,7 @@ export const GroupPreview = ({
             </section>
 
             {/* Render tasks by cmp order */}
+
             {group.tasks.map((task) => (
 
               <section
@@ -90,6 +93,7 @@ export const GroupPreview = ({
                 key={`task-${task.id}`}
                 style={style}
               >
+
                 <input
                   type="checkbox"
                   checked={checkedBoxes.some((subArr) => subArr[1] == task.id)}

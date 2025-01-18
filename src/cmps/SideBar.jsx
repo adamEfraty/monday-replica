@@ -20,7 +20,7 @@ export function SideBar({ boards, user, onRemoveBoard }) {
     addBoard()
   }
 
-  const iconStyle= {width: 18}
+  const iconStyle = { width: 18 }
 
   return (
     <nav className="side-bar">
@@ -72,7 +72,7 @@ export function SideBar({ boards, user, onRemoveBoard }) {
               </p>
 
               <button
-                className="remove"
+                className="remove-btn"
                 onClick={() => onRemoveBoard(board.id)}
               >
                 X
