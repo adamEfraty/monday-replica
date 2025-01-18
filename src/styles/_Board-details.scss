@@ -45,7 +45,7 @@
   flex-direction: column;
   background-color: white;
   border-top-left-radius: 12px;
-  padding-left: 2rem;
+  padding-left: 3rem;
 }
 /* Grid Items */
 .grid-item {
@@ -242,7 +242,7 @@ div {
 }
 section.labels-grid {
   position: sticky;
-  top: 140px;
+  top: 170px;
   z-index: 10;
   background-color: #fff;
   border: 1px solid #e0dddd;
@@ -251,7 +251,7 @@ section.labels-grid {
 div.group-title-flex {
   position: sticky;
   padding: 1rem;
-  top: 90px;
+  top: 120px;
   background-color: #fff;
   z-index: 8;
 }
