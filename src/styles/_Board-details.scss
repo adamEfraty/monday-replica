@@ -1,7 +1,7 @@
 /* Main Grid */
 .grid {
   display: grid;
-  grid-template-columns: 40px 175px repeat(4, 1fr); /* Match grid structure */
+  grid-template-columns: 40px 175px repeat(5, 1fr); /* Match grid structure */
   // justify-content: center;
   background: white; /* Background for grid */
   border-left: 0.3rem rgb(148, 182, 210) solid;
@@ -12,7 +12,7 @@
   flex-direction: column;
   background-color: white;
   border-top-left-radius: 12px;
-  padding-left: 3rem;
+  padding-left: 1.5rem;
 }
 
 /* Grid Items */

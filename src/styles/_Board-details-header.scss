@@ -1,16 +1,26 @@
+.board-details-header{
+    color: #323338;
+}
+
 .boardTitle {
-  font-size: 0.85rem;
-  font-weight: 600;
-  display: flex;
+  font-size: 0.8rem;
+  display: inline-flex;
   align-items: center;
   gap: 1rem;
+  & > h2{
+    font-weight: 600;
+  }
+  cursor: pointer;
+    &:hover{
+        background-color: rgba(103, 104, 121, 0.1);
+    }
 }
 
 .board-nav {
   display: flex;
   align-items: center;
   gap: 1rem;
-  margin-top: 1rem;
+  margin-top: 0.5rem;
   & > div {
     display: flex;
     align-items: center;
@@ -34,10 +44,68 @@
 
   & > div:hover {
     cursor: pointer;
-    background-color: rgb(223, 223, 223);
+    background-color: rgba(103, 104, 121, 0.1);
   }
 }
 
 .board-details-header > hr {
   width: 95%;
+}
+
+.board-header-actions{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1rem;
+    & > div{
+        display: flex;
+        align-items: center;
+        gap: 0.1rem;
+    }
+    .newTask-button{
+        display: flex;
+        gap: 0px;
+        align-items: end;
+        border: none;
+        color: #3f3f3f;
+        background-color: #fff;
+        font-size: 1rem;
+        cursor: pointer;
+        border-top-left-radius: 5px;
+        border-bottom-left-radius: 5px;
+        color: white;
+        .new-task-button{
+            font-size: 11px;
+            font-weight: 500;
+            padding: 6px;
+            padding-bottom: 6.5px;
+            padding-left: 8px;
+            padding-right: 8px;
+            border-top-left-radius: 3px;
+            border-bottom-left-radius: 3px;
+            background-color: #0073ea;
+        }
+        & .arrow-down{
+            background-color: #0073ea;
+            border-top-right-radius: 5px;
+            border-bottom-right-radius: 5px;
+            border-left: 1px solid #3c3c3c;
+            padding: 1px;
+            padding-bottom: 0px;
+            padding-top: 6px;
+        }
+        & > div:hover{
+            cursor: pointer;
+            background-color: #0060b9;
+        }
+    }
+    & > .choice-div{
+        color: #323338;
+        padding: 4px;
+        border-radius: 2.5px;
+        cursor: pointer;
+        &:hover{
+            background-color: rgba(103, 104, 121, 0.1);
+        }
+    }
 }

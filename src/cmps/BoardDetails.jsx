@@ -49,7 +49,7 @@ const BoardDetails = () => {
   const onTaskUpdate = async (changeInfo) =>
     await updateTask(currentBoard.id, changeInfo);
 
-  const cmpOrder = ["taskTitle", "priority", "status", "members", "date"];
+  const cmpOrder = ["taskTitle", "priority", "status", "members", "date", "radwan"];
 
   const uid = () => Math.random().toString(36).slice(2);
   const labels = ["item", "priority", "status", "members", "date"];
