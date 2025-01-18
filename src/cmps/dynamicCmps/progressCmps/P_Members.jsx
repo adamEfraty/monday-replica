@@ -22,12 +22,9 @@ export function P_Members({tasks}){
         <div className="progress-members">
             {
                 allMembers.length
-                ? allMembers.map(member=><span key={member.id}>
-                    <img src={member.imgUrl}/>
-                </span>)
+                ? allMembers.map(member=>
+                    <img key={member.id} src={member.imgUrl}/>)
                 : <img src={defultImg}/>
-
-
             }
         </div>
     )

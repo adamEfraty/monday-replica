@@ -249,20 +249,7 @@ async function makeFirstBoard() {
             date: '27-02-2022',
             status: { text: 'Working on it', color: '#FDAB3D' },
             priority: { text: 'Low', color: '#86B6FB' },
-            chat: [
-              {
-                userId: 'userid0',
-                sentAt: new Date(),
-                text: 'comment comment comment...',
-                replies: [
-                  {
-                    userId: 'userid1',
-                    sentAt: new Date(),
-                    text: 'reply reply reply...',
-                  },
-                ],
-              },
-            ],
+            chat: [],
           },
           {
             id: 't102',

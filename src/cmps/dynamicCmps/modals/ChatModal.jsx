@@ -20,6 +20,8 @@ export function ChatModal({
     const [newReplies, setNewReplies] = useState(
         chat.map(comment => ({ id: comment.sentAt, text: "" })))
 
+    console.log(users)
+
     // toggel btween spectate and edit mode
     function toggleEditMode() {
         if (onEditMode) {
@@ -138,9 +140,9 @@ export function ChatModal({
                                     const replier = getUserById(reply.userId);
                                     return (
                                         <li key={`${reply.sentAt}-${reply.userId}`} className="reply">
-                                            <img src={replier.imgUrl} alt={replier.name} />
+                                            <img src={replier.imgUrl} alt={replier.fullName} />
                                             <div className="replay-container">
-                                                <p>{replier.name}</p>
+                                                <p>{replier.fullName}</p>
                                                 <p className="reply-text">{reply.text}</p>
                                             </div>
                                             <p className="reply-time">{simplifyTimeToStr(reply.sentAt)}</p>
