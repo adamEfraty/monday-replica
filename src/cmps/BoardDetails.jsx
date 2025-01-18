@@ -49,12 +49,12 @@ const BoardDetails = () => {
   const onTaskUpdate = async (changeInfo) =>
     await updateTask(currentBoard.id, changeInfo);
 
-  const cmpOrder = ["taskTitle", "priority", "status", "members", "date"];
+  const cmpOrder = ["taskTitle", "priority", "status", "members", "date", "+"];
 
   const uid = () => Math.random().toString(36).slice(2);
-  const labels = ["item", "priority", "status", "members", "date"];
+  const labels = ["item", "priority", "status", "members", "date", "+"];
 
-  const progress = [null, null, "priority", "status", null, "date"];
+  const progress = [null, null, "priority", "status", 'nothing', 'nothing', 'nothing'];
 
   const handleCheckBoxClick = (groupId, taskId) => {
     console.log(groupId, taskId);
@@ -120,7 +120,7 @@ const BoardDetails = () => {
 
   return (
     <div className="board-details">
-    <BoardDetailsHeader boardTitle={currentBoard.title} />
+      <BoardDetailsHeader boardTitle={currentBoard.title} />
       <section className="group-list">
         {groups.map((group) => (
           <GroupPreview

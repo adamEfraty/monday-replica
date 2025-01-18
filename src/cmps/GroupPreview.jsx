@@ -26,7 +26,13 @@ export const GroupPreview = ({
   const [expanded, setExpanded] = useState(true);
   const [groupTitle, setGroupTitle] = useState(group.title);
 
-  const style = { borderLeft: `0.3rem solid ${group.color}` };
+  const style = {
+    borderRight: '1px solid #e0dede',
+    borderLeft: `0.3rem solid ${group.color}`,
+    borderTop: '1px solid #e0dede',
+
+
+  };
   const titleHead = { color: group.color };
 
   return (
@@ -63,14 +69,16 @@ export const GroupPreview = ({
                 onChange={() => { }}
                 onClick={() => handleMasterCheckboxClick(group)}
                 checked={checkedGroups.includes(group.id)}
+
               />
               {cmpOrder.map((cmp, index) => (
-                <div key={`label-${index}`}>{labels[index] || ""}</div>
+                <div style={{ textAlign: `${labels[index] === '+' ? 'start' : 'center'}` }} key={`label-${index}`}>{labels[index] || ""}</div>
               ))}
             </section>
 
             {/* Render tasks by cmp order */}
             {group.tasks.map((task) => (
+
               <section
                 className="group grid"
                 key={`task-${task.id}`}
@@ -139,7 +147,7 @@ const DynamicCmp = ({
     case "priority":
       return (
         <Priority
-          cellId={task.id+'priority'}
+          cellId={task.id + 'priority'}
           group={group}
           task={task}
           priority={info}
@@ -150,11 +158,11 @@ const DynamicCmp = ({
     case "taskTitle":
       return (
         <TaskTitle
-          cellId={task.id+'title'}
+          cellId={task.id + 'title'}
           group={group}
           task={task}
           loggedinUser={loggedinUser}
-          users ={users}
+          users={users}
           chat={chat}
           text={info}
           onTaskUpdate={onTaskUpdate}
@@ -164,7 +172,7 @@ const DynamicCmp = ({
     case "status":
       return (
         <Status
-          cellId={task.id+'status'}
+          cellId={task.id + 'status'}
           group={group}
           task={task}
           taskId={task.id}
@@ -176,7 +184,7 @@ const DynamicCmp = ({
     case "members":
       return (
         <Members
-          cellId={task.id+'members'}
+          cellId={task.id + 'members'}
           group={group}
           task={task}
           taskId={task.id}
@@ -189,12 +197,18 @@ const DynamicCmp = ({
     case "date":
       return (
         <Date
-          cellId={task.id+'date'}
+          cellId={task.id + 'date'}
           group={group}
           task={task}
           date={info}
           onTaskUpdate={onTaskUpdate}
         />
+      )
+    case "+":
+      return (
+        <div >
+
+        </div>
       )
 
     default:
