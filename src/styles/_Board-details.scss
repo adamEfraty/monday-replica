@@ -145,7 +145,7 @@ div {
   width: 100vw;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.5);
-  z-index: 1000;
+  z-index: 7;
 }
 
 .modal {
@@ -158,7 +158,7 @@ div {
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   width: 250px;
-  z-index: 1001;
+  z-index: 8;
 }
 
 .color-list {
@@ -243,7 +243,7 @@ div {
 section.labels-grid {
   position: sticky;
   top: 190px;
-  z-index: 10;
+  z-index: 3;
   background-color: #fff;
   border: 1px solid #e0dddd;
 }
@@ -253,5 +253,5 @@ div.group-title-flex {
   padding: 1rem;
   top: 140px;
   background-color: #fff;
-  z-index: 8;
+  z-index: 2;
 }

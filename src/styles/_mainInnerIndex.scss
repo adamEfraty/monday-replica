@@ -1,7 +1,6 @@
 .main-inner-index {
   display: grid;
-  grid-template-rows: 48px 1px 35px 1fr;
-  padding-top: 0.8rem;
+  grid-template-rows: 75px 1fr;
   font-family: "Roboto", sans-serif;
   box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.6);
   border-top-left-radius: 5px;
@@ -13,8 +12,8 @@
     flex-direction: column;
     gap: 5px;
     padding-left: 1.5rem;
-    padding-top: 0.22rem;
-
+    padding-top: 1rem;
+    box-shadow: 0px 3px 12px rgba(0, 0, 0, 0.1); /* Bottom-only box-shadow */
     small {
       color: #333;
       font-size: 15px;
@@ -29,11 +28,18 @@
   }
 
   .recently-visited-section {
-    padding-left: 2.5rem;
+    // margin: 1rem;
+    box-shadow: 0px 3px 12px #e6e9ef;
+    border-radius: 8px;
+    height: 95%;
+    margin: 1rem;
+    padding: 1.8rem;
+    // padding-left: 2.5rem;
     & > .recently-visited-header {
       display: flex;
       align-items: center;
-      margin-bottom: 1rem;
+      margin-bottom: 18px;
+      // background-color: #333;
       h4 {
         font-size: 1.1rem;
         font-weight: 800;
@@ -45,14 +51,15 @@
       display: flex;
       flex-wrap: wrap;
       gap: 1rem;
+      margin-left: 1.25rem;
 
       .board-card {
         background-color: #fff;
         border: 1px solid #e0e0e0;
-        border-radius: 8px;
+        border-radius: 4px;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        padding: 1rem;
-        width: 200px;
+        padding: 0.5rem;
+        width: 250px;
         text-align: center;
         transition: transform 0.3s, box-shadow 0.3s;
 
