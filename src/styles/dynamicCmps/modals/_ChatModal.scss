@@ -3,7 +3,7 @@
 .chat-modal{
   z-index: 100; // this z-index bs has to be solved..
   position: fixed; // unfortunately since absolute sticks with group-list element
-  top: 36px; // probably will change later
+  top: 46px; // probably will change later
   right: 0px;
   height: 100vh;
   background-color: white;
@@ -60,7 +60,7 @@
 
 
   .chat-body {
-    height: calc(100vh - 125px);
+    height: calc(100vh - 138px);
     overflow-y: auto;
 
     /* Style Crossbar */

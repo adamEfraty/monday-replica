@@ -11,11 +11,12 @@ export function ChatModal({
     onAddReply,
     text, 
     onUpdateTitleInChat,
-    modalToggle}) 
+    modalToggle,
+    chatTempInfoUpdate,
+    cellId,
+    chatInfo}) 
     
     {
-
-   
 
     const [onEditMode, setOnEditMode] = useState(false)
     const [textToEdit, setTextToEdit] = useState(text)
@@ -24,9 +25,13 @@ export function ChatModal({
     const [newReplies, setNewReplies] = useState(
         chat.map(comment => ({ id: comment.sentAt, text: "" })))
 
-
-    const [width, setWidth] = useState(700) // Initial width of the chat modal
+    const [width, setWidth] = useState(chatInfo ? chatInfo.width : 700) // Initial width of the chat modal
     const [isDragging, setIsDragging] = useState(false)
+
+    useEffect(()=>{
+        if(width)
+            chatTempInfoUpdate(cellId, width)
+    },[])
 
     useEffect(() => {
         // Attach global mousemove and mouseup listeners when dragging starts
@@ -128,6 +133,8 @@ export function ChatModal({
     
       const handleMouseUp = () => {
         setIsDragging(false)
+        chatTempInfoUpdate(cellId, width)
+        chatInfo.width = width
       }
 
     return (
