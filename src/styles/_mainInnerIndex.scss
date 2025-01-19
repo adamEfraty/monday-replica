@@ -1,29 +1,36 @@
 .main-inner-index {
-  padding: 2rem;
-  font-family: 'Roboto', sans-serif;
+  display: grid;
+  grid-template-rows: 48px 1px 35px 1fr;
+  padding-top: 0.8rem;
+  font-family: "Roboto", sans-serif;
   box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.6);
   border-top-left-radius: 5px;
   background-color: #fff;
   border-top-left-radius: 12px;
 
-
   .welcome-section {
-    margin-bottom: 2rem;
+    padding-left: 4rem;
 
-    h3 {
-      font-size: 1.5rem;
-      font-weight: 500;
+    small {
       color: #333;
-      margin: 0.5rem 0;
+      font-size: 12px;
+    }
+    #bold {
+      font-weight: bolder;
     }
   }
 
   .recently-viewed-section {
-    h3 {
-      font-size: 1.25rem;
-      font-weight: 500;
-      color: #333;
-      margin-bottom: 1rem;
+    padding-left: 6rem;
+    & > .recently-viewed-header {
+      display: flex;
+      align-items: center;
+      h5 {
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: #333;
+        margin-bottom: 1rem;
+      }
     }
 
     .boards-container {
