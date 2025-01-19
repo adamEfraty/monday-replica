@@ -1,6 +1,6 @@
 
 .prog-box.with-priority{
-    padding: none;
+    padding: 5px;
 
     .progress-priority{
         display: flex;
@@ -10,6 +10,7 @@
         border: none;
     
         .color-block{
+            padding: 0px;
             height: 100%;
         }
     }

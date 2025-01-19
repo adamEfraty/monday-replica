@@ -1,6 +1,6 @@
 
 .prog-box.with-status{
-    padding: none;
+    padding: 5px;
 
     .progress-status{
         display: flex;
@@ -10,6 +10,7 @@
         border: none;
     
         .color-block{
+            padding: 0px;
             height: 100%;
         }
     }

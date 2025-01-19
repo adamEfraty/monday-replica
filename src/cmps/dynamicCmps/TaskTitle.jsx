@@ -4,6 +4,7 @@ import { ChatModal } from "./modals/ChatModal.jsx"
 import ChatIcon from '@mui/icons-material/MapsUgcOutlined';
 import { openModal } from '../../store/actions/boards.actions.js'
 import { useSelector } from "react-redux";
+import { utilService } from "../../services/util.service.js";
 
 export function TaskTitle({ cellId,
   users,
@@ -22,28 +23,32 @@ export function TaskTitle({ cellId,
   const modalRef = useRef(null)
   const ChatButtonRef = useRef(null)
 
+  useEffect(() => {
+    if (modalRef.current && modal) {
+      chatAnimation(true)
+    }
+  }, [modal])
+
+  function chatAnimation(isEnter){
+    isEnter
+    ? utilService.animateCSS(modalRef.current, 'fadeInRightBig', 0.3,
+      { position: 'fixed',
+        top: '0px',
+        right: '0px',
+        opacity: 1,
+        zIndex: 100,
+      })
+      : utilService.animateCSS(modalRef.current, 'fadeOutRightBig', 0.3)
+
+  }
+
   // close and open modal as needed
   function modalToggle() {
-    modal
-      ? openModal(null)
-      : openModal(cellId)
+    if(modal){
+      chatAnimation(false)
+      setTimeout(()=>openModal(null), 275)
+    } else openModal(cellId)
   }
-
-  function handleClickOutsideModal(event) {
-    if (!modalRef.current.contains(event.target)
-      && !ChatButtonRef.current.contains(event.target))
-      modalToggle()
-  }
-
-  useEffect(() => {
-    if (modal) document.addEventListener
-      ('mousedown', handleClickOutsideModal)
-    else document.removeEventListener
-      ('mousedown', handleClickOutsideModal)
-    return () => document.removeEventListener
-      ('mousedown', handleClickOutsideModal)
-
-  }, [modal])
 
   function onAddComment(comment) {
     const newComment = {
