@@ -3,7 +3,7 @@
 }
 
 .boardTitle {
-  font-size: 0.8rem;
+  font-size: 1.1rem;
   display: inline-flex;
   align-items: center;
   gap: 1rem;
@@ -21,11 +21,12 @@
   align-items: center;
   gap: 1rem;
   margin-top: 0.5rem;
-  & > div {
+  & div {
     display: flex;
     align-items: center;
     gap: 0.2rem;
-    & h6 {
+    & h5 {
+        font-size: 14px;
       font-weight: 500;
     }
     margin-bottom: 0.1rem;
@@ -76,20 +77,19 @@ header.board-details-header {
         border: none;
         color: #3f3f3f;
         background-color: #fff;
-        font-size: 1rem;
         cursor: pointer;
         border-top-left-radius: 5px;
         border-bottom-left-radius: 5px;
         color: white;
         .new-task-button{
-            font-size: 11px;
+            font-size: 14px;
             font-weight: 500;
             padding: 6px;
             padding-bottom: 6.5px;
             padding-left: 8px;
             padding-right: 8px;
-            border-top-left-radius: 3px;
-            border-bottom-left-radius: 3px;
+            border-top-left-radius: 5px;
+            border-bottom-left-radius: 5px;
             background-color: #0073ea;
         }
         & .arrow-down{
@@ -111,6 +111,10 @@ header.board-details-header {
         padding: 4px;
         border-radius: 2.5px;
         cursor: pointer;
+        & small{
+            font-size: 15px;
+            font-weight: 500;
+        }
         &:hover{
             background-color: rgba(103, 104, 121, 0.1);
         }

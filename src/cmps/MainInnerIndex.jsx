@@ -14,6 +14,8 @@ export function MainInnerIndex({ user, isBoard, boards }) {
     loadBoardsAndUsers()
   }, []);
 
+  const iconStyle = { width: 22, height: 22 };
+
 
   function loadBoardsAndUsers() {
     loadBoards()
@@ -29,17 +31,15 @@ export function MainInnerIndex({ user, isBoard, boards }) {
     <div className="main-inner-index">
       <section className="welcome-section">
         <small>Hello {user.fullName}!</small>
-        <br />
         <small id="bold">Quickly access your recent boards, Inbox and workspaces</small>
       </section>
       <hr />
       <br />
-      <section className="recently-viewed-section">
-        <div className="recently-viewed-header">
-          <ArrowDownIcon />
-          <h5>Recently viewed</h5>
+      <section className="recently-visited-section">
+        <div className="recently-visited-header">
+          <ArrowDownIcon style={iconStyle} />
+          <h4>Recently visited</h4>
         </div>
-
         <div className="boards-container">
           {boards.map((board) => (
             <BoardCard key={board.id} board={board} onUpdateBoardName={onUpdateBoardName} />

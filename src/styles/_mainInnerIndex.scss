@@ -9,27 +9,35 @@
   border-top-left-radius: 12px;
 
   .welcome-section {
-    padding-left: 4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding-left: 1.5rem;
+    padding-top: 0.22rem;
 
     small {
       color: #333;
-      font-size: 12px;
+      font-size: 15px;
     }
     #bold {
-      font-weight: bolder;
+      font-weight: 550;
     }
   }
 
-  .recently-viewed-section {
-    padding-left: 6rem;
-    & > .recently-viewed-header {
+  hr{
+    margin-top: 0.4rem ;
+  }
+
+  .recently-visited-section {
+    padding-left: 2.5rem;
+    & > .recently-visited-header {
       display: flex;
       align-items: center;
-      h5 {
-        font-size: 0.85rem;
-        font-weight: 600;
+      margin-bottom: 1rem;
+      h4 {
+        font-size: 1.1rem;
+        font-weight: 800;
         color: #333;
-        margin-bottom: 1rem;
       }
     }
 
