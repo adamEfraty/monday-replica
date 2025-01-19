@@ -9,6 +9,7 @@ const imageLinks = [
 ];
 
 const STORAGE_KEY = 'boards'
+const CHAT_KEY = 'chat'
 
 export const boardService = {
   query,
@@ -25,6 +26,8 @@ export const boardService = {
   updateGroupInBoard,
   addBoard,
   updateBoardName,
+  saveTempChatInfo,
+  getChatTempInfo,
 }
 
 async function addBoard() {
@@ -353,3 +356,16 @@ async function makeFirstBoard() {
     console.log('First board created successfully')
   }
 }
+
+function saveTempChatInfo(id, width){
+  sessionStorage.setItem(CHAT_KEY, JSON.stringify({id, width}))
+}
+
+function getChatTempInfo() {
+  const chatInfo = sessionStorage.getItem(CHAT_KEY)
+  return chatInfo ? JSON.parse(chatInfo) : null
+}
+
+
+
+
