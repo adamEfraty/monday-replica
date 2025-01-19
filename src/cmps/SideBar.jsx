@@ -22,7 +22,7 @@ export function SideBar({ boards, user, onRemoveBoard }) {
     addBoard();
   }
 
-  const iconStyle = { width: 18, height: 16 };
+  const iconStyle = { width: 22, height: 22 };
 
   return (
     <nav className="side-bar">
@@ -35,12 +35,12 @@ export function SideBar({ boards, user, onRemoveBoard }) {
         }
       >
         <HomeIcon className="side-bar-icon home" style={iconStyle} />
-        <h4>Home</h4>
+        <p>Home</p>
       </section>
       {/* My Work Section */}
       <section>
         <MyWorkIcon className="side-bar-icon myWork" style={iconStyle} />
-        <h4>My Work</h4>
+        <p>My Work</p>
       </section>
 
       <hr />
@@ -48,25 +48,26 @@ export function SideBar({ boards, user, onRemoveBoard }) {
       {/* Favorites Section */}
       <section>
         <FavoritesIcon className="side-bar-icon favorites" style={iconStyle} />
-        <h4>Favorites</h4>
+        <p>Favorites</p>
       </section>
 
       <hr />
 
       {/* Workspaces Section */}
-      <section>
+      <div className="workspaces">
+        <section>
         <WorkspacesIcon className="side-bar-icon work" style={iconStyle} />
-        <h4>Workspaces</h4>
-      </section>
-
-      <div className="add-board">
+        <p>Workspaces</p>          
+        </section>
+        <div className="add-board">
         <div>
           <h3>Main Workspace</h3>
           <ArrowDownIcon style={iconStyle} />
         </div>
         <button className="add-board-button" onClick={handleAddBoard}>
-          <PlusIcon style={{ height: 20, width: 22 }} />
+          <PlusIcon style={{width: 28, height: 26}} />
         </button>
+      </div>
       </div>
 
       {/* Board List */}
@@ -83,7 +84,7 @@ export function SideBar({ boards, user, onRemoveBoard }) {
                 )
               }
             >
-              <BoardIcon style={{ width: 16, height: 16 }} />
+              <BoardIcon style={iconStyle} />
               {/* Board Title Navigation */}
               <h3>{board.title}</h3>
 

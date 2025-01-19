@@ -9,7 +9,7 @@ import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
 import { logout } from "../store/actions/user.actions";
 
 export function AppHeader({ userData = null }) {
-  const iconStyle = {width: 16, height: 18};
+  const iconStyle = {width: 22, height: 22};
   const navigate = useNavigate();
 
   function onLogOut() {
@@ -23,13 +23,13 @@ export function AppHeader({ userData = null }) {
         <svg
           viewBox="0 0 33 33"
           fill="currentColor"
-          width="20"
-          height="20"
+          width="25"
+          height="25"
           aria-hidden="true"
-          className="icon_da9e87501e"
+          class="icon_da9e87501e"
           data-testid="topbar-icon"
         >
-          <g clipPath="url(#clip0_1150_158978)">
+          <g clip-path="url(#clip0_1150_158978)">
             <path
               d="M20.3812 4.62863C20.3812 2.47439 18.6357 0.728027 16.4826 0.728027C14.3294 0.728027 12.584 2.47439 12.584 4.62863V8.91568C12.584 11.0699 14.3294 12.8163 16.4826 12.8163C18.6357 12.8163 20.3812 11.0699 20.3812 8.91568V4.62863Z"
               fill="url(#paint0_linear_1150_158978)"
@@ -68,8 +68,8 @@ export function AppHeader({ userData = null }) {
               y2="13.595"
               gradientUnits="userSpaceOnUse"
             >
-              <stop offset=".411" stopColor="#6C6CFF" stopOpacity=".9"></stop>
-              <stop offset="1" stopColor="#6C6CFF" stopOpacity=".2"></stop>
+              <stop offset=".411" stop-color="#6C6CFF" stop-opacity=".9"></stop>
+              <stop offset="1" stop-color="#6C6CFF" stop-opacity=".2"></stop>
             </linearGradient>
             <linearGradient
               id="paint1_linear_1150_158978"
@@ -79,8 +79,8 @@ export function AppHeader({ userData = null }) {
               y2="16.521"
               gradientUnits="userSpaceOnUse"
             >
-              <stop offset=".411" stopColor="#6C6CFF" stopOpacity=".9"></stop>
-              <stop offset="1" stopColor="#6C6CFF" stopOpacity=".2"></stop>
+              <stop offset=".411" stop-color="#6C6CFF" stop-opacity=".9"></stop>
+              <stop offset="1" stop-color="#6C6CFF" stop-opacity=".2"></stop>
             </linearGradient>
             <linearGradient
               id="paint2_linear_1150_158978"
@@ -90,8 +90,8 @@ export function AppHeader({ userData = null }) {
               y2="21.306"
               gradientUnits="userSpaceOnUse"
             >
-              <stop offset=".411" stopColor="#6C6CFF" stopOpacity=".9"></stop>
-              <stop offset="1" stopColor="#6C6CFF" stopOpacity=".2"></stop>
+              <stop offset=".411" stop-color="#6C6CFF" stop-opacity=".9"></stop>
+              <stop offset="1" stop-color="#6C6CFF" stop-opacity=".2"></stop>
             </linearGradient>
             <linearGradient
               id="paint3_linear_1150_158978"
@@ -101,8 +101,8 @@ export function AppHeader({ userData = null }) {
               y2="21.333"
               gradientUnits="userSpaceOnUse"
             >
-              <stop offset=".411" stopColor="#6C6CFF" stopOpacity=".9"></stop>
-              <stop offset="1" stopColor="#6C6CFF" stopOpacity=".2"></stop>
+              <stop offset=".411" stop-color="#6C6CFF" stop-opacity=".9"></stop>
+              <stop offset="1" stop-color="#6C6CFF" stop-opacity=".2"></stop>
             </linearGradient>
             <linearGradient
               id="paint4_linear_1150_158978"
@@ -112,8 +112,8 @@ export function AppHeader({ userData = null }) {
               y2="16.52"
               gradientUnits="userSpaceOnUse"
             >
-              <stop offset=".411" stopColor="#6C6CFF" stopOpacity=".9"></stop>
-              <stop offset="1" stopColor="#6C6CFF" stopOpacity=".2"></stop>
+              <stop offset=".411" stop-color="#6C6CFF" stop-opacity=".9"></stop>
+              <stop offset="1" stop-color="#6C6CFF" stop-opacity=".2"></stop>
             </linearGradient>
             <clipPath id="clip0_1150_158978">
               <path fill="#fff" d="M0 0H33V33H0z"></path>

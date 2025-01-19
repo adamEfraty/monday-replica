@@ -6,13 +6,9 @@
 
 .content {
   display: grid;
-  grid-template-columns: 200px 1fr;
+  grid-template-columns: 255px 1fr;
   gap: 10px;
   height: 100%;
-}
-
-header {
-  grid-column: 1 / -1;
 }
 
 .side-bar {
@@ -22,9 +18,6 @@ header {
 }
 
 .main-inner-index {
-  grid-column: 2 / 3;
   height: 100%;
   overflow-y: auto;
-  display: grid;
-  grid-template-rows: 100px 1fr;
 }
