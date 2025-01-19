@@ -2,14 +2,19 @@
   position: relative;
 
   .status-modal {
+<<<<<<< HEAD
     z-index: 12;
+=======
+    z-index: 100;
+>>>>>>> 7ae8bfd68d32acc7ea440938990d8e446769eacf
     position: absolute;
     top: 75px; // temporary
     left: 0px; // temporary
     width: 175px;
     height: 250px;
     background-color: white;
-    border: solid rgb(185, 182, 182) 1px;
+    border: none;
+    box-shadow: 4px 4px 40px #333;
     border-radius: 5px;
 
     ul {

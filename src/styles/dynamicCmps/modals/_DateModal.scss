@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 .grid-item.date{
     position:relative;
     
@@ -11,19 +12,31 @@
         background-color: white;
         border: solid black 2px;
         border-radius: 5px;
+=======
+.grid-item.date {
+  position: relative;
+>>>>>>> 7ae8bfd68d32acc7ea440938990d8e446769eacf
 
-        // the year picking part
-        .MuiPickersCalendarHeader-labelContainer.css-cyfsxc-MuiPickersCalendarHeader-labelContainer{
-            pointer-events: none;
-            
-            // the year picking part's arrow
-            .MuiButtonBase-root.MuiIconButton-root.MuiIconButton-sizeSmall.MuiPickersCalendarHeader-switchViewButton.css-iupya1-MuiButtonBase-root-MuiIconButton-root-MuiPickersCalendarHeader-switchViewButton{
-                display: none;
-            }
-        }
+  .date-modal {
+    z-index: 100;
+    position: absolute;
+    top: 75px; // temporary
+    left: -200px; // temporary
+    width: 350px;
+    height: 350px;
+    background-color: white;
+    border: none;
+    box-shadow: 4px 4px 40px #333;
+    border-radius: 5px;
 
+    // the year picking part
+    .MuiPickersCalendarHeader-labelContainer.css-cyfsxc-MuiPickersCalendarHeader-labelContainer {
+      pointer-events: none;
 
+      // the year picking part's arrow
+      .MuiButtonBase-root.MuiIconButton-root.MuiIconButton-sizeSmall.MuiPickersCalendarHeader-switchViewButton.css-iupya1-MuiButtonBase-root-MuiIconButton-root-MuiPickersCalendarHeader-switchViewButton {
+        display: none;
+      }
     }
+  }
 }
-
-
