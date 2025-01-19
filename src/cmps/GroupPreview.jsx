@@ -31,7 +31,9 @@ export const GroupPreview = ({
   handleGroupNameChange,
   handleDelete,
   boardId,
-  users
+  users,
+  chatTempInfoUpdate,
+  chatInfo,
 }) => {
   const [expanded, setExpanded] = useState(true);
   const [groupTitle, setGroupTitle] = useState(group.title);
@@ -115,6 +117,8 @@ export const GroupPreview = ({
                       onTaskUpdate={onTaskUpdate}
                       chat={task.chat} // temporary for demo data
                       users={users}
+                      chatTempInfoUpdate={chatTempInfoUpdate}
+                      chatInfo={chatInfo}
                     />
                   </section>
                 ))}
@@ -156,6 +160,8 @@ const DynamicCmp = ({
   chat,
   loggedinUser,
   users,
+  chatTempInfoUpdate,
+  chatInfo,
 }) => {
   // console.log("Rendering component:", cmpType, "with info:", info);
 
@@ -182,6 +188,8 @@ const DynamicCmp = ({
           chat={chat}
           text={info}
           onTaskUpdate={onTaskUpdate}
+          chatTempInfoUpdate={chatTempInfoUpdate}
+          chatInfo={chatInfo}
         />
       )
 

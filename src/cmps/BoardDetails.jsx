@@ -15,6 +15,7 @@ import { addItem } from "../store/actions/boards.actions";
 import { updateGroup } from "../store/actions/boards.actions";
 import { removeGroup } from "../store/actions/boards.actions";
 import { BoardDetailsHeader } from "./BoardDetailsHeader";
+import { boardService } from "../services/board.service";
 
 const BoardDetails = () => {
   const { boardId } = useParams();
@@ -44,6 +45,14 @@ const BoardDetails = () => {
   function handleAddGroup() {
     addGroup(boardId);
   }
+
+  function chatTempInfoUpdate(cellId, width){
+    boardService.saveTempChatInfo(cellId, width)
+  }
+
+  let chatInfo = boardService.getChatTempInfo()
+
+  console.log(chatInfo)
 
   // function that set groups with each task update
   const onTaskUpdate = async (changeInfo) =>
@@ -139,6 +148,8 @@ const BoardDetails = () => {
             handleDelete={handleDelete}
             boardId={boardId}
             users={users}
+            chatTempInfoUpdate={chatTempInfoUpdate}
+            chatInfo={chatInfo}
           />
         ))}
         <button className="modal-save-btn" onClick={handleAddGroup}>

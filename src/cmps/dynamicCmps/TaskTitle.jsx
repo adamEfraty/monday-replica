@@ -13,7 +13,11 @@ export function TaskTitle({ cellId,
   group,
   task,
   text,
-  onTaskUpdate }) {
+  onTaskUpdate, 
+  chatTempInfoUpdate,
+  chatInfo}) 
+  
+  {
   const [onEditMode, setOnEditMode] = useState(false)
   const [textToEdit, setTextToEdit] = useState(text)
 
@@ -47,6 +51,7 @@ export function TaskTitle({ cellId,
     if(modal){
       chatAnimation(false)
       setTimeout(()=>openModal(null), 275)
+      chatTempInfoUpdate(null, chatInfo.width)
     } else openModal(cellId)
   }
 
@@ -67,8 +72,6 @@ export function TaskTitle({ cellId,
         ? { ...comment, replies: [newReply, ...comment.replies] }
         : comment
     })
-
-    console.log(updatedChat[0].replies)
     onTaskUpdate({ group, task, type: 'chat', value: updatedChat })
   }
 
@@ -148,7 +151,10 @@ export function TaskTitle({ cellId,
             loggedinUser={loggedinUser}
             text={text}
             onUpdateTitleInChat={onUpdateTitleInChat}
-            modalToggle={modalToggle} />
+            modalToggle={modalToggle} 
+            chatTempInfoUpdate={chatTempInfoUpdate}
+            cellId={cellId}
+            chatInfo={chatInfo}/>
         </div>
       }
 
