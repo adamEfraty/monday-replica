@@ -1,4 +1,5 @@
 
+<<<<<<< HEAD
 
 .chat-modal{
   z-index: 6; // this z-index bs has to be solved..
@@ -12,6 +13,10 @@
     display: flex;
     align-items: center;
     justify-content: center;
+=======
+  .chat-modal {
+    z-index: 100;
+>>>>>>> 7ae8bfd68d32acc7ea440938990d8e446769eacf
     position: absolute;
     top:0px;
     height: 100vh;
