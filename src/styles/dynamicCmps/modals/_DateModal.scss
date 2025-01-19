@@ -1,21 +1,5 @@
-<<<<<<< HEAD
-.grid-item.date{
-    position:relative;
-    
-    .date-modal{
-        z-index: 5;
-        position: absolute;
-        top: 75px; // temporary
-        left: -200px; // temporary
-        width: 350px;
-        height: 350px;
-        background-color: white;
-        border: solid black 2px;
-        border-radius: 5px;
-=======
 .grid-item.date {
   position: relative;
->>>>>>> 7ae8bfd68d32acc7ea440938990d8e446769eacf
 
   .date-modal {
     z-index: 100;

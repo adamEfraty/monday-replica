@@ -22,11 +22,7 @@ export function SideBar({ boards, user, onRemoveBoard }) {
     addBoard();
   }
 
-<<<<<<< HEAD
   const iconStyle = { width: 22, height: 22 };
-=======
-  const iconStyle = { width: 18 }
->>>>>>> 7ae8bfd68d32acc7ea440938990d8e446769eacf
 
   return (
     <nav className="side-bar">
