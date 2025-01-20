@@ -1,27 +1,29 @@
 .selected-tasks-modal {
   position: fixed;
-  border-radius: 10px;;
-  bottom: 20px; /* Adjust this value to move it slightly above the bottom */
-  left: 50%;
+  border-radius: 4px;;
+  bottom: 40px; /* Adjust this value to move it slightly above the bottom */
+  left: 52.5%;
   transform: translateX(-50%); /* Center horizontally */
   background-color: #ffffff;
-  box-shadow: 0px 0px 2px 4px rgba(0, 0, 0, 0.6);
+  box-shadow: 0px 15px 50px rgba(0, 0, 0, 0.3);
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: 10px 20px;
+  gap: 30px;
+  padding-right: 10px;
   z-index: 7;
-
   &-header {
     display: flex;
-    align-items: center;
 
     &-blur {
-      background: rgba(255, 255, 255, 0.8);
+      background-color: #0073ea;
       backdrop-filter: blur(10px);
-      padding: 5px 10px;
-      border-radius: 8px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      padding: 8px;
+      padding-left: 25px;
+      padding-right: 25px;
+      border-top-left-radius: 4px;
+      border-bottom-left-radius: 4px;
+      // box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      color: white;
     }
 
     h2 {
@@ -30,9 +32,10 @@
     }
 
     h4 {
-      margin: 0 0 0 10px;
-      font-size: 1rem;
-      color: #666;
+      margin: 5px 0px 0px 20px;
+      font-size: 1.5rem;
+      color: #353535;
+      font-weight: 400;
     }
   }
 
