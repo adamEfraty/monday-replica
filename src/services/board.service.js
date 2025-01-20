@@ -28,6 +28,7 @@ export const boardService = {
   updateBoardName,
   saveTempChatInfo,
   getChatTempInfo,
+  getDefaultFilter,
 }
 
 async function addBoard() {
@@ -132,6 +133,15 @@ async function removeTasksFromGroup(boardId, tasksToRemove) {
   }
 }
 
+function getDefaultFilter(){
+  return {
+    tasTitle: "",
+    priority: "",
+    status: "",
+    members: "",
+  }
+}
+
 async function removeTaskFromGroup(boardId, groupId, taskId) {
   try {
     const board = await getById(boardId);
@@ -143,9 +153,8 @@ async function removeTaskFromGroup(boardId, groupId, taskId) {
 
     group.tasks = group.tasks.filter((task) => task.id !== taskId)
 
-    return await save(board);
-
     console.log('Task removed from group and local storage')
+    return await save(board);
   } catch (error) {
     console.error('Error removing task:', error)
     throw error
