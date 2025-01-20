@@ -26,7 +26,7 @@ export function SideBar({ boards, user, onRemoveBoard }) {
 
   function handleDotsClick(event, boardId) {
     event.stopPropagation();
-    console.log("dots clicked", boardId);
+    onRemoveBoard(boardId)
   }
 
   const iconStyle = { width: 22, height: 22 };
