@@ -7,9 +7,11 @@ import PersonAddAltIcon from "@mui/icons-material/PersonAddAlt";
 import InboxIcon from "@mui/icons-material/Inbox";
 import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
 import { logout } from "../store/actions/user.actions";
+import { useSelector } from "react-redux";
 
-export function AppHeader({ userData = null }) {
-  const iconStyle = {width: 22, height: 22};
+export function AppHeader() {
+  const user = useSelector((state) => state.userModule.user);
+  const iconStyle = { width: 22, height: 22 };
   const navigate = useNavigate();
 
   function onLogOut() {
@@ -17,9 +19,9 @@ export function AppHeader({ userData = null }) {
     logout();
   }
 
-  return userData ? (
+  return user ? (
     <div className="header-flex">
-      <section className="header-sentance">
+      <section onClick={() => navigate("/")} className="header-sentance">
         <svg
           viewBox="0 0 33 33"
           fill="currentColor"
@@ -135,11 +137,11 @@ export function AppHeader({ userData = null }) {
         <QuestionMarkIcon style={iconStyle} />
         <div className="account-logo" onClick={onLogOut}>
           <img
-          sizes="10px"
+            sizes="10px"
             className="account-logo-img"
             src="https://cdn.monday.com/images/logos/monday_logo_icon.png"
           ></img>
-          <h4>{userData.email[0].toUpperCase()}</h4>
+          <h4>{user.email[0].toUpperCase()}</h4>
         </div>
       </section>
     </div>

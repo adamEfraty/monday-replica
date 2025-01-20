@@ -1,6 +1,18 @@
 
-  .chat-modal {
-    z-index: 100;
+.chat-modal{
+  z-index: 10; // this z-index bs has to be solved..
+  position: fixed; // unfortunately since absolute sticks with group-list element
+  top: 36px; // probably will change later
+  right: 0px;
+  height: 100vh;
+  background-color: white;
+  .expand-line{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     position: absolute;
     top:0px;
     height: 100vh;
@@ -59,7 +71,6 @@
     &::-webkit-scrollbar-thumb {
       background: #B2B2B2; 
     }
-
 
 
     .create-comment {
@@ -181,3 +192,4 @@
 
 
 
+}

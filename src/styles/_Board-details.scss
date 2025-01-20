@@ -45,7 +45,7 @@
   flex-direction: column;
   background-color: white;
   border-top-left-radius: 12px;
-  padding-left: 3rem;
+  padding-left: 2rem;
 }
 /* Grid Items */
 .grid-item {
@@ -145,7 +145,7 @@ div {
   width: 100vw;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.5);
-  z-index: 7;
+  z-index: 9;
 }
 
 .modal {
@@ -158,7 +158,7 @@ div {
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   width: 250px;
-  z-index: 8;
+  z-index: 10;
 }
 
 .color-list {
@@ -226,9 +226,6 @@ div {
   border: 1px solid #e1dede;
 }
 
-.add-column {
-}
-
 .add-task {
   opacity: 0.5;
   border-top: 1px solid #e0dede;
@@ -242,8 +239,8 @@ div {
 }
 section.labels-grid {
   position: sticky;
-  top: 190px;
-  z-index: 3;
+  top: 200px;
+  z-index: 10;
   background-color: #fff;
   border: 1px solid #e0dddd;
 }
@@ -251,12 +248,7 @@ section.labels-grid {
 div.group-title-flex {
   position: sticky;
   padding: 1rem;
-  top: 140px;
+  top: 145px;
   background-color: #fff;
-  z-index: 2;
-}
-
-section.task-title {
-  position: sticky;
-  left: 0;
+  z-index: 8;
 }
