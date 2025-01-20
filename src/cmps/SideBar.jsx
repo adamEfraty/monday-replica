@@ -8,6 +8,8 @@ import { utilService } from "../services/util.service";
 import ArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import PlusIcon from "@mui/icons-material/AddOutlined";
 import BoardIcon from "@mui/icons-material/SpaceDashboardOutlined";
+import HorizDotsIcon from "@mui/icons-material/MoreHorizOutlined";
+
 export function SideBar({ boards, user, onRemoveBoard }) {
   const location = useLocation();
   const navigate = useNavigate();
@@ -20,6 +22,11 @@ export function SideBar({ boards, user, onRemoveBoard }) {
 
   function handleAddBoard() {
     addBoard();
+  }
+
+  function handleDotsClick(event, boardId) {
+    event.stopPropagation();
+    console.log("dots clicked", boardId);
   }
 
   const iconStyle = { width: 22, height: 22 };
@@ -56,18 +63,18 @@ export function SideBar({ boards, user, onRemoveBoard }) {
       {/* Workspaces Section */}
       <div className="workspaces">
         <section>
-        <WorkspacesIcon className="side-bar-icon work" style={iconStyle} />
-        <p>Workspaces</p>          
+          <WorkspacesIcon className="side-bar-icon work" style={iconStyle} />
+          <p>Workspaces</p>
         </section>
         <div className="add-board">
-        <div>
-          <h3>Main Workspace</h3>
-          <ArrowDownIcon style={iconStyle} />
+          <div>
+            <h3>Main Workspace</h3>
+            <ArrowDownIcon style={iconStyle} />
+          </div>
+          <button className="add-board-button" onClick={handleAddBoard}>
+            <PlusIcon style={{ width: 28, height: 26 }} />
+          </button>
         </div>
-        <button className="add-board-button" onClick={handleAddBoard}>
-          <PlusIcon style={{width: 28, height: 26}} />
-        </button>
-      </div>
       </div>
 
       {/* Board List */}
@@ -84,16 +91,19 @@ export function SideBar({ boards, user, onRemoveBoard }) {
                 )
               }
             >
-              <BoardIcon style={iconStyle} />
-              {/* Board Title Navigation */}
-              <h3>{board.title}</h3>
+              <section>
+                <BoardIcon style={iconStyle} />
+                {/* Board Title Navigation */}
+                <h3>{board.title}</h3>
+              </section>
 
-              <button
-                className="remove-btn"
+              {/* <button
+                className="options-menu"
                 onClick={() => onRemoveBoard(board.id)}
               >
                 X
-              </button>
+              </button> */}
+              <HorizDotsIcon onClick={(event) => handleDotsClick(event, board.id)} className="horizontal-dots-icon" style={iconStyle} />
             </div>
           </li>
         ))}
