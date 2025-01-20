@@ -45,10 +45,10 @@ export function BoardDetailsHeader({ boardTitle }) {
             }
           }}
           onClick={() => handleFilterState(true)}
-          className="choice-div"
+          className={filterState ? "filter-input" : "choice-div"}
           tabIndex={0} // Make the div focusable
         >
-          <SearchIcon style={iconStyle} />
+          <SearchIcon style={{width: 24, height: 24}} />
           {filterState ? (
             <input
               autoFocus
