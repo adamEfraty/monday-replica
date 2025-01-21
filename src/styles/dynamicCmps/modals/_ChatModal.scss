@@ -1,6 +1,19 @@
 
-  .chat-modal {
-    z-index: 100;
+
+.chat-modal{
+  z-index: 100;
+  position: fixed; // unfortunately since absolute sticks with group-list element
+  top: 46px; // probably will change later
+  right: 0px;
+  height: 100vh;
+  background-color: white;
+  box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.3);
+
+
+  .expand-line{
+    display: flex;
+    align-items: center;
+    justify-content: center;
     position: absolute;
     top:0px;
     height: 100vh;
@@ -51,6 +64,14 @@
   .chat-body {
     height: calc(100vh - 138px);
     overflow-y: auto;
+    display: flex; 
+    justify-content: center; 
+  }
+
+  .chat-inner-body{
+    width: 100%; 
+    max-width: 725px; 
+    min-width: 550px; 
 
     /* Style Crossbar */
     &::-webkit-scrollbar {
@@ -177,6 +198,9 @@
       }
     }
   }
+
+
+}
 
 
 

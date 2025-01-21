@@ -46,13 +46,9 @@ const BoardDetails = () => {
     addGroup(boardId);
   }
 
-  function chatTempInfoUpdate(cellId, width){
-    boardService.saveTempChatInfo(cellId, width)
+  function chatTempInfoUpdate(cellId, width, newComment){
+    boardService.saveTempChatInfo(cellId, width, newComment)
   }
-
-  let chatInfo = boardService.getChatTempInfo()
-
-  console.log(chatInfo)
 
   // function that set groups with each task update
   const onTaskUpdate = async (changeInfo) =>
@@ -149,7 +145,6 @@ const BoardDetails = () => {
             boardId={boardId}
             users={users}
             chatTempInfoUpdate={chatTempInfoUpdate}
-            chatInfo={chatInfo}
           />
         ))}
         <button className="modal-save-btn" onClick={handleAddGroup}>

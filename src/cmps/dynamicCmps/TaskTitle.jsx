@@ -5,6 +5,7 @@ import ChatIcon from '@mui/icons-material/MapsUgcOutlined';
 import { openModal } from '../../store/actions/boards.actions.js'
 import { useSelector } from "react-redux";
 import { utilService } from "../../services/util.service.js";
+import { boardService } from "../../services/board.service.js";
 
 export function TaskTitle({ cellId,
   users,
@@ -14,12 +15,14 @@ export function TaskTitle({ cellId,
   task,
   text,
   onTaskUpdate, 
-  chatTempInfoUpdate,
-  chatInfo}) 
+  chatTempInfoUpdate,}) 
   
   {
   const [onEditMode, setOnEditMode] = useState(false)
   const [textToEdit, setTextToEdit] = useState(text)
+
+  // so we won't see the chat before the animation
+  const [openAnimation, setOpenAnimation] = useState(false)
 
   const openModalId = useSelector(state => state.boardModule.openModal)
   const modal = (openModalId === cellId)
@@ -27,32 +30,47 @@ export function TaskTitle({ cellId,
   const modalRef = useRef(null)
   const ChatButtonRef = useRef(null)
 
-  useEffect(() => {
-    if (modalRef.current && modal) {
-      chatAnimation(true)
+  let chatInfo = boardService.getChatTempInfo()
+  
+
+  useEffect(()=>{
+    // when user refresh the page while modal was open
+    if(!modal && chatInfo && chatInfo.id === cellId){
+      modalToggle()
     }
-  }, [modal])
+  },[])
 
-  function chatAnimation(isEnter){
-    isEnter
-    ? utilService.animateCSS(modalRef.current, 'fadeInRightBig', 0.3,
-      { position: 'fixed',
-        top: '0px',
-        right: '0px',
-        opacity: 1,
-        zIndex: 100,
-      })
-      : utilService.animateCSS(modalRef.current, 'fadeOutRightBig', 0.3)
 
+  function chatAnimation(isEnter) {
+    if (!modalRef.current) return
+
+    const missingStyle = {
+      position: 'fixed',
+      top: '0px',
+      right: '0px',
+      opacity: 1,
+      zIndex: 100,
+    }
+
+    if (isEnter) {
+      utilService.animateCSS(modalRef.current, 'fadeInRightBig', 0.3, missingStyle)
+      setOpenAnimation(false)
+    } 
+    else utilService.animateCSS(modalRef.current, 'fadeOutRightBig', 0.3, missingStyle)
   }
 
-  // close and open modal as needed
   function modalToggle() {
-    if(modal){
+    if (modal) {
+      // Close modal
       chatAnimation(false)
-      setTimeout(()=>openModal(null), 275)
-      chatTempInfoUpdate(null, chatInfo.width)
-    } else openModal(cellId)
+      setTimeout(() => openModal(null), 275)
+    } else {
+      // Open modal
+      setOpenAnimation(true)
+      openModal(cellId)
+      setTimeout(() => chatAnimation(true), 10) // Wait for ref to exists
+
+    }
   }
 
   function onAddComment(comment) {
@@ -142,7 +160,7 @@ export function TaskTitle({ cellId,
       {/*chat modal*/}
       {
         modal &&
-        <div ref={modalRef}>
+        <div ref={modalRef} style={openAnimation?{visibility: 'hidden'}: {visibility: 'visible'}}>
           <ChatModal
             onAddReply={onAddReply}
             onAddComment={onAddComment}
