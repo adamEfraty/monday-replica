@@ -1,15 +1,14 @@
 /* Main Grid */
 .grid {
   display: grid;
-  grid-template-columns: 40px 400px repeat(4, 1fr) 500px;
+  grid-template-columns: 400px repeat(4, 150px) 500px;
   grid-template-rows: 34px;
   background: white;
-  border-left: 0.3rem rgb(148, 182, 210) solid;
 }
 .labels-grid {
   display: grid;
-  grid-template-columns: 40px 400px repeat(4, 1fr) 500px;
-
+  grid-template-columns: 400px repeat(4, 150px) 500px;
+  border: 1px solid #e0dede;
   grid-template-rows: 34px;
 
   width: 100%;
@@ -17,7 +16,7 @@
 
 .progress-grid {
   display: grid;
-  grid-template-columns: 40px 400px repeat(4, 1fr) 500px;
+  grid-template-columns: 400px repeat(4, 150px) 500px;
 
   grid-template-rows: 34px;
   width: 100%; /* Set a fixed width */
@@ -25,8 +24,6 @@
 
 .group-list {
   font-size: 13px;
-  width: 110%;
-  position: relative;
 
   & input[type='checkbox'] {
     width: 20px;
@@ -45,15 +42,16 @@
   flex-direction: column;
   background-color: white;
   border-top-left-radius: 12px;
-  padding-left: 3rem;
+  padding-left: 2rem;
+  padding-bottom: 3rem;
 }
 /* Grid Items */
 .grid-item {
   text-align: center;
-  border-left: 1px solid #e0dede;
   display: flex;
   align-items: center;
   justify-content: center;
+  border: 1px solid #e0dede;
 }
 
 .item {
@@ -71,7 +69,6 @@
   background-color: #575757;
   color: #fff;
   padding: 3px 6px;
-  border-radius: 20px;
 }
 
 .white {
@@ -95,22 +92,19 @@
 /* Labels and Progress Sections */
 
 .prog-box {
-  border: 1px solid #e0dede; /* Ensure cell borders match */
 }
 
 .progress-grid div {
-  border-top: 1px solid #e0dede; /* Ensure cell borders match */
-
   padding: 0.7rem;
   text-align: center;
   font-weight: 800;
 }
 
 .labels-grid div {
-  border-left: 1px solid #e0dede; /* Ensure cell borders match */
   padding: 0.7rem;
   text-align: center;
   font-weight: 800;
+  border: 1px solid #e0dede;
 }
 
 div {
@@ -145,7 +139,7 @@ div {
   width: 100vw;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.5);
-  z-index: 7;
+  z-index: 9;
 }
 
 .modal {
@@ -158,7 +152,7 @@ div {
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   width: 250px;
-  z-index: 8;
+  z-index: 10;
 }
 
 .color-list {
@@ -218,20 +212,13 @@ div {
   gap: 10px;
 }
 
-.checkbox {
-  border: 1px solid #e0dddd;
-}
-
 .nothing {
   border: 1px solid #e1dede;
 }
 
-.add-column {
-}
-
 .add-task {
   opacity: 0.5;
-  border-top: 1px solid #e0dede;
+  border: 1px solid #e0dede;
 }
 
 .chat-icon {
@@ -242,21 +229,31 @@ div {
 }
 section.labels-grid {
   position: sticky;
-  top: 190px;
-  z-index: 3;
+  top: 200px;
+  z-index: 10;
   background-color: #fff;
-  border: 1px solid #e0dddd;
 }
 
 div.group-title-flex {
   position: sticky;
   padding: 1rem;
-  top: 140px;
+  top: 145px;
   background-color: #fff;
-  z-index: 2;
+  z-index: 8;
 }
 
-section.task-title {
+.stick {
   position: sticky;
   left: 0;
+  z-index: 10;
+  background-color: #ffffff;
+  display: inline-block;
+}
+
+.label-title {
+  display: flex;
+}
+
+.prog-box {
+  border: 1px solid #e0dede;
 }

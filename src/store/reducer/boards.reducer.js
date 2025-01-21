@@ -1,12 +1,17 @@
+import { boardService } from "../../services/board.service"
+
 export const SET_BOARDS = 'SET_BOARDS'
 export const EDIT_BOARD = 'EDIT_BOARD'
 export const REMOVE_BOARD = 'REMOVE_BOARD'
 export const ADD_BOARD = 'ADD_BOARD'
 export const OPEN_MODAL = 'OPEN_MODAL'
+export const SET_FILTER_STATE = 'SET_FILTER_STATE'
 
 const initialState = {
   boards: [],
   openModal: null,
+  filterBy: boardService.getDefaultFilter(),
+  filterState: false,
 }
 
 export const boardReducer = (state = initialState, action) => {
@@ -43,6 +48,11 @@ export const boardReducer = (state = initialState, action) => {
         ...state,
         openModal: action.taskId
       }
+      case SET_FILTER_STATE:
+        return {
+          ...state,
+          filterState: action.newState
+        }
 
     default:
       return state

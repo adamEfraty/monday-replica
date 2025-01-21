@@ -14,10 +14,11 @@ export function TaskTitle({ cellId,
   group,
   task,
   text,
-  onTaskUpdate, 
-  chatTempInfoUpdate,}) 
-  
-  {
+  onTaskUpdate,
+  chatTempInfoUpdate,
+  checkedBoxes,
+  handleCheckBoxClick
+}) {
   const [onEditMode, setOnEditMode] = useState(false)
   const [textToEdit, setTextToEdit] = useState(text)
 
@@ -137,8 +138,13 @@ export function TaskTitle({ cellId,
 
   return (
     <>
-      <section className="task-title ">
-        <div className="title-part">
+      <section className="task-title">
+        <input
+          type="checkbox"
+          checked={checkedBoxes.some((subArr) => subArr[1] == task.id)}
+          onChange={() => handleCheckBoxClick(group.id, task.id)}
+        />
+        <div className="title-part ">
           {
             !onEditMode
               ? <span onClick={toggleEditMode}>{handleLongText(text, 12)}</span>
@@ -169,10 +175,10 @@ export function TaskTitle({ cellId,
             loggedinUser={loggedinUser}
             text={text}
             onUpdateTitleInChat={onUpdateTitleInChat}
-            modalToggle={modalToggle} 
+            modalToggle={modalToggle}
             chatTempInfoUpdate={chatTempInfoUpdate}
             cellId={cellId}
-            chatInfo={chatInfo}/>
+            chatInfo={chatInfo} />
         </div>
       }
 
