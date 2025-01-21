@@ -46,7 +46,7 @@ const BoardDetails = () => {
     addGroup(boardId);
   }
 
-  function chatTempInfoUpdate(cellId, width){
+  function chatTempInfoUpdate(cellId, width) {
     boardService.saveTempChatInfo(cellId, width)
   }
 
@@ -64,7 +64,7 @@ const BoardDetails = () => {
   const labels = ["item", "priority", "status", "members", "date", "+"];
 
   const progress = [null, null, "priority", "status", "members", "date"];
-    const handleCheckBoxClick = (groupId, taskId) => {
+  const handleCheckBoxClick = (groupId, taskId) => {
     console.log(groupId, taskId);
     console.log(checkedBoxes);
     setCheckedBoxes((prev) => {
@@ -127,7 +127,7 @@ const BoardDetails = () => {
   if (!currentBoard) return <div>Loading...</div>;
 
   return (
-    <div className="board-details">
+    <div className="board-details ">
       <BoardDetailsHeader boardTitle={currentBoard.title} />
       <section className="group-list">
         {groups.map((group) => (

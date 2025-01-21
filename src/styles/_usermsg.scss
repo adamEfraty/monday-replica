@@ -1,4 +1,4 @@
-@use "vars" as *;
+@use 'vars' as *;
 
 .user-msg {
   position: fixed;
@@ -12,6 +12,7 @@
   background-color: #f1f1f1;
   box-shadow: 0 0 5px 0 $light;
   animation: slideIn 0.3s ease-in-out;
+  z-index: 1000;
 }
 
 .user-msg.success {

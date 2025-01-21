@@ -14,7 +14,7 @@ export function BoardDetailsHeader({ boardTitle }) {
     !filterState == state && setFilterState(state);
   }
   return (
-    <header className="board-details-header">
+    <header className="board-details-header stick">
       <br />
       <div className="boardTitle">
         <h2>{boardTitle}</h2>
@@ -48,7 +48,7 @@ export function BoardDetailsHeader({ boardTitle }) {
           className={filterState ? "filter-input" : "choice-div"}
           tabIndex={0} // Make the div focusable
         >
-          <SearchIcon style={{width: 24, height: 24}} />
+          <SearchIcon style={{ width: 24, height: 24 }} />
           {filterState ? (
             <input
               autoFocus

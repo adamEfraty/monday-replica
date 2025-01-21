@@ -50,7 +50,7 @@ export const GroupPreview = ({
   return (
     <>
 
-      <div className="group-title-flex">
+      <div className="group-title-flex stick">
         <button className="remove" onClick={() => handleDelete(group.id, boardId)}><MoreHorizIcon /></button>
 
         <span className="arrow" onClick={() => setExpanded((prev) => !prev)}>
@@ -79,16 +79,23 @@ export const GroupPreview = ({
               className="labels-grid"
               style={{ ...style, borderTopLeftRadius: 5 }}
             >
-              <input
-                type="checkbox"
-                className="checkbox"
-                onChange={() => { }}
-                onClick={() => handleMasterCheckboxClick(group)}
-                checked={checkedGroups.includes(group.id)}
 
-              />
               {cmpOrder.map((cmp, index) => (
-                <div style={{ textAlign: `${labels[index] === '+' ? 'start' : 'center'}` }} key={`label-${index}`}>{labels[index] || ""}</div>
+                labels[index] === 'item' ?
+                  <div key={`label-${index}`} className="label-title stick">
+                    <input
+                      type="checkbox"
+                      className="checkbox"
+                      onChange={() => { }}
+                      onClick={() => handleMasterCheckboxClick(group)}
+                      checked={checkedGroups.includes(group.id)}
+
+                    />
+                    < div style={{ textAlign: `${labels[index] === '+' ? 'start' : 'center'}` }} key={`label-${index}`}>{labels[index] || ""}</div>
+
+                  </div>
+                  :
+                  < div style={{ textAlign: `${labels[index] === '+' ? 'start' : 'center'}` }} key={`label-${index}`}>{labels[index] || ""}</div>
               ))}
             </section>
 
@@ -99,17 +106,17 @@ export const GroupPreview = ({
               <section
                 className="group grid"
                 key={`task-${task.id}`}
-                style={style}
               >
-
+                {/* 
                 <input
                   type="checkbox"
                   checked={checkedBoxes.some((subArr) => subArr[1] == task.id)}
                   onChange={() => handleCheckBoxClick(group.id, task.id)}
-                />
+                /> */}
+
                 {cmpOrder.map((cmp, idx) => (
                   <section
-                    className={`grid-item ${cmp}`}
+                    className={`grid-item ${cmp} ${cmp === 'taskTitle' ? 'stick' : ''}`}
                     key={`task-${task.id}-cmp-${idx}`}
                   >
                     <DynamicCmp
@@ -123,6 +130,8 @@ export const GroupPreview = ({
                       users={users}
                       chatTempInfoUpdate={chatTempInfoUpdate}
                       chatInfo={chatInfo}
+                      checkedBoxes={checkedBoxes}
+                      handleCheckBoxClick={handleCheckBoxClick}
                     />
                   </section>
                 ))}
@@ -148,9 +157,9 @@ export const GroupPreview = ({
                 )
               )}
             </section>
-          </div>
+          </div >
         )}
-      </section>
+      </section >
     </>
   );
 };
@@ -166,6 +175,8 @@ const DynamicCmp = ({
   users,
   chatTempInfoUpdate,
   chatInfo,
+  checkedBoxes,
+  handleCheckBoxClick
 }) => {
   // console.log("Rendering component:", cmpType, "with info:", info);
 
@@ -178,6 +189,7 @@ const DynamicCmp = ({
           task={task}
           priority={info}
           onTaskUpdate={onTaskUpdate}
+
         />
       )
 
@@ -194,6 +206,8 @@ const DynamicCmp = ({
           onTaskUpdate={onTaskUpdate}
           chatTempInfoUpdate={chatTempInfoUpdate}
           chatInfo={chatInfo}
+          checkedBoxes={checkedBoxes}
+          handleCheckBoxClick={handleCheckBoxClick}
         />
       )
 
@@ -258,22 +272,22 @@ const ProgressCmd = ({
           tasks={tasks}
         />
       )
-    
-      case "status":
+
+    case "status":
       return (
         <P_Status
-        tasks={tasks}
+          tasks={tasks}
         />
       )
 
-      case "date":
+    case "date":
       return (
         <P_Date
           tasks={tasks}
         />
       )
 
-      case "members":
+    case "members":
       return (
         <P_Members
           tasks={tasks}
