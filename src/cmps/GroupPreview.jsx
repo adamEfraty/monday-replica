@@ -40,7 +40,6 @@ export const GroupPreview = ({
 
   const style = {
     borderRight: '1px solid #e0dede',
-    borderLeft: `0.3rem solid ${group.color}`,
     borderTop: '1px solid #e0dede',
 
 
