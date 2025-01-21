@@ -146,8 +146,8 @@ export function AppHeader() {
       </section>
     </div>
   ) : (
-    <div className="header-flex">
-      <div>
+    <div className="header-flex" style={{ backgroundColor: '#fff', padding: '1rem' }}>
+      <div >
         <img
           onClick={() => navigate("/")}
           src="https://agenda.agami-network.com/static/media/agenda-logo-color.cb0ce09dcc5b97c18eb5755c559acc2a.svg"
