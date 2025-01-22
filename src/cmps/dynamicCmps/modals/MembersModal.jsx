@@ -1,11 +1,10 @@
+import { useSelector } from "react-redux"
 
-export function MembersModal({ ParticipateMembers, onAddMember, onRemoveMember, users }) {
+export function MembersModal({ParticipateMembers, onAddMember, onRemoveMember}){
+    const users = useSelector((state) => state.userModule.users)
 
-    //temporary taking from demo data
-    const membersInBoard = [...users]
-
-    const nonParticipateMembers = membersInBoard.filter(member =>
-        !ParticipateMembers.find(cMember => cMember.id === member.id))
+    const nonParticipateMembers = users.filter(member=> 
+        !ParticipateMembers.find(cMember=> cMember.id === member.id))
 
 
     return (
@@ -14,11 +13,11 @@ export function MembersModal({ ParticipateMembers, onAddMember, onRemoveMember, 
             {/* list of members you can remove from task*/}
             <ul className="participate-list">
                 {
-                    ParticipateMembers.map(member =>
+                    ParticipateMembers.map(member=>
                         <li key={member.id}>
-                            <img src={member.imgUrl} />
-                            <p>{member.fullName}</p>
-                            <button onClick={() => onRemoveMember(member)}>x</button>
+                            <img src={member.imgUrl}/>
+                            <p>{member.name}</p>
+                            <button onClick={()=>onRemoveMember(member)}>x</button>
                         </li>
                     )
                 }
@@ -32,19 +31,16 @@ export function MembersModal({ ParticipateMembers, onAddMember, onRemoveMember, 
 
                 <ul className="non-participate-list">
                     {
-                        nonParticipateMembers.map(member =>
+                        nonParticipateMembers.map(member=>
                             <li key={member.id}
-                                onClick={() => onAddMember(member)}>
-                                <img src={member.imgUrl} />
-                                <p>{member.fullName}</p>
+                            onClick={()=>onAddMember(member)}>
+                                <img src={member.imgUrl}/>
+                                <p>{member.name}</p>
                             </li>
                         )
                     }
                 </ul>
-
             </div>
-
-
         </section>
     )
 }

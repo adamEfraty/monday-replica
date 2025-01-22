@@ -9,15 +9,17 @@ import ArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 
 export function MainInnerIndex({ user, isBoard, boards }) {
   const navigate = useNavigate();
+
   useEffect(() => {
-    loadBoardsAndUsers();
+    loadBoardsAndUsers()
   }, []);
 
   const iconStyle = { width: 22, height: 22 };
 
+
   function loadBoardsAndUsers() {
-    loadBoards();
-    loadUsers();
+    loadBoards()
+    loadUsers()
   }
 
   function onUpdateBoardName(id, title) {

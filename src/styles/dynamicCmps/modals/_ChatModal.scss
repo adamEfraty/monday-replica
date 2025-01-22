@@ -1,5 +1,5 @@
 .chat-modal {
-  z-index: 11; // this z-index bs has to be solved..
+  z-index: 200; // this z-index bs has to be solved..
   position: fixed; // unfortunately since absolute sticks with group-list element
   top: 44px; // probably will change later
   right: 0px;
@@ -20,6 +20,7 @@
     opacity: 0;
     background-color: #f5f6f8;
     transition: opacity 0.15s ease;
+    z-index: 200;
 
     &:hover {
       cursor: grab;

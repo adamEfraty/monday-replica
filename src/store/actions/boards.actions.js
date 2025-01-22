@@ -3,7 +3,7 @@ import { showSuccessMsg } from "../../services/event-bus.service";
 import { utilService } from "../../services/util.service";
 import { store } from "../store";
 
-import { EDIT_BOARD, REMOVE_BOARD, SET_BOARDS, OPEN_MODALS, SET_FILTER_STATE } from '../reducer/boards.reducer'
+import { EDIT_BOARD, REMOVE_BOARD, SET_BOARDS, OPEN_MODALS, SET_FILTER_BY } from '../reducer/boards.reducer'
 
 export async function addBoard() {
   try {
@@ -27,6 +27,7 @@ export async function addBoard() {
 
 export async function loadBoards() {
   const boards = await boardService.query();
+  console.log(boards, 'kkkkkkkkk')
   await store.dispatch({ type: SET_BOARDS, boards });
   showSuccessMsg("Boards loaded");
 }
@@ -110,7 +111,6 @@ export async function removeGroup(boardId, groupId) {
 export async function updateGroup(boardId, groupId, updatedGroupData) {
   // Update the group in the board service
   await boardService.updateGroupInBoard(boardId, groupId, updatedGroupData);
-  await boardService.updateGroupInBoard(boardId, groupId, updatedGroupData)
 
   const board = await boardService.getById(boardId);
   if (!board) throw new Error("Board not found");
@@ -121,6 +121,8 @@ export async function updateGroup(boardId, groupId, updatedGroupData) {
       group.id === groupId ? { ...group, ...updatedGroupData } : group
     ),
   };
+
+  console.log('updated: ', updatedBoard)
 
   await store.dispatch({
     type: EDIT_BOARD,
@@ -229,6 +231,13 @@ export function closeModal(modalId){
   store.dispatch({ type: OPEN_MODALS, newModals })
 }
 
-export function setFilterState(newState){
-  store.dispatch({ type: SET_FILTER_STATE, newState })
+export function handleFilter(filterBy){
+  boardService.setFilterContextSession(filterBy)
+  store.dispatch({ type: SET_FILTER_BY, filterBy })
+}
+
+export function getFilterContext(){
+  const filterBy = boardService.getFilterContextSession()
+  store.dispatch({ type: SET_FILTER_BY, filterBy })
+  return filterBy
 }
