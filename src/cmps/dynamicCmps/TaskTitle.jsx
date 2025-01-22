@@ -139,24 +139,28 @@ export function TaskTitle({ cellId,
   return (
     <>
       <section className="task-title">
-        <input
-          type="checkbox"
-          checked={checkedBoxes.some((subArr) => subArr[1] == task.id)}
-          onChange={() => handleCheckBoxClick(group.id, task.id)}
-        />
-        <div className="title-part ">
-          {
-            !onEditMode
-              ? <span onClick={toggleEditMode}>{handleLongText(text, 12)}</span>
-              : <input
-                autoFocus={true}
-                value={textToEdit}
-                onChange={event => setTextToEdit(event.target.value)}
-                onBlur={toggleEditMode}
-                onKeyDown={handleKeyDown}
-                type="text"
-              />
-          }
+        <div className="checkbox-taskName">
+          <div className="input-styles">
+            <input
+              type="checkbox"
+              checked={checkedBoxes.some((subArr) => subArr[1] == task.id)}
+              onChange={() => handleCheckBoxClick(group.id, task.id)}
+            />
+          </div>
+          <div className="title-part ">
+            {
+              !onEditMode
+                ? <span onClick={toggleEditMode}>{handleLongText(text, 12)}</span>
+                : <input
+                  autoFocus={true}
+                  value={textToEdit}
+                  onChange={event => setTextToEdit(event.target.value)}
+                  onBlur={toggleEditMode}
+                  onKeyDown={handleKeyDown}
+                  type="text"
+                />
+            }
+          </div>
         </div>
         <div className="chat-icon">
           <ChatIcon onClick={modalToggle} ref={ChatButtonRef} />
