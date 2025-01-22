@@ -31,6 +31,7 @@ export const boardService = {
   getDefaultFilter,
   openChat,
   getOpenChat,
+  replaceChats,
 }
 
 async function addBoard() {
@@ -422,6 +423,16 @@ function getOpenChat(){
     return newComments.open
   }
   else return null
+}
+
+function replaceChats(newModals, modalId){
+  if(modalId.slice(-5) === 'title'){
+    let result = newModals.filter(id=>id.slice(-5) !== 'title')
+    return [...result, modalId]
+  }
+  return newModals
+
+  
 }
 
 

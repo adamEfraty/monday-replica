@@ -4,12 +4,12 @@ export const SET_BOARDS = 'SET_BOARDS'
 export const EDIT_BOARD = 'EDIT_BOARD'
 export const REMOVE_BOARD = 'REMOVE_BOARD'
 export const ADD_BOARD = 'ADD_BOARD'
-export const OPEN_MODAL = 'OPEN_MODAL'
+export const OPEN_MODALS = 'OPEN_MODALS'
 export const SET_FILTER_STATE = 'SET_FILTER_STATE'
 
 const initialState = {
   boards: [],
-  openModal: null,
+  openModals: [],
   filterBy: boardService.getDefaultFilter(),
   filterState: false,
 }
@@ -43,10 +43,10 @@ export const boardReducer = (state = initialState, action) => {
             : { ...board }
         ),
       }
-    case OPEN_MODAL:
+    case OPEN_MODALS:
       return {
         ...state,
-        openModal: action.taskId
+        openModals: action.newModals
       }
       case SET_FILTER_STATE:
         return {
