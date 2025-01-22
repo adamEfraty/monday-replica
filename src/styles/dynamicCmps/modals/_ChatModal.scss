@@ -1,12 +1,11 @@
-
-.chat-modal{
-  z-index: 10; // this z-index bs has to be solved..
+.chat-modal {
+  z-index: 1000; // this z-index bs has to be solved..
   position: fixed; // unfortunately since absolute sticks with group-list element
   top: 36px; // probably will change later
   right: 0px;
   height: 100vh;
   background-color: white;
-  .expand-line{
+  .expand-line {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -14,15 +13,14 @@
     align-items: center;
     justify-content: center;
     position: absolute;
-    top:0px;
+    top: 0px;
     height: 100vh;
     width: 15px;
     opacity: 0;
-    background-color: #F5F6F8;
+    background-color: #f5f6f8;
     transition: opacity 0.15s ease;
 
-
-    &:hover{
+    &:hover {
       cursor: grab;
       opacity: 1;
     }
@@ -32,8 +30,7 @@
     list-style: none;
   }
 
-  .chat-header{
-
+  .chat-header {
     .exis-button {
       margin-bottom: 10px;
       display: flex;
@@ -42,7 +39,7 @@
       align-items: center;
       justify-content: center;
     }
-  
+
     .chat-edit-title {
       display: flex;
       margin-bottom: 20px;
@@ -50,7 +47,7 @@
       align-items: start;
       width: 100%;
       text-align: left;
-  
+
       textarea {
         font-size: 30px;
         width: 100%;
@@ -58,7 +55,6 @@
       }
     }
   }
-
 
   .chat-body {
     height: calc(100vh - 138px);
@@ -69,9 +65,8 @@
       width: 8px;
     }
     &::-webkit-scrollbar-thumb {
-      background: #B2B2B2; 
+      background: #b2b2b2;
     }
-
 
     .create-comment {
       display: flex;
@@ -80,7 +75,7 @@
       height: 175px;
       border: solid black 2px;
       padding: 10px;
-  
+
       textarea {
         resize: none;
         width: 100%;
@@ -88,32 +83,32 @@
         border: none;
         outline: none;
       }
-  
+
       button {
         width: 50px;
         align-self: end;
       }
     }
-  
+
     .comments-list {
       margin-top: 30px;
-  
+
       .comment {
         border: solid black 2px;
         padding: 10px;
         margin-bottom: 15px;
       }
-  
+
       p {
         text-align: left;
       }
-  
+
       .comment-info {
         display: flex;
         align-items: center;
         padding: 10px;
         gap: 10px;
-  
+
         img {
           height: 45px;
           width: 45px;
@@ -122,49 +117,49 @@
         }
       }
     }
-  
+
     .replies-list {
       border-top: solid black 1px;
       margin-top: 30px;
-  
+
       .reply {
         margin-top: 30px;
         display: flex;
         gap: 10px;
-  
+
         img {
           width: 35px;
           height: 35px;
           border-radius: 50%;
         }
-  
+
         .replay-container {
           max-width: 600px;
           border: solid black 2px;
           padding: 5px;
-  
+
           .reply-text {
             margin-top: 10px;
           }
         }
-  
+
         .reply-time {
           align-self: flex-end;
         }
       }
     }
-  
+
     .create-reply {
       margin-top: 30px;
       display: flex;
       gap: 10px;
-  
+
       img {
         width: 35px;
         height: 35px;
         border-radius: 50%;
       }
-  
+
       form {
         display: flex;
         flex-direction: column;
@@ -172,7 +167,7 @@
         height: 100px;
         border: solid black 2px;
         padding: 10px;
-  
+
         textarea {
           resize: none;
           width: 100%;
@@ -180,7 +175,7 @@
           border: none;
           outline: none;
         }
-  
+
         button {
           width: 50px;
           align-self: end;
@@ -188,8 +183,4 @@
       }
     }
   }
-
-
-
-
 }

@@ -81,18 +81,22 @@ export const GroupPreview = ({
 
               {cmpOrder.map((cmp, index) => (
                 labels[index] === 'item' ?
-                  <div key={`label-${index}`} className="label-title stick">
-                    <input
-                      type="checkbox"
-                      className="checkbox"
-                      onChange={() => { }}
-                      onClick={() => handleMasterCheckboxClick(group)}
-                      checked={checkedGroups.includes(group.id)}
+                  <div style={{ borderLeft: `5px solid ${group?.color}`, borderTopLeftRadius: 5 }} key={`label-${index}`} className="label-title stick">
+                    <section className="main-checkbox">
+                      <input
+                        type="checkbox"
+                        className="checkbox"
+                        onChange={() => { }}
+                        onClick={() => handleMasterCheckboxClick(group)}
+                        checked={checkedGroups.includes(group.id)}
 
-                    />
-                    < div style={{ textAlign: `${labels[index] === '+' ? 'start' : 'center'}` }} key={`label-${index}`}>{labels[index] || ""}</div>
+                      />
+                    </section>
+                    < section className="title-group" key={`label-${index}`}>{labels[index] || ""}</section>
 
-                  </div>
+
+
+                  </div >
                   :
                   < div style={{ textAlign: `${labels[index] === '+' ? 'start' : 'center'}` }} key={`label-${index}`}>{labels[index] || ""}</div>
               ))}
@@ -115,6 +119,7 @@ export const GroupPreview = ({
 
                 {cmpOrder.map((cmp, idx) => (
                   <section
+                    style={cmp === 'taskTitle' ? { borderLeft: `5px solid ${group?.color}` } : {}}
                     className={`grid-item ${cmp} ${cmp === 'taskTitle' ? 'stick' : ''}`}
                     key={`task-${task.id}-cmp-${idx}`}
                   >

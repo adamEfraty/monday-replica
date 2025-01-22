@@ -8,7 +8,6 @@
 .labels-grid {
   display: grid;
   grid-template-columns: 400px repeat(4, 150px) 500px;
-  border: 1px solid #e0dede;
   grid-template-rows: 34px;
 
   width: 100%;
@@ -98,6 +97,7 @@
   padding: 0.7rem;
   text-align: center;
   font-weight: 800;
+  border-top: 1px solid #e0dede;
 }
 
 .labels-grid div {
@@ -219,6 +219,7 @@ div {
 .add-task {
   opacity: 0.5;
   border: 1px solid #e0dede;
+  border-right: none;
 }
 
 .chat-icon {
@@ -240,20 +241,32 @@ div.group-title-flex {
   top: 145px;
   background-color: #fff;
   z-index: 8;
+  width: 100%;
 }
-
+.prog-box {
+  border: 1px solid #e0dede;
+}
 .stick {
   position: sticky;
   left: 0;
-  z-index: 10;
+  z-index: 2;
   background-color: #ffffff;
   display: inline-block;
 }
 
 .label-title {
   display: flex;
+  align-items: center;
+  gap: 35%;
 }
 
-.prog-box {
-  border: 1px solid #e0dede;
+.main-checkbox {
+  border-right: 1px solid #e0dede;
+  padding: 7px 0;
+  padding-right: 1.34rem;
+
+  input {
+    position: relative;
+    left: 5px;
+  }
 }
