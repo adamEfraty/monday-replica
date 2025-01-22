@@ -23,23 +23,39 @@ const BoardDetails = () => {
   const [checkedBoxes, setCheckedBoxes] = useState([]);
   const [checkedGroups, setCheckedGroups] = useState([]);
   const boards = useSelector((state) => state.boardModule.boards);
+  const [currentBoard, setCurrentBoard] = useState(
+    boards.find((board) => board.id === boardId)
+  );
   const loggedinUser = useSelector((state) => state.userModule.user);
   const users = useSelector((state) => state.userModule.users);
   const filterBy = useSelector((state) => state.boardModule.filterBy);
 
-  const currentBoard = boards.find((board) => board.id === boardId);
+  // const currentBoard = boards.find((board) => board.id === boardId);
 
   const groups = currentBoard?.groups || [];
 
-  //.........................
   useEffect(() => {
-    onLoadBoards();
-  }, [boards.groups]);
+    if (!currentBoard)
+      setCurrentBoard(boards.find((board) => board.id === boardId));
+  }, [boards]);
 
-  async function onLoadBoards() {
-    await loadBoards(filterBy);
-    await loadUsers();
-  }
+  useEffect(() => {
+    if (boards[0]) {
+      const board = boards.find((board) => board.id === boardId);
+      console.log(boards, filterBy, currentBoard, boardId);
+      const regExp = new RegExp(filterBy, "i");
+      const filteredGroups = board.groups
+        .map((group) => ({
+          ...group,
+          tasks: group.tasks.filter((task) => regExp.test(task.taskTitle)), // Filter tasks
+        }))
+        .filter((group) => group.tasks.length > 0); // Keep groups that have tasks
+
+      setCurrentBoard({ ...board, groups: filteredGroups }); // Update currentBoard with filtered groups
+      loadBoards();
+      loadUsers();
+    }
+  }, [filterBy]);
 
   //...............................
 
@@ -47,8 +63,8 @@ const BoardDetails = () => {
     addGroup(boardId);
   }
 
-  function chatTempInfoUpdate(cellId, width, newComment){
-    boardService.saveTempChatInfo(cellId, width, newComment)
+  function chatTempInfoUpdate(cellId, width, newComment) {
+    boardService.saveTempChatInfo(cellId, width, newComment);
   }
 
   // function that set groups with each task update
@@ -121,7 +137,10 @@ const BoardDetails = () => {
     removeGroup(boardId, groupId);
   }
 
-  if (!currentBoard) return <div>Loading...</div>;
+  if (!currentBoard)
+    return (
+      <div onClick={() => console.log(boards, currentBoard)}>Loading...</div>
+    );
 
   return (
     <div className="board-details">

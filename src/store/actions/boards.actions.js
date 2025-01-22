@@ -212,5 +212,12 @@ export async function openModal(taskId){
 }
 
 export function handleFilter(filterBy){
+  boardService.setFilterContextSession(filterBy)
   store.dispatch({ type: SET_FILTER_BY, filterBy })
+}
+
+export function getFilterContext(){
+  const filterBy = boardService.getFilterContextSession()
+  store.dispatch({ type: SET_FILTER_BY, filterBy })
+  return filterBy
 }

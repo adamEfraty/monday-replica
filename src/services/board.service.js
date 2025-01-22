@@ -31,6 +31,8 @@ export const boardService = {
   getDefaultFilter,
   getFilterState,
   setFilterStateSession,
+  getFilterContextSession,
+  setFilterContextSession,
 };
 
 async function addBoard() {
@@ -57,6 +59,7 @@ async function query() {
       await makeFirstBoard();
       boards = await storageService.query(STORAGE_KEY);
     }
+    console.log("dsfjsbdfkhbsdf ", boards)
     return boards;
   } catch (error) {
     console.log("Error:", error);
@@ -379,6 +382,20 @@ function getChatTempInfo() {
 
 function setFilterStateSession(state) {
   sessionStorage.setItem("filterState", state);
+}
+
+function setFilterContextSession(txt){
+  sessionStorage.setItem("filterContext", txt);
+}
+
+function getFilterContextSession(){
+  const filterContext = sessionStorage.getItem("filterContext");
+  if (filterContext) {
+    return filterContext;
+  } else {
+    setFilterContextSession(false);
+    return "";
+  }
 }
 
 function getFilterState() {

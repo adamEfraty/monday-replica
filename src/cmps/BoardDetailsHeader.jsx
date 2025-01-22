@@ -4,7 +4,7 @@ import HorizDotsIcon from "@mui/icons-material/MoreHorizOutlined";
 import SearchIcon from "@mui/icons-material/SearchOutlined";
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { handleFilter } from "../store/actions/boards.actions";
+import { handleFilter, getFilterContext } from "../store/actions/boards.actions";
 import { boardService } from "../services/board.service";
 export function BoardDetailsHeader({ boardTitle }) {
   const filterBy = useSelector((state) => state.boardModule.filterBy);
@@ -13,7 +13,8 @@ export function BoardDetailsHeader({ boardTitle }) {
   const [filterState, setFilterState] = useState(boardService.getFilterState());
 
   useEffect(() => {
-    console.log(filterState);
+    const filter = getFilterContext();
+    setFilterByToEdit(filter);
   }, [])
 
   useEffect(() => {
