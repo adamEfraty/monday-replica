@@ -15,10 +15,10 @@ export function AddTask({ group, handleAddTask }) {
     }
 
     return (
-        <section className="add-task stick">
+        <section style={{ borderLeft: `5px solid ${group?.color}`, borderBottomLeftRadius: 5 }} className="add-task stick">
             <input
                 className="add-input"
-                style={{ borderLeft: `5px solid ${group?.color}`, borderBottomLeftRadius: 5 }}
+
                 onBlur={onAddTask}
                 onKeyDown={handleKeyDown}
                 type="text"
