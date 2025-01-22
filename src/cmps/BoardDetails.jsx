@@ -60,8 +60,8 @@ const BoardDetails = () => {
   const uid = () => Math.random().toString(36).slice(2);
   const labels = ["item", "priority", "status", "members", "date", "+"];
 
-  const progress = [null, null, "priority", "status", "members", "date"];
-    const handleCheckBoxClick = (groupId, taskId) => {
+  const progress = [null, "priority", "status", "members", "date"];
+  const handleCheckBoxClick = (groupId, taskId) => {
     console.log(groupId, taskId);
     console.log(checkedBoxes);
     setCheckedBoxes((prev) => {
