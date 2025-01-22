@@ -21,31 +21,31 @@ export function ChatModal({
     const [onEditMode, setOnEditMode] = useState(false)
     const [textToEdit, setTextToEdit] = useState(text)
 
-    const [newComment, setNewComment] = useState("");
+    const [newComment, setNewComment] = useState(
+        (chatInfo?.newComment?.id === cellId) ? chatInfo.newComment.comment : '')
     const [newReplies, setNewReplies] = useState(
         chat.map(comment => ({ id: comment.sentAt, text: "" })))
 
-    const [width, setWidth] = useState(chatInfo ? chatInfo.width : 700) // Initial width of the chat modal
+    const [width, setWidth] = useState(chatInfo ? chatInfo.width : 700)
     const [isDragging, setIsDragging] = useState(false)
 
     useEffect(()=>{
-        if(width)
-            chatTempInfoUpdate(cellId, width)
-    },[])
+        chatTempInfoUpdate(cellId, width, {id: cellId ,comment: newComment})
+    },[newComment])
 
     useEffect(() => {
         // Attach global mousemove and mouseup listeners when dragging starts
         if (isDragging) {
-            window.addEventListener("mousemove", handleMouseMove);
-            window.addEventListener("mouseup", handleMouseUp);
+            window.addEventListener("mousemove", handleMouseMove)
+            window.addEventListener("mouseup", handleMouseUp)
         }
 
         // Cleanup listeners when dragging stops
         return () => {
-            window.removeEventListener("mousemove", handleMouseMove);
-            window.removeEventListener("mouseup", handleMouseUp);
-        };
-    }, [isDragging]);
+            window.removeEventListener("mousemove", handleMouseMove)
+            window.removeEventListener("mouseup", handleMouseUp)
+        }
+    }, [isDragging])
 
 
     // toggel btween spectate and edit mode
@@ -126,15 +126,19 @@ export function ChatModal({
     
         // Set a minimum and maximum width for the modal to prevent it from collapsing or overflowing
         const MIN_WIDTH = 570
-        const MAX_WIDTH = window.innerWidth - 210 // will need to be change later
+        const MAX_WIDTH = window.innerWidth - 265 // will need to be change later
     
         setWidth(Math.max(MIN_WIDTH, Math.min(newWidth, MAX_WIDTH)));
     }
     
       const handleMouseUp = () => {
         setIsDragging(false)
-        chatTempInfoUpdate(cellId, width)
-        chatInfo.width = width
+        chatTempInfoUpdate(cellId, width, {id: cellId ,comment: newComment})
+      }
+
+      function closeChat(){
+        chatTempInfoUpdate(null, width, {id: cellId ,comment: newComment})
+        modalToggle()
       }
 
     return (
@@ -153,7 +157,7 @@ export function ChatModal({
             </div>
 
             <div className="chat-header">
-                <button className="exis-button" onClick={modalToggle}>X</button>
+                <button className="exis-button" onClick={closeChat}>X</button>
 
                 {/* Edit Task Title */}
                 <div className="chat-edit-title">
@@ -172,64 +176,66 @@ export function ChatModal({
             </div>
 
             <div className="chat-body">
-                {/* Create Comment */}
-                <form onSubmit={handleCommentSubmit} className="create-comment">
-                    <textarea
-                        value={newComment}
-                        onChange={event => setNewComment(event.target.value)}
-                        placeholder="Write an update"
-                        type="textarea"
-                    />
-                    <button type="submit">Update</button>
-                </form>
+                <div className="chat-inner-body">
+                    {/* Create Comment */}
+                    <form onSubmit={handleCommentSubmit} className="create-comment">
+                        <textarea
+                            value={newComment}
+                            onChange={event => setNewComment(event.target.value)}
+                            placeholder="Write an update"
+                            type="textarea"
+                        />
+                        <button type="submit">Update</button>
+                    </form>
 
-                {/* Comment List */}
-                <ul className="comments-list">
-                    {chat.map(comment => {
-                        const commenter = getUserById(comment.userId);
-                        return (
-                            <li key={comment.sentAt} className="comment">
-                                <div className="comment-info">
-                                    <img src={commenter.imgUrl} alt={commenter.name} />
-                                    <p>{commenter.fullName}</p>
-                                    <p>{simplifyTimeToStr(comment.sentAt)}</p>
-                                </div>
-                                <p>{comment.text}</p>
+                    {/* Comment List */}
+                    <ul className="comments-list">
+                        {chat.map(comment => {
+                            const commenter = getUserById(comment.userId);
+                            return (
+                                <li key={comment.sentAt} className="comment">
+                                    <div className="comment-info">
+                                        <img src={commenter.imgUrl} alt={commenter.name} />
+                                        <p>{commenter.fullName}</p>
+                                        <p>{simplifyTimeToStr(comment.sentAt)}</p>
+                                    </div>
+                                    <p>{comment.text}</p>
 
-                                {/* Replaies List to The Comment */}
-                                <ul className="replies-list">
-                                    {comment.replies.map(reply => {
-                                        const replier = getUserById(reply.userId);
-                                        return (
-                                            <li key={`${reply.sentAt}-${reply.userId}`} className="reply">
-                                                <img src={replier.imgUrl} alt={replier.fullName} />
-                                                <div className="replay-container">
-                                                    <p>{replier.fullName}</p>
-                                                    <p className="reply-text">{reply.text}</p>
-                                                </div>
-                                                <p className="reply-time">{simplifyTimeToStr(reply.sentAt)}</p>
-                                            </li>
-                                        )
-                                    })}
-                                </ul>
-                                
-                                {/* Create New Reply to Comment */}
-                                <div className="create-reply">
-                                    <img src={loggedinUser.imgUrl}/>
-                                    <form 
-                                    onSubmit={event => handleReplySubmit(event, comment)}>
-                                        <textarea
-                                            value={findNewReplyByComment(comment)?.text || ""}
-                                            onChange={event => handleReplyChange(event, comment)}
-                                            placeholder="Write a reply"
-                                        />
-                                        <button type="submit">Reply</button>
-                                    </form>
-                                </div>
-                            </li>
-                        )
-                    })}
-                </ul>
+                                    {/* Replaies List to The Comment */}
+                                    <ul className="replies-list">
+                                        {comment.replies.map(reply => {
+                                            const replier = getUserById(reply.userId);
+                                            return (
+                                                <li key={`${reply.sentAt}-${reply.userId}`} className="reply">
+                                                    <img src={replier.imgUrl} alt={replier.fullName} />
+                                                    <div className="replay-container">
+                                                        <p>{replier.fullName}</p>
+                                                        <p className="reply-text">{reply.text}</p>
+                                                    </div>
+                                                    <p className="reply-time">{simplifyTimeToStr(reply.sentAt)}</p>
+                                                </li>
+                                            )
+                                        })}
+                                    </ul>
+                                    
+                                    {/* Create New Reply to Comment */}
+                                    <div className="create-reply">
+                                        <img src={loggedinUser.imgUrl}/>
+                                        <form 
+                                        onSubmit={event => handleReplySubmit(event, comment)}>
+                                            <textarea
+                                                value={findNewReplyByComment(comment)?.text || ""}
+                                                onChange={event => handleReplyChange(event, comment)}
+                                                placeholder="Write a reply"
+                                            />
+                                            <button type="submit">Reply</button>
+                                        </form>
+                                    </div>
+                                </li>
+                            )
+                        })}
+                    </ul>
+                </div>
             </div>   
         </section>
     )

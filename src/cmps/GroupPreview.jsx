@@ -33,7 +33,6 @@ export const GroupPreview = ({
   boardId,
   users,
   chatTempInfoUpdate,
-  chatInfo,
 }) => {
   const [expanded, setExpanded] = useState(true);
   const [groupTitle, setGroupTitle] = useState(group.title);
@@ -133,7 +132,6 @@ export const GroupPreview = ({
                       chat={task.chat} // temporary for demo data
                       users={users}
                       chatTempInfoUpdate={chatTempInfoUpdate}
-                      chatInfo={chatInfo}
                       checkedBoxes={checkedBoxes}
                       handleCheckBoxClick={handleCheckBoxClick}
                     />
@@ -178,7 +176,6 @@ const DynamicCmp = ({
   loggedinUser,
   users,
   chatTempInfoUpdate,
-  chatInfo,
   checkedBoxes,
   handleCheckBoxClick
 }) => {
@@ -209,7 +206,6 @@ const DynamicCmp = ({
           text={info}
           onTaskUpdate={onTaskUpdate}
           chatTempInfoUpdate={chatTempInfoUpdate}
-          chatInfo={chatInfo}
           checkedBoxes={checkedBoxes}
           handleCheckBoxClick={handleCheckBoxClick}
         />

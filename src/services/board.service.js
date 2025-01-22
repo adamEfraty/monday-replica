@@ -366,8 +366,8 @@ async function makeFirstBoard() {
   }
 }
 
-function saveTempChatInfo(id, width){
-  sessionStorage.setItem(CHAT_KEY, JSON.stringify({id, width}))
+function saveTempChatInfo(id, width, newComment){
+  sessionStorage.setItem(CHAT_KEY, JSON.stringify({id, width, newComment}))
 }
 
 function getChatTempInfo() {
