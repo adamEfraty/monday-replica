@@ -111,7 +111,6 @@ export async function removeGroup(boardId, groupId) {
 export async function updateGroup(boardId, groupId, updatedGroupData) {
   // Update the group in the board service
   await boardService.updateGroupInBoard(boardId, groupId, updatedGroupData);
-  await boardService.updateGroupInBoard(boardId, groupId, updatedGroupData)
 
   const board = await boardService.getById(boardId);
   if (!board) throw new Error("Board not found");
@@ -122,6 +121,8 @@ export async function updateGroup(boardId, groupId, updatedGroupData) {
       group.id === groupId ? { ...group, ...updatedGroupData } : group
     ),
   };
+
+  console.log('updated: ', updatedBoard)
 
   await store.dispatch({
     type: EDIT_BOARD,

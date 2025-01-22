@@ -32,12 +32,20 @@ const BoardDetails = () => {
 
   // const currentBoard = boards.find((board) => board.id === boardId);
 
-  const groups = currentBoard?.groups || [];
+  // const groups = currentBoard?.groups || [];
 
   useEffect(() => {
-    if (!currentBoard)
+    // if (!currentBoard || currentBoard.id !== boardId)
       setCurrentBoard(boards.find((board) => board.id === boardId));
-  }, [boards]);
+  }, [boards, boardId]);
+
+  useEffect(() => {
+    async function d(){
+      await loadBoards();
+      await loadUsers();
+    }
+    d();
+  }, [boards.groups]);
 
   useEffect(() => {
     if (boards[0]) {
@@ -52,10 +60,8 @@ const BoardDetails = () => {
         .filter((group) => group.tasks.length > 0); // Keep groups that have tasks
 
       setCurrentBoard({ ...board, groups: filteredGroups }); // Update currentBoard with filtered groups
-      loadBoards();
-      loadUsers();
     }
-  }, [filterBy]);
+  }, [filterBy])
 
   //...............................
 
@@ -128,6 +134,7 @@ const BoardDetails = () => {
   }
 
   async function handleGroupNameChange(groupTitle, group) {
+    console.log(groupTitle, group);
     const updatedTask = { title: groupTitle };
 
     try {
@@ -150,7 +157,7 @@ const BoardDetails = () => {
     <div className="board-details">
       <BoardDetailsHeader boardTitle={currentBoard.title} />
       <section className="group-list">
-        {groups.map((group) => (
+        {currentBoard.groups.map((group) => (
           <GroupPreview
             group={group}
             labels={labels}

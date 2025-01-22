@@ -16,7 +16,7 @@ export function SideBar({ boards, user, onRemoveBoard }) {
 
   function onChangeAdressOnce(fullAddress) {
     if (location.pathname !== fullAddress) {
-      navigate(fullAddress);
+      navigate(`${fullAddress}`);
     }
   }
 
@@ -27,7 +27,7 @@ export function SideBar({ boards, user, onRemoveBoard }) {
   function handleDotsClick(event, boardId) {
     event.stopPropagation();
     console.log(boardId);
-    onRemoveBoard(boardId)
+    onRemoveBoard(boardId);
   }
 
   const iconStyle = { width: 22, height: 22 };
@@ -84,13 +84,14 @@ export function SideBar({ boards, user, onRemoveBoard }) {
           <li key={board.id}>
             <div
               className="sidebar-board"
-              onClick={() =>
+              onClick={() => {
+                console.log(board.id);
                 onChangeAdressOnce(
                   `/${utilService.getNameFromEmail(
                     user.email
                   )}s-team.sunday.com/boards/${board.id}`
-                )
-              }
+                );
+              }}
             >
               <section>
                 <BoardIcon style={iconStyle} />
@@ -104,7 +105,11 @@ export function SideBar({ boards, user, onRemoveBoard }) {
               >
                 X
               </button> */}
-              <HorizDotsIcon onClick={(event) => handleDotsClick(event, board.id)} className="horizontal-dots-icon" style={iconStyle} />
+              <HorizDotsIcon
+                onClick={(event) => handleDotsClick(event, board.id)}
+                className="horizontal-dots-icon"
+                style={iconStyle}
+              />
             </div>
           </li>
         ))}
