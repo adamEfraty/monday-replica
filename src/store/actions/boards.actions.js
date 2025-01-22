@@ -3,7 +3,7 @@ import { showSuccessMsg } from "../../services/event-bus.service";
 import { utilService } from "../../services/util.service";
 import { store } from "../store";
 
-import { EDIT_BOARD, REMOVE_BOARD, SET_BOARDS, OPEN_MODAL, SET_FILTER_STATE } from '../reducer/boards.reducer'
+import { EDIT_BOARD, REMOVE_BOARD, SET_BOARDS, OPEN_MODAL, SET_FILTER_BY } from '../reducer/boards.reducer'
 
 export async function addBoard() {
   try {
@@ -27,6 +27,7 @@ export async function addBoard() {
 
 export async function loadBoards() {
   const boards = await boardService.query();
+  console.log(boards, 'kkkkkkkkk')
   await store.dispatch({ type: SET_BOARDS, boards });
   showSuccessMsg("Boards loaded");
 }
@@ -207,9 +208,17 @@ export async function updateBoardName(boardId, newName) {
 }
 
 export async function openModal(taskId){
+  console.log("opened modal")
   store.dispatch({ type: OPEN_MODAL, taskId })
 }
 
-export function setFilterState(newState){
-  store.dispatch({ type: SET_FILTER_STATE, newState })
+export function handleFilter(filterBy){
+  boardService.setFilterContextSession(filterBy)
+  store.dispatch({ type: SET_FILTER_BY, filterBy })
+}
+
+export function getFilterContext(){
+  const filterBy = boardService.getFilterContextSession()
+  store.dispatch({ type: SET_FILTER_BY, filterBy })
+  return filterBy
 }
