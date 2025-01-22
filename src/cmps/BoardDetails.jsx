@@ -157,7 +157,8 @@ const BoardDetails = () => {
     <div className="board-details">
       <BoardDetailsHeader boardTitle={currentBoard.title} />
       <section className="group-list">
-        {currentBoard.groups.map((group) => (
+        {currentBoard.groups.length > 0 ? 
+        currentBoard.groups.map((group) => (
           <GroupPreview
             group={group}
             labels={labels}
@@ -178,7 +179,9 @@ const BoardDetails = () => {
             chatTempInfoUpdate={chatTempInfoUpdate}
             openChat={openChat}
           />
-        ))}
+        ))
+      :
+      filterBy.length === 0 ? <h1>No groups here yet, add your first!</h1> : <h1>No tasks match this filter</h1>}
         <button className="modal-save-btn" onClick={handleAddGroup}>
           +Add a new group
         </button>
