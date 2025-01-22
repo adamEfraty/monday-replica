@@ -3,7 +3,7 @@ import { showSuccessMsg } from "../../services/event-bus.service";
 import { utilService } from "../../services/util.service";
 import { store } from "../store";
 
-import { EDIT_BOARD, REMOVE_BOARD, SET_BOARDS, OPEN_MODAL, SET_FILTER_BY } from '../reducer/boards.reducer'
+import { EDIT_BOARD, REMOVE_BOARD, SET_BOARDS, OPEN_MODALS, SET_FILTER_BY } from '../reducer/boards.reducer'
 
 export async function addBoard() {
   try {
@@ -208,9 +208,27 @@ export async function updateBoardName(boardId, newName) {
   }
 }
 
-export async function openModal(taskId){
-  console.log("opened modal")
-  store.dispatch({ type: OPEN_MODAL, taskId })
+export function openModal(modalId){
+  const currentModals = store.getState().boardModule.openModals
+  let newModals = currentModals.includes(modalId)
+  ? currentModals
+  : [...currentModals, modalId]
+
+  // if the modal you open is chat, close every other chat modal
+  newModals = boardService.replaceChats(newModals, modalId)
+
+  store.dispatch({ type: OPEN_MODALS, newModals })
+}
+
+export function closeModal(modalId){
+  const currentModals = store.getState().boardModule.openModals
+  let newModals = [...currentModals]
+  const modalIndex = newModals.findIndex(id => id === modalId)
+
+  if(modalIndex !== -1)
+    newModals.splice(modalIndex,1)
+  
+  store.dispatch({ type: OPEN_MODALS, newModals })
 }
 
 export function handleFilter(filterBy){

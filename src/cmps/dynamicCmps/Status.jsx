@@ -1,11 +1,11 @@
 import { useEffect, useRef } from 'react'
 import { StatusModal } from './modals/StatusModal.jsx'
-import { openModal } from '../../store/actions/boards.actions.js'
+import { openModal, closeModal } from '../../store/actions/boards.actions.js'
 import { useSelector } from "react-redux";
 
 export function Status({ cellId, group, task, status, onTaskUpdate }) {
-    const openModalId = useSelector(state => state.boardModule.openModal)
-    const modal = (openModalId === cellId)
+    const openModals = useSelector(state => state.boardModule.openModals)
+    const modal = openModals.some(modalId => modalId === cellId)
 
     const modalRef = useRef(null)
     const statusCellRef = useRef(null)
@@ -13,7 +13,7 @@ export function Status({ cellId, group, task, status, onTaskUpdate }) {
     // close and open modal as needed
     function modalToggle() {
         modal
-        ? openModal(null)
+        ? closeModal(cellId)
         : openModal(cellId)
     }
 

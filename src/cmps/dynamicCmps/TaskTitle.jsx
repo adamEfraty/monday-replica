@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from "react"
 import { showErrorMsg } from '../../services/event-bus.service.js'
 import { ChatModal } from "./modals/ChatModal.jsx"
 import ChatIcon from '@mui/icons-material/MapsUgcOutlined';
-import { openModal } from '../../store/actions/boards.actions.js'
+import { openModal, closeModal } from '../../store/actions/boards.actions.js'
 import { useSelector } from "react-redux";
 import { utilService } from "../../services/util.service.js";
 import { boardService } from "../../services/board.service.js";
@@ -26,8 +26,8 @@ export function TaskTitle({ cellId,
   // so we won't see the chat before the animation
   const [openAnimation, setOpenAnimation] = useState(false)
 
-  const openModalId = useSelector(state => state.boardModule.openModal)
-  const modal = (openModalId === cellId)
+  const openModals = useSelector(state => state.boardModule.openModals)
+  const modal = openModals.some(modalId => modalId === cellId)
 
   const modalRef = useRef(null)
   const ChatButtonRef = useRef(null)
@@ -65,7 +65,7 @@ export function TaskTitle({ cellId,
     if (modal) {
       // Close modal
       chatAnimation(false)
-      setTimeout(() => openModal(null), 275)
+      setTimeout(() => closeModal(cellId), 275)
     } else {
       // Open modal
       setOpenAnimation(true)
@@ -191,4 +191,3 @@ export function TaskTitle({ cellId,
     </>
   )
 }
-
