@@ -90,9 +90,6 @@
 
 /* Labels and Progress Sections */
 
-.prog-box {
-}
-
 .progress-grid div {
   padding: 0.7rem;
   text-align: center;
@@ -249,7 +246,7 @@ div.group-title-flex {
 .stick {
   position: sticky;
   left: 0;
-  z-index: 2;
+  z-index: 11;
   background-color: #ffffff;
   display: inline-block;
 }

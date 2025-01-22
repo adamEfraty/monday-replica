@@ -1,10 +1,9 @@
+import { useSelector } from "react-redux"
 
-export function MembersModal({ParticipateMembers, onAddMember, onRemoveMember, usersInBoard}){
+export function MembersModal({ParticipateMembers, onAddMember, onRemoveMember}){
+    const users = useSelector((state) => state.userModule.users)
 
-    //temporary taking from demo data
-    const membersInBoard = [...usersInBoard]
-
-    const nonParticipateMembers = membersInBoard.filter(member=> 
+    const nonParticipateMembers = users.filter(member=> 
         !ParticipateMembers.find(cMember=> cMember.id === member.id))
 
 
@@ -16,7 +15,7 @@ export function MembersModal({ParticipateMembers, onAddMember, onRemoveMember, u
                 {
                     ParticipateMembers.map(member=>
                         <li key={member.id}>
-                            <img src={member.image}/>
+                            <img src={member.imgUrl}/>
                             <p>{member.name}</p>
                             <button onClick={()=>onRemoveMember(member)}>x</button>
                         </li>
@@ -35,7 +34,7 @@ export function MembersModal({ParticipateMembers, onAddMember, onRemoveMember, u
                         nonParticipateMembers.map(member=>
                             <li key={member.id}
                             onClick={()=>onAddMember(member)}>
-                                <img src={member.image}/>
+                                <img src={member.imgUrl}/>
                                 <p>{member.name}</p>
                             </li>
                         )
