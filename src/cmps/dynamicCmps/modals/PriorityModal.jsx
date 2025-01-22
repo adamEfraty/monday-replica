@@ -1,32 +1,28 @@
 
 
-export function PriorityModal({ onPriorityChange }) {
+export function PriorityModal({onPriorityChange}){
 
     //temporary priorities selection
-
-
-    const priorities = [{ text: 'Low', color: '#86B6FB' }, { text: 'Medium', color: '#5559DF' },
-    { text: 'High', color: '#401694' }, { text: 'Critical ⚠️', color: '#333333' }, { text: ' ', color: '#C4C4C4' }]
+    const priorities = [{text:'Low', color:'#86B6FB'},{text:'Medium', color:'#5559DF'},
+        {text:'High', color:'#401694'},{text:'Critical ⚠️', color:'#333333'}]
 
 
     return (
         <section className="priority-modal">
             {/* list of quick access prioritise */}
-            <ul className="item-flex">
+            <ul>
                 {
-                    priorities.map((priority, index) =>
-                        <li key={index} className="modal-item"
-                            onClick={() => {
-                                console.log(priority)
-                                onPriorityChange(priority)
-                            }}
-                            style={{ backgroundColor: priority.color }}>
-                            <p>{priority.text}</p>
+                    priorities.map(priority =>
+                        <li key={priority.text}
+                            onClick={()=>onPriorityChange(priority)}
+                            style={{backgroundColor: priority.color}}>
+                            {priority.text}
                         </li>
                     )
                 }
             </ul>
 
+            <button>Edit Labels</button>
         </section>
     )
 }

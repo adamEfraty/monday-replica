@@ -25,17 +25,46 @@ const BoardDetails = () => {
   const boards = useSelector((state) => state.boardModule.boards);
   const loggedinUser = useSelector((state) => state.userModule.user);
   const users = useSelector((state) => state.userModule.users);
-
-  const currentBoard = boards.find((board) => board.id === boardId);
+  const filterBy = useSelector((state) => state.boardModule.filterBy);
+  const [currentBoard, setCurrentBoard] = useState([]);
 
   const groups = currentBoard?.groups || [];
 
   //.........................
   useEffect(() => {
+    setCurrentBoard(boards.find((board) => board.id === boardId));
+    console.log(boards.find((board) => board.id === boardId), boards, 'dsisjdsjhjakjn');
+  }, [boards]);
+
+  useEffect(() => {
     onLoadBoards();
-  }, [boards.groups]);
+  }, [boards.groups, filterBy]);
+
+  useEffect(() => {
+    console.log("currentBoard: ", currentBoard);
+  }, [currentBoard]);
 
   async function onLoadBoards() {
+    console.log(currentBoard, filterBy);
+    setCurrentBoard(() => {
+      const regExp = new RegExp(filterBy, "i");
+      const returnedBoard = boards
+        .filter((board) => board.id === boardId) // Filter boards by `boardId`
+        .map((board) => ({
+          ...board,
+          groups: board.groups
+            .map((group) => ({
+              ...group,
+              tasks: group.tasks.filter((task) => {
+                console.log(task.title, filterBy, regExp.test(task.title));
+                regExp.test(task.title)}), // Keep tasks matching the filter
+            }))
+            .filter((group) => group.tasks.length > 0), // Keep groups with matching tasks
+        }))
+        .filter((board) => board.groups.length > 0); // Keep boards with matching groups
+
+      return returnedBoard;
+    });
     await loadBoards();
     await loadUsers();
   }
@@ -46,8 +75,8 @@ const BoardDetails = () => {
     addGroup(boardId);
   }
 
-  function chatTempInfoUpdate(cellId, width, newComment){
-    boardService.saveTempChatInfo(cellId, width, newComment)
+  function chatTempInfoUpdate(cellId, width, newComment) {
+    boardService.saveTempChatInfo(cellId, width, newComment);
   }
 
   // function that set groups with each task update
@@ -60,7 +89,7 @@ const BoardDetails = () => {
   const labels = ["item", "priority", "status", "members", "date", "+"];
 
   const progress = [null, null, "priority", "status", "members", "date"];
-    const handleCheckBoxClick = (groupId, taskId) => {
+  const handleCheckBoxClick = (groupId, taskId) => {
     console.log(groupId, taskId);
     console.log(checkedBoxes);
     setCheckedBoxes((prev) => {

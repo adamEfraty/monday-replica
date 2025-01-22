@@ -26,6 +26,7 @@ export function SideBar({ boards, user, onRemoveBoard }) {
 
   function handleDotsClick(event, boardId) {
     event.stopPropagation();
+    console.log(boardId);
     onRemoveBoard(boardId)
   }
 

@@ -2,15 +2,33 @@ import ArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import HomeIcon from "@mui/icons-material/HomeOutlined";
 import HorizDotsIcon from "@mui/icons-material/MoreHorizOutlined";
 import SearchIcon from "@mui/icons-material/SearchOutlined";
+import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { setFilterState } from "../store/actions/boards.actions";
+import { handleFilter } from "../store/actions/boards.actions";
+import { boardService } from "../services/board.service";
 export function BoardDetailsHeader({ boardTitle }) {
   const filterBy = useSelector((state) => state.boardModule.filterBy);
-  const filterState = useSelector((state) => state.boardModule.filterState);
+  const boards = useSelector((state) => state.boardModule.boards);
+  const [filterByToEdit, setFilterByToEdit] = useState(filterBy);
+  const [filterState, setFilterState] = useState(boardService.getFilterState());
+
+  useEffect(() => {
+    console.log(filterState);
+  }, [])
+
+  useEffect(() => {
+    handleFilter(filterByToEdit);
+  }, [filterByToEdit]);
+
   const iconStyle = { width: 20, height: 18 };
 
-  function handleFilterState(state) {
-    console.log("skjfhiushdfuigh", filterState, state);
+  function handleFilterChange({ target }) {
+    const value = target.value;
+    setFilterByToEdit(value);
+  }
+
+  function handleFilterStateChange(state) {
+    boardService.setFilterStateSession(state);
     !filterState == state && setFilterState(state);
   }
   return (
@@ -40,21 +58,28 @@ export function BoardDetailsHeader({ boardTitle }) {
         </div>
         <div
           onBlur={(e) => {
+            console.log("Ragnar")
             if (!e.currentTarget.contains(e.relatedTarget)) {
-              handleFilterState(false); // Only trigger if focus leaves the div and its children
+              handleFilterStateChange(false); // Only trigger if focus leaves the div and its children
             }
           }}
-          onClick={() => handleFilterState(true)}
+          onClick={() => handleFilterStateChange(true)}
           className={filterState ? "filter-input" : "choice-div"}
           tabIndex={0} // Make the div focusable
         >
           <SearchIcon style={{ width: 24, height: 24 }} />
           {filterState ? (
             <input
+              onClick={() => {
+                console.log(filterBy);
+              }}
+              onChange={handleFilterChange}
+              type="text"
+              value={filterByToEdit}
               autoFocus
               onBlur={(e) => {
                 if (!e.currentTarget.contains(e.relatedTarget)) {
-                  handleFilterState(false);
+                  handleFilterStateChange(false);
                 }
               }}
             />
