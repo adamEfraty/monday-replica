@@ -1,11 +1,11 @@
 .chat-modal {
-  z-index: 1000; // this z-index bs has to be solved..
+  z-index: 200; // this z-index bs has to be solved..
   position: fixed; // unfortunately since absolute sticks with group-list element
-  top: 46px; // probably will change later
+  top: 44px; // probably will change later
   right: 0px;
   height: 100vh;
   background-color: white;
-  box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
 
 
   .expand-line{
@@ -19,6 +19,7 @@
     opacity: 0;
     background-color: #f5f6f8;
     transition: opacity 0.15s ease;
+    z-index: 200;
 
     &:hover {
       cursor: grab;

@@ -67,6 +67,10 @@ const BoardDetails = () => {
     boardService.saveTempChatInfo(cellId, width, newComment);
   }
 
+  function openChat(id){
+    boardService.openChat(id)
+  }
+
   // function that set groups with each task update
   const onTaskUpdate = async (changeInfo) =>
     await updateTask(currentBoard.id, changeInfo);
@@ -165,6 +169,7 @@ const BoardDetails = () => {
             boardId={boardId}
             users={users}
             chatTempInfoUpdate={chatTempInfoUpdate}
+            openChat={openChat}
           />
         ))}
         <button className="modal-save-btn" onClick={handleAddGroup}>

@@ -16,6 +16,7 @@ export function TaskTitle({ cellId,
   text,
   onTaskUpdate,
   chatTempInfoUpdate,
+  openChat,
   checkedBoxes,
   handleCheckBoxClick
 }) {
@@ -31,12 +32,12 @@ export function TaskTitle({ cellId,
   const modalRef = useRef(null)
   const ChatButtonRef = useRef(null)
 
-  let chatInfo = boardService.getChatTempInfo()
-  
+  const chatPrevInfo = boardService.getChatTempInfo(cellId)
+  const isChatWasOpen = boardService.getOpenChat()
 
   useEffect(()=>{
     // when user refresh the page while modal was open
-    if(!modal && chatInfo && chatInfo.id === cellId){
+    if(!modal && isChatWasOpen === cellId){
       modalToggle()
     }
   },[])
@@ -182,7 +183,8 @@ export function TaskTitle({ cellId,
             modalToggle={modalToggle}
             chatTempInfoUpdate={chatTempInfoUpdate}
             cellId={cellId}
-            chatInfo={chatInfo} />
+            chatPrevInfo={chatPrevInfo} 
+            openChat={openChat}/>
         </div>
       }
 

@@ -208,6 +208,7 @@ export async function updateBoardName(boardId, newName) {
 }
 
 export async function openModal(taskId){
+  console.log("opened modal")
   store.dispatch({ type: OPEN_MODAL, taskId })
 }
 

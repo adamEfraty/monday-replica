@@ -29,6 +29,8 @@ export const boardService = {
   saveTempChatInfo,
   getChatTempInfo,
   getDefaultFilter,
+  openChat,
+  getOpenChat,
   getFilterState,
   setFilterStateSession,
   getFilterContextSession,
@@ -371,13 +373,61 @@ async function makeFirstBoard() {
   }
 }
 
-function saveTempChatInfo(id, width, newComment) {
-  sessionStorage.setItem(CHAT_KEY, JSON.stringify({ id, width, newComment }));
+// newComments = [width: xxx, open: xxx, comments: [{id: xxx, comment: xxx}, ...]]
+function saveTempChatInfo(id, width, newComment){
+  const newCommentsStr = sessionStorage.getItem(CHAT_KEY)
+
+  // in case no newComments exists
+  if(!newCommentsStr) return sessionStorage.setItem(
+    CHAT_KEY, JSON.stringify({width, open: id, comments: [{id, comment: newComment}]}))
+
+  const newComments = JSON.parse(newCommentsStr)
+  newComments.width = width
+  const commentIndex = newComments.comments.findIndex(comment=> comment.id === id)
+
+  // if comment already in commends array
+  if(commentIndex !== -1)
+    newComments.comments[commentIndex].comment = newComment
+  // if not
+  else newComments.comments.push({id, comment: newComment})
+  
+  sessionStorage.setItem(CHAT_KEY, JSON.stringify(newComments))
 }
 
-function getChatTempInfo() {
-  const chatInfo = sessionStorage.getItem(CHAT_KEY);
-  return chatInfo ? JSON.parse(chatInfo) : null;
+function getChatTempInfo(id) {
+  const newCommentsStr = sessionStorage.getItem(CHAT_KEY)
+  // in case no newComments exists
+  if(!newCommentsStr) return null
+
+  else{
+    const newComments = JSON.parse(newCommentsStr)
+    const commentIndex = newComments.comments.findIndex(comment=> comment.id === id)
+
+    // in case comment exists
+    if(commentIndex !== -1) 
+      return {id, width: newComments.width, 
+        comment: newComments.comments[commentIndex].comment}
+    // in case it's not
+    else return null
+  }
+}
+
+function openChat(id){
+  const newCommentsStr = sessionStorage.getItem(CHAT_KEY)
+  if(newCommentsStr){
+    const newComments = JSON.parse(newCommentsStr)
+    newComments.open = id
+    sessionStorage.setItem(CHAT_KEY, JSON.stringify(newComments))
+  }
+}
+
+function getOpenChat(){
+  const newCommentsStr = sessionStorage.getItem(CHAT_KEY)
+  if(newCommentsStr){
+    const newComments = JSON.parse(newCommentsStr)
+    return newComments.open
+  }
+  else return null
 }
 
 function setFilterStateSession(state) {
