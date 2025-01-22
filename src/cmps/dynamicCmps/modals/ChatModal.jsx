@@ -14,23 +14,32 @@ export function ChatModal({
     modalToggle,
     chatTempInfoUpdate,
     cellId,
-    chatInfo}) 
+    chatPrevInfo,
+    openChat}) 
     
     {
 
     const [onEditMode, setOnEditMode] = useState(false)
     const [textToEdit, setTextToEdit] = useState(text)
 
+    // chatInfo = boardService.getChatTempInfo(cellId)
+
     const [newComment, setNewComment] = useState(
-        (chatInfo?.newComment?.id === cellId) ? chatInfo.newComment.comment : '')
+        chatPrevInfo?.comment ? chatPrevInfo.comment : '')
+
     const [newReplies, setNewReplies] = useState(
         chat.map(comment => ({ id: comment.sentAt, text: "" })))
 
-    const [width, setWidth] = useState(chatInfo ? chatInfo.width : 700)
+    const [width, setWidth] = useState(chatPrevInfo?.width ? chatPrevInfo.width : 700)
     const [isDragging, setIsDragging] = useState(false)
 
     useEffect(()=>{
-        chatTempInfoUpdate(cellId, width, {id: cellId ,comment: newComment})
+        chatTempInfoUpdate(cellId, width, newComment)
+        openChat(cellId)
+    },[])
+
+    useEffect(()=>{
+        chatTempInfoUpdate(cellId, width, newComment)
     },[newComment])
 
     useEffect(() => {
@@ -133,11 +142,11 @@ export function ChatModal({
     
       const handleMouseUp = () => {
         setIsDragging(false)
-        chatTempInfoUpdate(cellId, width, {id: cellId ,comment: newComment})
+        chatTempInfoUpdate(cellId, width, newComment)
       }
 
       function closeChat(){
-        chatTempInfoUpdate(null, width, {id: cellId ,comment: newComment})
+        openChat(null)
         modalToggle()
       }
 
