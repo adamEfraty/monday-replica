@@ -181,6 +181,7 @@ div {
 }
 
 .modal-save-btn {
+  margin-top: 20px;
   background-color: #67bfec;
   color: white;
   border: none;
@@ -265,5 +266,20 @@ div.group-title-flex {
   input {
     position: relative;
     left: 5px;
+  }
+}
+
+.search-empty-board-image{
+  width: 260px;
+}
+
+.no-groups-result{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  & h1{
+    color: #676879;
   }
 }

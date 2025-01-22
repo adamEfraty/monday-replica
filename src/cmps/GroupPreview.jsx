@@ -14,6 +14,7 @@ import { useState } from "react";
 import ArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { ArrowRightIcon } from "@mui/x-date-pickers/icons";
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+import { useSelector } from "react-redux";
 
 
 export const GroupPreview = ({
@@ -38,6 +39,7 @@ export const GroupPreview = ({
 }) => {
   const [expanded, setExpanded] = useState(true);
   const [groupTitle, setGroupTitle] = useState(group.title);
+  const filterBy = useSelector((state) => state.boardModule.filterBy);
 
   const style = {
     borderRight: '1px solid #e0dede',
