@@ -54,7 +54,7 @@ export async function addGroup(boardId) {
   showSuccessMsg("Group added successfully");
 }
 
-export async function addItem(boardId, groupId, itemTitle) {
+export async function addItem(boardId, groupId, itemTitle, isStart = null) {
   const today = new Date();
   const formattedDate = utilService.formatDateToStr(today);
 
@@ -67,7 +67,7 @@ export async function addItem(boardId, groupId, itemTitle) {
     priority: { text: "", color: "#C4C4C4" },
     chat: [],
   };
-  await boardService.addItemToGroup(boardId, groupId, newItem);
+  await boardService.addItemToGroup(boardId, groupId, newItem, isStart);
 
   const board = await boardService.getById(boardId);
   if (!board) return;

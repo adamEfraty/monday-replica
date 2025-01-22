@@ -6,7 +6,7 @@ import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { handleFilter, getFilterContext } from "../store/actions/boards.actions";
 import { boardService } from "../services/board.service";
-export function BoardDetailsHeader({ boardTitle }) {
+export function BoardDetailsHeader({ handleAddTask, boardTitle }) {
   const filterBy = useSelector((state) => state.boardModule.filterBy);
   const boards = useSelector((state) => state.boardModule.boards);
   const [filterByToEdit, setFilterByToEdit] = useState(filterBy);
@@ -52,7 +52,7 @@ export function BoardDetailsHeader({ boardTitle }) {
       <hr />
       <section className="board-header-actions">
         <div className="newTask-button">
-          <div className="new-task-button">New Item</div>
+          <div className="new-task-button" onClick={() => handleAddTask()}>New Item</div>
           <div className="arrow-down">
             <ArrowDownIcon style={{ ...iconStyle, height: 20 }} />
           </div>
@@ -71,9 +71,6 @@ export function BoardDetailsHeader({ boardTitle }) {
           <SearchIcon style={{ width: 24, height: 24 }} />
           {filterState ? (
             <input
-              onClick={() => {
-                console.log(filterBy);
-              }}
               onChange={handleFilterChange}
               type="text"
               value={filterByToEdit}

@@ -129,8 +129,8 @@ const BoardDetails = () => {
     });
   }
 
-  function handleAddTask(group, taskTitle) {
-    addItem(boardId, group.id, taskTitle);
+  function handleAddTask(group = null, taskTitle = "New Task") {
+    addItem(boardId, group ? group.id : currentBoard.groups[0].id, taskTitle, !group && true);
   }
 
   async function handleGroupNameChange(groupTitle, group) {
@@ -155,7 +155,7 @@ const BoardDetails = () => {
 
   return (
     <div className="board-details">
-      <BoardDetailsHeader boardTitle={currentBoard.title} />
+      <BoardDetailsHeader handleAddTask={handleAddTask} boardTitle={currentBoard.title} />
       {currentBoard.groups.length > 0 ? (
         <section className="group-list">
           {currentBoard.groups.map((group) => (

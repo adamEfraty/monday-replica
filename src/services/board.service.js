@@ -103,14 +103,18 @@ async function addGroupToBoard(boardId, newGroup) {
   return newGroup;
 }
 
-async function addItemToGroup(boardId, groupId, newItem) {
-  const board = await getById(boardId);
+async function addItemToGroup(boardId, groupId, newItem, isStart = null) {
+  console.log("this is the new item: ", newItem);
+  console.log("this is the boardId: ", boardId);
+  console.log("this is the groupId: ", groupId);
+  console.log("this is the isStart: ", isStart);
+    const board = await getById(boardId);
   if (!board) throw new Error("Board not found");
 
   const groupIndex = board.groups.findIndex((group) => group.id === groupId);
   if (groupIndex === -1) throw new Error("Group not found");
 
-  board.groups[groupIndex].tasks.push(newItem);
+  isStart ? board.groups[groupIndex].tasks.unshift(newItem) : board.groups[groupIndex].tasks.push(newItem);
   await save(board);
 }
 
