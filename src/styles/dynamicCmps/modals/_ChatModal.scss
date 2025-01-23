@@ -1,12 +1,11 @@
 .chat-modal {
   z-index: 200; // this z-index bs has to be solved..
   position: fixed; // unfortunately since absolute sticks with group-list element
-  top: 44px; // probably will change later
+  top: 43px; // probably will change later
   right: 0px;
   height: 100vh;
   background-color: white;
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
-  // transform: translateZ(1px);
 
 
   .expand-line{
@@ -33,42 +32,108 @@
   }
 
   .chat-header {
+    padding: 25px 10px 0px 10px;
+    padding-bottom: 0px;
+    border-bottom: solid #D0D4E4 1px;
+
+
     .exis-button {
-      margin-bottom: 10px;
+      margin-left: 5px;
       display: flex;
-      width: 25px;
-      height: 25px;
+      width: 24px;
+      height: 24px;
       align-items: center;
       justify-content: center;
+      background-color: transparent;
+      border-color: transparent;
+      border-radius: 4px;
+
+      &:hover{
+        background-color: #F0F0F1;
+      }
+
+      i.fa-solid.fa-x{
+        font-weight:normal;
+        transform: scaleX(1.15);
+        transform: scaleX(1.25);
+        opacity: 0.6;
+      }
     }
 
     .chat-edit-title {
       display: flex;
-      margin-bottom: 20px;
-      font-size: 30px;
+      font-size: 24px;
+      color: #323338;
+      font-family: "Poppins", serif;
+      font-weight: 500;
+      font-style: normal;
       align-items: start;
-      width: 100%;
+      width: calc(100% - 80px);
       text-align: left;
+      padding: 2px;
 
-      textarea {
-        font-size: 30px;
+      
+
+      span{
         width: 100%;
-        padding: 10px;
+        cursor: text;
+        padding: 0px 5px 0px 5px;
+
+        &:hover{
+          border: solid #C3C6D4 1px;
+          border-radius: 4px;
+        }
+      }
+
+
+      textarea{
+        font-size: 24px;
+        color: #323338;
+        padding: 0px 5px 0px 5px; /* Add consistent padding */
+        font-family: "Poppins", serif;
+        font-weight: 500;
+        width: 100%;
+        resize: none;
+        border: none; 
+        box-sizing: border-box; 
+        // line-height:1; 
+        outline:none;
+
+        border: solid #0073EA 1px;
+        border-radius: 4px;
+
+        &:hover{
+          border: solid black 1px;
+        }
+
+      }
+    }
+
+    .navigation{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 10px;
+      margin-left: 10px;
+      width: 100px;
+      height: 27px;
+      padding-bottom: 10px;
+      padding-right: 5px;
+      border-bottom: solid #0073EA 3px;
+
+      .updates{
+        display: flex;
+        gap: 7px;
+        font-size: 1.05em;
       }
     }
   }
 
   .chat-body {
-    height: calc(100vh - 138px);
+    height: calc(100vh - 187px); // NEEDS TO BE CHANGE LATER
     overflow-y: auto;
     display: flex; 
     justify-content: center; 
-  }
-
-  .chat-inner-body{
-    width: 100%; 
-    max-width: 725px; 
-    min-width: 550px; 
 
     /* Style Crossbar */
     &::-webkit-scrollbar {
@@ -77,8 +142,16 @@
     &::-webkit-scrollbar-thumb {
       background: #b2b2b2;
     }
+  }
+  .chat-inner-body{
+    width: 100%; 
+    max-width: 725px; 
+    min-width: 550px; 
+
+
 
     .create-comment {
+      margin-top: 10px;
       display: flex;
       flex-direction: column;
       width: 100%;

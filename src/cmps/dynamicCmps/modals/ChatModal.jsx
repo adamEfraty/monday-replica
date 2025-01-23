@@ -1,7 +1,8 @@
-import { simplifyTimeToStr } from "../../../services/util.service.js";
-import { useState, useEffect } from "react";
+import { simplifyTimeToStr, utilService } from "../../../services/util.service.js";
+import { useState, useEffect, useRef } from "react";
 import { showErrorMsg } from '../../../services/event-bus.service.js'
 import 'animate.css';
+import { getSvg } from "../../../services/svg.service.jsx";
 
 export function ChatModal({ 
     loggedinUser, 
@@ -166,22 +167,47 @@ export function ChatModal({
             </div>
 
             <div className="chat-header">
-                <button className="exis-button" onClick={closeChat}>X</button>
+                
+                <button className="exis-button" onClick={closeChat}>
+                    <i className="fa-solid fa-x"></i>
+                </button>
 
                 {/* Edit Task Title */}
                 <div className="chat-edit-title">
                     {
                         !onEditMode 
                         ? 
-                        <span onClick={toggleEditMode}>{text}</span>
+                        <span onClick={toggleEditMode}>{textToEdit}</span>
                         : 
                         <textarea
+
                             value={textToEdit}
                             onChange={event => setTextToEdit(event.target.value)}
                             onBlur={toggleEditMode}
-                            onKeyDown={handleKeyDown}/>
+                            onKeyDown={handleKeyDown}
+                            autoFocus={true}
+                            rows={1} // at defult
+                            ref={textarea => {
+                                if (textarea){
+                                    // Moves the cursor to the end of the text
+                                    textarea.selectionStart = textToEdit.length
+                                    // Reset height to calculate scrollHeight properly
+                                    textarea.style.height = "auto"
+                                    // Adjust height based on scrollHeight
+                                    textarea.style.height = `${textarea.scrollHeight+2}px`
+                                }
+                            }}
+                        />
                     }
                 </div>
+
+                <div className="navigation">
+                    <section className="updates">
+                        {getSvg('home-icon')}
+                        <p>Updates</p>
+                    </section>
+                </div>
+
             </div>
 
             <div className="chat-body">

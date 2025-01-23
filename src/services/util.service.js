@@ -9,7 +9,7 @@ export const utilService = {
     formatStrToDate,
     formatDateToPerfectStr,
     formatPerfectStrToDate,
-    getNameFromEmail
+    getNameFromEmail,
   }
   
   function makeId(length = 5) {
