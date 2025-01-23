@@ -36,11 +36,11 @@ const BoardDetails = () => {
 
   useEffect(() => {
     // if (!currentBoard || currentBoard.id !== boardId)
-      setCurrentBoard(boards.find((board) => board.id === boardId));
+    setCurrentBoard(boards.find((board) => board.id === boardId));
   }, [boards, boardId]);
 
   useEffect(() => {
-    async function d(){
+    async function d() {
       await loadBoards();
       await loadUsers();
     }
@@ -61,7 +61,7 @@ const BoardDetails = () => {
 
       setCurrentBoard({ ...board, groups: filteredGroups }); // Update currentBoard with filtered groups
     }
-  }, [filterBy])
+  }, [filterBy]);
 
   //...............................
 
@@ -73,8 +73,8 @@ const BoardDetails = () => {
     boardService.saveTempChatInfo(cellId, width, newComment);
   }
 
-  function openChat(id){
-    boardService.openChat(id)
+  function openChat(id) {
+    boardService.openChat(id);
   }
 
   // function that set groups with each task update
@@ -129,8 +129,8 @@ const BoardDetails = () => {
     });
   }
 
-  function handleAddTask(group, taskTitle) {
-    addItem(boardId, group.id, taskTitle);
+  function handleAddTask(group = null, taskTitle = "New Task") {
+    addItem(boardId, group ? group.id : currentBoard.groups[0].id, taskTitle, !group && true);
   }
 
   async function handleGroupNameChange(groupTitle, group) {
@@ -155,40 +155,65 @@ const BoardDetails = () => {
 
   return (
     <div className="board-details">
-      <BoardDetailsHeader boardTitle={currentBoard.title} />
-      <section className="group-list">
-        {currentBoard.groups.map((group) => (
-          <GroupPreview
-            group={group}
-            labels={labels}
-            loggedinUser={loggedinUser}
-            cmpOrder={cmpOrder}
-            progress={progress}
-            key={uid()}
-            onTaskUpdate={onTaskUpdate}
-            checkedBoxes={checkedBoxes}
-            checkedGroups={checkedGroups}
-            handleMasterCheckboxClick={handleMasterCheckboxClick}
-            handleCheckBoxClick={handleCheckBoxClick}
-            handleAddTask={handleAddTask}
-            handleGroupNameChange={handleGroupNameChange}
-            handleDelete={handleDelete}
-            boardId={boardId}
-            users={users}
-            chatTempInfoUpdate={chatTempInfoUpdate}
-            openChat={openChat}
-          />
-        ))}
-        <button className="modal-save-btn" onClick={handleAddGroup}>
-          +Add a new group
-        </button>
-        {checkedBoxes.length > 0 && (
-          <SelectedTasksModal
-            checkedTasks={checkedBoxes}
-            handleDeleteTasks={handleDeleteTasks}
-          />
-        )}
-      </section>
+      <BoardDetailsHeader handleAddTask={handleAddTask} boardTitle={currentBoard.title} />
+      {currentBoard.groups.length > 0 ? (
+        <section className="group-list">
+          {currentBoard.groups.map((group) => (
+            <GroupPreview
+              group={group}
+              labels={labels}
+              loggedinUser={loggedinUser}
+              cmpOrder={cmpOrder}
+              progress={progress}
+              key={uid()}
+              onTaskUpdate={onTaskUpdate}
+              checkedBoxes={checkedBoxes}
+              checkedGroups={checkedGroups}
+              handleMasterCheckboxClick={handleMasterCheckboxClick}
+              handleCheckBoxClick={handleCheckBoxClick}
+              handleAddTask={handleAddTask}
+              handleGroupNameChange={handleGroupNameChange}
+              handleDelete={handleDelete}
+              boardId={boardId}
+              users={users}
+              chatTempInfoUpdate={chatTempInfoUpdate}
+              openChat={openChat}
+            />
+          ))}
+          <button className="modal-save-btn" onClick={handleAddGroup}>
+            +Add a new group
+          </button>
+          {checkedBoxes.length > 0 && (
+            <SelectedTasksModal
+              checkedTasks={checkedBoxes}
+              handleDeleteTasks={handleDeleteTasks}
+            />
+          )}
+        </section>
+      ) : (
+          boards.find((board) => board.id === boardId).groups.length === 0 ? (
+            <section className="no-groups-result">
+                            <img
+                className="search-empty-board-image"
+                src="https://cdn.monday.com/images/search_empty_state.svg"
+              ></img>
+              <h1>No groups here yet, add your first!</h1>
+              <button className="modal-save-btn" onClick={handleAddGroup}>
+                +Add a new group
+              </button>
+            </section>
+          ) : (
+            <section className="no-groups-result">
+              <img
+                className="search-empty-board-image"
+                src="https://cdn.monday.com/images/search_empty_state.svg"
+              ></img>
+              <h1>No tasks match this filter</h1>
+            </section>
+          )
+      )}
+
+      {/* </section> */}
     </div>
   );
 };
