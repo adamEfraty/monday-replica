@@ -7,6 +7,8 @@ import { getSvg } from "../../../services/svg.service.jsx";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 
+import emptyChatImg from '../../../assets/images/empty-chat.png'
+
 export function ChatModal({
     loggedinUser,
     users,
@@ -52,8 +54,6 @@ export function ChatModal({
             chatBodyRef.current.scrollTop = scroll
         }
     },[])
-
-    console.log(scroll)
 
     useEffect(() => {
         const handleUpdateScroll = () => {
@@ -411,6 +411,21 @@ export function ChatModal({
                             )
                         })}
                     </ul>
+                    {
+                        chat.length === 0 
+                        ? <div className="empty-chat">
+                            <img src={emptyChatImg}/>
+                            <p className="bold-text">
+                                No updates yet for this item
+                            </p>
+                            <p className="text">
+                                Be the first one to update about progress, mention someone or upload files to share with your team members
+                            </p>
+                        </div>
+                        : null
+                    }
+                    {/* to have some distance to the bottom*/}
+                    <div className="white-block"/>
                 </div>
             </div>
         </section>
