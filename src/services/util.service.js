@@ -9,7 +9,7 @@ export const utilService = {
     formatStrToDate,
     formatDateToPerfectStr,
     formatPerfectStrToDate,
-    getNameFromEmail
+    getNameFromEmail,
   }
   
   function makeId(length = 5) {
@@ -116,7 +116,7 @@ export const utilService = {
     const timeObj = {timeUnit: timeSince.timeUnit,
         number: parseInt(timeSince.number)}
     
-    return timeObj.timeUnit + timeObj.number
+    return timeObj.number + timeObj.timeUnit
 }
 
 function getRandomColor() {

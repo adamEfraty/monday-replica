@@ -1,12 +1,11 @@
 .chat-modal {
   z-index: 200; // this z-index bs has to be solved..
   position: fixed; // unfortunately since absolute sticks with group-list element
-  top: 44px; // probably will change later
+  top: 43px; // probably will change later
   right: 0px;
   height: 100vh;
   background-color: white;
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
-  // transform: translateZ(1px);
 
 
   .expand-line{
@@ -33,42 +32,111 @@
   }
 
   .chat-header {
+    padding: 25px 10px 0px 10px;
+    padding-bottom: 0px;
+    border-bottom: solid #D0D4E4 1px;
+
+
     .exis-button {
-      margin-bottom: 10px;
+      cursor: pointer;
+      margin-left: 5px;
       display: flex;
-      width: 25px;
-      height: 25px;
+      width: 24px;
+      height: 24px;
       align-items: center;
       justify-content: center;
+      background-color: transparent;
+      border-color: transparent;
+      border-radius: 4px;
+
+      &:hover{
+        background-color: #F0F0F1;
+      }
+
+      i.fa-solid.fa-x{
+        font-weight:normal;
+        transform: scaleX(1.15);
+        transform: scaleX(1.25);
+        opacity: 0.6;
+      }
     }
 
     .chat-edit-title {
       display: flex;
-      margin-bottom: 20px;
-      font-size: 30px;
+      font-size: 24px;
+      color: #323338;
+      font-family: "Poppins", serif;
+      font-weight: 500;
+      font-style: normal;
       align-items: start;
-      width: 100%;
+      width: calc(100% - 100px);
       text-align: left;
+      padding: 2px;
 
-      textarea {
-        font-size: 30px;
+      
+
+      span{
         width: 100%;
-        padding: 10px;
+        cursor: text;
+        padding: 0px 5px 0px 5px;
+        border: solid white 1px;
+
+        &:hover{
+          border: solid #C3C6D4 1px;
+          border-radius: 4px;
+        }
+      }
+
+
+      textarea{
+        font-size: 24px;
+        color: #323338;
+        padding: 0px 5px 0px 5px; /* Add consistent padding */
+        font-family: "Poppins", serif;
+        font-weight: 500;
+        width: 100%;
+        resize: none;
+        border: none; 
+        box-sizing: border-box; 
+        // line-height:1; 
+        outline:none;
+
+        border: solid #0073EA 1px;
+        border-radius: 4px;
+
+        &:hover{
+          border: solid black 1px;
+        }
+
+      }
+    }
+
+    .navigation{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 10px;
+      margin-left: 10px;
+      width: 100px;
+      height: 27px;
+      padding-bottom: 10px;
+      padding-right: 5px;
+      border-bottom: solid #0073EA 3px;
+
+      .updates{
+        display: flex;
+        gap: 7px;
+        font-size: 1.05em;
       }
     }
   }
 
   .chat-body {
-    height: calc(100vh - 138px);
+    height: calc(100vh - 170px); // NEEDS TO BE CHANGE LATER
     overflow-y: auto;
     display: flex; 
     justify-content: center; 
-  }
-
-  .chat-inner-body{
-    width: 100%; 
-    max-width: 725px; 
-    min-width: 550px; 
+    padding: 20px;
 
     /* Style Crossbar */
     &::-webkit-scrollbar {
@@ -77,36 +145,89 @@
     &::-webkit-scrollbar-thumb {
       background: #b2b2b2;
     }
+  }
+  .chat-inner-body{
+    width: 100%; 
+    max-width: 725px; 
+    min-width: 550px; 
+
+
 
     .create-comment {
+      margin-top: 10px;
       display: flex;
       flex-direction: column;
+      justify-content: space-between;
       width: 100%;
-      height: 175px;
-      border: solid black 2px;
+      border: solid #0073EA 1px;
+      border-radius: 8px;
       padding: 10px;
 
-      textarea {
-        resize: none;
-        width: 100%;
-        height: 80%;
-        border: none;
-        outline: none;
+
+      .textarea-quill{
+        
+        .ql-toolbar{
+          border: none;
+          display: flex;
+          gap: 0px;
+        }
+        .ql-container{
+          border: none;
+          font-size: 15px;
+        }
+
       }
 
-      button {
-        width: 50px;
+      .update-button {
+        cursor: pointer;
+        font-size: 14px;
+        width: 60px;
+        height: 33px;
         align-self: end;
+        z-index: 1;
+        background-color: #0073EA;
+        color: white;
+        border-color: transparent;
+        border-radius: 4px;
+
+        &:hover{
+          background-color: #0060B9;
+        }
+      }
+    }
+
+    .create-comment-blur{
+      cursor: text;
+      border: solid #0073EA 1px;
+      border-radius: 8px;
+      height: 90px;
+      display: flex;
+
+      &:hover{
+        background-color: #F0F0F1;
+      }
+
+      .placeholder{
+        font-size: 1.1em;
+        padding: 15px;
+        opacity: 0.7;
       }
     }
 
     .comments-list {
-      margin-top: 30px;
+      margin-top: 15px;
 
       .comment {
-        border: solid black 2px;
-        padding: 10px;
+        border: solid #C3C6D4 1px;
+        border-radius: 8px;
         margin-bottom: 15px;
+        padding-bottom: 5px;
+
+        .comment-text{
+          margin-left: 25px;
+          display: flex;
+          font-size: 1.25em;
+        }
       }
 
       p {
@@ -116,8 +237,20 @@
       .comment-info {
         display: flex;
         align-items: center;
-        padding: 10px;
-        gap: 10px;
+        padding: 18px;
+        padding-left: 25px;
+        gap: 8px;
+
+        .username{
+          font-weight: bold;
+          opacity: 0.9;
+          font-size: 1em;
+        }
+
+        .time{
+          font-size: 1.15em;
+          opacity: 0.6;
+        }
 
         img {
           height: 45px;
@@ -125,15 +258,20 @@
           border-radius: 50%;
           margin-left: -10px;
         }
+
+        
       }
+
     }
 
     .replies-list {
-      border-top: solid black 1px;
-      margin-top: 30px;
+      border-top: solid #C3C6D4 1px;
+      margin-top: 25px;
+      padding: 10px;
+      padding-top: 20px;
 
       .reply {
-        margin-top: 30px;
+        margin-bottom: 25px;
         display: flex;
         gap: 10px;
 
@@ -145,50 +283,81 @@
 
         .replay-container {
           max-width: 600px;
-          border: solid black 2px;
-          padding: 5px;
+          min-width: 135px;
+          border-radius: 8px;
+          background-color: #F6F7FB;
+          padding: 15px;
+
+          .reply-username{
+            color: #0073EA;
+            font-family: "Quicksand", serif;
+            font-weight:600;
+            font-size: 1.1em;
+          }
 
           .reply-text {
             margin-top: 10px;
+            margin-bottom: 5px;
           }
         }
 
         .reply-time {
           align-self: flex-end;
+          opacity: 0.6;
         }
       }
     }
 
     .create-reply {
-      margin-top: 30px;
       display: flex;
-      gap: 10px;
 
-      img {
+      img{
         width: 35px;
         height: 35px;
-        border-radius: 50%;
+        margin-left: 10px;
       }
 
-      form {
+      form{
+        margin-left: 10px;
+        margin-right: 20px;
+        margin-bottom: 10px;
+        width: 100%;
+        border: solid #0073EA 1px;
+        border-radius: 8px;
+        padding: 10px;
         display: flex;
         flex-direction: column;
-        width: 100%;
-        height: 100px;
-        border: solid black 2px;
-        padding: 10px;
+      }
 
-        textarea {
-          resize: none;
-          width: 100%;
-          height: 80%;
+
+      .textarea-quill{
+        
+        .ql-toolbar{
           border: none;
-          outline: none;
+          display: flex;
+          gap: 0px;
+        }
+        .ql-container{
+          border: none;
+          font-size: 15px;
         }
 
-        button {
-          width: 50px;
-          align-self: end;
+      }
+
+      .reply-button {
+        cursor: pointer;
+        font-size: 1em;
+        width: 50px;
+        height: 33px;
+        align-self: end;
+        z-index: 1;
+        background-color: #0073EA;
+        color: white;
+        border-color: transparent;
+        border-radius: 4px;
+
+        &:hover{
+          background-color: #0060B9;
         }
       }
     }
