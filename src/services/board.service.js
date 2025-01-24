@@ -378,16 +378,17 @@ async function makeFirstBoard() {
   }
 }
 
-// newComments = [width: xxx, open: xxx, comments: [{id: xxx, comment: xxx}, ...]]
-function saveTempChatInfo(id, width, newComment){
+// newComments = [width: xxx, scroll: xxx, open: xxx, comments: [{id: xxx, comment: xxx}, ...]]
+function saveTempChatInfo(id, width, scroll, newComment){
   const newCommentsStr = sessionStorage.getItem(CHAT_KEY)
 
   // in case no newComments exists
   if(!newCommentsStr) return sessionStorage.setItem(
-    CHAT_KEY, JSON.stringify({width, open: id, comments: [{id, comment: newComment}]}))
+    CHAT_KEY, JSON.stringify({width, scroll, open: id, comments: [{id, comment: newComment}]}))
 
   const newComments = JSON.parse(newCommentsStr)
   newComments.width = width
+  newComments.scroll = scroll
   const commentIndex = newComments.comments.findIndex(comment=> comment.id === id)
 
   // if comment already in commends array
@@ -410,7 +411,7 @@ function getChatTempInfo(id) {
 
     // in case comment exists
     if(commentIndex !== -1) 
-      return {id, width: newComments.width, 
+      return {id, width: newComments.width, scroll: newComments.scroll,
         comment: newComments.comments[commentIndex].comment}
     // in case it's not
     else return null
