@@ -1,13 +1,13 @@
 /* Main Grid */
 .grid {
   display: grid;
-  grid-template-columns: 400px repeat(4, 150px) 500px;
+  grid-template-columns: 10px 400px repeat(4, 150px) 500px;
   grid-template-rows: 34px;
   background: white;
 }
 .labels-grid {
   display: grid;
-  grid-template-columns: 400px repeat(4, 150px) 500px;
+  grid-template-columns: 10px 400px repeat(4, 150px) 500px;
   grid-template-rows: 34px;
 
   width: 100%;
@@ -15,7 +15,7 @@
 
 .progress-grid {
   display: grid;
-  grid-template-columns: 400px repeat(4, 150px) 500px;
+  grid-template-columns: 10px 400px repeat(4, 150px) 500px;
 
   grid-template-rows: 34px;
   width: 100%; /* Set a fixed width */
@@ -102,6 +102,8 @@
   text-align: center;
   font-weight: 800;
   border: 1px solid #e0dede;
+  border-left: none;
+  border-bottom: none;
 }
 
 div {
@@ -214,12 +216,6 @@ div {
   border: 1px solid #e1dede;
 }
 
-.add-task {
-  opacity: 0.5;
-  border: 1px solid #e0dede;
-  border-right: none;
-}
-
 .chat-icon {
   color: rgb(128, 128, 128);
   cursor: pointer;
@@ -229,7 +225,7 @@ div {
 section.labels-grid {
   position: sticky;
   top: 200px;
-  z-index: 10;
+  z-index: 4;
   background-color: #fff;
 }
 
@@ -238,7 +234,7 @@ div.group-title-flex {
   padding: 1rem;
   top: 145px;
   background-color: #fff;
-  z-index: 8;
+  z-index: 4;
   width: 100%;
 }
 .prog-box {
@@ -247,7 +243,13 @@ div.group-title-flex {
 .stick {
   position: sticky;
   left: 0;
-  z-index: 11;
+  z-index: 3;
+  background-color: #ffffff;
+  display: inline-block;
+}
+.stick2 {
+  position: sticky;
+  z-index: 1000;
   background-color: #ffffff;
   display: inline-block;
 }
@@ -269,17 +271,56 @@ div.group-title-flex {
   }
 }
 
-.search-empty-board-image{
+.search-empty-board-image {
   width: 260px;
 }
 
-.no-groups-result{
+.no-groups-result {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 100%;
-  & h1{
+  & h1 {
     color: #676879;
   }
+}
+.dots {
+  color: #333;
+
+  span {
+    opacity: 0;
+    position: relative;
+    right: 1.2rem;
+  }
+}
+
+section.group.grid {
+  &:hover {
+    background-color: #e6e5e5;
+
+    .stick {
+      background-color: #e6e5e5;
+    }
+
+    .dots {
+      background-color: #fff;
+
+      span {
+        opacity: 1;
+      }
+    }
+  }
+}
+
+.add-task {
+  margin-left: 10px;
+  opacity: 0.5;
+  border: 1px solid #e0dede;
+  border-right: none;
+}
+
+.ghost {
+  background-color: #fff;
+  border: none;
 }

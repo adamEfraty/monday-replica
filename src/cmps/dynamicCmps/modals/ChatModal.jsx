@@ -3,21 +3,19 @@ import { useState, useEffect } from "react";
 import { showErrorMsg } from '../../../services/event-bus.service.js'
 import 'animate.css';
 
-export function ChatModal({ 
-    loggedinUser, 
-    users, 
-    chat = [], 
-    onAddComment, 
+export function ChatModal({
+    loggedinUser,
+    users,
+    chat = [],
+    onAddComment,
     onAddReply,
-    text, 
+    text,
     onUpdateTitleInChat,
     modalToggle,
     chatTempInfoUpdate,
     cellId,
     chatPrevInfo,
-    openChat}) 
-    
-    {
+    openChat }) {
 
     const [onEditMode, setOnEditMode] = useState(false)
     const [textToEdit, setTextToEdit] = useState(text)
@@ -33,14 +31,14 @@ export function ChatModal({
     const [width, setWidth] = useState(chatPrevInfo?.width ? chatPrevInfo.width : 700)
     const [isDragging, setIsDragging] = useState(false)
 
-    useEffect(()=>{
+    useEffect(() => {
         chatTempInfoUpdate(cellId, width, newComment)
         openChat(cellId)
-    },[])
+    }, [])
 
-    useEffect(()=>{
+    useEffect(() => {
         chatTempInfoUpdate(cellId, width, newComment)
-    },[newComment])
+    }, [newComment])
 
     useEffect(() => {
         // Attach global mousemove and mouseup listeners when dragging starts
@@ -71,11 +69,11 @@ export function ChatModal({
         setOnEditMode(prev => !prev)
     }
 
-      function checkTitleValidation(title) {
+    function checkTitleValidation(title) {
         // not alowing user insert blank title
         if (title === '') return false
         return true
-      }
+    }
 
     // later users going to be the only users in board,
     // therfore im not using getById function in user service
@@ -93,12 +91,12 @@ export function ChatModal({
 
     // if user press enter go to spectate mode
     function handleKeyDown(event) {
-    if (event.key === "Enter")
-      toggleEditMode()
+        if (event.key === "Enter")
+            toggleEditMode()
     }
 
     function findNewReplyByComment(comment) {
-        return newReplies.find(newReply => newReply.id === comment.sentAt) 
+        return newReplies.find(newReply => newReply.id === comment.sentAt)
     }
 
     function handleReplyChange(event, toWhichComment) {
@@ -114,7 +112,7 @@ export function ChatModal({
         event.preventDefault()
         const newReplyText = findNewReplyByComment(toWhichComment).text
 
-        if (newReplyText !== "") 
+        if (newReplyText !== "")
             onAddReply(toWhichComment.sentAt, newReplyText)
 
         setNewReplies(newReplies.map(newReply =>
@@ -126,39 +124,39 @@ export function ChatModal({
 
     const handleMouseDown = () => {
         setIsDragging(true)
-      }
-    
-      const handleMouseMove = event => {
+    }
+
+    const handleMouseMove = event => {
         if (!isDragging) return
         const modalRect = document.querySelector('.chat-modal').getBoundingClientRect()
         const newWidth = modalRect.right - event.clientX; // Calculate width dynamically
-    
+
         // Set a minimum and maximum width for the modal to prevent it from collapsing or overflowing
         const MIN_WIDTH = 570
         const MAX_WIDTH = window.innerWidth - 265 // will need to be change later
-    
+
         setWidth(Math.max(MIN_WIDTH, Math.min(newWidth, MAX_WIDTH)));
     }
-    
-      const handleMouseUp = () => {
+
+    const handleMouseUp = () => {
         setIsDragging(false)
         chatTempInfoUpdate(cellId, width, newComment)
-      }
+    }
 
-      function closeChat(){
+    function closeChat() {
         openChat(null)
         modalToggle()
-      }
+    }
 
     return (
-        <section 
-            className="chat-modal"
-            style={{ width: `${width}px` }} 
-            onMouseMove={handleMouseMove} 
-            onMouseUp={handleMouseUp} 
+        <section
+            className="chat-modal stick2"
+            style={{ width: `${width}px` }}
+            onMouseMove={handleMouseMove}
+            onMouseUp={handleMouseUp}
         >
 
-            <div 
+            <div
                 className="expand-line"
                 onMouseDown={handleMouseDown}
             >
@@ -171,15 +169,15 @@ export function ChatModal({
                 {/* Edit Task Title */}
                 <div className="chat-edit-title">
                     {
-                        !onEditMode 
-                        ? 
-                        <span onClick={toggleEditMode}>{text}</span>
-                        : 
-                        <textarea
-                            value={textToEdit}
-                            onChange={event => setTextToEdit(event.target.value)}
-                            onBlur={toggleEditMode}
-                            onKeyDown={handleKeyDown}/>
+                        !onEditMode
+                            ?
+                            <span onClick={toggleEditMode}>{text}</span>
+                            :
+                            <textarea
+                                value={textToEdit}
+                                onChange={event => setTextToEdit(event.target.value)}
+                                onBlur={toggleEditMode}
+                                onKeyDown={handleKeyDown} />
                     }
                 </div>
             </div>
@@ -226,12 +224,12 @@ export function ChatModal({
                                             )
                                         })}
                                     </ul>
-                                    
+
                                     {/* Create New Reply to Comment */}
                                     <div className="create-reply">
-                                        <img src={loggedinUser.imgUrl}/>
-                                        <form 
-                                        onSubmit={event => handleReplySubmit(event, comment)}>
+                                        <img src={loggedinUser.imgUrl} />
+                                        <form
+                                            onSubmit={event => handleReplySubmit(event, comment)}>
                                             <textarea
                                                 value={findNewReplyByComment(comment)?.text || ""}
                                                 onChange={event => handleReplyChange(event, comment)}
@@ -245,7 +243,7 @@ export function ChatModal({
                         })}
                     </ul>
                 </div>
-            </div>   
+            </div>
         </section>
     )
 }

@@ -8,13 +8,14 @@ import { P_Priority } from "./dynamicCmps/progressCmps/P_Priority.jsx";
 import { P_Status } from "./dynamicCmps/progressCmps/P_Status.jsx";
 import { P_Date } from "./dynamicCmps/progressCmps/P_Date.jsx";
 import { P_Members } from "./dynamicCmps/progressCmps/P_Members.jsx";
-
-
+import Popover from '@mui/material/Popover';
+import { GarbageRemove } from "./dynamicCmps/modals/GarbageRemove.jsx";
 import { useState } from "react";
 import ArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { ArrowRightIcon } from "@mui/x-date-pickers/icons";
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import { useSelector } from "react-redux";
+import { removeTask } from "../store/actions/boards.actions.js";
 
 
 export const GroupPreview = ({
@@ -41,6 +42,35 @@ export const GroupPreview = ({
   const [groupTitle, setGroupTitle] = useState(group.title);
   const filterBy = useSelector((state) => state.boardModule.filterBy);
 
+
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [anchorE2, setAnchorE2] = useState(null);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClick2 = (event) => {
+    setAnchorE2(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleClose2 = () => {
+    setAnchorE2(null);
+  };
+
+
+  const open = Boolean(anchorEl);
+  const open2 = Boolean(anchorE2);
+
+  const id = open ? 'simple-popover' : undefined;
+  const id2 = open2 ? 'simple-popover' : undefined;
+
+
+
   const style = {
     borderRight: '1px solid #e0dede',
     borderTop: '1px solid #e0dede',
@@ -53,7 +83,27 @@ export const GroupPreview = ({
     <>
 
       <div className="group-title-flex stick">
-        <button className="remove" onClick={() => handleDelete(group.id, boardId)}><MoreHorizIcon /></button>
+        <span className="remove" onClick={handleClick2}><MoreHorizIcon />
+        </span>
+
+        <Popover
+          id={id2}
+          open={open2}
+          anchorEl={anchorE2}
+          onClose={handleClose2}
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'right',
+          }}
+          transformOrigin={{
+            vertical: 'top',
+            horizontal: 'center',
+          }}
+        >
+          <GarbageRemove someName={'Group'} someFunction={() => handleDelete(group.id, boardId)} />
+        </Popover>
+
+
 
         <span className="arrow" onClick={() => setExpanded((prev) => !prev)}>
           {expanded ? <ArrowDownIcon /> : <ArrowRightIcon />}
@@ -81,6 +131,7 @@ export const GroupPreview = ({
               className="labels-grid"
               style={{ ...style, borderTopLeftRadius: 5 }}
             >
+              <section className="ghost "></section>
 
               {cmpOrder.map((cmp, index) => (
                 labels[index] === 'item' ?
@@ -113,12 +164,29 @@ export const GroupPreview = ({
                 className="group grid"
                 key={`task-${task.id}`}
               >
-                {/* 
-                <input
-                  type="checkbox"
-                  checked={checkedBoxes.some((subArr) => subArr[1] == task.id)}
-                  onChange={() => handleCheckBoxClick(group.id, task.id)}
-                /> */}
+
+
+                <div className="dots">
+                  <span onClick={handleClick}  > <MoreHorizIcon /> </span>
+
+                  <Popover
+                    id={id}
+                    open={open}
+                    anchorEl={anchorEl}
+                    onClose={handleClose}
+                    anchorOrigin={{
+                      vertical: 'bottom',
+                      horizontal: 'right',
+                    }}
+                    transformOrigin={{
+                      vertical: 'top',
+                      horizontal: 'center',
+                    }}
+                  >
+                    <GarbageRemove someName={'Task'} someFunction={() => removeTask(boardId, group.id, task.id)} />
+                  </Popover>
+                </div>
+
 
                 {cmpOrder.map((cmp, idx) => (
                   <section
@@ -150,6 +218,9 @@ export const GroupPreview = ({
             <section
               className="progress-grid"
             >
+
+              <div className="invisible stick"></div>
+
               {progress.map((prog, index) =>
                 cmpOrder.includes(prog) ? (
                   <div className={`prog-box with-${prog}`} key={`progress-${index}`}>
