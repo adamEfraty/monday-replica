@@ -7,13 +7,13 @@ import { getSvg } from "../../../services/svg.service.jsx";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 
-export function ChatModal({ 
-    loggedinUser, 
-    users, 
-    chat = [], 
-    onAddComment, 
+export function ChatModal({
+    loggedinUser,
+    users,
+    chat = [],
+    onAddComment,
     onAddReply,
-    text, 
+    text,
     onUpdateTitleInChat,
     modalToggle,
     chatTempInfoUpdate,
@@ -47,7 +47,6 @@ export function ChatModal({
 
     useEffect(()=>{
         if(chatPrevInfo){
-            console.log('useEffect', scroll)
             chatTempInfoUpdate(cellId, width, scroll, newComment)
             openChat(cellId)
             chatBodyRef.current.scrollTop = scroll
@@ -79,7 +78,6 @@ export function ChatModal({
     
 
     useEffect(()=>{
-        console.log('useEffect[newComment]', scroll)
         chatTempInfoUpdate(cellId, width, scroll, newComment)
     },[newComment])
 
@@ -161,11 +159,11 @@ export function ChatModal({
         setOnEditMode(prev => !prev)
     }
 
-      function checkTitleValidation(title) {
+    function checkTitleValidation(title) {
         // not alowing user insert blank title
         if (title === '') return false
         return true
-      }
+    }
 
     // later users going to be the only users in board,
     // therfore im not using getById function in user service
@@ -185,12 +183,12 @@ export function ChatModal({
 
     // if user press enter go to spectate mode
     function handleKeyDown(event) {
-    if (event.key === "Enter")
-      toggleEditMode()
+        if (event.key === "Enter")
+            toggleEditMode()
     }
 
     function findNewReplyByComment(comment) {
-        return newReplies.find(newReply => newReply.id === comment.sentAt) 
+        return newReplies.find(newReply => newReply.id === comment.sentAt)
     }
 
     function handleReplyChange(event, commentId) {
@@ -209,7 +207,6 @@ export function ChatModal({
         if (emptyPossibilities.includes(replyText.trim())) return;
 
         onAddReply(commentId, replyText);
-        console.log('handleReplySubmit', scroll)
         chatTempInfoUpdate(cellId, width, scroll, newComment);
 
         setNewReplies((prevReplies) =>
@@ -232,23 +229,21 @@ export function ChatModal({
 
     const handleMouseDown = () => {
         setIsDragging(true)
-      }
-    
+    }
     const handleMouseMove = event => {
         if (!isDragging) return
         const modalRect = document.querySelector('.chat-modal').getBoundingClientRect()
         const newWidth = modalRect.right - event.clientX; // Calculate width dynamically
-    
+
         // Set a minimum and maximum width for the modal to prevent it from collapsing or overflowing
         const MIN_WIDTH = 570
         const MAX_WIDTH = window.innerWidth - 265 // will need to be change later
-    
+
         setWidth(Math.max(MIN_WIDTH, Math.min(newWidth, MAX_WIDTH)));
     }
-    
+
     const handleMouseUp = () => {
         setIsDragging(false)
-        console.log('handleMouseUp', scroll)
         chatTempInfoUpdate(cellId, width, scroll, newComment)
       }
 
@@ -261,14 +256,14 @@ export function ChatModal({
     
 
     return (
-        <section 
-            className="chat-modal"
-            style={{ width: `${width}px` }} 
-            onMouseMove={handleMouseMove} 
-            onMouseUp={handleMouseUp} 
+        <section
+            className="chat-modal stick2"
+            style={{ width: `${width}px` }}
+            onMouseMove={handleMouseMove}
+            onMouseUp={handleMouseUp}
         >
 
-            <div 
+            <div
                 className="expand-line"
                 onMouseDown={handleMouseDown}
             >
@@ -381,7 +376,7 @@ export function ChatModal({
                                             )
                                         })}
                                     </ul>
-                                    
+
                                     {/* Create New Reply to Comment */}
                                     <div className="create-reply"
                                     ref={(el) => (replyRefs.current[comment.sentAt] = el)}>
@@ -417,7 +412,7 @@ export function ChatModal({
                         })}
                     </ul>
                 </div>
-            </div>   
+            </div>
         </section>
     )
 }
