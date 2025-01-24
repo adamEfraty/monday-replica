@@ -296,6 +296,7 @@
           }
 
           .reply-text {
+            display: flex;
             margin-top: 10px;
             margin-bottom: 5px;
           }
@@ -358,6 +359,27 @@
 
         &:hover{
           background-color: #0060B9;
+        }
+      }
+
+      .create-reply-blur{
+        cursor: text;
+        margin: 0px 20px 10px 10px;
+        padding-left: 20px;
+        border: solid #C3C6D4 1px;
+        border-radius: 8px;
+        height: 55px;
+        width: 100%;
+        display: flex;
+        align-items: center;
+
+
+        .placeholder{
+          opacity: 0.7;
+        }
+
+        &:hover{
+          background-color: #F0F0F1;
         }
       }
     }
