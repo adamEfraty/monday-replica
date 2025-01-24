@@ -36,7 +36,11 @@ export function ChatModal({
     const [editNewComment, setOnEditNewComment] = useState(newComment !== '')
 
     const [newReplies, setNewReplies] = useState(
-        chat.map(comment => ({ id: comment.sentAt, text: "" })))
+        chat.map(comment => ({ id: comment.sentAt, text: "", isEditing: false }))
+    )
+    const replyRefs = useRef({}) // To track reply elements for click outside detection
+
+
 
     const [width, setWidth] = useState(chatPrevInfo?.width ? chatPrevInfo.width : 700)
     const [isDragging, setIsDragging] = useState(false)
@@ -63,6 +67,34 @@ export function ChatModal({
             }
         }
     
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => document.removeEventListener("mousedown", handleClickOutside);
+    }, []);
+
+    // Detect clicks outside the reply input and blur it
+    useEffect(() => {
+        const emptyPossibilities = ["", "<p><br></p>", "<h1><br></h1>", "<h2><br></h2>", "<h3><br></h3>"]
+        const handleClickOutside = (event) => {
+            Object.keys(replyRefs.current).forEach((key) => {
+                if (
+                    replyRefs.current[key] &&
+                    !replyRefs.current[key].contains(event.target)
+                ) {
+                    setNewReplies((prevReplies) =>
+                        prevReplies.map((reply) => {
+                          if (reply.id == key) {
+                            if (emptyPossibilities.includes(reply.text.trim())) {
+                                // console.log(reply)
+                                return { ...reply, isEditing: false };
+                            }   else return reply
+                          }
+                          return reply;
+                        })
+                      );
+                }
+            });
+        };
+
         document.addEventListener("mousedown", handleClickOutside);
         return () => document.removeEventListener("mousedown", handleClickOutside);
     }, []);
@@ -133,34 +165,38 @@ export function ChatModal({
         return newReplies.find(newReply => newReply.id === comment.sentAt) 
     }
 
-    function handleReplyChange(event, toWhichComment) {
-        const reply = event
-        setNewReplies(prevReplies =>
-            prevReplies.map((newReply) =>
-                newReply.id === toWhichComment.sentAt
-                    ? { ...newReply, text: reply }
-                    : newReply
+    function handleReplyChange(event, commentId) {
+        const replyText = event;
+        setNewReplies((prevReplies) =>
+            prevReplies.map((reply) =>
+                reply.id === commentId ? { ...reply, text: replyText } : reply
             )
-        )
+        );
     }
 
-    function handleReplySubmit(event, toWhichComment) {
-        event.preventDefault(toWhichComment)
-        const newReplyText = findNewReplyByComment(toWhichComment)?.text || ""
+    function handleReplySubmit(event, commentId) {
+        event.preventDefault();
         const emptyPossibilities = ["", "<p><br></p>", "<h1><br></h1>", "<h2><br></h2>", "<h3><br></h3>"]
-    
-        if (!emptyPossibilities.includes(newReplyText)) {
-            onAddReply(toWhichComment.sentAt, newReplyText)
-    
-            // Clear the text after submitting
-            setNewReplies((prevReplies) =>
-                prevReplies.map((newReply) =>
-                    newReply.id === toWhichComment.sentAt
-                        ? { ...newReply, text: "" }
-                        : newReply
-                )
+        const replyText = newReplies.find((reply) => reply.id === commentId)?.text || "";
+        if (emptyPossibilities.includes(replyText.trim())) return;
+
+        onAddReply(commentId, replyText);
+
+        setNewReplies((prevReplies) =>
+            prevReplies.map((reply) =>
+                reply.id === commentId
+                    ? { ...reply, text: "", isEditing: false }
+                    : reply
             )
-        }
+        );
+    }
+
+    function handleNewReplyToEdit(commentId) {
+        setNewReplies((prevReplies) =>
+            prevReplies.map((reply) =>
+                reply.id === commentId ? { ...reply, isEditing: true } : reply
+            )
+        );
     }
     
 
@@ -266,7 +302,7 @@ export function ChatModal({
                                     toolbar: [
                                     ["bold", "italic", "underline"], // Inline styles
                                     [{ header: [1, 2, 3, false] }],  // Headers
-                                    [{ list: "ordered" }, { list: "bullet" }], // Lists
+                                    [{ list: "ordered" }], // Lists
                                     ["clean"],                       // Remove formatting
                                     ],
                                 }}
@@ -314,25 +350,34 @@ export function ChatModal({
                                     </ul>
                                     
                                     {/* Create New Reply to Comment */}
-                                    <div className="create-reply">
+                                    <div className="create-reply"
+                                    ref={(el) => (replyRefs.current[comment.sentAt] = el)}>
                                         <img src={loggedinUser.imgUrl}/>
-                                        <form
-                                        onSubmit={event => handleReplySubmit(event, comment)} >
-                                            <ReactQuill
-                                                className="textarea-quill"
-                                                value={findNewReplyByComment(comment)?.text}
-                                                onChange={event => handleReplyChange(event, comment)}
-                                                modules={{
-                                                    toolbar: [
-                                                    ["bold", "italic", "underline"], // Inline styles
-                                                    [{ header: [1, 2, 3, false] }],  // Headers
-                                                    [{ list: "ordered" }, { list: "bullet" }], // Lists
-                                                    ["clean"],                       // Remove formatting
-                                                    ],
-                                                }}
-                                            />
-                                            <button className="reply-button" type="submit">Reply</button>
-                                        </form>
+                                        {
+                                            findNewReplyByComment(comment)?.isEditing
+                                            ?<form 
+                                            onSubmit={event => handleReplySubmit(event, comment.sentAt)} >
+                                                <ReactQuill
+                                                    className="textarea-quill"
+                                                    value={findNewReplyByComment(comment)?.text}
+                                                    onChange={event => handleReplyChange(event, comment.sentAt)}
+                                                    modules={{
+                                                        toolbar: [
+                                                        ["bold", "italic", "underline"], // Inline styles
+                                                        [{ header: [1, 2, 3, false] }],  // Headers
+                                                        [{ list: "ordered" }], // Lists
+                                                        ["clean"],                       // Remove formatting
+                                                        ],
+                                                    }}
+                                                />
+                                                <button className="reply-button" type="submit">Reply</button>
+                                            </form>
+                                            : <div className="create-reply-blur"
+                                            onClick={()=>handleNewReplyToEdit(comment.sentAt)}>
+                                                <p className="placeholder">Write a reply and mention others with @</p>
+                                            </div>
+                                        }
+                                        
                                     </div>
                                 </li>
                             )
