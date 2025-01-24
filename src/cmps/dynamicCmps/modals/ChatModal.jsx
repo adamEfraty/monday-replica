@@ -1,7 +1,11 @@
-import { simplifyTimeToStr } from "../../../services/util.service.js";
-import { useState, useEffect } from "react";
+import { simplifyTimeToStr, utilService } from "../../../services/util.service.js";
+import { useState, useEffect, useRef } from "react";
 import { showErrorMsg } from '../../../services/event-bus.service.js'
 import 'animate.css';
+import { getSvg } from "../../../services/svg.service.jsx";
+
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
 
 export function ChatModal({
     loggedinUser,
@@ -20,10 +24,14 @@ export function ChatModal({
     const [onEditMode, setOnEditMode] = useState(false)
     const [textToEdit, setTextToEdit] = useState(text)
 
-    // chatInfo = boardService.getChatTempInfo(cellId)
+
 
     const [newComment, setNewComment] = useState(
         chatPrevInfo?.comment ? chatPrevInfo.comment : '')
+    const newCommentLatestRef = useRef(newComment)
+
+    const createCommentRef = useRef(null)
+    const [editNewComment, setOnEditNewComment] = useState(newComment !== '')
 
     const [newReplies, setNewReplies] = useState(
         chat.map(comment => ({ id: comment.sentAt, text: "" })))
@@ -36,7 +44,29 @@ export function ChatModal({
         openChat(cellId)
     }, [])
 
+    // if user clisk outside the newcomment without text close it
     useEffect(() => {
+        const emptyPossibilities = ["", "<p><br></p>", "<h1><br></h1>", "<h2><br></h2>", "<h3><br></h3>"]
+        const handleClickOutside = (event) => {
+            if (
+                createCommentRef.current &&
+                !createCommentRef.current.contains(event.target)
+            ) {
+                // Use the latest value of `newComment` from the ref
+                if (!emptyPossibilities.includes(newCommentLatestRef.current.trim())) {
+                    setOnEditNewComment(true);
+                } else {
+                    setOnEditNewComment((prev) => !prev);
+                }
+            }
+        }
+    
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => document.removeEventListener("mousedown", handleClickOutside);
+    }, []);
+
+    useEffect(()=>{
+        newCommentLatestRef.current = newComment;
         chatTempInfoUpdate(cellId, width, newComment)
     }, [newComment])
 
@@ -83,9 +113,11 @@ export function ChatModal({
 
     function handleCommentSubmit(event) {
         event.preventDefault()
-        if (newComment !== "") {
+        const emptyPossibilities = ["", "<p><br></p>", "<h1><br></h1>", "<h2><br></h2>", "<h3><br></h3>"]
+        if (!emptyPossibilities.includes(newComment)) {
             onAddComment(newComment)
             setNewComment("")
+            setOnEditNewComment(false)
         }
     }
 
@@ -100,32 +132,39 @@ export function ChatModal({
     }
 
     function handleReplyChange(event, toWhichComment) {
-        const reply = event.target.value
-        setNewReplies(newReplies.map(newReply =>
-            newReply.id === toWhichComment.sentAt
-                ? { ...newReply, text: reply }
-                : newReply
-        ))
+        const reply = event
+        setNewReplies(prevReplies =>
+            prevReplies.map((newReply) =>
+                newReply.id === toWhichComment.sentAt
+                    ? { ...newReply, text: reply }
+                    : newReply
+            )
+        )
     }
 
     function handleReplySubmit(event, toWhichComment) {
-        event.preventDefault()
-        const newReplyText = findNewReplyByComment(toWhichComment).text
-
-        if (newReplyText !== "")
+        event.preventDefault(toWhichComment)
+        const newReplyText = findNewReplyByComment(toWhichComment)?.text || ""
+        const emptyPossibilities = ["", "<p><br></p>", "<h1><br></h1>", "<h2><br></h2>", "<h3><br></h3>"]
+    
+        if (!emptyPossibilities.includes(newReplyText)) {
             onAddReply(toWhichComment.sentAt, newReplyText)
-
-        setNewReplies(newReplies.map(newReply =>
-            newReply.id === toWhichComment.sentAt
-                ? { ...newReply, text: "" }
-                : newReply
-        ))
+    
+            // Clear the text after submitting
+            setNewReplies((prevReplies) =>
+                prevReplies.map((newReply) =>
+                    newReply.id === toWhichComment.sentAt
+                        ? { ...newReply, text: "" }
+                        : newReply
+                )
+            )
+        }
     }
+    
 
     const handleMouseDown = () => {
         setIsDragging(true)
     }
-
     const handleMouseMove = event => {
         if (!isDragging) return
         const modalRect = document.querySelector('.chat-modal').getBoundingClientRect()
@@ -143,10 +182,11 @@ export function ChatModal({
         chatTempInfoUpdate(cellId, width, newComment)
     }
 
-    function closeChat() {
+    function closeChat(){
         openChat(null)
         modalToggle()
     }
+    
 
     return (
         <section
@@ -164,36 +204,78 @@ export function ChatModal({
             </div>
 
             <div className="chat-header">
-                <button className="exis-button" onClick={closeChat}>X</button>
+                
+                <button className="exis-button" onClick={closeChat}>
+                    <i className="fa-solid fa-x"></i>
+                </button>
 
                 {/* Edit Task Title */}
                 <div className="chat-edit-title">
                     {
-                        !onEditMode
-                            ?
-                            <span onClick={toggleEditMode}>{text}</span>
-                            :
-                            <textarea
-                                value={textToEdit}
-                                onChange={event => setTextToEdit(event.target.value)}
-                                onBlur={toggleEditMode}
-                                onKeyDown={handleKeyDown} />
+                        !onEditMode 
+                        ? 
+                        <span onClick={toggleEditMode}>{textToEdit}</span>
+                        : 
+                        <textarea
+
+                            value={textToEdit}
+                            onChange={event => setTextToEdit(event.target.value)}
+                            onBlur={toggleEditMode}
+                            onKeyDown={handleKeyDown}
+                            autoFocus={true}
+                            rows={1} // at defult
+                            ref={textarea => {
+                                if (textarea){
+                                    // Moves the cursor to the end of the text
+                                    textarea.selectionStart = textToEdit.length
+                                    // Reset height to calculate scrollHeight properly
+                                    textarea.style.height = "auto"
+                                    // Adjust height based on scrollHeight
+                                    textarea.style.height = `${textarea.scrollHeight+2}px`
+                                }
+                            }}
+                        />
                     }
                 </div>
+
+                <div className="navigation">
+                    <section className="updates">
+                        {getSvg('home-icon')}
+                        <p>Updates</p>
+                    </section>
+                </div>
+
             </div>
 
             <div className="chat-body">
                 <div className="chat-inner-body">
                     {/* Create Comment */}
-                    <form onSubmit={handleCommentSubmit} className="create-comment">
-                        <textarea
-                            value={newComment}
-                            onChange={event => setNewComment(event.target.value)}
-                            placeholder="Write an update"
-                            type="textarea"
-                        />
-                        <button type="submit">Update</button>
-                    </form>
+                    {
+                        editNewComment
+                        ?<form ref={createCommentRef}
+                        onSubmit={handleCommentSubmit} 
+                        className="create-comment">
+                            <ReactQuill
+                                className="textarea-quill"
+                                value={newComment}
+                                onChange={setNewComment}
+                                modules={{
+                                    toolbar: [
+                                    ["bold", "italic", "underline"], // Inline styles
+                                    [{ header: [1, 2, 3, false] }],  // Headers
+                                    [{ list: "ordered" }, { list: "bullet" }], // Lists
+                                    ["clean"],                       // Remove formatting
+                                    ],
+                                }}
+                            />
+                            <button className="update-button" type="submit">Update</button>
+                        </form>
+                        : <div className="create-comment-blur"
+                            onClick={()=>setOnEditNewComment(true)}>
+                            <p className="placeholder">Write an update and mention others with @</p>
+                        </div>
+                    }
+                    
 
                     {/* Comment List */}
                     <ul className="comments-list">
@@ -203,10 +285,13 @@ export function ChatModal({
                                 <li key={comment.sentAt} className="comment">
                                     <div className="comment-info">
                                         <img src={commenter.imgUrl} alt={commenter.name} />
-                                        <p>{commenter.fullName}</p>
-                                        <p>{simplifyTimeToStr(comment.sentAt)}</p>
+                                        <p className="username">{commenter.fullName}</p>
+                                        <p className="time">{simplifyTimeToStr(comment.sentAt)}</p>
                                     </div>
-                                    <p>{comment.text}</p>
+
+                                    <div className="comment-text" dangerouslySetInnerHTML={{ __html: comment.text }} />
+
+                                    
 
                                     {/* Replaies List to The Comment */}
                                     <ul className="replies-list">
@@ -216,8 +301,8 @@ export function ChatModal({
                                                 <li key={`${reply.sentAt}-${reply.userId}`} className="reply">
                                                     <img src={replier.imgUrl} alt={replier.fullName} />
                                                     <div className="replay-container">
-                                                        <p>{replier.fullName}</p>
-                                                        <p className="reply-text">{reply.text}</p>
+                                                        <p className="reply-username">{replier.fullName}</p>
+                                                        <div className="reply-text" dangerouslySetInnerHTML={{ __html: reply.text }} />
                                                     </div>
                                                     <p className="reply-time">{simplifyTimeToStr(reply.sentAt)}</p>
                                                 </li>
@@ -227,15 +312,23 @@ export function ChatModal({
 
                                     {/* Create New Reply to Comment */}
                                     <div className="create-reply">
-                                        <img src={loggedinUser.imgUrl} />
+                                        <img src={loggedinUser.imgUrl}/>
                                         <form
-                                            onSubmit={event => handleReplySubmit(event, comment)}>
-                                            <textarea
-                                                value={findNewReplyByComment(comment)?.text || ""}
+                                        onSubmit={event => handleReplySubmit(event, comment)} >
+                                            <ReactQuill
+                                                className="textarea-quill"
+                                                value={findNewReplyByComment(comment)?.text}
                                                 onChange={event => handleReplyChange(event, comment)}
-                                                placeholder="Write a reply"
+                                                modules={{
+                                                    toolbar: [
+                                                    ["bold", "italic", "underline"], // Inline styles
+                                                    [{ header: [1, 2, 3, false] }],  // Headers
+                                                    [{ list: "ordered" }, { list: "bullet" }], // Lists
+                                                    ["clean"],                       // Remove formatting
+                                                    ],
+                                                }}
                                             />
-                                            <button type="submit">Reply</button>
+                                            <button className="reply-button" type="submit">Reply</button>
                                         </form>
                                     </div>
                                 </li>
