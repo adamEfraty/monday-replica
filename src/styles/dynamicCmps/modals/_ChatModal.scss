@@ -132,7 +132,7 @@
   }
 
   .chat-body {
-    height: calc(100vh - 187px); // NEEDS TO BE CHANGE LATER
+    height: calc(100vh - 170px); // NEEDS TO BE CHANGE LATER
     overflow-y: auto;
     display: flex; 
     justify-content: center; 
@@ -175,12 +175,14 @@
           border: none;
           font-size: 15px;
         }
+
       }
 
       .update-button {
         cursor: pointer;
+        font-size: 14px;
         width: 60px;
-        height: 35px;
+        height: 33px;
         align-self: end;
         z-index: 1;
         background-color: #0073EA;
@@ -195,19 +197,37 @@
     }
 
     .create-comment-blur{
+      cursor: text;
       border: solid #0073EA 1px;
       border-radius: 8px;
       height: 90px;
-      padding: 10px;
+      display: flex;
+
+      &:hover{
+        background-color: #F0F0F1;
+      }
+
+      .placeholder{
+        font-size: 1.1em;
+        padding: 15px;
+        opacity: 0.7;
+      }
     }
 
     .comments-list {
-      margin-top: 30px;
+      margin-top: 15px;
 
       .comment {
-        border: solid black 2px;
-        padding: 10px;
+        border: solid #C3C6D4 1px;
+        border-radius: 8px;
         margin-bottom: 15px;
+        padding-bottom: 5px;
+
+        .comment-text{
+          margin-left: 25px;
+          display: flex;
+          font-size: 1.25em;
+        }
       }
 
       p {
@@ -217,8 +237,20 @@
       .comment-info {
         display: flex;
         align-items: center;
-        padding: 10px;
-        gap: 10px;
+        padding: 18px;
+        padding-left: 25px;
+        gap: 8px;
+
+        .username{
+          font-weight: bold;
+          opacity: 0.9;
+          font-size: 1em;
+        }
+
+        .time{
+          font-size: 1.15em;
+          opacity: 0.6;
+        }
 
         img {
           height: 45px;
@@ -226,15 +258,20 @@
           border-radius: 50%;
           margin-left: -10px;
         }
+
+        
       }
+
     }
 
     .replies-list {
-      border-top: solid black 1px;
-      margin-top: 30px;
+      border-top: solid #C3C6D4 1px;
+      margin-top: 25px;
+      padding: 10px;
+      padding-top: 20px;
 
       .reply {
-        margin-top: 30px;
+        margin-bottom: 25px;
         display: flex;
         gap: 10px;
 
@@ -246,50 +283,81 @@
 
         .replay-container {
           max-width: 600px;
-          border: solid black 2px;
-          padding: 5px;
+          min-width: 135px;
+          border-radius: 8px;
+          background-color: #F6F7FB;
+          padding: 15px;
+
+          .reply-username{
+            color: #0073EA;
+            font-family: "Quicksand", serif;
+            font-weight:600;
+            font-size: 1.1em;
+          }
 
           .reply-text {
             margin-top: 10px;
+            margin-bottom: 5px;
           }
         }
 
         .reply-time {
           align-self: flex-end;
+          opacity: 0.6;
         }
       }
     }
 
     .create-reply {
-      margin-top: 30px;
       display: flex;
-      gap: 10px;
 
-      img {
+      img{
         width: 35px;
         height: 35px;
-        border-radius: 50%;
+        margin-left: 10px;
       }
 
-      form {
+      form{
+        margin-left: 10px;
+        margin-right: 20px;
+        margin-bottom: 10px;
+        width: 100%;
+        border: solid #0073EA 1px;
+        border-radius: 8px;
+        padding: 10px;
         display: flex;
         flex-direction: column;
-        width: 100%;
-        height: 100px;
-        border: solid black 2px;
-        padding: 10px;
+      }
 
-        textarea {
-          resize: none;
-          width: 100%;
-          height: 80%;
+
+      .textarea-quill{
+        
+        .ql-toolbar{
           border: none;
-          outline: none;
+          display: flex;
+          gap: 0px;
+        }
+        .ql-container{
+          border: none;
+          font-size: 15px;
         }
 
-        button {
-          width: 50px;
-          align-self: end;
+      }
+
+      .reply-button {
+        cursor: pointer;
+        font-size: 1em;
+        width: 50px;
+        height: 33px;
+        align-self: end;
+        z-index: 1;
+        background-color: #0073EA;
+        color: white;
+        border-color: transparent;
+        border-radius: 4px;
+
+        &:hover{
+          background-color: #0060B9;
         }
       }
     }

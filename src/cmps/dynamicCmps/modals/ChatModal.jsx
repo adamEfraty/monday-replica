@@ -8,6 +8,7 @@ import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 
 export function ChatModal({ 
+    loggedinUser, 
     users, 
     chat = [], 
     onAddComment, 
@@ -114,7 +115,8 @@ export function ChatModal({
 
     function handleCommentSubmit(event) {
         event.preventDefault()
-        if (newComment !== "") {
+        const emptyPossibilities = ["", "<p><br></p>", "<h1><br></h1>", "<h2><br></h2>", "<h3><br></h3>"]
+        if (!emptyPossibilities.includes(newComment)) {
             onAddComment(newComment)
             setNewComment("")
             setOnEditNewComment(false)
@@ -132,27 +134,35 @@ export function ChatModal({
     }
 
     function handleReplyChange(event, toWhichComment) {
-        const reply = event.target.value
-        setNewReplies(newReplies.map(newReply =>
-            newReply.id === toWhichComment.sentAt
-                ? { ...newReply, text: reply }
-                : newReply
-        ))
+        const reply = event
+        setNewReplies(prevReplies =>
+            prevReplies.map((newReply) =>
+                newReply.id === toWhichComment.sentAt
+                    ? { ...newReply, text: reply }
+                    : newReply
+            )
+        )
     }
 
     function handleReplySubmit(event, toWhichComment) {
-        event.preventDefault()
-        const newReplyText = findNewReplyByComment(toWhichComment).text
-
-        if (newReplyText !== "") 
+        event.preventDefault(toWhichComment)
+        const newReplyText = findNewReplyByComment(toWhichComment)?.text || ""
+        const emptyPossibilities = ["", "<p><br></p>", "<h1><br></h1>", "<h2><br></h2>", "<h3><br></h3>"]
+    
+        if (!emptyPossibilities.includes(newReplyText)) {
             onAddReply(toWhichComment.sentAt, newReplyText)
-
-        setNewReplies(newReplies.map(newReply =>
-            newReply.id === toWhichComment.sentAt
-                ? { ...newReply, text: "" }
-                : newReply
-        ))
+    
+            // Clear the text after submitting
+            setNewReplies((prevReplies) =>
+                prevReplies.map((newReply) =>
+                    newReply.id === toWhichComment.sentAt
+                        ? { ...newReply, text: "" }
+                        : newReply
+                )
+            )
+        }
     }
+    
 
     const handleMouseDown = () => {
         setIsDragging(true)
@@ -265,7 +275,7 @@ export function ChatModal({
                         </form>
                         : <div className="create-comment-blur"
                             onClick={()=>setOnEditNewComment(true)}>
-                            <p>Test</p>
+                            <p className="placeholder">Write an update and mention others with @</p>
                         </div>
                     }
                     
@@ -278,11 +288,13 @@ export function ChatModal({
                                 <li key={comment.sentAt} className="comment">
                                     <div className="comment-info">
                                         <img src={commenter.imgUrl} alt={commenter.name} />
-                                        <p>{commenter.fullName}</p>
-                                        <p>{simplifyTimeToStr(comment.sentAt)}</p>
+                                        <p className="username">{commenter.fullName}</p>
+                                        <p className="time">{simplifyTimeToStr(comment.sentAt)}</p>
                                     </div>
-                                    <p dangerouslySetInnerHTML={{ __html: comment.text }} />
-                                    {/* {comment.text} Here i want to put it */}
+
+                                    <div className="comment-text" dangerouslySetInnerHTML={{ __html: comment.text }} />
+
+                                    
 
                                     {/* Replaies List to The Comment */}
                                     <ul className="replies-list">
@@ -292,8 +304,8 @@ export function ChatModal({
                                                 <li key={`${reply.sentAt}-${reply.userId}`} className="reply">
                                                     <img src={replier.imgUrl} alt={replier.fullName} />
                                                     <div className="replay-container">
-                                                        <p>{replier.fullName}</p>
-                                                        <p className="reply-text">{reply.text}</p>
+                                                        <p className="reply-username">{replier.fullName}</p>
+                                                        <div className="reply-text" dangerouslySetInnerHTML={{ __html: reply.text }} />
                                                     </div>
                                                     <p className="reply-time">{simplifyTimeToStr(reply.sentAt)}</p>
                                                 </li>
@@ -304,14 +316,22 @@ export function ChatModal({
                                     {/* Create New Reply to Comment */}
                                     <div className="create-reply">
                                         <img src={loggedinUser.imgUrl}/>
-                                        <form 
-                                        onSubmit={event => handleReplySubmit(event, comment)}>
-                                            <textarea
-                                                value={findNewReplyByComment(comment)?.text || ""}
+                                        <form
+                                        onSubmit={event => handleReplySubmit(event, comment)} >
+                                            <ReactQuill
+                                                className="textarea-quill"
+                                                value={findNewReplyByComment(comment)?.text}
                                                 onChange={event => handleReplyChange(event, comment)}
-                                                placeholder="Write a reply"
+                                                modules={{
+                                                    toolbar: [
+                                                    ["bold", "italic", "underline"], // Inline styles
+                                                    [{ header: [1, 2, 3, false] }],  // Headers
+                                                    [{ list: "ordered" }, { list: "bullet" }], // Lists
+                                                    ["clean"],                       // Remove formatting
+                                                    ],
+                                                }}
                                             />
-                                            <button type="submit">Reply</button>
+                                            <button className="reply-button" type="submit">Reply</button>
                                         </form>
                                     </div>
                                 </li>
