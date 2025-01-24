@@ -9,8 +9,11 @@ import ArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import PlusIcon from "@mui/icons-material/AddOutlined";
 import BoardIcon from "@mui/icons-material/SpaceDashboardOutlined";
 import HorizDotsIcon from "@mui/icons-material/MoreHorizOutlined";
+import { MenuModal } from "./dynamicCmps/modals/menu/MenuModal";
+import { useState } from "react";
 
 export function SideBar({ boards, user, onRemoveBoard }) {
+  const [menuDisplay, setMenuDisplay] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -54,9 +57,15 @@ export function SideBar({ boards, user, onRemoveBoard }) {
       <hr />
 
       {/* Favorites Section */}
-      <section>
-        <FavoritesIcon className="side-bar-icon favorites" style={iconStyle} />
-        <p>Favorites</p>
+      <section className="favorites">
+        <div>
+          <FavoritesIcon
+            className="side-bar-icon favorites"
+            style={iconStyle}
+          />
+          <p>Favorites</p>
+        </div>
+        {<ArrowDownIcon />}
       </section>
 
       <hr />
@@ -72,9 +81,10 @@ export function SideBar({ boards, user, onRemoveBoard }) {
             <h3>Main Workspace</h3>
             <ArrowDownIcon style={iconStyle} />
           </div>
-          <button className="add-board-button" onClick={handleAddBoard}>
+          <button className="add-board-button" onClick={() => setMenuDisplay(!menuDisplay)}>
             <PlusIcon style={{ width: 28, height: 26 }} />
           </button>
+          {menuDisplay && <MenuModal type="addItem" handleAddBoard={handleAddBoard} />}
         </div>
       </div>
 
