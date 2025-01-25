@@ -16,8 +16,10 @@ export function MembersModal({ParticipateMembers, onAddMember, onRemoveMember}){
                     ParticipateMembers.map(member=>
                         <li key={member.id}>
                             <img src={member.imgUrl}/>
-                            <p>{member.name}</p>
-                            <button onClick={()=>onRemoveMember(member)}>x</button>
+                            <p>{member.fullName}</p>
+                            <button onClick={()=>onRemoveMember(member)}>
+                                <i className="fa-solid fa-x"></i>
+                            </button>
                         </li>
                     )
                 }
@@ -25,22 +27,22 @@ export function MembersModal({ParticipateMembers, onAddMember, onRemoveMember}){
 
             {/* list of members you can add to task*/}
 
-            <div className="non-participate-part">
+            <p className="suggested-people">Suggested people</p>
 
-                <p>Suggested people</p>
-
-                <ul className="non-participate-list">
+            <div className="non-participate-list">
+                <ul>
                     {
                         nonParticipateMembers.map(member=>
                             <li key={member.id}
                             onClick={()=>onAddMember(member)}>
                                 <img src={member.imgUrl}/>
-                                <p>{member.name}</p>
+                                <p>{member.fullName}</p>
                             </li>
                         )
                     }
                 </ul>
             </div>
+
         </section>
     )
 }
