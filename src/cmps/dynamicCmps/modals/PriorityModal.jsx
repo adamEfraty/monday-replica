@@ -21,8 +21,6 @@ export function PriorityModal({onPriorityChange}){
                     )
                 }
             </ul>
-
-            <button>Edit Labels</button>
         </section>
     )
 }

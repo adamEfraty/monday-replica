@@ -6,30 +6,35 @@
     position: absolute;
     top: 75px; // temporary
     left: 0px; // temporary
-    width: 175px;
+    width: 200px;
     height: 250px;
     background-color: white;
     border: none;
-    box-shadow: 4px 4px 40px #333;
+    box-shadow: 1px 1px 7px rgb(200, 200, 200);
     border-radius: 5px;
 
     ul {
       list-style: none;
       display: flex;
       flex-direction: column;
-      justify-content: center;
       align-items: center;
+      padding: 25px 25px 10px 25px;
+      gap: 8px;
     }
 
     li {
       display: grid;
       align-content: center;
       cursor: pointer;
-      height: 30px;
-      margin-top: 15px;
-      width: 70%;
+      height: 32px;
+      width: 100%;
       border-radius: 2px;
+      transition: opacity 0.15s ease;
+      font-size: 1.05em;
 
+      &:hover{
+        opacity: 0.9;
+      }
     }
   }
 }
