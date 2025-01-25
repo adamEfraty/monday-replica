@@ -69,8 +69,8 @@ const BoardDetails = () => {
     addGroup(boardId);
   }
 
-  function chatTempInfoUpdate(cellId, width, newComment) {
-    boardService.saveTempChatInfo(cellId, width, newComment);
+  function chatTempInfoUpdate(cellId, width, scroll, newComment) {
+    boardService.saveTempChatInfo(cellId, width, scroll, newComment);
   }
 
   function openChat(id) {
