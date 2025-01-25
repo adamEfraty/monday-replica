@@ -7,6 +7,8 @@ import { getSvg } from "../../../services/svg.service.jsx";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 
+import emptyChatImg from '../../../assets/images/empty-chat.png'
+
 export function ChatModal({
     loggedinUser,
     users,
@@ -19,12 +21,15 @@ export function ChatModal({
     chatTempInfoUpdate,
     cellId,
     chatPrevInfo,
-    openChat }) {
+    openChat}) 
+    
+    {
+
+    const chatBodyRef = useRef(null); // Ref to the chat body element
+    const [scroll, setScroll] = useState(chatPrevInfo?.scroll ? chatPrevInfo.scroll : 0)
 
     const [onEditMode, setOnEditMode] = useState(false)
     const [textToEdit, setTextToEdit] = useState(text)
-
-
 
     const [newComment, setNewComment] = useState(
         chatPrevInfo?.comment ? chatPrevInfo.comment : '')
@@ -38,17 +43,45 @@ export function ChatModal({
     )
     const replyRefs = useRef({}) // To track reply elements for click outside detection
 
-
-
     const [width, setWidth] = useState(chatPrevInfo?.width ? chatPrevInfo.width : 700)
     const [isDragging, setIsDragging] = useState(false)
 
-    useEffect(() => {
-        chatTempInfoUpdate(cellId, width, newComment)
-        openChat(cellId)
-    }, [])
 
-    // if user clisk outside the newcomment without text close it
+    useEffect(()=>{
+        if(chatPrevInfo){
+            chatTempInfoUpdate(cellId, width, scroll, newComment)
+            openChat(cellId)
+            chatBodyRef.current.scrollTop = scroll
+        }
+    },[])
+
+    useEffect(() => {
+        const handleUpdateScroll = () => {
+            if (chatBodyRef.current) {
+                setScroll(chatBodyRef.current.scrollTop); // Update scroll position
+            }
+        }
+    
+        const chatElement = chatBodyRef.current;
+    
+        if (chatElement) {
+            chatElement.addEventListener("scroll", handleUpdateScroll);
+        }
+    
+        // Cleanup on component unmount
+        return () => {
+            if (chatElement) {
+                chatElement.removeEventListener("scroll", handleUpdateScroll);
+            }
+        };
+    }, []);
+    
+
+    useEffect(()=>{
+        chatTempInfoUpdate(cellId, width, scroll, newComment)
+    },[newComment])
+
+    // if user click outside the newcomment without text close it
     useEffect(() => {
         const emptyPossibilities = ["", "<p><br></p>", "<h1><br></h1>", "<h2><br></h2>", "<h3><br></h3>"]
         const handleClickOutside = (event) => {
@@ -96,11 +129,6 @@ export function ChatModal({
         document.addEventListener("mousedown", handleClickOutside);
         return () => document.removeEventListener("mousedown", handleClickOutside);
     }, []);
-
-    useEffect(()=>{
-        newCommentLatestRef.current = newComment;
-        chatTempInfoUpdate(cellId, width, newComment)
-    }, [newComment])
 
     useEffect(() => {
         // Attach global mousemove and mouseup listeners when dragging starts
@@ -179,6 +207,7 @@ export function ChatModal({
         if (emptyPossibilities.includes(replyText.trim())) return;
 
         onAddReply(commentId, replyText);
+        chatTempInfoUpdate(cellId, width, scroll, newComment);
 
         setNewReplies((prevReplies) =>
             prevReplies.map((reply) =>
@@ -215,12 +244,14 @@ export function ChatModal({
 
     const handleMouseUp = () => {
         setIsDragging(false)
-        chatTempInfoUpdate(cellId, width, newComment)
-    }
+        chatTempInfoUpdate(cellId, width, scroll, newComment)
+      }
 
     function closeChat(){
+        chatTempInfoUpdate(cellId, width, 0, newComment)
         openChat(null)
         modalToggle()
+        
     }
     
 
@@ -283,7 +314,7 @@ export function ChatModal({
 
             </div>
 
-            <div className="chat-body">
+            <div className="chat-body" ref={chatBodyRef}>
                 <div className="chat-inner-body">
                     {/* Create Comment */}
                     {
@@ -380,6 +411,21 @@ export function ChatModal({
                             )
                         })}
                     </ul>
+                    {
+                        chat.length === 0 
+                        ? <div className="empty-chat">
+                            <img src={emptyChatImg}/>
+                            <p className="bold-text">
+                                No updates yet for this item
+                            </p>
+                            <p className="text">
+                                Be the first one to update about progress, mention someone or upload files to share with your team members
+                            </p>
+                        </div>
+                        : null
+                    }
+                    {/* to have some distance to the bottom*/}
+                    <div className="white-block"/>
                 </div>
             </div>
         </section>

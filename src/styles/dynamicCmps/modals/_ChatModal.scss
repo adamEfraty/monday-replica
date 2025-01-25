@@ -134,6 +134,7 @@
   .chat-body {
     height: calc(100vh - 170px); // NEEDS TO BE CHANGE LATER
     overflow-y: auto;
+    overflow-x: hidden;
     display: flex; 
     justify-content: center; 
     padding: 20px;
@@ -382,6 +383,29 @@
           background-color: #F0F0F1;
         }
       }
+    }
+
+    .empty-chat{
+      margin-top: 85px;
+      font-family: "Quicksand", serif;
+      img{
+        width: 290px;
+        height: 250px;
+      }
+      .bold-text{
+        margin-top: 20px;
+        
+        font-size: 1.4em;
+        font-weight:bolder;
+      }
+      .text{
+        margin-top: 20px;
+        font-size: 1.2em;
+        margin-bottom: 100px;
+      }
+    }
+    .white-block{
+      height: 25px;
     }
   }
 }
