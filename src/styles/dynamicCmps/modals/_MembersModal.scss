@@ -2,18 +2,29 @@
   position: relative;
 
   .members-modal {
+    // temporary
+    $cell-width: 150px;
+    $cell-height: 34px;
+    $modal-width: 350px;
+
     z-index: 11;
     position: absolute;
-    top: 75px; // temporary
-    left: 0px; // temporary
-    width: 350px;
-    // height: 250px;
+    position: absolute;
+    top: calc($cell-height + 5px);
+    left: calc(($cell-width - $modal-width) /2);
+    width: $modal-width;
     background-color: white;
     border: none;
     box-shadow: 1px 1px 7px rgb(200, 200, 200);
     border-radius: 8px;
     color: black;
     padding: 20px;
+
+    .white-arrow{
+      position: absolute;
+      top:-9px;
+      left: calc(#{$modal-width} / 2 - 12px);
+    }
 
     p {
       border: none;

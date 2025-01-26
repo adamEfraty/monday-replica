@@ -1,4 +1,4 @@
-
+import { getSvg } from "../../../services/svg.service.jsx"
 
 export function PriorityModal({onPriorityChange}){
 
@@ -9,6 +9,8 @@ export function PriorityModal({onPriorityChange}){
 
     return (
         <section className="priority-modal">
+
+            <div className="white-arrow">{getSvg('white-arrow')}</div>
             {/* list of quick access prioritise */}
             <ul>
                 {

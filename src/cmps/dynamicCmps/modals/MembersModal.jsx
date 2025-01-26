@@ -1,4 +1,5 @@
 import { useSelector } from "react-redux"
+import { getSvg } from "../../../services/svg.service.jsx"
 
 export function MembersModal({ParticipateMembers, onAddMember, onRemoveMember}){
     const users = useSelector((state) => state.userModule.users)
@@ -9,6 +10,7 @@ export function MembersModal({ParticipateMembers, onAddMember, onRemoveMember}){
 
     return (
         <section className="members-modal">
+            <div className="white-arrow">{getSvg('white-arrow')}</div>
 
             {/* list of members you can remove from task*/}
             <ul className="participate-list">
