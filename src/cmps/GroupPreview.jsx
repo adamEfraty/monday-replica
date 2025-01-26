@@ -22,7 +22,6 @@ export const GroupPreview = ({
   labels,
   group,
   loggedinUser,
-  cmpOrder,
   progress,
   onTaskUpdate,
   checkedBoxes,
@@ -133,26 +132,25 @@ export const GroupPreview = ({
             >
               <section className="ghost "></section>
 
-              {cmpOrder.map((cmp, index) => (
-                labels[index] === 'item' ?
-                  <div style={{ borderLeft: `5px solid ${group?.color}`, borderTopLeftRadius: 5 }} key={`label-${index}`} className="label-title stick">
+              {labels.map(label => (
+                label.type === 'taskTitle' ?
+                  <div style={{ borderLeft: `5px solid ${group?.color}`, borderTopLeftRadius: 5 }} key={`label-${label.id}`} className="label-title stick">
                     <section className="main-checkbox">
                       <input
                         type="checkbox"
                         className="checkbox"
-                        onChange={() => { }}
+                        onChange={() => {}}
                         onClick={() => handleMasterCheckboxClick(group)}
                         checked={checkedGroups.includes(group.id)}
 
                       />
                     </section>
-                    < section className="title-group" key={`label-${index}`}>{labels[index] || ""}</section>
-
-
-
+                    < section className="title-group" key={`label-${label.id}`}>{label.name}</section>
                   </div >
                   :
-                  < div style={{ textAlign: `${labels[index] === '+' ? 'start' : 'center'}` }} key={`label-${index}`}>{labels[index] || ""}</div>
+                  <div style={{ textAlign: 'center' }} key={`label-${label.id}`}>
+                    {label.name}
+                  </div>
               ))}
             </section>
 
@@ -188,18 +186,18 @@ export const GroupPreview = ({
                 </div>
 
 
-                {cmpOrder.map((cmp, idx) => (
+                {labels.map(label => (
                   <section
-                    style={cmp === 'taskTitle' ? { borderLeft: `5px solid ${group?.color}` } : {}}
-                    className={`grid-item ${cmp} ${cmp === 'taskTitle' ? 'stick' : ''}`}
-                    key={`task-${task.id}-cmp-${idx}`}
+                    style={label.type === 'taskTitle' ? { borderLeft: `5px solid ${group?.color}` } : {}}
+                    className={`grid-item ${label.type} ${label.type === 'taskTitle' ? 'stick' : ''}`}
+                    key={`task-${task.id}-label-${label.id}`}
                   >
                     <DynamicCmp
                       group={group}
                       task={task}
                       loggedinUser={loggedinUser}
-                      cmpType={cmp}
-                      info={task[cmp]}
+                      label={label}
+                      info={task[label.type]}
                       onTaskUpdate={onTaskUpdate}
                       chat={task.chat} // temporary for demo data
                       users={users}
@@ -222,7 +220,7 @@ export const GroupPreview = ({
               <div className="invisible stick"></div>
 
               {progress.map((prog, index) =>
-                cmpOrder.includes(prog) ? (
+                labels.map(label=>label.type).includes(prog) ? (
                   <div className={`prog-box with-${prog}`} key={`progress-${index}`}>
                     <ProgressCmd
                       progressType={progress[index]}
@@ -243,7 +241,7 @@ export const GroupPreview = ({
 };
 
 const DynamicCmp = ({
-  cmpType,
+  label,
   info,
   onTaskUpdate,
   task,
@@ -258,11 +256,11 @@ const DynamicCmp = ({
 }) => {
   // console.log("Rendering component:", cmpType, "with info:", info);
 
-  switch (cmpType) {
+  switch (label.type) {
     case "priority":
       return (
         <Priority
-          cellId={task.id + 'priority'}
+          cellId={task.id + label.id}
           group={group}
           task={task}
           priority={info}
@@ -274,7 +272,7 @@ const DynamicCmp = ({
     case "taskTitle":
       return (
         <TaskTitle
-          cellId={task.id + 'title'}
+          cellId={task.id + label.id}
           group={group}
           task={task}
           loggedinUser={loggedinUser}
@@ -292,7 +290,7 @@ const DynamicCmp = ({
     case "status":
       return (
         <Status
-          cellId={task.id + 'status'}
+          cellId={task.id + label.id}
           group={group}
           task={task}
           taskId={task.id}
@@ -304,7 +302,7 @@ const DynamicCmp = ({
     case "members":
       return (
         <Members
-          cellId={task.id + 'members'}
+          cellId={task.id + label.id}
           group={group}
           task={task}
           taskId={task.id}
@@ -317,7 +315,7 @@ const DynamicCmp = ({
     case "date":
       return (
         <Date
-          cellId={task.id + 'date'}
+          cellId={task.id + label.id}
           group={group}
           task={task}
           date={info}

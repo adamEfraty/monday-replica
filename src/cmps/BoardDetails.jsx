@@ -16,6 +16,7 @@ import { updateGroup } from "../store/actions/boards.actions";
 import { removeGroup } from "../store/actions/boards.actions";
 import { BoardDetailsHeader } from "./BoardDetailsHeader";
 import { boardService } from "../services/board.service";
+import { utilService } from "../services/util.service";
 
 const BoardDetails = () => {
   const { boardId } = useParams();
@@ -26,11 +27,12 @@ const BoardDetails = () => {
   const [currentBoard, setCurrentBoard] = useState(
     boards.find((board) => board.id === boardId)
   );
+  const [labels,setLabels] = useState(null)
+
   const loggedinUser = useSelector((state) => state.userModule.user);
   const users = useSelector((state) => state.userModule.users);
   const filterBy = useSelector((state) => state.boardModule.filterBy);
 
-  // const currentBoard = boards.find((board) => board.id === boardId);
 
   // const groups = currentBoard?.groups || [];
 
@@ -38,6 +40,11 @@ const BoardDetails = () => {
     // if (!currentBoard || currentBoard.id !== boardId)
     setCurrentBoard(boards.find((board) => board.id === boardId));
   }, [boards, boardId]);
+
+  useEffect(() => {
+    if(currentBoard)
+      setLabels(currentBoard.labels);
+  }, [currentBoard]);
 
   useEffect(() => {
     async function d() {
@@ -81,10 +88,9 @@ const BoardDetails = () => {
   const onTaskUpdate = async (changeInfo) =>
     await updateTask(currentBoard.id, changeInfo);
 
-  const cmpOrder = ["taskTitle", "priority", "status", "members", "date", "+"];
+  // const cmpOrder = ["taskTitle", "priority", "status", "members", "date"];
 
   const uid = () => Math.random().toString(36).slice(2);
-  const labels = ["item", "priority", "status", "members", "date", "+"];
 
   const progress = [null, "priority", "status", "members", "date"];
   const handleCheckBoxClick = (groupId, taskId) => {
@@ -148,7 +154,7 @@ const BoardDetails = () => {
     removeGroup(boardId, groupId);
   }
 
-  if (!currentBoard)
+  if (!currentBoard || !labels)
     return (
       <div onClick={() => console.log(boards, currentBoard)}>Loading...</div>
     );
@@ -163,7 +169,6 @@ const BoardDetails = () => {
               group={group}
               labels={labels}
               loggedinUser={loggedinUser}
-              cmpOrder={cmpOrder}
               progress={progress}
               key={uid()}
               onTaskUpdate={onTaskUpdate}
