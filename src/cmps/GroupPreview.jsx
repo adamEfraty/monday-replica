@@ -15,7 +15,7 @@ import ArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { ArrowRightIcon } from "@mui/x-date-pickers/icons";
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import { useSelector } from "react-redux";
-import { removeTask } from "../store/actions/boards.actions.js";
+import { removeTask, addLable } from "../store/actions/boards.actions.js";
 
 
 export const GroupPreview = ({
@@ -75,8 +75,10 @@ export const GroupPreview = ({
     borderTop: '1px solid #e0dede',
 
 
+
   };
   const titleHead = { color: group.color };
+  console.log(labels.length)
 
   return (
     <>
@@ -128,7 +130,8 @@ export const GroupPreview = ({
           <div>
             <section
               className="labels-grid"
-              style={{ ...style, borderTopLeftRadius: 5 }}
+              style={{ ...style, borderTopLeftRadius: 5 , 
+                gridTemplateColumns: `10px 400px repeat(${labels.length}, 150px) 500px`}}
             >
               <section className="ghost "></section>
 
@@ -152,6 +155,7 @@ export const GroupPreview = ({
                     {label.name}
                   </div>
               ))}
+              <button className="add-column-button" onClick={()=>addLable(boardId)}>+</button>
             </section>
 
             {/* Render tasks by cmp order */}
@@ -159,7 +163,9 @@ export const GroupPreview = ({
             {group.tasks.map((task) => (
 
               <section
-                className="group grid"
+                className="group-grid"
+                style={{ ...style, 
+                  gridTemplateColumns: `10px 400px repeat(${labels.length}, 150px) 500px`}}
                 key={`task-${task.id}`}
               >
 
@@ -215,21 +221,23 @@ export const GroupPreview = ({
             {/* Render progress by progress array */}
             <section
               className="progress-grid"
+              style={{ ...style, 
+                gridTemplateColumns: `10px 400px repeat(${labels.length}, 150px) 500px`}}
             >
 
               <div className="invisible stick"></div>
 
-              {progress.map((prog, index) =>
-                labels.map(label=>label.type).includes(prog) ? (
-                  <div className={`prog-box with-${prog}`} key={`progress-${index}`}>
+              {labels.map((lable, index) =>
+                progress.includes(lable.type) ? (
+                  <div className={`prog-box with-${lable.type}`} key={`progress-${lable.type}`}>
                     <ProgressCmd
-                      progressType={progress[index]}
+                      progressType={lable.type}
                       tasks={group.tasks}
 
                     />
                   </div>
                 ) : (
-                  <div className={prog} key={`progress-${index} `}></div>
+                  <div className={lable.type} key={`progress-${index} `}></div>
                 )
               )}
             </section>

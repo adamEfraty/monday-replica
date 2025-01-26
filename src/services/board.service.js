@@ -37,6 +37,7 @@ export const boardService = {
   setFilterStateSession,
   getFilterContextSession,
   setFilterContextSession,
+  addLableToBoard,
 }
 
 async function addBoard() {
@@ -488,5 +489,14 @@ function getFilterState() {
     setFilterStateSession(false)
     return false
   }
+}
+
+async function addLableToBoard(boardId, newLable){
+  const board = await getById(boardId)
+  if (board) {
+    board.labels.push(newLable)
+    save(board)
+    return board
+  } else throw new Error('Board not found')
 }
 
