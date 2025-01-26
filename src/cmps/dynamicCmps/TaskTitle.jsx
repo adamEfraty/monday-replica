@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 import { utilService } from "../../services/util.service.js";
 import { boardService } from "../../services/board.service.js";
 
-export function TaskTitle({ cellId,
+export function TaskTitle({ cellInfo,
   users,
   loggedinUser,
   chat,
@@ -20,6 +20,7 @@ export function TaskTitle({ cellId,
   checkedBoxes,
   handleCheckBoxClick
 }) {
+
   const [onEditMode, setOnEditMode] = useState(false)
   const [textToEdit, setTextToEdit] = useState(text)
 
@@ -27,17 +28,17 @@ export function TaskTitle({ cellId,
   const [openAnimation, setOpenAnimation] = useState(false)
 
   const openModals = useSelector(state => state.boardModule.openModals)
-  const modal = openModals.some(modalId => modalId === cellId)
+  const modal = openModals.some(modalId => modalId === (cellInfo.taskId + cellInfo.labelId))
 
   const modalRef = useRef(null)
   const ChatButtonRef = useRef(null)
 
-  const chatPrevInfo = boardService.getChatTempInfo(cellId)
+  const chatPrevInfo = boardService.getChatTempInfo(cellInfo.taskId + cellInfo.labelId)
   const isChatWasOpen = boardService.getOpenChat()
 
   useEffect(()=>{
     // when user refresh the page while modal was open
-    if(!modal && isChatWasOpen === cellId){
+    if(!modal && isChatWasOpen === (cellInfo.taskId + cellInfo.labelId)){
       modalToggle()
     }
   },[])
@@ -65,11 +66,11 @@ export function TaskTitle({ cellId,
     if (modal) {
       // Close modal
       chatAnimation(false)
-      setTimeout(() => closeModal(cellId), 275)
+      setTimeout(() => closeModal(cellInfo.taskId + cellInfo.labelId), 275)
     } else {
       // Open modal
       setOpenAnimation(true)
-      openModal(cellId)
+      openModal(cellInfo.taskId + cellInfo.labelId)
       setTimeout(() => chatAnimation(true), 10) // Wait for ref to exists
 
     }
@@ -82,7 +83,7 @@ export function TaskTitle({ cellId,
       text: comment,
       replies: []
     }
-    onTaskUpdate({ group, task, type: 'chat', value: [newComment, ...chat] })
+    onTaskUpdate({...cellInfo, value: {...cellInfo.value, chat: [newComment, ...chat]}})
   }
 
   function onAddReply(commentSentTime, replyTxt) {
@@ -92,8 +93,7 @@ export function TaskTitle({ cellId,
         ? { ...comment, replies: [newReply, ...comment.replies] }
         : comment
     })
-    onTaskUpdate({ group, task, type: 'chat', value: updatedChat })
-  }
+    onTaskUpdate({...cellInfo, value: {...cellInfo.value, chat: updatedChat}})  }
 
 
   function toggleEditMode() {
@@ -105,7 +105,7 @@ export function TaskTitle({ cellId,
       }
 
       else {
-        onTaskUpdate({ group, task, type: 'taskTitle', value: textToEdit })
+        onTaskUpdate({...cellInfo, value: {...cellInfo.value, title: textToEdit}})
       }
     }
 
@@ -134,7 +134,7 @@ export function TaskTitle({ cellId,
   }
 
   function onUpdateTitleInChat(text) {
-    onTaskUpdate({ group, task, type: 'taskTitle', value: text })
+    onTaskUpdate({...cellInfo, value: {...cellInfo.value, title: text}})
   }
 
   return (

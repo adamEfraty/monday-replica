@@ -85,8 +85,8 @@ const BoardDetails = () => {
   }
 
   // function that set groups with each task update
-  const onTaskUpdate = async (changeInfo) =>
-    await updateTask(currentBoard.id, changeInfo);
+  const onTaskUpdate = async (newCell) => {
+    await updateTask(currentBoard.id, newCell);}
 
   // const cmpOrder = ["taskTitle", "priority", "status", "members", "date"];
 

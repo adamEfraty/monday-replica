@@ -3,9 +3,9 @@ import { MembersModal } from './modals/MembersModal.jsx'
 import { openModal, closeModal } from '../../store/actions/boards.actions.js'
 import { useSelector } from "react-redux";
 
-export function Members({ cellId, group, task, members, onTaskUpdate, users }) {
+export function Members({cellInfo, onTaskUpdate, users }) {
     const openModals = useSelector(state => state.boardModule.openModals)
-    const modal = openModals.some(modalId => modalId === cellId)
+    const modal = openModals.some(modalId => modalId === (cellInfo.taskId + cellInfo.labelId))
 
     const modalRef = useRef(null)
     const membersCellRef = useRef(null)
@@ -15,19 +15,19 @@ export function Members({ cellId, group, task, members, onTaskUpdate, users }) {
     // close and open modal as needed
     function modalToggle() {
         modal
-        ? closeModal(cellId)
-        : openModal(cellId)
+        ? closeModal(cellInfo.taskId + cellInfo.labelId)
+        : openModal(cellInfo.taskId + cellInfo.labelId)
     }
 
     function onAddMember(member) {
         modalToggle()
-        onTaskUpdate({ group, task, type: 'members', value: [...members, member] })
+        onTaskUpdate({...cellInfo, value: [...cellInfo.value, member]})
     }
 
     function onRemoveMember(memberToRemove) {
-        const newMembers = members.filter(member =>
+        const newMembers = cellInfo.value.filter(member =>
             memberToRemove.id !== member.id)
-        onTaskUpdate({ group, task, type: 'members', value: newMembers })
+        onTaskUpdate({...cellInfo, value: newMembers})
     }
 
     function handleClickOutsideModal(event) {

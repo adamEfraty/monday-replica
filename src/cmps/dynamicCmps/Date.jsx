@@ -3,9 +3,9 @@ import { DateModal } from './modals/DateModal.jsx';
 import { openModal, closeModal } from '../../store/actions/boards.actions.js'
 import { useSelector } from "react-redux";
 
-export function Date({ cellId, group, task, date, onTaskUpdate }) {
+export function Date({ cellInfo, onTaskUpdate }) {
     const openModals = useSelector(state => state.boardModule.openModals)
-    const modal = openModals.some(modalId => modalId === cellId)
+    const modal = openModals.some(modalId => modalId === (cellInfo.taskId + cellInfo.labelId))
 
     const modalRef = useRef(null);
     const dateCellRef = useRef(null);
@@ -13,12 +13,12 @@ export function Date({ cellId, group, task, date, onTaskUpdate }) {
     // close and open modal as needed
     function modalToggle() {
         modal
-        ? closeModal(cellId)
-        : openModal(cellId)
+        ? closeModal(cellInfo.taskId + cellInfo.labelId)
+        : openModal(cellInfo.taskId + cellInfo.labelId) 
     }
 
     function onDateChange(date) {
-        onTaskUpdate({ group, task, type: 'date', value: date });
+        onTaskUpdate({...cellInfo, value: date})
         modalToggle()
     }
 

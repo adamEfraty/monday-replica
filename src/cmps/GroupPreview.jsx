@@ -78,7 +78,6 @@ export const GroupPreview = ({
 
   };
   const titleHead = { color: group.color };
-  console.log(labels.length)
 
   return (
     <>
@@ -137,7 +136,9 @@ export const GroupPreview = ({
 
               {labels.map(label => (
                 label.type === 'taskTitle' ?
-                  <div style={{ borderLeft: `5px solid ${group?.color}`, borderTopLeftRadius: 5 }} key={`label-${label.id}`} className="label-title stick">
+                  <div style={{ borderLeft: `5px solid ${group?.color}`, borderTopLeftRadius: 5 }} 
+                  key={`label-${label.id}`} 
+                  className="label-title stick">
                     <section className="main-checkbox">
                       <input
                         type="checkbox"
@@ -192,7 +193,9 @@ export const GroupPreview = ({
                 </div>
 
 
-                {labels.map(label => (
+                {labels.map(label => {
+                  const cell = task.cells.find(cell=>cell.labelId===label.id)
+                  return(
                   <section
                     style={label.type === 'taskTitle' ? { borderLeft: `5px solid ${group?.color}` } : {}}
                     className={`grid-item ${label.type} ${label.type === 'taskTitle' ? 'stick' : ''}`}
@@ -203,7 +206,7 @@ export const GroupPreview = ({
                       task={task}
                       loggedinUser={loggedinUser}
                       label={label}
-                      info={task[label.type]}
+                      cell={cell}
                       onTaskUpdate={onTaskUpdate}
                       chat={task.chat} // temporary for demo data
                       users={users}
@@ -213,7 +216,7 @@ export const GroupPreview = ({
                       handleCheckBoxClick={handleCheckBoxClick}
                     />
                   </section>
-                ))}
+                )})}
               </section>
             ))}
             <AddTask group={group} handleAddTask={handleAddTask} />
@@ -229,7 +232,7 @@ export const GroupPreview = ({
 
               {labels.map((lable, index) =>
                 progress.includes(lable.type) ? (
-                  <div className={`prog-box with-${lable.type}`} key={`progress-${lable.type}`}>
+                  <div className={`prog-box with-${lable.type}`} key={`progress-${lable.id}`}>
                     <ProgressCmd
                       progressType={lable.type}
                       tasks={group.tasks}
@@ -250,7 +253,7 @@ export const GroupPreview = ({
 
 const DynamicCmp = ({
   label,
-  info,
+  cell,
   onTaskUpdate,
   task,
   group,
@@ -268,10 +271,9 @@ const DynamicCmp = ({
     case "priority":
       return (
         <Priority
-          cellId={task.id + label.id}
           group={group}
           task={task}
-          priority={info}
+          cellInfo={cell}
           onTaskUpdate={onTaskUpdate}
 
         />
@@ -280,13 +282,12 @@ const DynamicCmp = ({
     case "taskTitle":
       return (
         <TaskTitle
-          cellId={task.id + label.id}
+          cellInfo={cell}
           group={group}
           task={task}
           loggedinUser={loggedinUser}
           users={users}
           chat={chat}
-          text={info}
           onTaskUpdate={onTaskUpdate}
           chatTempInfoUpdate={chatTempInfoUpdate}
           openChat={openChat}
@@ -298,11 +299,9 @@ const DynamicCmp = ({
     case "status":
       return (
         <Status
-          cellId={task.id + label.id}
+          cellInfo={cell}
           group={group}
           task={task}
-          taskId={task.id}
-          status={info}
           onTaskUpdate={onTaskUpdate}
         />
       )
@@ -310,10 +309,9 @@ const DynamicCmp = ({
     case "members":
       return (
         <Members
-          cellId={task.id + label.id}
+          cellInfo={cell}
           group={group}
           task={task}
-          taskId={task.id}
           members={info}
           onTaskUpdate={onTaskUpdate}
           users={users}
@@ -323,10 +321,9 @@ const DynamicCmp = ({
     case "date":
       return (
         <Date
-          cellId={task.id + label.id}
+          cellInfo={cell}
           group={group}
           task={task}
-          date={info}
           onTaskUpdate={onTaskUpdate}
         />
       )

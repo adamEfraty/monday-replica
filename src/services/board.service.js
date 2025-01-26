@@ -112,10 +112,6 @@ async function addGroupToBoard(boardId, newGroup) {
 }
 
 async function addItemToGroup(boardId, groupId, newItem, isStart = null) {
-  console.log('this is the new item: ', newItem)
-  console.log('this is the boardId: ', boardId)
-  console.log('this is the groupId: ', groupId)
-  console.log('this is the isStart: ', isStart)
   const board = await getById(boardId)
   if (!board) throw new Error('Board not found')
 
@@ -181,30 +177,24 @@ async function removeTaskFromGroup(boardId, groupId, taskId) {
   await save(board)
   return board // Returning the updated group (optional, for use in UI or elsewhere)
 }
-
-async function updateTaskInGroup(boardId, info) {
+// cell: {taskId:xxx, labelId: xxx, value: xxx, type: xxx}
+async function updateTaskInGroup(boardId, newCell) {
   try {
-    console.log(info)
-    console.log(boardId, info.group.id, info.task.id, info.type, info.value)
+    console.log('cell to update', newCell)
     const board = await getById(boardId) // Call directly without 'this'
-    const group = board.groups.find((group) => group.id === info.group.id)
-    if (!group) throw new Error('Group not found')
-
-    const taskIndex = group.tasks.findIndex((task) => task.id === info.task.id)
-    if (taskIndex === -1) throw new Error('Task not found')
-
-    group.tasks[taskIndex][info.type] = info.value
-    console.log(info.type)
-    await save(board).then(() => {
-      console.log(
-        group.tasks[taskIndex][info.type],
-        taskIndex,
-        group,
-        info.value
-      )
+    const updatedBoard = board.groups.map(group => ({
+      ...group, tasks: group.tasks.map(task => ({
+        ...task, cells: task.cells.map(cell =>
+          (cell.taskId === newCell.taskId && cell.labelId === newCell.labelId)
+          ? newCell : cell
+        )
+      }))
+    }))
+    await save(updatedBoard).then(() => {
+      console.log('updated board', updatedBoard)
     })
 
-    return group.tasks[taskIndex]
+    return newCell.value
   } catch (error) {
     console.error('Error updating task:', error)
     throw error
@@ -274,116 +264,7 @@ async function makeFirstBoard() {
       {id: utilService.makeId(), type: "status", name:"status"}, 
       {id: utilService.makeId(), type: "members", name:"members"}, 
       {id: utilService.makeId(), type: "date", name:"date"}],
-    groups: [
-      {
-        id: Math.random().toString(36).slice(2),
-        title: 'SAR',
-        color: 'red',
-        tasks: [
-          {
-            id: 't101',
-            side: 'null',
-            taskTitle: 'learn CSS',
-            members: [usersInBoard[1], usersInBoard[2]],
-            date: '27-02-2022',
-            status: { text: 'Working on it', color: '#FDAB3D' },
-            priority: { text: 'Low', color: '#86B6FB' },
-            chat: [],
-          },
-          {
-            id: 't102',
-            side: 'null',
-            taskTitle: 'learn Vue.js',
-            members: [usersInBoard[0], usersInBoard[1], usersInBoard[2]],
-            date: '28-02-2022',
-            status: { text: 'Stuck', color: '#DF2F4A' },
-            priority: { text: 'Medium', color: '#5559DF' },
-            chat: [],
-          },
-          {
-            id: 't103',
-            side: 'null',
-            taskTitle: 'learn JavaScript',
-            members: [usersInBoard[1], usersInBoard[2], usersInBoard[3]],
-            date: '01-03-2022',
-            status: { text: 'Done', color: '#00C875' },
-            priority: { text: 'Medium', color: '#5559DF' },
-            chat: [],
-          },
-        ],
-      },
-      {
-        id: Math.random().toString(36).slice(2),
-        title: 'SAR-2',
-
-        color: 'blue',
-        tasks: [
-          {
-            id: 't201',
-            side: 'null',
-            taskTitle: 'write API documentation',
-            members: [
-              usersInBoard[0],
-              usersInBoard[1],
-              usersInBoard[2],
-              usersInBoard[3],
-            ],
-            date: '03-03-2022',
-            status: { text: 'Working on it', color: '#FDAB3D' },
-            priority: { text: 'Critical ⚠️', color: '#333333' },
-            chat: [],
-          },
-          {
-            id: 't202',
-            side: 'null',
-            taskTitle: 'debug front-end code',
-            members: [usersInBoard[2], usersInBoard[3]],
-            date: '05-03-2022',
-            status: { text: 'Stuck', color: '#DF2F4A' },
-            priority: { text: 'Low', color: '#86B6FB' },
-            chat: [],
-          },
-          {
-            id: 't203',
-            side: 'null',
-            taskTitle: 'deploy application',
-            members: [usersInBoard[1], usersInBoard[3]],
-            date: '06-03-2022',
-            status: { text: 'Done', color: '#00C875' },
-            priority: { text: 'High', color: '#401694' },
-            chat: [],
-          },
-        ],
-      },
-      {
-        id: Math.random().toString(36).slice(2),
-        title: 'SAR-3',
-
-        color: 'green',
-        tasks: [
-          {
-            id: 't301',
-            side: 'null',
-            taskTitle: 'set up database schema',
-            members: [usersInBoard[0], usersInBoard[3]],
-            date: '07-03-2022',
-            status: { text: 'Not Started', color: '#C4C4C4' },
-            priority: { text: 'High', color: '#401694' },
-            chat: [],
-          },
-          {
-            id: 't302',
-            side: 'null',
-            taskTitle: 'optimize queries',
-            members: [usersInBoard[0], usersInBoard[1]],
-            date: '08-03-2022',
-            status: { text: 'Working on it', color: '#FDAB3D' },
-            priority: { text: 'Low', color: '#86B6FB' },
-            chat: [],
-          },
-        ],
-      },
-    ],
+    groups: [],
   }
 
   const boardsFromStorage = await storageService.query(STORAGE_KEY)

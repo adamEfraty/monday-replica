@@ -60,30 +60,48 @@ export async function addGroup(boardId) {
   showSuccessMsg('Group added successfully')
 }
 
-export async function addItem(boardId, groupId, itemTitle, isStart = null) {
+export async function addItem(boardId, groupId, taskTitle, isStart = null) {
   const today = new Date()
   const formattedDate = utilService.formatDateToStr(today)
 
+  const board = await boardService.getById(boardId)
+  const labels = [...board.labels]
+  const taskId = utilService.makeId()
+
+// cell: {taskId:xxx, labelId: xxx, value: xxx, type: xxx}
   const newItem = {
-    id: utilService.makeId(),
-    taskTitle: itemTitle,
-    members: [],
-    date: formattedDate, // Updated to show the formatted date
-    status: { text: '', color: '#C4C4C4' },
-    priority: { text: '', color: '#C4C4C4' },
-    chat: [],
+    id: taskId,
+
+    cells: 
+      labels.map(label => {
+        switch (label.type) {
+          case 'taskTitle':
+            return { taskId: taskId, labelId: label.id, 
+              value: {title: taskTitle, chat: []}, type: label.type }
+          case 'priority':
+            return {taskId: taskId, labelId: label.id, 
+              value: { text: '', color: '#C4C4C4' }, type: label.type }
+          case 'status':
+            return {taskId: taskId, labelId: label.id, 
+              value: { text: '', color: '#C4C4C4' }, type: label.type }
+          case 'members':
+            return { taskId: taskId, labelId: label.id, 
+              value: [], type: label.type }
+          case 'date':
+            return {taskId: taskId, labelId: label.id, 
+              value: formattedDate, type: label.type }
+          
+          default:
+            return null;
+        }
+      }),
   }
   await boardService.addItemToGroup(boardId, groupId, newItem, isStart)
+  const updatedBoard = await boardService.getById(boardId)
 
-  const board = await boardService.getById(boardId)
-  if (!board) return
 
-  const updatedBoard = {
-    ...board,
-    groups: board.groups.map((group) =>
-      group.id === groupId ? { ...group, tasks: [...group.tasks] } : group
-    ),
-  }
+  if (!updatedBoard) return
+
 
   await store.dispatch({
     type: EDIT_BOARD,
@@ -206,8 +224,8 @@ export async function removeBoard(boardId) {
   }
 }
 
-export async function updateTask(boardId, info) {
-  await boardService.updateTaskInGroup(boardId, info)
+export async function updateTask(boardId, newCell) {
+  await boardService.updateTaskInGroup(boardId, newCell)
 
   const board = await boardService.getById(boardId)
   if (!board) return
