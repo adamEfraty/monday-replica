@@ -1,4 +1,3 @@
-
 .labels-grid {
   display: grid;
   grid-template-columns: 10px 400px repeat(5, 150px) 500px;
@@ -15,9 +14,28 @@
   width: 100%; /* Set a fixed width */
 }
 
+section.group-grid {
+  display: grid;
+  grid-template-columns: 10px 400px repeat(5, 150px) 500px;
+  grid-template-rows: 34px;
+  background: white;
+
+  &:hover {
+    // background-color: #cbcbcb;
+    // opacity: 0.7;
+
+    .dots {
+      background-color: #fff;
+
+      span {
+        opacity: 1;
+      }
+    }
+  }
+}
+
 .group-list {
   font-size: 13px;
-
   & input[type='checkbox'] {
     width: 20px;
     height: 20px;
@@ -88,11 +106,10 @@
   padding: 0.7rem;
   text-align: center;
   font-weight: 800;
-  border-top: 1px solid #e0dede;
 }
 
-.labels-grid{
-  .add-column-button{
+.labels-grid {
+  .add-column-button {
     width: 20px;
     height: 20px;
   }
@@ -211,6 +228,12 @@ div {
 .group-title-flex {
   display: flex;
   gap: 10px;
+
+  &:hover {
+    .remove {
+      opacity: 1;
+    }
+  }
 }
 
 .nothing {
@@ -228,6 +251,10 @@ section.labels-grid {
   top: 200px;
   z-index: 4;
   background-color: #fff;
+
+  div {
+    border-bottom: 1px solid #e0dede;
+  }
 }
 
 div.group-title-flex {
@@ -236,24 +263,17 @@ div.group-title-flex {
   top: 145px;
   background-color: #fff;
   z-index: 4;
-  width: 100px;
 }
 .prog-box {
   border: 1px solid #e0dede;
 }
-.stick {
-  position: sticky;
-  left: 0;
-  z-index: 3;
-  background-color: #ffffff;
-  display: inline-block;
-}
-.stick2 {
-  position: sticky;
-  z-index: 1000;
-  background-color: #ffffff;
-  display: inline-block;
-}
+// .stick {
+//   position: sticky;
+//   left: 0;
+//   z-index: 3;
+//   background-color: #ffffff;
+//   display: inline-block;
+// }
 
 .label-title {
   display: flex;
@@ -296,37 +316,31 @@ div.group-title-flex {
   }
 }
 
-section.group-grid {
-  display: grid;
-  grid-template-columns: 10px 400px repeat(5, 150px) 500px;
-  grid-template-rows: 34px;
-  background: white;
-
-  &:hover {
-    background-color: #e6e5e5;
-
-    .stick {
-      background-color: #e6e5e5;
-    }
-
-    .dots {
-      background-color: #fff;
-
-      span {
-        opacity: 1;
-      }
-    }
-  }
-}
-
 .add-task {
   margin-left: 10px;
   opacity: 0.5;
   border: 1px solid #e0dede;
   border-right: none;
+  border-top: none;
+  &:hover {
+    opacity: 1;
+  }
 }
 
 .ghost {
   background-color: #fff;
   border: none;
+}
+
+div.input-styles {
+  border: none;
+  border-right: 1px solid #e0dede;
+}
+
+.change-location {
+  position: relative;
+  right: 35px;
+  top: 5px;
+  display: flex;
+  gap: 10px;
 }

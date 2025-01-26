@@ -70,57 +70,56 @@ export const GroupPreview = ({
 
 
 
-  const style = {
-    borderRight: '1px solid #e0dede',
-    borderTop: '1px solid #e0dede',
 
-
-
-  };
   const titleHead = { color: group.color };
-  console.log(labels.length)
+
+
+
+
 
   return (
     <>
 
-      <div className="group-title-flex stick">
-        <span className="remove" onClick={handleClick2}><MoreHorizIcon />
-        </span>
 
-        <Popover
-          id={id2}
-          open={open2}
-          anchorEl={anchorE2}
-          onClose={handleClose2}
-          anchorOrigin={{
-            vertical: 'bottom',
-            horizontal: 'right',
-          }}
-          transformOrigin={{
-            vertical: 'top',
-            horizontal: 'center',
-          }}
-        >
-          <GarbageRemove someName={'Group'} someFunction={() => handleDelete(group.id, boardId)} />
-        </Popover>
+      <div className="group-title-flex">
+        <div className="change-location">
+          <span className="remove" onClick={handleClick2}><MoreHorizIcon />
+          </span>
 
-
-
-        <span className="arrow" onClick={() => setExpanded((prev) => !prev)}>
-          {expanded ? <ArrowDownIcon /> : <ArrowRightIcon />}
-        </span>
-        <input
-          onBlur={() => handleGroupNameChange(groupTitle, group)}
-          style={titleHead}
-          className="task-input hov"
-          type="text"
-          value={groupTitle}
-          onChange={(e) => setGroupTitle(e.target.value)}
-        />
+          <Popover
+            id={id2}
+            open={open2}
+            anchorEl={anchorE2}
+            onClose={handleClose2}
+            anchorOrigin={{
+              vertical: 'bottom',
+              horizontal: 'right',
+            }}
+            transformOrigin={{
+              vertical: 'top',
+              horizontal: 'center',
+            }}
+          >
+            <GarbageRemove someName={'Group'} someFunction={() => handleDelete(group.id, boardId)} />
+          </Popover>
 
 
 
+          <span className="arrow" onClick={() => setExpanded((prev) => !prev)}>
+            {expanded ? <ArrowDownIcon /> : <ArrowRightIcon />}
+          </span>
+          <input
+            onBlur={() => handleGroupNameChange(groupTitle, group)}
+            style={titleHead}
+            className="task-input hov"
+            type="text"
+            value={groupTitle}
+            onChange={(e) => setGroupTitle(e.target.value)}
+          />
 
+
+
+        </div>
       </div>
 
       <section className="group-list">
@@ -130,19 +129,21 @@ export const GroupPreview = ({
           <div>
             <section
               className="labels-grid"
-              style={{ ...style, borderTopLeftRadius: 5 , 
-                gridTemplateColumns: `10px 400px repeat(${labels.length}, 150px) 500px`}}
+              style={{
+                borderTopLeftRadius: 5,
+                gridTemplateColumns: `10px 400px repeat(${labels.length}, 150px) 500px`
+              }}
             >
               <section className="ghost "></section>
 
               {labels.map(label => (
                 label.type === 'taskTitle' ?
-                  <div style={{ borderLeft: `5px solid ${group?.color}`, borderTopLeftRadius: 5 }} key={`label-${label.id}`} className="label-title stick">
+                  <div style={{ borderLeft: `5px solid ${group?.color}`, borderTopLeftRadius: 5 }} key={`label-${label.id}`} className="label-title">
                     <section className="main-checkbox">
                       <input
                         type="checkbox"
                         className="checkbox"
-                        onChange={() => {}}
+                        onChange={() => { }}
                         onClick={() => handleMasterCheckboxClick(group)}
                         checked={checkedGroups.includes(group.id)}
 
@@ -155,7 +156,9 @@ export const GroupPreview = ({
                     {label.name}
                   </div>
               ))}
-              <button className="add-column-button" onClick={()=>addLable(boardId)}>+</button>
+              <div>
+                <button className="add-column-button" onClick={() => addLable(boardId)}>+</button>
+              </div>
             </section>
 
             {/* Render tasks by cmp order */}
@@ -164,8 +167,10 @@ export const GroupPreview = ({
 
               <section
                 className="group-grid"
-                style={{ ...style, 
-                  gridTemplateColumns: `10px 400px repeat(${labels.length}, 150px) 500px`}}
+                style={{
+
+                  gridTemplateColumns: `10px 400px repeat(${labels.length}, 150px) 500px`
+                }}
                 key={`task-${task.id}`}
               >
 
@@ -221,11 +226,13 @@ export const GroupPreview = ({
             {/* Render progress by progress array */}
             <section
               className="progress-grid"
-              style={{ ...style, 
-                gridTemplateColumns: `10px 400px repeat(${labels.length}, 150px) 500px`}}
+              style={{
+
+                gridTemplateColumns: `10px 400px repeat(${labels.length}, 150px) 500px`
+              }}
             >
 
-              <div className="invisible stick"></div>
+              <div className="invisible"></div>
 
               {labels.map((lable, index) =>
                 progress.includes(lable.type) ? (

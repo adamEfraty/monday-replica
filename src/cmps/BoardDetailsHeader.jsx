@@ -33,7 +33,7 @@ export function BoardDetailsHeader({ handleAddTask, boardTitle }) {
     !filterState == state && setFilterState(state);
   }
   return (
-    <header className="board-details-header stick">
+    <header className="board-details-header">
       <br />
       <div className="boardTitle">
         <h2>{boardTitle}</h2>

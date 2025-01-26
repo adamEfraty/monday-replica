@@ -18,7 +18,8 @@ export function TaskTitle({ cellId,
   chatTempInfoUpdate,
   openChat,
   checkedBoxes,
-  handleCheckBoxClick
+  handleCheckBoxClick,
+  style,
 }) {
   const [onEditMode, setOnEditMode] = useState(false)
   const [textToEdit, setTextToEdit] = useState(text)
@@ -35,12 +36,12 @@ export function TaskTitle({ cellId,
   const chatPrevInfo = boardService.getChatTempInfo(cellId)
   const isChatWasOpen = boardService.getOpenChat()
 
-  useEffect(()=>{
+  useEffect(() => {
     // when user refresh the page while modal was open
-    if(!modal && isChatWasOpen === cellId){
+    if (!modal && isChatWasOpen === cellId) {
       modalToggle()
     }
-  },[])
+  }, [])
 
 
   function chatAnimation(isEnter) {
@@ -57,7 +58,7 @@ export function TaskTitle({ cellId,
     if (isEnter) {
       utilService.animateCSS(modalRef.current, 'fadeInRightBig', 0.3, missingStyle)
       setOpenAnimation(false)
-    } 
+    }
     else utilService.animateCSS(modalRef.current, 'fadeOutRightBig', 0.3, missingStyle)
   }
 
@@ -139,7 +140,7 @@ export function TaskTitle({ cellId,
 
   return (
     <>
-      <section className="task-title">
+      <section className="task-title" >
         <div className="checkbox-taskName">
           <div className="input-styles">
             <input
@@ -171,7 +172,7 @@ export function TaskTitle({ cellId,
       {/*chat modal*/}
       {
         modal &&
-        <div ref={modalRef} style={openAnimation?{visibility: 'hidden'}: {visibility: 'visible'}}>
+        <div ref={modalRef} style={openAnimation ? { visibility: 'hidden' } : { visibility: 'visible' }}>
           <ChatModal
             onAddReply={onAddReply}
             onAddComment={onAddComment}
@@ -183,8 +184,8 @@ export function TaskTitle({ cellId,
             modalToggle={modalToggle}
             chatTempInfoUpdate={chatTempInfoUpdate}
             cellId={cellId}
-            chatPrevInfo={chatPrevInfo} 
-            openChat={openChat}/>
+            chatPrevInfo={chatPrevInfo}
+            openChat={openChat} />
         </div>
       }
 
