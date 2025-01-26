@@ -1,13 +1,7 @@
-/* Main Grid */
-.grid {
-  display: grid;
-  grid-template-columns: 10px 400px repeat(4, 150px) 500px;
-  grid-template-rows: 34px;
-  background: white;
-}
+
 .labels-grid {
   display: grid;
-  grid-template-columns: 10px 400px repeat(4, 150px) 500px;
+  grid-template-columns: 10px 400px repeat(5, 150px) 500px;
   grid-template-rows: 34px;
 
   width: 100%;
@@ -15,7 +9,7 @@
 
 .progress-grid {
   display: grid;
-  grid-template-columns: 10px 400px repeat(4, 150px) 500px;
+  grid-template-columns: 10px 400px repeat(5, 150px) 500px;
 
   grid-template-rows: 34px;
   width: 100%; /* Set a fixed width */
@@ -95,6 +89,13 @@
   text-align: center;
   font-weight: 800;
   border-top: 1px solid #e0dede;
+}
+
+.labels-grid{
+  .add-column-button{
+    width: 20px;
+    height: 20px;
+  }
 }
 
 .labels-grid div {
@@ -240,19 +241,19 @@ div.group-title-flex {
 .prog-box {
   border: 1px solid #e0dede;
 }
-// .stick {
-//   position: sticky;
-//   left: 0;
-//   z-index: 3;
-//   background-color: #ffffff;
-//   display: inline-block;
-// }
-// .stick2 {
-//   position: sticky;
-//   z-index: 1000;
-//   background-color: #ffffff;
-//   display: inline-block;
-// }
+.stick {
+  position: sticky;
+  left: 0;
+  z-index: 3;
+  background-color: #ffffff;
+  display: inline-block;
+}
+.stick2 {
+  position: sticky;
+  z-index: 1000;
+  background-color: #ffffff;
+  display: inline-block;
+}
 
 .label-title {
   display: flex;
@@ -295,7 +296,12 @@ div.group-title-flex {
   }
 }
 
-section.group.grid {
+section.group-grid {
+  display: grid;
+  grid-template-columns: 10px 400px repeat(5, 150px) 500px;
+  grid-template-rows: 34px;
+  background: white;
+
   &:hover {
     background-color: #e6e5e5;
 

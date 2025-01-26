@@ -15,14 +15,13 @@ import ArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { ArrowRightIcon } from "@mui/x-date-pickers/icons";
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import { useSelector } from "react-redux";
-import { removeTask } from "../store/actions/boards.actions.js";
+import { removeTask, addLable } from "../store/actions/boards.actions.js";
 
 
 export const GroupPreview = ({
   labels,
   group,
   loggedinUser,
-  cmpOrder,
   progress,
   onTaskUpdate,
   checkedBoxes,
@@ -76,8 +75,10 @@ export const GroupPreview = ({
     borderTop: '1px solid #e0dede',
 
 
+
   };
   const titleHead = { color: group.color };
+  console.log(labels.length)
 
   return (
     <>
@@ -129,31 +130,32 @@ export const GroupPreview = ({
           <div>
             <section
               className="labels-grid"
-              style={{ ...style, borderTopLeftRadius: 5 }}
+              style={{ ...style, borderTopLeftRadius: 5 , 
+                gridTemplateColumns: `10px 400px repeat(${labels.length}, 150px) 500px`}}
             >
               <section className="ghost "></section>
 
-              {cmpOrder.map((cmp, index) => (
-                labels[index] === 'item' ?
-                  <div style={{ borderLeft: `5px solid ${group?.color}`, borderTopLeftRadius: 5 }} key={`label-${index}`} className="label-title stick">
+              {labels.map(label => (
+                label.type === 'taskTitle' ?
+                  <div style={{ borderLeft: `5px solid ${group?.color}`, borderTopLeftRadius: 5 }} key={`label-${label.id}`} className="label-title stick">
                     <section className="main-checkbox">
                       <input
                         type="checkbox"
                         className="checkbox"
-                        onChange={() => { }}
+                        onChange={() => {}}
                         onClick={() => handleMasterCheckboxClick(group)}
                         checked={checkedGroups.includes(group.id)}
 
                       />
                     </section>
-                    < section className="title-group" key={`label-${index}`}>{labels[index] || ""}</section>
-
-
-
+                    < section className="title-group" key={`label-${label.id}`}>{label.name}</section>
                   </div >
                   :
-                  < div style={{ textAlign: `${labels[index] === '+' ? 'start' : 'center'}` }} key={`label-${index}`}>{labels[index] || ""}</div>
+                  <div style={{ textAlign: 'center' }} key={`label-${label.id}`}>
+                    {label.name}
+                  </div>
               ))}
+              <button className="add-column-button" onClick={()=>addLable(boardId)}>+</button>
             </section>
 
             {/* Render tasks by cmp order */}
@@ -161,7 +163,9 @@ export const GroupPreview = ({
             {group.tasks.map((task) => (
 
               <section
-                className="group grid"
+                className="group-grid"
+                style={{ ...style, 
+                  gridTemplateColumns: `10px 400px repeat(${labels.length}, 150px) 500px`}}
                 key={`task-${task.id}`}
               >
 
@@ -188,18 +192,18 @@ export const GroupPreview = ({
                 </div>
 
 
-                {cmpOrder.map((cmp, idx) => (
+                {labels.map(label => (
                   <section
-                    style={cmp === 'taskTitle' ? { borderLeft: `5px solid ${group?.color}` } : {}}
-                    className={`grid-item ${cmp} ${cmp === 'taskTitle' ? 'stick' : ''}`}
-                    key={`task-${task.id}-cmp-${idx}`}
+                    style={label.type === 'taskTitle' ? { borderLeft: `5px solid ${group?.color}` } : {}}
+                    className={`grid-item ${label.type} ${label.type === 'taskTitle' ? 'stick' : ''}`}
+                    key={`task-${task.id}-label-${label.id}`}
                   >
                     <DynamicCmp
                       group={group}
                       task={task}
                       loggedinUser={loggedinUser}
-                      cmpType={cmp}
-                      info={task[cmp]}
+                      label={label}
+                      info={task[label.type]}
                       onTaskUpdate={onTaskUpdate}
                       chat={task.chat} // temporary for demo data
                       users={users}
@@ -217,21 +221,23 @@ export const GroupPreview = ({
             {/* Render progress by progress array */}
             <section
               className="progress-grid"
+              style={{ ...style, 
+                gridTemplateColumns: `10px 400px repeat(${labels.length}, 150px) 500px`}}
             >
 
               <div className="invisible stick"></div>
 
-              {progress.map((prog, index) =>
-                cmpOrder.includes(prog) ? (
-                  <div className={`prog-box with-${prog}`} key={`progress-${index}`}>
+              {labels.map((lable, index) =>
+                progress.includes(lable.type) ? (
+                  <div className={`prog-box with-${lable.type}`} key={`progress-${lable.type}`}>
                     <ProgressCmd
-                      progressType={progress[index]}
+                      progressType={lable.type}
                       tasks={group.tasks}
 
                     />
                   </div>
                 ) : (
-                  <div className={prog} key={`progress-${index} `}></div>
+                  <div className={lable.type} key={`progress-${index} `}></div>
                 )
               )}
             </section>
@@ -243,7 +249,7 @@ export const GroupPreview = ({
 };
 
 const DynamicCmp = ({
-  cmpType,
+  label,
   info,
   onTaskUpdate,
   task,
@@ -258,11 +264,11 @@ const DynamicCmp = ({
 }) => {
   // console.log("Rendering component:", cmpType, "with info:", info);
 
-  switch (cmpType) {
+  switch (label.type) {
     case "priority":
       return (
         <Priority
-          cellId={task.id + 'priority'}
+          cellId={task.id + label.id}
           group={group}
           task={task}
           priority={info}
@@ -274,7 +280,7 @@ const DynamicCmp = ({
     case "taskTitle":
       return (
         <TaskTitle
-          cellId={task.id + 'title'}
+          cellId={task.id + label.id}
           group={group}
           task={task}
           loggedinUser={loggedinUser}
@@ -292,7 +298,7 @@ const DynamicCmp = ({
     case "status":
       return (
         <Status
-          cellId={task.id + 'status'}
+          cellId={task.id + label.id}
           group={group}
           task={task}
           taskId={task.id}
@@ -304,7 +310,7 @@ const DynamicCmp = ({
     case "members":
       return (
         <Members
-          cellId={task.id + 'members'}
+          cellId={task.id + label.id}
           group={group}
           task={task}
           taskId={task.id}
@@ -317,7 +323,7 @@ const DynamicCmp = ({
     case "date":
       return (
         <Date
-          cellId={task.id + 'date'}
+          cellId={task.id + label.id}
           group={group}
           task={task}
           date={info}

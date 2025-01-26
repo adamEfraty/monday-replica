@@ -1,5 +1,6 @@
 import { updateTask } from '../store/actions/boards.actions.js'
 import { storageService } from './async-storage.service.js'
+import { utilService } from './util.service.js'
 
 const imageLinks = [
   'https://images.pexels.com/photos/30061809/pexels-photo-30061809/free-photo-of-fashionable-woman-posing-with-colorful-headscarf.jpeg?auto=compress&cs=tinysrgb&w=600',
@@ -36,12 +37,19 @@ export const boardService = {
   setFilterStateSession,
   getFilterContextSession,
   setFilterContextSession,
+  addLableToBoard,
 }
 
 async function addBoard() {
   try {
     const newBoard = {
       title: 'New Board',
+      labels: [
+          {id: utilService.makeId(), type: "taskTitle", name:"task"}, 
+          {id: utilService.makeId(), type: "priority", name:"priority"}, 
+          {id: utilService.makeId(), type: "status", name:"status"}, 
+          {id: utilService.makeId(), type: "members", name:"members"}, 
+          {id: utilService.makeId(), type: "date", name:"date"}],
       groups: [],
     }
 
@@ -260,6 +268,12 @@ async function makeFirstBoard() {
   const board = {
     title: 'SAR default board',
     members: usersInBoard,
+    labels: [
+      {id: utilService.makeId(), type: "taskTitle", name:"task"}, 
+      {id: utilService.makeId(), type: "priority", name:"priority"}, 
+      {id: utilService.makeId(), type: "status", name:"status"}, 
+      {id: utilService.makeId(), type: "members", name:"members"}, 
+      {id: utilService.makeId(), type: "date", name:"date"}],
     groups: [
       {
         id: Math.random().toString(36).slice(2),
@@ -476,3 +490,13 @@ function getFilterState() {
     return false
   }
 }
+
+async function addLableToBoard(boardId, newLable){
+  const board = await getById(boardId)
+  if (board) {
+    board.labels.push(newLable)
+    save(board)
+    return board
+  } else throw new Error('Board not found')
+}
+

@@ -279,3 +279,17 @@ export function getFilterContext() {
   store.dispatch({ type: SET_FILTER_BY, filterBy })
   return filterBy
 }
+
+export async function addLable(boardId){
+  const newLable = {id: utilService.makeId(), type: "priority", name:"New Priority"} //temporary
+  const newBoard =  await boardService.addLableToBoard(boardId, newLable)
+  if(!newBoard) return
+
+  store.dispatch({
+    type: EDIT_BOARD,
+    boardId,
+    updatedBoard: newBoard,
+  })
+}
+
+
