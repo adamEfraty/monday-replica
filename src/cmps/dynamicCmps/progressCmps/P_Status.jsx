@@ -1,9 +1,11 @@
 
 
-export function P_Status({tasks}){
+export function P_Status({tasks, labelId}){
 
     const colorOrder = ['#00C875', '#FDAB3D', '#DF2F4A', '#C4C4C4']
-    const statuses = tasks.map(task=>task.status)
+    const statuses = tasks.map(task=>{
+        const statusCell = task.cells.find(cell=> cell.labelId === labelId)
+        return statusCell.value})
     const progressSummery = orderByColor(colorOrder, mergeByColor(statuses))
 
     function mergeByColor(arr) {

@@ -61,8 +61,6 @@ export async function addGroup(boardId) {
 }
 
 export async function addItem(boardId, groupId, taskTitle, isStart = null) {
-  const today = new Date()
-  const formattedDate = utilService.formatDateToStr(today)
 
   const board = await boardService.getById(boardId)
   const labels = [...board.labels]
@@ -71,30 +69,10 @@ export async function addItem(boardId, groupId, taskTitle, isStart = null) {
 // cell: {taskId:xxx, labelId: xxx, value: xxx, type: xxx}
   const newItem = {
     id: taskId,
-
-    cells: 
-      labels.map(label => {
-        switch (label.type) {
-          case 'taskTitle':
-            return { taskId: taskId, labelId: label.id, 
-              value: {title: taskTitle, chat: []}, type: label.type }
-          case 'priority':
-            return {taskId: taskId, labelId: label.id, 
-              value: { text: '', color: '#C4C4C4' }, type: label.type }
-          case 'status':
-            return {taskId: taskId, labelId: label.id, 
-              value: { text: '', color: '#C4C4C4' }, type: label.type }
-          case 'members':
-            return { taskId: taskId, labelId: label.id, 
-              value: [], type: label.type }
-          case 'date':
-            return {taskId: taskId, labelId: label.id, 
-              value: formattedDate, type: label.type }
-          
-          default:
-            return null;
-        }
-      }),
+    cells: labels.map(label => label.type === 'taskTitle'
+      ? { taskId, labelId: label.id, value: {title: taskTitle, chat: []}, type: label.type }
+      : boardService.getDefultCell(label, taskId)
+    )
   }
   await boardService.addItemToGroup(boardId, groupId, newItem, isStart)
   const updatedBoard = await boardService.getById(boardId)
@@ -228,16 +206,23 @@ export async function updateTask(boardId, newCell) {
   await boardService.updateTaskInGroup(boardId, newCell)
 
   const board = await boardService.getById(boardId)
-  if (!board) return
+  const cellGroup = board.groups.find(group =>
+    group.tasks.some(task => task.id === newCell.taskId))
+  if (!cellGroup) return
 
-  const updatedBoard = {
-    ...board,
-    groups: board.groups.map((group) =>
-      group.id === info.group.id
-        ? {
-            ...group,
-            tasks: group.tasks.map((task) =>
-              task.id === info.task.id ? { ...task, ...info.value } : task
+
+
+  const updatedBoard = 
+  { ...board, groups: board.groups.map(group =>
+      group.id === cellGroup.id
+        ? {...group, tasks: group.tasks.map(task =>
+            task.id === newCell.taskId 
+            ? {...task, cells: task.cells.map(cell=> 
+                cell.labelId === newCell.labelId 
+                ? newCell
+                : cell
+              )}
+              : task
             ),
           }
         : group

@@ -13,7 +13,6 @@ export function TaskTitle({ cellInfo,
   chat,
   group,
   task,
-  text,
   onTaskUpdate,
   chatTempInfoUpdate,
   openChat,
@@ -22,7 +21,7 @@ export function TaskTitle({ cellInfo,
 }) {
 
   const [onEditMode, setOnEditMode] = useState(false)
-  const [textToEdit, setTextToEdit] = useState(text)
+  const [textToEdit, setTextToEdit] = useState(cellInfo.value.title)
 
   // so we won't see the chat before the animation
   const [openAnimation, setOpenAnimation] = useState(false)
@@ -151,7 +150,7 @@ export function TaskTitle({ cellInfo,
           <div className="title-part ">
             {
               !onEditMode
-                ? <span onClick={toggleEditMode}>{handleLongText(text, 12)}</span>
+                ? <span onClick={toggleEditMode}>{handleLongText(cellInfo.value.title, 12)}</span>
                 : <input
                   autoFocus={true}
                   value={textToEdit}

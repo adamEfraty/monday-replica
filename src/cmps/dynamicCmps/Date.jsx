@@ -52,14 +52,14 @@ export function Date({ cellInfo, onTaskUpdate }) {
                 ref={dateCellRef}
                 onClick={modalToggle}>
 
-                {date}
+                {cellInfo.value}
             </div>
 
             {/* Date modal */}
             {modal && (
                 <div ref={modalRef}>
                     <DateModal
-                        currentDate={date}
+                        currentDate={cellInfo.value}
                         onDateChange={onDateChange} />
                 </div>
             )}

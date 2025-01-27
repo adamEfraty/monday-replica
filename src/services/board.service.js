@@ -38,6 +38,7 @@ export const boardService = {
   getFilterContextSession,
   setFilterContextSession,
   addLableToBoard,
+  getDefultCell,
 }
 
 async function addBoard() {
@@ -182,14 +183,17 @@ async function updateTaskInGroup(boardId, newCell) {
   try {
     console.log('cell to update', newCell)
     const board = await getById(boardId) // Call directly without 'this'
-    const updatedBoard = board.groups.map(group => ({
-      ...group, tasks: group.tasks.map(task => ({
-        ...task, cells: task.cells.map(cell =>
-          (cell.taskId === newCell.taskId && cell.labelId === newCell.labelId)
-          ? newCell : cell
-        )
+    const updatedBoard = 
+    {
+      ...board, groups: board.groups.map(group => ({
+        ...group, tasks: group.tasks.map(task => ({
+          ...task, cells: task.cells.map(cell =>
+            ((cell.taskId === newCell.taskId) && (cell.labelId === newCell.labelId))
+            ? newCell : cell
+          )
+        }))
       }))
-    }))
+    }
     await save(updatedBoard).then(() => {
       console.log('updated board', updatedBoard)
     })
@@ -376,8 +380,44 @@ async function addLableToBoard(boardId, newLable){
   const board = await getById(boardId)
   if (board) {
     board.labels.push(newLable)
+    const newGroups = board.groups.map(group => ({
+      ...group, tasks: group.tasks.map(task => ({
+        ...task, cells: [...task.cells, getDefultCell(newLable, task.id)] 
+      }))
+    }))
+    board.groups = newGroups
     save(board)
     return board
   } else throw new Error('Board not found')
+}
+
+function getDefultCell(label, taskId){
+
+  switch (label.type) {
+
+    case 'priority':
+      return {taskId, labelId: label.id, 
+        value: { text: '', color: '#C4C4C4' }, type: label.type }
+
+    case 'status':
+      return {taskId, labelId: label.id, 
+        value: { text: '', color: '#C4C4C4' }, type: label.type }
+
+    case 'members':
+      return { taskId, labelId: label.id, 
+        value: [], type: label.type }
+
+    case 'date':{
+      const today = new Date()
+      const formattedDate = utilService.formatDateToStr(today)
+
+      return {taskId, labelId: label.id, 
+        value: formattedDate, type: label.type }
+    }
+
+    
+    default:
+      return null;
+  }
 }
 

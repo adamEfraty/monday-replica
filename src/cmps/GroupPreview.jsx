@@ -100,7 +100,8 @@ export const GroupPreview = ({
             horizontal: 'center',
           }}
         >
-          <GarbageRemove someName={'Group'} someFunction={() => handleDelete(group.id, boardId)} />
+          <GarbageRemove someName={'Group'} someFunction={() => 
+            handleDelete(group.id, boardId)} />
         </Popover>
 
 
@@ -234,7 +235,7 @@ export const GroupPreview = ({
                 progress.includes(lable.type) ? (
                   <div className={`prog-box with-${lable.type}`} key={`progress-${lable.id}`}>
                     <ProgressCmd
-                      progressType={lable.type}
+                      label={lable}
                       tasks={group.tasks}
 
                     />
@@ -312,7 +313,6 @@ const DynamicCmp = ({
           cellInfo={cell}
           group={group}
           task={task}
-          members={info}
           onTaskUpdate={onTaskUpdate}
           users={users}
         />
@@ -341,16 +341,17 @@ const DynamicCmp = ({
 }
 
 const ProgressCmd = ({
-  progressType,
+  label,
   tasks,
 
 }) => {
 
-  switch (progressType) {
+  switch (label.type) {
     case "priority":
       return (
         <P_Priority
           tasks={tasks}
+          labelId={label.id}
         />
       )
 
@@ -358,6 +359,7 @@ const ProgressCmd = ({
       return (
         <P_Status
           tasks={tasks}
+          labelId={label.id}
         />
       )
 
@@ -365,6 +367,7 @@ const ProgressCmd = ({
       return (
         <P_Date
           tasks={tasks}
+          labelId={label.id}
         />
       )
 
@@ -372,6 +375,7 @@ const ProgressCmd = ({
       return (
         <P_Members
           tasks={tasks}
+          labelId={label.id}
         />
       )
 
