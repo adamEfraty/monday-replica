@@ -292,11 +292,11 @@ async function makeFirstBoard() {
     title: 'SAR default board',
     members: usersInBoard,
     labels: [
-      { id: utilService.makeId(), type: 'taskTitle', name: 'task' },
-      { id: utilService.makeId(), type: 'priority', name: 'priority' },
-      { id: utilService.makeId(), type: 'status', name: 'status' },
-      { id: utilService.makeId(), type: 'members', name: 'members' },
-      { id: utilService.makeId(), type: 'date', name: 'date' },
+      { id: utilService.makeIdForLabel(), type: 'taskTitle', name: 'task' },
+      { id: utilService.makeIdForLabel(), type: 'priority', name: 'priority' },
+      { id: utilService.makeIdForLabel(), type: 'status', name: 'status' },
+      { id: utilService.makeIdForLabel(), type: 'members', name: 'members' },
+      { id: utilService.makeIdForLabel(), type: 'date', name: 'date' },
     ],
     groups: [
       {
@@ -305,7 +305,7 @@ async function makeFirstBoard() {
         color: 'red',
         tasks: [
           {
-            id: 't101',
+            id: 't1011',
             side: 'null',
             taskTitle: 'learn CSS',
             members: [usersInBoard[1], usersInBoard[2]],
@@ -315,7 +315,7 @@ async function makeFirstBoard() {
             chat: [],
           },
           {
-            id: 't102',
+            id: 't1022',
             side: 'null',
             taskTitle: 'learn Vue.js',
             members: [usersInBoard[0], usersInBoard[1], usersInBoard[2]],
@@ -325,7 +325,7 @@ async function makeFirstBoard() {
             chat: [],
           },
           {
-            id: 't103',
+            id: 't1033',
             side: 'null',
             taskTitle: 'learn JavaScript',
             members: [usersInBoard[1], usersInBoard[2], usersInBoard[3]],
@@ -343,7 +343,7 @@ async function makeFirstBoard() {
         color: 'blue',
         tasks: [
           {
-            id: 't201',
+            id: 't2014',
             side: 'null',
             taskTitle: 'write API documentation',
             members: [
@@ -358,7 +358,7 @@ async function makeFirstBoard() {
             chat: [],
           },
           {
-            id: 't202',
+            id: 't2025',
             side: 'null',
             taskTitle: 'debug front-end code',
             members: [usersInBoard[2], usersInBoard[3]],
@@ -368,7 +368,7 @@ async function makeFirstBoard() {
             chat: [],
           },
           {
-            id: 't203',
+            id: 't2036',
             side: 'null',
             taskTitle: 'deploy application',
             members: [usersInBoard[1], usersInBoard[3]],
@@ -386,7 +386,7 @@ async function makeFirstBoard() {
         color: 'green',
         tasks: [
           {
-            id: 't301',
+            id: 't3017',
             side: 'null',
             taskTitle: 'set up database schema',
             members: [usersInBoard[0], usersInBoard[3]],
@@ -396,7 +396,7 @@ async function makeFirstBoard() {
             chat: [],
           },
           {
-            id: 't302',
+            id: 't3088',
             side: 'null',
             taskTitle: 'optimize queries',
             members: [usersInBoard[0], usersInBoard[1]],
