@@ -1,6 +1,6 @@
 .labels-grid {
   display: grid;
-  grid-template-columns: 10px 400px repeat(5, 150px) 500px;
+  grid-template-columns: 10px 600px repeat(5, 150px) 500px;
   grid-template-rows: 34px;
 
   width: 100%;
@@ -8,7 +8,7 @@
 
 .progress-grid {
   display: grid;
-  grid-template-columns: 10px 400px repeat(5, 150px) 500px;
+  grid-template-columns: 10px 600px repeat(5, 150px) 500px;
 
   grid-template-rows: 34px;
   width: 100%; /* Set a fixed width */
@@ -16,7 +16,7 @@
 
 section.group-grid {
   display: grid;
-  grid-template-columns: 10px 400px repeat(5, 150px) 500px;
+  grid-template-columns: 10px 600px repeat(5, 150px) 500px;
   grid-template-rows: 34px;
   background: white;
 

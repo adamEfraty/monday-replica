@@ -3,8 +3,8 @@
 .grid-item.taskTitle {
   .task-title {
     width: 100%;
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 5fr 4fr 1fr;
     align-items: stretch;
 
     .title-part {
@@ -52,6 +52,9 @@
 .checkbox-taskName {
   display: flex;
   gap: 1rem;
+  span {
+    width: 100%;
+  }
 }
 
 .input-styles {

@@ -138,8 +138,8 @@ export const GroupPreview = ({
 
 
         </div>
-        <div {...listeners} {...attributes} style={{ cursor: "grab" }}>
-          <strong>drag me </strong>
+        <div {...listeners} {...attributes} style={{ cursor: "grab", width: '100%', padding: '1rem' }}>
+
         </div>
       </div>
 

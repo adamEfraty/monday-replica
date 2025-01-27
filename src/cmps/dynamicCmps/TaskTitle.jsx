@@ -164,9 +164,10 @@ export function TaskTitle({ cellId,
                   type="text"
                 />
             }
-            <p {...listeners} {...attributes}>drag me</p>
+
           </div>
         </div>
+        <div style={{ cursor: 'grab' }} {...listeners} {...attributes}></div >
         <div className="chat-icon">
           <ChatIcon onClick={modalToggle} ref={ChatButtonRef} />
         </div>
