@@ -21,9 +21,7 @@ export function ChatModal({
     chatTempInfoUpdate,
     cellId,
     chatPrevInfo,
-    openChat}) 
-    
-    {
+    openChat }) {
 
     const chatBodyRef = useRef(null); // Ref to the chat body element
     const [scroll, setScroll] = useState(chatPrevInfo?.scroll ? chatPrevInfo.scroll : 0)
@@ -47,13 +45,13 @@ export function ChatModal({
     const [isDragging, setIsDragging] = useState(false)
 
 
-    useEffect(()=>{
-        if(chatPrevInfo){
+    useEffect(() => {
+        if (chatPrevInfo) {
             chatTempInfoUpdate(cellId, width, scroll, newComment)
             openChat(cellId)
             chatBodyRef.current.scrollTop = scroll
         }
-    },[])
+    }, [])
 
     useEffect(() => {
         const handleUpdateScroll = () => {
@@ -61,13 +59,13 @@ export function ChatModal({
                 setScroll(chatBodyRef.current.scrollTop); // Update scroll position
             }
         }
-    
+
         const chatElement = chatBodyRef.current;
-    
+
         if (chatElement) {
             chatElement.addEventListener("scroll", handleUpdateScroll);
         }
-    
+
         // Cleanup on component unmount
         return () => {
             if (chatElement) {
@@ -75,11 +73,11 @@ export function ChatModal({
             }
         };
     }, []);
-    
 
-    useEffect(()=>{
+
+    useEffect(() => {
         chatTempInfoUpdate(cellId, width, scroll, newComment)
-    },[newComment])
+    }, [newComment])
 
     // if user click outside the newcomment without text close it
     useEffect(() => {
@@ -97,7 +95,7 @@ export function ChatModal({
                 }
             }
         }
-    
+
         document.addEventListener("mousedown", handleClickOutside);
         return () => document.removeEventListener("mousedown", handleClickOutside);
     }, []);
@@ -113,15 +111,14 @@ export function ChatModal({
                 ) {
                     setNewReplies((prevReplies) =>
                         prevReplies.map((reply) => {
-                          if (reply.id == key) {
-                            if (emptyPossibilities.includes(reply.text.trim())) {
-                                // console.log(reply)
-                                return { ...reply, isEditing: false };
-                            }   else return reply
-                          }
-                          return reply;
+                            if (reply.id == key) {
+                                if (emptyPossibilities.includes(reply.text.trim())) {
+                                    return { ...reply, isEditing: false };
+                                } else return reply
+                            }
+                            return reply;
                         })
-                      );
+                    );
                 }
             });
         };
@@ -225,7 +222,7 @@ export function ChatModal({
             )
         );
     }
-    
+
 
     const handleMouseDown = () => {
         setIsDragging(true)
@@ -245,19 +242,19 @@ export function ChatModal({
     const handleMouseUp = () => {
         setIsDragging(false)
         chatTempInfoUpdate(cellId, width, scroll, newComment)
-      }
+    }
 
-    function closeChat(){
+    function closeChat() {
         chatTempInfoUpdate(cellId, width, 0, newComment)
         openChat(null)
         modalToggle()
-        
+
     }
-    
+
 
     return (
         <section
-            className="chat-modal stick2"
+            className="chat-modal"
             style={{ width: `${width}px` }}
             onMouseMove={handleMouseMove}
             onMouseUp={handleMouseUp}
@@ -271,7 +268,7 @@ export function ChatModal({
             </div>
 
             <div className="chat-header">
-                
+
                 <button className="exis-button" onClick={closeChat}>
                     <i className="fa-solid fa-x"></i>
                 </button>
@@ -279,29 +276,29 @@ export function ChatModal({
                 {/* Edit Task Title */}
                 <div className="chat-edit-title">
                     {
-                        !onEditMode 
-                        ? 
-                        <span onClick={toggleEditMode}>{textToEdit}</span>
-                        : 
-                        <textarea
+                        !onEditMode
+                            ?
+                            <span onClick={toggleEditMode}>{textToEdit}</span>
+                            :
+                            <textarea
 
-                            value={textToEdit}
-                            onChange={event => setTextToEdit(event.target.value)}
-                            onBlur={toggleEditMode}
-                            onKeyDown={handleKeyDown}
-                            autoFocus={true}
-                            rows={1} // at defult
-                            ref={textarea => {
-                                if (textarea){
-                                    // Moves the cursor to the end of the text
-                                    textarea.selectionStart = textToEdit.length
-                                    // Reset height to calculate scrollHeight properly
-                                    textarea.style.height = "auto"
-                                    // Adjust height based on scrollHeight
-                                    textarea.style.height = `${textarea.scrollHeight+2}px`
-                                }
-                            }}
-                        />
+                                value={textToEdit}
+                                onChange={event => setTextToEdit(event.target.value)}
+                                onBlur={toggleEditMode}
+                                onKeyDown={handleKeyDown}
+                                autoFocus={true}
+                                rows={1} // at defult
+                                ref={textarea => {
+                                    if (textarea) {
+                                        // Moves the cursor to the end of the text
+                                        textarea.selectionStart = textToEdit.length
+                                        // Reset height to calculate scrollHeight properly
+                                        textarea.style.height = "auto"
+                                        // Adjust height based on scrollHeight
+                                        textarea.style.height = `${textarea.scrollHeight + 2}px`
+                                    }
+                                }}
+                            />
                     }
                 </div>
 
@@ -319,30 +316,30 @@ export function ChatModal({
                     {/* Create Comment */}
                     {
                         editNewComment
-                        ?<form ref={createCommentRef}
-                        onSubmit={handleCommentSubmit} 
-                        className="create-comment">
-                            <ReactQuill
-                                className="textarea-quill"
-                                value={newComment}
-                                onChange={setNewComment}
-                                modules={{
-                                    toolbar: [
-                                    ["bold", "italic", "underline"], // Inline styles
-                                    [{ header: [1, 2, 3, false] }],  // Headers
-                                    [{ list: "ordered" }], // Lists
-                                    ["clean"],                       // Remove formatting
-                                    ],
-                                }}
-                            />
-                            <button className="update-button" type="submit">Update</button>
-                        </form>
-                        : <div className="create-comment-blur"
-                            onClick={()=>setOnEditNewComment(true)}>
-                            <p className="placeholder">Write an update and mention others with @</p>
-                        </div>
+                            ? <form ref={createCommentRef}
+                                onSubmit={handleCommentSubmit}
+                                className="create-comment">
+                                <ReactQuill
+                                    className="textarea-quill"
+                                    value={newComment}
+                                    onChange={setNewComment}
+                                    modules={{
+                                        toolbar: [
+                                            ["bold", "italic", "underline"], // Inline styles
+                                            [{ header: [1, 2, 3, false] }],  // Headers
+                                            [{ list: "ordered" }], // Lists
+                                            ["clean"],                       // Remove formatting
+                                        ],
+                                    }}
+                                />
+                                <button className="update-button" type="submit">Update</button>
+                            </form>
+                            : <div className="create-comment-blur"
+                                onClick={() => setOnEditNewComment(true)}>
+                                <p className="placeholder">Write an update and mention others with @</p>
+                            </div>
                     }
-                    
+
 
                     {/* Comment List */}
                     <ul className="comments-list">
@@ -358,7 +355,7 @@ export function ChatModal({
 
                                     <div className="comment-text" dangerouslySetInnerHTML={{ __html: comment.text }} />
 
-                                    
+
 
                                     {/* Replaies List to The Comment */}
                                     <ul className="replies-list">
@@ -379,53 +376,53 @@ export function ChatModal({
 
                                     {/* Create New Reply to Comment */}
                                     <div className="create-reply"
-                                    ref={(el) => (replyRefs.current[comment.sentAt] = el)}>
-                                        <img src={loggedinUser.imgUrl}/>
+                                        ref={(el) => (replyRefs.current[comment.sentAt] = el)}>
+                                        <img src={loggedinUser.imgUrl} />
                                         {
                                             findNewReplyByComment(comment)?.isEditing
-                                            ?<form 
-                                            onSubmit={event => handleReplySubmit(event, comment.sentAt)} >
-                                                <ReactQuill
-                                                    className="textarea-quill"
-                                                    value={findNewReplyByComment(comment)?.text}
-                                                    onChange={event => handleReplyChange(event, comment.sentAt)}
-                                                    modules={{
-                                                        toolbar: [
-                                                        ["bold", "italic", "underline"], // Inline styles
-                                                        [{ header: [1, 2, 3, false] }],  // Headers
-                                                        [{ list: "ordered" }], // Lists
-                                                        ["clean"],                       // Remove formatting
-                                                        ],
-                                                    }}
-                                                />
-                                                <button className="reply-button" type="submit">Reply</button>
-                                            </form>
-                                            : <div className="create-reply-blur"
-                                            onClick={()=>handleNewReplyToEdit(comment.sentAt)}>
-                                                <p className="placeholder">Write a reply and mention others with @</p>
-                                            </div>
+                                                ? <form
+                                                    onSubmit={event => handleReplySubmit(event, comment.sentAt)} >
+                                                    <ReactQuill
+                                                        className="textarea-quill"
+                                                        value={findNewReplyByComment(comment)?.text}
+                                                        onChange={event => handleReplyChange(event, comment.sentAt)}
+                                                        modules={{
+                                                            toolbar: [
+                                                                ["bold", "italic", "underline"], // Inline styles
+                                                                [{ header: [1, 2, 3, false] }],  // Headers
+                                                                [{ list: "ordered" }], // Lists
+                                                                ["clean"],                       // Remove formatting
+                                                            ],
+                                                        }}
+                                                    />
+                                                    <button className="reply-button" type="submit">Reply</button>
+                                                </form>
+                                                : <div className="create-reply-blur"
+                                                    onClick={() => handleNewReplyToEdit(comment.sentAt)}>
+                                                    <p className="placeholder">Write a reply and mention others with @</p>
+                                                </div>
                                         }
-                                        
+
                                     </div>
                                 </li>
                             )
                         })}
                     </ul>
                     {
-                        chat.length === 0 
-                        ? <div className="empty-chat">
-                            <img src={emptyChatImg}/>
-                            <p className="bold-text">
-                                No updates yet for this item
-                            </p>
-                            <p className="text">
-                                Be the first one to update about progress, mention someone or upload files to share with your team members
-                            </p>
-                        </div>
-                        : null
+                        chat.length === 0
+                            ? <div className="empty-chat">
+                                <img src={emptyChatImg} />
+                                <p className="bold-text">
+                                    No updates yet for this item
+                                </p>
+                                <p className="text">
+                                    Be the first one to update about progress, mention someone or upload files to share with your team members
+                                </p>
+                            </div>
+                            : null
                     }
                     {/* to have some distance to the bottom*/}
-                    <div className="white-block"/>
+                    <div className="white-block" />
                 </div>
             </div>
         </section>

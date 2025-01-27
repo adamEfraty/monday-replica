@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { getSvg } from "../../../services/svg.service.jsx"
 
 import { convertDateToString } from '../../../services/util.service.js';
 
@@ -22,6 +23,7 @@ export function DateModal({ currentDate, onDateChange }) {
 
     return (
         <section className="date-modal">
+            <div className="white-arrow">{getSvg('white-arrow')}</div>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DateCalendar
                     value={newJday}

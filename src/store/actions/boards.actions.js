@@ -33,7 +33,6 @@ export async function addBoard() {
 
 export async function loadBoards() {
   const boards = await boardService.query()
-  console.log(boards, 'kkkkkkkkk')
   await store.dispatch({ type: SET_BOARDS, boards })
   showSuccessMsg('Boards loaded')
 }
@@ -115,7 +114,6 @@ export async function removeGroup(boardId, groupId) {
 }
 
 export async function updateGroup(boardId, groupId, updatedGroupData) {
-  // Update the group in the board service
   await boardService.updateGroupInBoard(boardId, groupId, updatedGroupData)
 
   const board = await boardService.getById(boardId)
@@ -278,4 +276,60 @@ export function getFilterContext() {
   const filterBy = boardService.getFilterContextSession()
   store.dispatch({ type: SET_FILTER_BY, filterBy })
   return filterBy
+}
+
+export async function addLable(boardId) {
+  const newLable = {
+    id: utilService.makeId(),
+    type: 'priority',
+    name: 'New Priority',
+  } //temporary
+  const newBoard = await boardService.addLableToBoard(boardId, newLable)
+  if (!newBoard) return
+
+  store.dispatch({
+    type: EDIT_BOARD,
+    boardId,
+    updatedBoard: newBoard,
+  })
+}
+
+export async function replaceGroups(boardId, newGroups) {
+  const board = await boardService.getById(boardId)
+  if (!board) throw new Error('Board not found')
+
+  const updatedBoard = {
+    ...board,
+    groups: newGroups,
+  }
+
+  await boardService.updateBoard(boardId, updatedBoard)
+
+  await store.dispatch({
+    type: EDIT_BOARD,
+    boardId,
+    updatedBoard,
+  })
+
+  showSuccessMsg('Groups updated successfully')
+}
+
+export async function replaceLabels(boardId, newLabels) {
+  const board = await boardService.getById(boardId)
+  if (!board) throw new Error('Board not found')
+
+  const updatedBoard = {
+    ...board,
+    labels: newLabels,
+  }
+
+  await boardService.updateBoard(boardId, updatedBoard)
+
+  await store.dispatch({
+    type: EDIT_BOARD,
+    boardId,
+    updatedBoard,
+  })
+
+  showSuccessMsg('Labels updated successfully')
 }

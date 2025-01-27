@@ -15,14 +15,17 @@ import ArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { ArrowRightIcon } from "@mui/x-date-pickers/icons";
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import { useSelector } from "react-redux";
-import { removeTask } from "../store/actions/boards.actions.js";
-
+import { removeTask, addLable } from "../store/actions/boards.actions.js";
+import { horizontalListSortingStrategy, SortableContext, useSortable, verticalListSortingStrategy } from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
+import { TaskPreview } from "./TaskPreview.jsx";
+import { Label } from "./Label.jsx";
+import { Color } from "./dynamicCmps/modals/Color.jsx";
 
 export const GroupPreview = ({
   labels,
   group,
   loggedinUser,
-  cmpOrder,
   progress,
   onTaskUpdate,
   checkedBoxes,
@@ -36,6 +39,7 @@ export const GroupPreview = ({
   users,
   chatTempInfoUpdate,
   openChat,
+  id,
 
 }) => {
   const [expanded, setExpanded] = useState(true);
@@ -45,6 +49,8 @@ export const GroupPreview = ({
 
   const [anchorEl, setAnchorEl] = useState(null);
   const [anchorE2, setAnchorE2] = useState(null);
+
+
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -66,60 +72,75 @@ export const GroupPreview = ({
   const open = Boolean(anchorEl);
   const open2 = Boolean(anchorE2);
 
-  const id = open ? 'simple-popover' : undefined;
+  const id1 = open ? 'simple-popover' : undefined;
   const id2 = open2 ? 'simple-popover' : undefined;
 
 
 
-  const style = {
-    borderRight: '1px solid #e0dede',
-    borderTop: '1px solid #e0dede',
 
-
-  };
   const titleHead = { color: group.color };
 
+  const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id });
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+
+  };
+
+
+
+
   return (
-    <>
-
-      <div className="group-title-flex stick">
-        <span className="remove" onClick={handleClick2}><MoreHorizIcon />
-        </span>
-
-        <Popover
-          id={id2}
-          open={open2}
-          anchorEl={anchorE2}
-          onClose={handleClose2}
-          anchorOrigin={{
-            vertical: 'bottom',
-            horizontal: 'right',
-          }}
-          transformOrigin={{
-            vertical: 'top',
-            horizontal: 'center',
-          }}
-        >
-          <GarbageRemove someName={'Group'} someFunction={() => handleDelete(group.id, boardId)} />
-        </Popover>
+    <div style={style} ref={setNodeRef} className="group-list-dnd" >
 
 
+      <div className="group-title-flex">
 
-        <span className="arrow" onClick={() => setExpanded((prev) => !prev)}>
-          {expanded ? <ArrowDownIcon /> : <ArrowRightIcon />}
-        </span>
-        <input
-          onBlur={() => handleGroupNameChange(groupTitle, group)}
-          style={titleHead}
-          className="task-input hov"
-          type="text"
-          value={groupTitle}
-          onChange={(e) => setGroupTitle(e.target.value)}
-        />
+        <div className="change-location">
+          <span className="remove" onClick={handleClick2}><MoreHorizIcon />
+          </span>
+
+          <Popover
+            id={id2}
+            open={open2}
+            anchorEl={anchorE2}
+            onClose={handleClose2}
+            anchorOrigin={{
+              vertical: 'bottom',
+              horizontal: 'right',
+            }}
+            transformOrigin={{
+              vertical: 'top',
+              horizontal: 'center',
+            }}
+          >
+            <div className="flex-for-modal">
+              <Color closeAll={handleClose2} color={group.color} boardId={boardId} groupId={group.id} />
+              <GarbageRemove someName={'Group'} someFunction={() => handleDelete(group.id, boardId)} />
+            </div>
+          </Popover>
 
 
 
+          <span className="arrow" onClick={() => setExpanded((prev) => !prev)}>
+            {expanded ? <ArrowDownIcon /> : <ArrowRightIcon />}
+          </span>
+          <input
+            onBlur={() => handleGroupNameChange(groupTitle, group)}
+            style={titleHead}
+            className="task-input hov"
+            type="text"
+            value={groupTitle}
+            onChange={(e) => setGroupTitle(e.target.value)}
+          />
 
+
+
+        </div>
+        <div {...listeners} {...attributes} style={{ cursor: "grab", width: '100%', padding: '1rem' }}>
+
+        </div>
       </div>
 
       <section className="group-list">
@@ -129,213 +150,96 @@ export const GroupPreview = ({
           <div>
             <section
               className="labels-grid"
-              style={{ ...style, borderTopLeftRadius: 5 }}
+              style={{
+                borderTopLeftRadius: 5,
+                gridTemplateColumns: `10px 400px repeat(${labels.length}, 150px) 500px`
+              }}
             >
               <section className="ghost "></section>
 
-              {cmpOrder.map((cmp, index) => (
-                labels[index] === 'item' ?
-                  <div style={{ borderLeft: `5px solid ${group?.color}`, borderTopLeftRadius: 5 }} key={`label-${index}`} className="label-title stick">
-                    <section className="main-checkbox">
-                      <input
-                        type="checkbox"
-                        className="checkbox"
-                        onChange={() => { }}
-                        onClick={() => handleMasterCheckboxClick(group)}
-                        checked={checkedGroups.includes(group.id)}
+              <SortableContext items={labels.map(label => label.id)} strategy={horizontalListSortingStrategy}>
+                {labels.map(label => (
+                  label.type === 'taskTitle' ?
+                    <div style={{ borderLeft: `5px solid ${group?.color}`, borderTopLeftRadius: 5 }} key={`label-${label.id}`} className="label-title">
+                      <section className="main-checkbox">
+                        <input
+                          type="checkbox"
+                          className="checkbox"
+                          onChange={() => { }}
+                          onClick={() => handleMasterCheckboxClick(group)}
+                          checked={checkedGroups.includes(group.id)}
 
-                      />
-                    </section>
-                    < section className="title-group" key={`label-${index}`}>{labels[index] || ""}</section>
+                        />
+                      </section>
+                      < section className="title-group" key={`label-${label.id}`}>{label.name}</section>
+                    </div >
+                    :
+                    <Label key={label.id} id={label.id} label={label} />
+                ))}
+              </SortableContext >
 
+              <button className="add-column-button" onClick={() => addLable(boardId)}>+</button>
 
-
-                  </div >
-                  :
-                  < div style={{ textAlign: `${labels[index] === '+' ? 'start' : 'center'}` }} key={`label-${index}`}>{labels[index] || ""}</div>
-              ))}
             </section>
 
             {/* Render tasks by cmp order */}
 
-            {group.tasks.map((task) => (
+            <SortableContext items={group.tasks.map(task => task.id)} strategy={verticalListSortingStrategy}> {/* for dnd Radwan */}
+              {group.tasks.map((task) => (
 
-              <section
-                className="group grid"
-                key={`task-${task.id}`}
-              >
-
-
-                <div className="dots">
-                  <span onClick={handleClick}  > <MoreHorizIcon /> </span>
-
-                  <Popover
-                    id={id}
-                    open={open}
-                    anchorEl={anchorEl}
-                    onClose={handleClose}
-                    anchorOrigin={{
-                      vertical: 'bottom',
-                      horizontal: 'right',
-                    }}
-                    transformOrigin={{
-                      vertical: 'top',
-                      horizontal: 'center',
-                    }}
-                  >
-                    <GarbageRemove someName={'Task'} someFunction={() => removeTask(boardId, group.id, task.id)} />
-                  </Popover>
-                </div>
-
-
-                {cmpOrder.map((cmp, idx) => (
-                  <section
-                    style={cmp === 'taskTitle' ? { borderLeft: `5px solid ${group?.color}` } : {}}
-                    className={`grid-item ${cmp} ${cmp === 'taskTitle' ? 'stick' : ''}`}
-                    key={`task-${task.id}-cmp-${idx}`}
-                  >
-                    <DynamicCmp
-                      group={group}
-                      task={task}
-                      loggedinUser={loggedinUser}
-                      cmpType={cmp}
-                      info={task[cmp]}
-                      onTaskUpdate={onTaskUpdate}
-                      chat={task.chat} // temporary for demo data
-                      users={users}
-                      chatTempInfoUpdate={chatTempInfoUpdate}
-                      openChat={openChat}
-                      checkedBoxes={checkedBoxes}
-                      handleCheckBoxClick={handleCheckBoxClick}
-                    />
-                  </section>
-                ))}
-              </section>
-            ))}
+                <TaskPreview
+                  id={task.id}
+                  key={task.id}
+                  task={task}
+                  group={group}
+                  labels={labels}
+                  loggedinUser={loggedinUser}
+                  onTaskUpdate={onTaskUpdate}
+                  removeTask={removeTask}
+                  boardId={boardId}
+                  users={users}
+                  chatTempInfoUpdate={chatTempInfoUpdate}
+                  openChat={openChat}
+                  checkedBoxes={checkedBoxes}
+                  handleCheckBoxClick={handleCheckBoxClick}
+                />
+              ))}
+            </SortableContext>
             <AddTask group={group} handleAddTask={handleAddTask} />
 
             {/* Render progress by progress array */}
             <section
               className="progress-grid"
+              style={{
+
+                gridTemplateColumns: `10px 400px repeat(${labels.length}, 150px) 500px`
+              }}
             >
 
-              <div className="invisible stick"></div>
+              <div className="invisible"></div>
 
-              {progress.map((prog, index) =>
-                cmpOrder.includes(prog) ? (
-                  <div className={`prog-box with-${prog}`} key={`progress-${index}`}>
+              {labels.map((lable, index) =>
+                progress.includes(lable.type) ? (
+                  <div className={`prog-box with-${lable.type}`} key={`progress-${lable.type}`}>
                     <ProgressCmd
-                      progressType={progress[index]}
+                      progressType={lable.type}
                       tasks={group.tasks}
 
                     />
                   </div>
                 ) : (
-                  <div className={prog} key={`progress-${index} `}></div>
+                  <div className={lable.type} key={`progress-${index} `}></div>
                 )
               )}
             </section>
           </div >
         )}
       </section >
-    </>
+    </div >
   );
 };
 
-const DynamicCmp = ({
-  cmpType,
-  info,
-  onTaskUpdate,
-  task,
-  group,
-  chat,
-  loggedinUser,
-  users,
-  chatTempInfoUpdate,
-  openChat,
-  checkedBoxes,
-  handleCheckBoxClick
-}) => {
-  // console.log("Rendering component:", cmpType, "with info:", info);
 
-  switch (cmpType) {
-    case "priority":
-      return (
-        <Priority
-          cellId={task.id + 'priority'}
-          group={group}
-          task={task}
-          priority={info}
-          onTaskUpdate={onTaskUpdate}
-
-        />
-      )
-
-    case "taskTitle":
-      return (
-        <TaskTitle
-          cellId={task.id + 'title'}
-          group={group}
-          task={task}
-          loggedinUser={loggedinUser}
-          users={users}
-          chat={chat}
-          text={info}
-          onTaskUpdate={onTaskUpdate}
-          chatTempInfoUpdate={chatTempInfoUpdate}
-          openChat={openChat}
-          checkedBoxes={checkedBoxes}
-          handleCheckBoxClick={handleCheckBoxClick}
-        />
-      )
-
-    case "status":
-      return (
-        <Status
-          cellId={task.id + 'status'}
-          group={group}
-          task={task}
-          taskId={task.id}
-          status={info}
-          onTaskUpdate={onTaskUpdate}
-        />
-      )
-
-    case "members":
-      return (
-        <Members
-          cellId={task.id + 'members'}
-          group={group}
-          task={task}
-          taskId={task.id}
-          members={info}
-          onTaskUpdate={onTaskUpdate}
-          users={users}
-        />
-      )
-
-    case "date":
-      return (
-        <Date
-          cellId={task.id + 'date'}
-          group={group}
-          task={task}
-          date={info}
-          onTaskUpdate={onTaskUpdate}
-        />
-      )
-    case "+":
-      return (
-        <div >
-
-        </div>
-      )
-
-    default:
-      console.error(`Unknown component type: ${cmpType}`)
-      return <div>Unknown component: {cmpType}</div>
-  }
-}
 
 const ProgressCmd = ({
   progressType,

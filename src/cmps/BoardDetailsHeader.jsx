@@ -33,7 +33,7 @@ export function BoardDetailsHeader({ handleAddTask, boardTitle }) {
     !filterState == state && setFilterState(state);
   }
   return (
-    <header className="board-details-header stick">
+    <header className="board-details-header">
       <br />
       <div className="boardTitle">
         <h2>{boardTitle}</h2>
@@ -59,7 +59,6 @@ export function BoardDetailsHeader({ handleAddTask, boardTitle }) {
         </div>
         <div
           onBlur={(e) => {
-            console.log("Ragnar")
             if (!e.currentTarget.contains(e.relatedTarget)) {
                 filterBy.length === 0 && handleFilterStateChange(false); // Only trigger if focus leaves the div and its children
             }

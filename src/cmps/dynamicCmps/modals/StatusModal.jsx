@@ -1,3 +1,4 @@
+import { getSvg } from "../../../services/svg.service.jsx"
 
 
 export function StatusModal({ onStatusChange }) {
@@ -9,6 +10,8 @@ export function StatusModal({ onStatusChange }) {
 
     return (
         <section className="status-modal">
+            <div className="white-arrow">{getSvg('white-arrow')}</div>
+            
             {/* list of quick access statuses */}
             <ul >
                 {
