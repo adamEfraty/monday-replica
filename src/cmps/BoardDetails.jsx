@@ -5,6 +5,7 @@ import { logout, loadUsers } from "../store/actions/user.actions";
 import {
   loadBoards,
   removeTasks,
+  replaceLabels,
   updateTask,
 } from "../store/actions/boards.actions";
 import { SelectedTasksModal } from "./dynamicCmps/modals/SelectedTasksModal";
@@ -186,10 +187,27 @@ const BoardDetails = () => {
     return null;
   }
 
+  function getLabelPos(id) {
+    return labels.findIndex(label => label.id === id)
+  }
+
   async function handleDragEnd(event) {
     const { active, over } = event;
 
+
     if (active === over) return;
+
+
+    if (active.id[0] === 'l') {
+      const originalLabelPos = getLabelPos(active.id);
+      const moveToLabel = getLabelPos(over.id);
+
+      const newLabelArray = arrayMove(labels, originalLabelPos, moveToLabel)
+
+      await replaceLabels(boardId, newLabelArray)
+
+    }
+
 
     if (active.id.length === 5) {
       const { groupIndex: originalGroupPos, taskIndex: originalTaskPos } = getTaskPos(active.id);
@@ -202,7 +220,7 @@ const BoardDetails = () => {
 
         groups[moveToGroupPos].tasks.splice(moveToTaskPos, 0, movedTask);
 
-        console.log(groups);
+
         return;
       }
 

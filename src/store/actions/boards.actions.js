@@ -315,3 +315,23 @@ export async function replaceGroups(boardId, newGroups) {
 
   showSuccessMsg('Groups updated successfully')
 }
+
+export async function replaceLabels(boardId, newLabels) {
+  const board = await boardService.getById(boardId)
+  if (!board) throw new Error('Board not found')
+
+  const updatedBoard = {
+    ...board,
+    labels: newLabels,
+  }
+
+  await boardService.updateBoard(boardId, updatedBoard)
+
+  await store.dispatch({
+    type: EDIT_BOARD,
+    boardId,
+    updatedBoard,
+  })
+
+  showSuccessMsg('Labels updated successfully')
+}

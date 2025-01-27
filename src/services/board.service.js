@@ -46,11 +46,15 @@ async function addBoard() {
     const newBoard = {
       title: 'New Board',
       labels: [
-        { id: utilService.makeId(), type: 'taskTitle', name: 'task' },
-        { id: utilService.makeId(), type: 'priority', name: 'priority' },
-        { id: utilService.makeId(), type: 'status', name: 'status' },
-        { id: utilService.makeId(), type: 'members', name: 'members' },
-        { id: utilService.makeId(), type: 'date', name: 'date' },
+        { id: utilService.makeIdForLabel(), type: 'taskTitle', name: 'task' },
+        {
+          id: utilService.makeIdForLabel(),
+          type: 'priority',
+          name: 'priority',
+        },
+        { id: utilService.makeIdForLabel(), type: 'status', name: 'status' },
+        { id: utilService.makeIdForLabel(), type: 'members', name: 'members' },
+        { id: utilService.makeIdForLabel(), type: 'date', name: 'date' },
       ],
       groups: [],
     }

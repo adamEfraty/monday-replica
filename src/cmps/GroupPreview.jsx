@@ -16,10 +16,10 @@ import { ArrowRightIcon } from "@mui/x-date-pickers/icons";
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import { useSelector } from "react-redux";
 import { removeTask, addLable } from "../store/actions/boards.actions.js";
-import { SortableContext, useSortable, verticalListSortingStrategy } from "@dnd-kit/sortable";
+import { horizontalListSortingStrategy, SortableContext, useSortable, verticalListSortingStrategy } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { TaskPreview } from "./TaskPreview.jsx";
-
+import { Label } from "./Label.jsx";
 
 export const GroupPreview = ({
   labels,
@@ -153,26 +153,26 @@ export const GroupPreview = ({
             >
               <section className="ghost "></section>
 
-              {labels.map(label => (
-                label.type === 'taskTitle' ?
-                  <div style={{ borderLeft: `5px solid ${group?.color}`, borderTopLeftRadius: 5 }} key={`label-${label.id}`} className="label-title">
-                    <section className="main-checkbox">
-                      <input
-                        type="checkbox"
-                        className="checkbox"
-                        onChange={() => { }}
-                        onClick={() => handleMasterCheckboxClick(group)}
-                        checked={checkedGroups.includes(group.id)}
+              <SortableContext items={labels.map(label => label.id)} strategy={horizontalListSortingStrategy}>
+                {labels.map(label => (
+                  label.type === 'taskTitle' ?
+                    <div style={{ borderLeft: `5px solid ${group?.color}`, borderTopLeftRadius: 5 }} key={`label-${label.id}`} className="label-title">
+                      <section className="main-checkbox">
+                        <input
+                          type="checkbox"
+                          className="checkbox"
+                          onChange={() => { }}
+                          onClick={() => handleMasterCheckboxClick(group)}
+                          checked={checkedGroups.includes(group.id)}
 
-                      />
-                    </section>
-                    < section className="title-group" key={`label-${label.id}`}>{label.name}</section>
-                  </div >
-                  :
-                  <div style={{ textAlign: 'center' }} key={`label-${label.id}`}>
-                    {label.name}
-                  </div>
-              ))}
+                        />
+                      </section>
+                      < section className="title-group" key={`label-${label.id}`}>{label.name}</section>
+                    </div >
+                    :
+                    <Label key={label.id} id={label.id} label={label} />
+                ))}
+              </SortableContext >
 
               <button className="add-column-button" onClick={() => addLable(boardId)}>+</button>
 
