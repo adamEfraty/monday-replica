@@ -82,12 +82,12 @@ export function TaskTitle({ cellInfo,
       text: comment,
       replies: []
     }
-    onTaskUpdate({...cellInfo, value: {...cellInfo.value, chat: [newComment, ...chat]}})
+    onTaskUpdate({...cellInfo, value: {...cellInfo.value, chat: [newComment, ...cellInfo.value.chat]}})
   }
 
   function onAddReply(commentSentTime, replyTxt) {
     const newReply = { userId: loggedinUser.id, sentAt: new Date().getTime(), text: replyTxt }
-    const updatedChat = chat.map(comment => {
+    const updatedChat = cellInfo.value.chat.map(comment => {
       return comment.sentAt === commentSentTime
         ? { ...comment, replies: [newReply, ...comment.replies] }
         : comment
@@ -174,14 +174,12 @@ export function TaskTitle({ cellInfo,
           <ChatModal
             onAddReply={onAddReply}
             onAddComment={onAddComment}
-            chat={chat}
+            cellInfo={cellInfo}
             users={[...users]}
             loggedinUser={loggedinUser}
-            text={text}
             onUpdateTitleInChat={onUpdateTitleInChat}
             modalToggle={modalToggle}
             chatTempInfoUpdate={chatTempInfoUpdate}
-            cellId={cellId}
             chatPrevInfo={chatPrevInfo} 
             openChat={openChat}/>
         </div>

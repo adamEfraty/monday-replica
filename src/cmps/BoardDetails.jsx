@@ -27,7 +27,6 @@ const BoardDetails = () => {
   const [currentBoard, setCurrentBoard] = useState(
     boards.find((board) => board.id === boardId)
   );
-  const [labels,setLabels] = useState(null)
 
   const loggedinUser = useSelector((state) => state.userModule.user);
   const users = useSelector((state) => state.userModule.users);
@@ -40,11 +39,6 @@ const BoardDetails = () => {
     // if (!currentBoard || currentBoard.id !== boardId)
     setCurrentBoard(boards.find((board) => board.id === boardId));
   }, [boards, boardId]);
-
-  useEffect(() => {
-    if(currentBoard)
-      setLabels(currentBoard.labels);
-  }, [currentBoard]);
 
   useEffect(() => {
     async function d() {
@@ -154,11 +148,11 @@ const BoardDetails = () => {
     removeGroup(boardId, groupId);
   }
 
-  if (!currentBoard || !labels)
+  if (!currentBoard || (currentBoard.id !== boardId))
     return (
       <div onClick={() => console.log(boards, currentBoard)}>Loading...</div>
     );
-
+  const labels = currentBoard.labels
   return (
     <div className="board-details">
       <BoardDetailsHeader handleAddTask={handleAddTask} boardTitle={currentBoard.title} />

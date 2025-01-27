@@ -69,7 +69,6 @@ export const GroupPreview = ({
   const id2 = open2 ? 'simple-popover' : undefined;
 
 
-
   const style = {
     borderRight: '1px solid #e0dede',
     borderTop: '1px solid #e0dede',
@@ -162,8 +161,8 @@ export const GroupPreview = ({
 
             {/* Render tasks by cmp order */}
 
-            {group.tasks.map((task) => (
-
+            {group.tasks.map((task) => 
+              
               <section
                 className="group-grid"
                 style={{ ...style, 
@@ -194,7 +193,9 @@ export const GroupPreview = ({
                 </div>
 
 
-                {labels.map(label => {
+                {
+                  labels.map(label => {
+                  // console.log('LabelID', label.id)
                   const cell = task.cells.find(cell=>cell.labelId===label.id)
                   return(
                   <section
@@ -219,7 +220,7 @@ export const GroupPreview = ({
                   </section>
                 )})}
               </section>
-            ))}
+            )}
             <AddTask group={group} handleAddTask={handleAddTask} />
 
             {/* Render progress by progress array */}
@@ -258,7 +259,6 @@ const DynamicCmp = ({
   onTaskUpdate,
   task,
   group,
-  chat,
   loggedinUser,
   users,
   chatTempInfoUpdate,
@@ -266,7 +266,6 @@ const DynamicCmp = ({
   checkedBoxes,
   handleCheckBoxClick
 }) => {
-  // console.log("Rendering component:", cmpType, "with info:", info);
 
   switch (label.type) {
     case "priority":
@@ -285,10 +284,8 @@ const DynamicCmp = ({
         <TaskTitle
           cellInfo={cell}
           group={group}
-          task={task}
           loggedinUser={loggedinUser}
           users={users}
-          chat={chat}
           onTaskUpdate={onTaskUpdate}
           chatTempInfoUpdate={chatTempInfoUpdate}
           openChat={openChat}
