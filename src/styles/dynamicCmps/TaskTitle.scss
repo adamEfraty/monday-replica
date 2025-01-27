@@ -3,11 +3,14 @@
 .grid-item.taskTitle {
   .task-title {
     width: 100%;
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 5fr 4fr 1fr;
     align-items: stretch;
 
     .title-part {
+      display: flex;
+      gap: 1rem;
+
       align-self: center;
     }
 
@@ -46,15 +49,12 @@
   }
 }
 
-section.task-title {
-  position: sticky;
-  left: 0;
-  z-index: 11;
-}
-
 .checkbox-taskName {
   display: flex;
   gap: 1rem;
+  span {
+    width: 100%;
+  }
 }
 
 .input-styles {

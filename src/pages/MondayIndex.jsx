@@ -13,7 +13,6 @@ export function MondayIndex({ isBoard = false }) {
 
     function onRemoveBoard(id) {
         removeBoard(id);
-        console.log(boards)
     }
 
     return (

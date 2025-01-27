@@ -15,7 +15,7 @@ export function AddTask({ group, handleAddTask }) {
     }
 
     return (
-        <section style={{ borderLeft: `5px solid ${group?.color}`, borderBottomLeftRadius: 5 }} className="add-task stick">
+        <section style={{ borderLeft: `5px solid ${group?.color}`, borderBottomLeftRadius: 5 }} className="add-task">
             <input
                 className="add-input"
 
