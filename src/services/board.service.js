@@ -302,7 +302,7 @@ async function makeFirstBoard() {
       {
         id: Math.random().toString(36).slice(2),
         title: 'SAR',
-        color: 'red',
+        color: '#FF6347',
         tasks: [
           {
             id: 't1011',
@@ -340,7 +340,7 @@ async function makeFirstBoard() {
         id: Math.random().toString(36).slice(2),
         title: 'SAR-2',
 
-        color: 'blue',
+        color: '#32CD32',
         tasks: [
           {
             id: 't2014',
@@ -383,7 +383,7 @@ async function makeFirstBoard() {
         id: Math.random().toString(36).slice(2),
         title: 'SAR-3',
 
-        color: 'green',
+        color: '#1E90FF',
         tasks: [
           {
             id: 't3017',
