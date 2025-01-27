@@ -33,7 +33,6 @@ export async function addBoard() {
 
 export async function loadBoards() {
   const boards = await boardService.query()
-  console.log(boards, 'kkkkkkkkk')
   await store.dispatch({ type: SET_BOARDS, boards })
   showSuccessMsg('Boards loaded')
 }
@@ -115,7 +114,6 @@ export async function removeGroup(boardId, groupId) {
 }
 
 export async function updateGroup(boardId, groupId, updatedGroupData) {
-  // Update the group in the board service
   await boardService.updateGroupInBoard(boardId, groupId, updatedGroupData)
 
   const board = await boardService.getById(boardId)

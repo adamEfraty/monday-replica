@@ -348,3 +348,17 @@ div.input-styles {
   display: flex;
   gap: 10px;
 }
+
+.flex-for-modal {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  padding: 0.5rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.flex-inside-color {
+  display: flex;
+  gap: 1rem;
+}

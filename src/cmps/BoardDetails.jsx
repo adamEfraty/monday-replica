@@ -165,7 +165,6 @@ const BoardDetails = () => {
     );
 
 
-  groups.map((group) => console.log(group.id, 'loop'))
 
   //................ IMPORTANT !!!
   function getGroupPos(id) {

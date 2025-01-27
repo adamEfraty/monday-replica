@@ -20,6 +20,7 @@ import { horizontalListSortingStrategy, SortableContext, useSortable, verticalLi
 import { CSS } from "@dnd-kit/utilities";
 import { TaskPreview } from "./TaskPreview.jsx";
 import { Label } from "./Label.jsx";
+import { Color } from "./dynamicCmps/modals/Color.jsx";
 
 export const GroupPreview = ({
   labels,
@@ -114,7 +115,10 @@ export const GroupPreview = ({
               horizontal: 'center',
             }}
           >
-            <GarbageRemove someName={'Group'} someFunction={() => handleDelete(group.id, boardId)} />
+            <div className="flex-for-modal">
+              <Color closeAll={handleClose2} color={group.color} boardId={boardId} groupId={group.id} />
+              <GarbageRemove someName={'Group'} someFunction={() => handleDelete(group.id, boardId)} />
+            </div>
           </Popover>
 
 
