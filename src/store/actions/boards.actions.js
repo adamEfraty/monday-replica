@@ -280,10 +280,14 @@ export function getFilterContext() {
   return filterBy
 }
 
-export async function addLable(boardId){
-  const newLable = {id: utilService.makeId(), type: "priority", name:"New Priority"} //temporary
-  const newBoard =  await boardService.addLableToBoard(boardId, newLable)
-  if(!newBoard) return
+export async function addLable(boardId) {
+  const newLable = {
+    id: utilService.makeId(),
+    type: 'priority',
+    name: 'New Priority',
+  } //temporary
+  const newBoard = await boardService.addLableToBoard(boardId, newLable)
+  if (!newBoard) return
 
   store.dispatch({
     type: EDIT_BOARD,
@@ -292,4 +296,22 @@ export async function addLable(boardId){
   })
 }
 
+export async function replaceGroups(boardId, newGroups) {
+  const board = await boardService.getById(boardId)
+  if (!board) throw new Error('Board not found')
 
+  const updatedBoard = {
+    ...board,
+    groups: newGroups,
+  }
+
+  await boardService.updateBoard(boardId, updatedBoard)
+
+  await store.dispatch({
+    type: EDIT_BOARD,
+    boardId,
+    updatedBoard,
+  })
+
+  showSuccessMsg('Groups updated successfully')
+}

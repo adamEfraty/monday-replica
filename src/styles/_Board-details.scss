@@ -245,6 +245,10 @@ div {
   cursor: pointer;
   border-left: 1px solid #e1e1e1;
   padding: 0.2rem 1rem;
+
+  &:hover {
+    color: rgb(72, 72, 199);
+  }
 }
 section.labels-grid {
   position: sticky;

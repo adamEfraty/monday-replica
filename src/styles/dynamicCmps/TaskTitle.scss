@@ -8,6 +8,9 @@
     align-items: stretch;
 
     .title-part {
+      display: flex;
+      gap: 1rem;
+
       align-self: center;
     }
 

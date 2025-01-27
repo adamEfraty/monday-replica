@@ -20,6 +20,8 @@ export function TaskTitle({ cellId,
   checkedBoxes,
   handleCheckBoxClick,
   style,
+  listeners,
+  attributes,
 }) {
   const [onEditMode, setOnEditMode] = useState(false)
   const [textToEdit, setTextToEdit] = useState(text)
@@ -162,6 +164,7 @@ export function TaskTitle({ cellId,
                   type="text"
                 />
             }
+            <p {...listeners} {...attributes}>drag me</p>
           </div>
         </div>
         <div className="chat-icon">

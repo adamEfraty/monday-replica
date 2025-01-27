@@ -16,6 +16,9 @@ import { ArrowRightIcon } from "@mui/x-date-pickers/icons";
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import { useSelector } from "react-redux";
 import { removeTask, addLable } from "../store/actions/boards.actions.js";
+import { SortableContext, useSortable, verticalListSortingStrategy } from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
+import { TaskPreview } from "./TaskPreview.jsx";
 
 
 export const GroupPreview = ({
@@ -35,6 +38,7 @@ export const GroupPreview = ({
   users,
   chatTempInfoUpdate,
   openChat,
+  id,
 
 }) => {
   const [expanded, setExpanded] = useState(true);
@@ -44,6 +48,8 @@ export const GroupPreview = ({
 
   const [anchorEl, setAnchorEl] = useState(null);
   const [anchorE2, setAnchorE2] = useState(null);
+
+
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -65,7 +71,7 @@ export const GroupPreview = ({
   const open = Boolean(anchorEl);
   const open2 = Boolean(anchorE2);
 
-  const id = open ? 'simple-popover' : undefined;
+  const id1 = open ? 'simple-popover' : undefined;
   const id2 = open2 ? 'simple-popover' : undefined;
 
 
@@ -73,15 +79,23 @@ export const GroupPreview = ({
 
   const titleHead = { color: group.color };
 
+  const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id });
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+
+  };
 
 
 
 
   return (
-    <>
+    <div style={style} ref={setNodeRef} className="group-list-dnd" >
 
 
       <div className="group-title-flex">
+
         <div className="change-location">
           <span className="remove" onClick={handleClick2}><MoreHorizIcon />
           </span>
@@ -120,6 +134,9 @@ export const GroupPreview = ({
 
 
         </div>
+        <div {...listeners} {...attributes} style={{ cursor: "grab" }}>
+          <strong>drag me </strong>
+        </div>
       </div>
 
       <section className="group-list">
@@ -156,71 +173,34 @@ export const GroupPreview = ({
                     {label.name}
                   </div>
               ))}
-              <div>
-                <button className="add-column-button" onClick={() => addLable(boardId)}>+</button>
-              </div>
+
+              <button className="add-column-button" onClick={() => addLable(boardId)}>+</button>
+
             </section>
 
             {/* Render tasks by cmp order */}
 
-            {group.tasks.map((task) => (
+            <SortableContext items={group.tasks.map(task => task.id)} strategy={verticalListSortingStrategy}> {/* for dnd Radwan */}
+              {group.tasks.map((task) => (
 
-              <section
-                className="group-grid"
-                style={{
-
-                  gridTemplateColumns: `10px 400px repeat(${labels.length}, 150px) 500px`
-                }}
-                key={`task-${task.id}`}
-              >
-
-
-                <div className="dots">
-                  <span onClick={handleClick}  > <MoreHorizIcon /> </span>
-
-                  <Popover
-                    id={id}
-                    open={open}
-                    anchorEl={anchorEl}
-                    onClose={handleClose}
-                    anchorOrigin={{
-                      vertical: 'bottom',
-                      horizontal: 'right',
-                    }}
-                    transformOrigin={{
-                      vertical: 'top',
-                      horizontal: 'center',
-                    }}
-                  >
-                    <GarbageRemove someName={'Task'} someFunction={() => removeTask(boardId, group.id, task.id)} />
-                  </Popover>
-                </div>
-
-
-                {labels.map(label => (
-                  <section
-                    style={label.type === 'taskTitle' ? { borderLeft: `5px solid ${group?.color}` } : {}}
-                    className={`grid-item ${label.type} ${label.type === 'taskTitle' ? 'stick' : ''}`}
-                    key={`task-${task.id}-label-${label.id}`}
-                  >
-                    <DynamicCmp
-                      group={group}
-                      task={task}
-                      loggedinUser={loggedinUser}
-                      label={label}
-                      info={task[label.type]}
-                      onTaskUpdate={onTaskUpdate}
-                      chat={task.chat} // temporary for demo data
-                      users={users}
-                      chatTempInfoUpdate={chatTempInfoUpdate}
-                      openChat={openChat}
-                      checkedBoxes={checkedBoxes}
-                      handleCheckBoxClick={handleCheckBoxClick}
-                    />
-                  </section>
-                ))}
-              </section>
-            ))}
+                <TaskPreview
+                  id={task.id}
+                  key={task.id}
+                  task={task}
+                  group={group}
+                  labels={labels}
+                  loggedinUser={loggedinUser}
+                  onTaskUpdate={onTaskUpdate}
+                  removeTask={removeTask}
+                  boardId={boardId}
+                  users={users}
+                  chatTempInfoUpdate={chatTempInfoUpdate}
+                  openChat={openChat}
+                  checkedBoxes={checkedBoxes}
+                  handleCheckBoxClick={handleCheckBoxClick}
+                />
+              ))}
+            </SortableContext>
             <AddTask group={group} handleAddTask={handleAddTask} />
 
             {/* Render progress by progress array */}
@@ -251,104 +231,11 @@ export const GroupPreview = ({
           </div >
         )}
       </section >
-    </>
+    </div >
   );
 };
 
-const DynamicCmp = ({
-  label,
-  info,
-  onTaskUpdate,
-  task,
-  group,
-  chat,
-  loggedinUser,
-  users,
-  chatTempInfoUpdate,
-  openChat,
-  checkedBoxes,
-  handleCheckBoxClick
-}) => {
-  // console.log("Rendering component:", cmpType, "with info:", info);
 
-  switch (label.type) {
-    case "priority":
-      return (
-        <Priority
-          cellId={task.id + label.id}
-          group={group}
-          task={task}
-          priority={info}
-          onTaskUpdate={onTaskUpdate}
-
-        />
-      )
-
-    case "taskTitle":
-      return (
-        <TaskTitle
-          cellId={task.id + label.id}
-          group={group}
-          task={task}
-          loggedinUser={loggedinUser}
-          users={users}
-          chat={chat}
-          text={info}
-          onTaskUpdate={onTaskUpdate}
-          chatTempInfoUpdate={chatTempInfoUpdate}
-          openChat={openChat}
-          checkedBoxes={checkedBoxes}
-          handleCheckBoxClick={handleCheckBoxClick}
-        />
-      )
-
-    case "status":
-      return (
-        <Status
-          cellId={task.id + label.id}
-          group={group}
-          task={task}
-          taskId={task.id}
-          status={info}
-          onTaskUpdate={onTaskUpdate}
-        />
-      )
-
-    case "members":
-      return (
-        <Members
-          cellId={task.id + label.id}
-          group={group}
-          task={task}
-          taskId={task.id}
-          members={info}
-          onTaskUpdate={onTaskUpdate}
-          users={users}
-        />
-      )
-
-    case "date":
-      return (
-        <Date
-          cellId={task.id + label.id}
-          group={group}
-          task={task}
-          date={info}
-          onTaskUpdate={onTaskUpdate}
-        />
-      )
-    case "+":
-      return (
-        <div >
-
-        </div>
-      )
-
-    default:
-      console.error(`Unknown component type: ${cmpType}`)
-      return <div>Unknown component: {cmpType}</div>
-  }
-}
 
 const ProgressCmd = ({
   progressType,

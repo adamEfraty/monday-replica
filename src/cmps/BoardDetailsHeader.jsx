@@ -59,7 +59,6 @@ export function BoardDetailsHeader({ handleAddTask, boardTitle }) {
         </div>
         <div
           onBlur={(e) => {
-            console.log("Ragnar")
             if (!e.currentTarget.contains(e.relatedTarget)) {
               handleFilterStateChange(false); // Only trigger if focus leaves the div and its children
             }

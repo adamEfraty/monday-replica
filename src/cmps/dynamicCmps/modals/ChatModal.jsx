@@ -113,7 +113,6 @@ export function ChatModal({
                         prevReplies.map((reply) => {
                             if (reply.id == key) {
                                 if (emptyPossibilities.includes(reply.text.trim())) {
-                                    // console.log(reply)
                                     return { ...reply, isEditing: false };
                                 } else return reply
                             }
