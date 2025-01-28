@@ -60,7 +60,7 @@ const BoardDetails = () => {
       const filteredGroups = board.groups
         .map((group) => ({
           ...group,
-          tasks: group.tasks.filter((task) => regExp.test(task.taskTitle)), // Filter tasks
+          tasks: group.tasks.filter((task) => regExp.test(task.cells[0].value.title)), // Filter tasks
         }))
         .filter((group) => group.tasks.length > 0); // Keep groups that have tasks
 
