@@ -3,9 +3,9 @@ import { MembersModal } from './modals/MembersModal.jsx'
 import { openModal, closeModal } from '../../store/actions/boards.actions.js'
 import { useSelector } from "react-redux";
 
-export function Members({ cellId, group, task, members, onTaskUpdate, users }) {
+export function Members({cellInfo, onTaskUpdate, users }) {
     const openModals = useSelector(state => state.boardModule.openModals)
-    const modal = openModals.some(modalId => modalId === cellId)
+    const modal = openModals.some(modalId => modalId === (cellInfo.taskId + cellInfo.labelId))
 
     const modalRef = useRef(null)
     const membersCellRef = useRef(null)
@@ -15,19 +15,19 @@ export function Members({ cellId, group, task, members, onTaskUpdate, users }) {
     // close and open modal as needed
     function modalToggle() {
         modal
-        ? closeModal(cellId)
-        : openModal(cellId)
+        ? closeModal(cellInfo.taskId + cellInfo.labelId)
+        : openModal(cellInfo.taskId + cellInfo.labelId)
     }
 
     function onAddMember(member) {
         modalToggle()
-        onTaskUpdate({ group, task, type: 'members', value: [...members, member] })
+        onTaskUpdate({...cellInfo, value: [...cellInfo.value, member]})
     }
 
     function onRemoveMember(memberToRemove) {
-        const newMembers = members.filter(member =>
+        const newMembers = cellInfo.value.filter(member =>
             memberToRemove.id !== member.id)
-        onTaskUpdate({ group, task, type: 'members', value: newMembers })
+        onTaskUpdate({...cellInfo, value: newMembers})
     }
 
     function handleClickOutsideModal(event) {
@@ -46,8 +46,8 @@ export function Members({ cellId, group, task, members, onTaskUpdate, users }) {
 
     }, [modal])
 
-    const displayedMembers = members.slice(0, 3);
-    const extraMembersCount = members.length - 3;
+    const displayedMembers = cellInfo.value.slice(0, 3);
+    const extraMembersCount = cellInfo.value.length - 3;
     return (
         <section className="members">
             <div
@@ -55,7 +55,7 @@ export function Members({ cellId, group, task, members, onTaskUpdate, users }) {
                 ref={membersCellRef}
                 onClick={modalToggle}>
                 {
-                    members.length ?
+                    cellInfo.value.length ?
                         displayedMembers.map(member =>
                             <span key={member.id}>
                                 <img src={member.imgUrl} />
@@ -73,7 +73,7 @@ export function Members({ cellId, group, task, members, onTaskUpdate, users }) {
             {modal &&
                 <div ref={modalRef}>
                     <MembersModal
-                        ParticipateMembers={members}
+                        ParticipateMembers={cellInfo.value}
                         onAddMember={onAddMember}
                         onRemoveMember={onRemoveMember}
                         users={users} />

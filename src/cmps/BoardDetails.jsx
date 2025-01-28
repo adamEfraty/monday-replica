@@ -31,7 +31,6 @@ const BoardDetails = () => {
   const [currentBoard, setCurrentBoard] = useState(
     boards.find((board) => board.id === boardId)
   );
-  const [labels, setLabels] = useState(null)
 
   const loggedinUser = useSelector((state) => state.userModule.user);
   const users = useSelector((state) => state.userModule.users);
@@ -45,11 +44,6 @@ const BoardDetails = () => {
     // if (!currentBoard || currentBoard.id !== boardId)
     setCurrentBoard(boards.find((board) => board.id === boardId));
   }, [boards, boardId]);
-
-  useEffect(() => {
-    if (currentBoard)
-      setLabels(currentBoard.labels);
-  }, [currentBoard]);
 
   useEffect(() => {
     async function d() {
@@ -92,8 +86,8 @@ const BoardDetails = () => {
   }
 
   // function that set groups with each task update
-  const onTaskUpdate = async (changeInfo) =>
-    await updateTask(currentBoard.id, changeInfo);
+  const onTaskUpdate = async (newCell) => {
+    await updateTask(currentBoard.id, newCell);}
 
   // const cmpOrder = ["taskTitle", "priority", "status", "members", "date"];
 
@@ -159,7 +153,7 @@ const BoardDetails = () => {
     removeGroup(boardId, groupId);
   }
 
-  if (!currentBoard || !labels)
+  if (!currentBoard || (currentBoard.id !== boardId))
     return (
       <div >Loading...</div>
     );
@@ -249,7 +243,7 @@ const BoardDetails = () => {
                 < GroupPreview
                   id={group.id}
                   group={group}
-                  labels={labels}
+                  labels={currentBoard.labels}
                   loggedinUser={loggedinUser}
                   progress={progress}
                   key={group.id}

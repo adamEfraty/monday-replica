@@ -8,6 +8,7 @@ import { P_Priority } from "./dynamicCmps/progressCmps/P_Priority.jsx";
 import { P_Status } from "./dynamicCmps/progressCmps/P_Status.jsx";
 import { P_Date } from "./dynamicCmps/progressCmps/P_Date.jsx";
 import { P_Members } from "./dynamicCmps/progressCmps/P_Members.jsx";
+import { AddLabel } from "./AddLabel.jsx";
 import Popover from '@mui/material/Popover';
 import { GarbageRemove } from "./dynamicCmps/modals/GarbageRemove.jsx";
 import { useState } from "react";
@@ -15,7 +16,7 @@ import ArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { ArrowRightIcon } from "@mui/x-date-pickers/icons";
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import { useSelector } from "react-redux";
-import { removeTask, addLable } from "../store/actions/boards.actions.js";
+import { removeTask } from "../store/actions/boards.actions.js";
 import { horizontalListSortingStrategy, SortableContext, useSortable, verticalListSortingStrategy } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { TaskPreview } from "./TaskPreview.jsx";
@@ -178,8 +179,7 @@ export const GroupPreview = ({
                 ))}
               </SortableContext >
 
-              <button className="add-column-button" onClick={() => addLable(boardId)}>+</button>
-
+              <AddLabel groupId={group.id} boardId={boardId}/>
             </section>
 
             {/* Render tasks by cmp order */}
@@ -220,9 +220,9 @@ export const GroupPreview = ({
 
               {labels.map((lable, index) =>
                 progress.includes(lable.type) ? (
-                  <div className={`prog-box with-${lable.type}`} key={`progress-${lable.type}`}>
+                  <div className={`prog-box with-${lable.type}`} key={`progress-${lable.id}`}>
                     <ProgressCmd
-                      progressType={lable.type}
+                      label={lable}
                       tasks={group.tasks}
 
                     />
@@ -242,16 +242,17 @@ export const GroupPreview = ({
 
 
 const ProgressCmd = ({
-  progressType,
+  label,
   tasks,
 
 }) => {
 
-  switch (progressType) {
+  switch (label.type) {
     case "priority":
       return (
         <P_Priority
           tasks={tasks}
+          labelId={label.id}
         />
       )
 
@@ -259,6 +260,7 @@ const ProgressCmd = ({
       return (
         <P_Status
           tasks={tasks}
+          labelId={label.id}
         />
       )
 
@@ -266,6 +268,7 @@ const ProgressCmd = ({
       return (
         <P_Date
           tasks={tasks}
+          labelId={label.id}
         />
       )
 
@@ -273,6 +276,7 @@ const ProgressCmd = ({
       return (
         <P_Members
           tasks={tasks}
+          labelId={label.id}
         />
       )
 

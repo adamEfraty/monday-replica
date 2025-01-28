@@ -59,30 +59,26 @@ export async function addGroup(boardId) {
   showSuccessMsg('Group added successfully')
 }
 
-export async function addItem(boardId, groupId, itemTitle, isStart = null) {
-  const today = new Date()
-  const formattedDate = utilService.formatDateToStr(today)
-
-  const newItem = {
-    id: utilService.makeId(),
-    taskTitle: itemTitle,
-    members: [],
-    date: formattedDate, // Updated to show the formatted date
-    status: { text: '', color: '#C4C4C4' },
-    priority: { text: '', color: '#C4C4C4' },
-    chat: [],
-  }
-  await boardService.addItemToGroup(boardId, groupId, newItem, isStart)
+export async function addItem(boardId, groupId, taskTitle, isStart = null) {
 
   const board = await boardService.getById(boardId)
-  if (!board) return
+  const labels = [...board.labels]
+  const taskId = utilService.makeId()
 
-  const updatedBoard = {
-    ...board,
-    groups: board.groups.map((group) =>
-      group.id === groupId ? { ...group, tasks: [...group.tasks] } : group
-    ),
+// cell: {taskId:xxx, labelId: xxx, value: xxx, type: xxx}
+  const newItem = {
+    id: taskId,
+    cells: labels.map(label => label.type === 'taskTitle'
+      ? { taskId, labelId: label.id, value: {title: taskTitle, chat: []}, type: label.type }
+      : boardService.getDefultCell(label, taskId)
+    )
   }
+  await boardService.addItemToGroup(boardId, groupId, newItem, isStart)
+  const updatedBoard = await boardService.getById(boardId)
+
+
+  if (!updatedBoard) return
+
 
   await store.dispatch({
     type: EDIT_BOARD,
@@ -204,20 +200,27 @@ export async function removeBoard(boardId) {
   }
 }
 
-export async function updateTask(boardId, info) {
-  await boardService.updateTaskInGroup(boardId, info)
+export async function updateTask(boardId, newCell) {
+  await boardService.updateTaskInGroup(boardId, newCell)
 
   const board = await boardService.getById(boardId)
-  if (!board) return
+  const cellGroup = board.groups.find(group =>
+    group.tasks.some(task => task.id === newCell.taskId))
+  if (!cellGroup) return
 
-  const updatedBoard = {
-    ...board,
-    groups: board.groups.map((group) =>
-      group.id === info.group.id
-        ? {
-            ...group,
-            tasks: group.tasks.map((task) =>
-              task.id === info.task.id ? { ...task, ...info.value } : task
+
+
+  const updatedBoard = 
+  { ...board, groups: board.groups.map(group =>
+      group.id === cellGroup.id
+        ? {...group, tasks: group.tasks.map(task =>
+            task.id === newCell.taskId 
+            ? {...task, cells: task.cells.map(cell=> 
+                cell.labelId === newCell.labelId 
+                ? newCell
+                : cell
+              )}
+              : task
             ),
           }
         : group
@@ -278,14 +281,10 @@ export function getFilterContext() {
   return filterBy
 }
 
-export async function addLable(boardId) {
-  const newLable = {
-    id: utilService.makeId(),
-    type: 'priority',
-    name: 'New Priority',
-  } //temporary
-  const newBoard = await boardService.addLableToBoard(boardId, newLable)
-  if (!newBoard) return
+export async function addLable(boardId, labelInfo){
+  const newLabel = {id: utilService.makeIdForLabel(), type: labelInfo.type, name: labelInfo.name}
+  const newBoard =  await boardService.addLableToBoard(boardId, newLabel)
+  if(!newBoard) return
 
   store.dispatch({
     type: EDIT_BOARD,

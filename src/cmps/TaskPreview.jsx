@@ -76,9 +76,11 @@ export function TaskPreview({
                 </Popover>
             </div>
 
-            {labels.map(label => (
-                <section
+            {labels.map(label => {
+                const cell = task.cells.find(cell=>cell.labelId===label.id)
+                return (
 
+                <section
                     key={`task-${task.id}-label-${label.id}`}
                     style={label.type === 'taskTitle' ? { borderLeft: `5px solid ${group?.color}` } : {}}
                     className={`grid-item ${label.type} ${label.type === 'taskTitle' ? 'stick' : ''}`}
@@ -86,14 +88,11 @@ export function TaskPreview({
                     <DynamicCmp
                         listeners={listeners}
                         attributes={attributes}
-
+                        cellInfo={cell}
                         group={group}
-                        task={task}
                         loggedinUser={loggedinUser}
                         label={label}
-                        info={task[label.type]}
                         onTaskUpdate={onTaskUpdate}
-                        chat={task.chat}
                         users={users}
                         chatTempInfoUpdate={chatTempInfoUpdate}
                         openChat={openChat}
@@ -103,7 +102,7 @@ export function TaskPreview({
 
 
                 </section>
-            ))
+            )})
             }
         </section >
     );
@@ -111,12 +110,10 @@ export function TaskPreview({
 
 
 function DynamicCmp({
+    cellInfo,
     label,
-    info,
     onTaskUpdate,
-    task,
     group,
-    chat,
     loggedinUser,
     users,
     chatTempInfoUpdate,
@@ -130,10 +127,7 @@ function DynamicCmp({
         case "priority":
             return (
                 <Priority
-                    cellId={task.id + label.id}
-                    group={group}
-                    task={task}
-                    priority={info}
+                    cellInfo={cellInfo}
                     onTaskUpdate={onTaskUpdate}
                 />
             );
@@ -141,15 +135,12 @@ function DynamicCmp({
         case "taskTitle":
             return (
                 <TaskTitle
+                    cellInfo={cellInfo}
                     listeners={listeners}
                     attributes={attributes}
-                    cellId={task.id + label.id}
                     group={group}
-                    task={task}
                     loggedinUser={loggedinUser}
                     users={users}
-                    chat={chat}
-                    text={info}
                     onTaskUpdate={onTaskUpdate}
                     chatTempInfoUpdate={chatTempInfoUpdate}
                     openChat={openChat}
@@ -161,11 +152,7 @@ function DynamicCmp({
         case "status":
             return (
                 <Status
-                    cellId={task.id + label.id}
-                    group={group}
-                    task={task}
-                    taskId={task.id}
-                    status={info}
+                    cellInfo={cellInfo} 
                     onTaskUpdate={onTaskUpdate}
                 />
             );
@@ -173,11 +160,7 @@ function DynamicCmp({
         case "members":
             return (
                 <Members
-                    cellId={task.id + label.id}
-                    group={group}
-                    task={task}
-                    taskId={task.id}
-                    members={info}
+                    cellInfo={cellInfo}
                     onTaskUpdate={onTaskUpdate}
                     users={users}
                 />
@@ -186,10 +169,7 @@ function DynamicCmp({
         case "date":
             return (
                 <Date
-                    cellId={task.id + label.id}
-                    group={group}
-                    task={task}
-                    date={info}
+                    cellInfo={cellInfo}
                     onTaskUpdate={onTaskUpdate}
                 />
             );
