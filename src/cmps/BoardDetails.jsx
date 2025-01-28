@@ -152,7 +152,7 @@ const BoardDetails = () => {
     return (
       <div onClick={() => console.log(boards, currentBoard)}>Loading...</div>
     );
-  const labels = currentBoard.labels
+    
   return (
     <div className="board-details">
       <BoardDetailsHeader handleAddTask={handleAddTask} boardTitle={currentBoard.title} />
@@ -161,7 +161,7 @@ const BoardDetails = () => {
           {currentBoard.groups.map((group) => (
             <GroupPreview
               group={group}
-              labels={labels}
+              labels={currentBoard.labels}
               loggedinUser={loggedinUser}
               progress={progress}
               key={uid()}

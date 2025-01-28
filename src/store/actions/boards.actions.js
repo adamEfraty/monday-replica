@@ -283,9 +283,9 @@ export function getFilterContext() {
   return filterBy
 }
 
-export async function addLable(boardId){
-  const newLable = {id: utilService.makeId(), type: "priority", name:"New Priority"} //temporary
-  const newBoard =  await boardService.addLableToBoard(boardId, newLable)
+export async function addLable(boardId, labelInfo){
+  const newLabel = {id: utilService.makeId(), type: labelInfo.type, name: labelInfo.name}
+  const newBoard =  await boardService.addLableToBoard(boardId, newLabel)
   if(!newBoard) return
 
   store.dispatch({

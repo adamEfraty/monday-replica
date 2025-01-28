@@ -10,7 +10,6 @@ import { boardService } from "../../services/board.service.js";
 export function TaskTitle({ cellInfo,
   users,
   loggedinUser,
-  chat,
   group,
   task,
   onTaskUpdate,
@@ -143,8 +142,8 @@ export function TaskTitle({ cellInfo,
           <div className="input-styles">
             <input
               type="checkbox"
-              checked={checkedBoxes.some((subArr) => subArr[1] == task.id)}
-              onChange={() => handleCheckBoxClick(group.id, task.id)}
+              checked={checkedBoxes.some((subArr) => subArr[1] == cellInfo.taskId)}
+              onChange={() => handleCheckBoxClick(group.id, cellInfo.taskId)}
             />
           </div>
           <div className="title-part ">

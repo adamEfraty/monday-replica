@@ -8,6 +8,7 @@ import { P_Priority } from "./dynamicCmps/progressCmps/P_Priority.jsx";
 import { P_Status } from "./dynamicCmps/progressCmps/P_Status.jsx";
 import { P_Date } from "./dynamicCmps/progressCmps/P_Date.jsx";
 import { P_Members } from "./dynamicCmps/progressCmps/P_Members.jsx";
+import { AddLabel } from "./AddLabel.jsx";
 import Popover from '@mui/material/Popover';
 import { GarbageRemove } from "./dynamicCmps/modals/GarbageRemove.jsx";
 import { useState } from "react";
@@ -15,7 +16,7 @@ import ArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { ArrowRightIcon } from "@mui/x-date-pickers/icons";
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import { useSelector } from "react-redux";
-import { removeTask, addLable } from "../store/actions/boards.actions.js";
+import { removeTask } from "../store/actions/boards.actions.js";
 
 
 export const GroupPreview = ({
@@ -77,6 +78,7 @@ export const GroupPreview = ({
 
   };
   const titleHead = { color: group.color };
+
 
   return (
     <>
@@ -156,7 +158,7 @@ export const GroupPreview = ({
                     {label.name}
                   </div>
               ))}
-              <button className="add-column-button" onClick={()=>addLable(boardId)}>+</button>
+              <AddLabel groupId={group.id} boardId={boardId}/>
             </section>
 
             {/* Render tasks by cmp order */}
