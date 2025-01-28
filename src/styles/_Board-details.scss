@@ -108,12 +108,6 @@ section.group-grid {
   font-weight: 800;
 }
 
-.labels-grid {
-  .add-column-button {
-    width: 20px;
-    height: 20px;
-  }
-}
 
 .labels-grid div {
   padding: 0.7rem;
@@ -275,6 +269,12 @@ div.group-title-flex {
 //   position: sticky;
 //   left: 0;
 //   z-index: 3;
+//   background-color: #ffffff;
+//   display: inline-block;
+// }
+// .stick2 {
+//   position: sticky;
+//   z-index: 1000;
 //   background-color: #ffffff;
 //   display: inline-block;
 // }

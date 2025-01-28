@@ -9,17 +9,15 @@ import "react-quill/dist/quill.snow.css";
 
 import emptyChatImg from '../../../assets/images/empty-chat.png'
 
-export function ChatModal({
+export function ChatModal({ 
+    cellInfo,
     loggedinUser,
     users,
-    chat = [],
     onAddComment,
     onAddReply,
-    text,
     onUpdateTitleInChat,
     modalToggle,
     chatTempInfoUpdate,
-    cellId,
     chatPrevInfo,
     openChat }) {
 
@@ -27,7 +25,7 @@ export function ChatModal({
     const [scroll, setScroll] = useState(chatPrevInfo?.scroll ? chatPrevInfo.scroll : 0)
 
     const [onEditMode, setOnEditMode] = useState(false)
-    const [textToEdit, setTextToEdit] = useState(text)
+    const [textToEdit, setTextToEdit] = useState(cellInfo.value.title)
 
     const [newComment, setNewComment] = useState(
         chatPrevInfo?.comment ? chatPrevInfo.comment : '')
@@ -37,7 +35,7 @@ export function ChatModal({
     const [editNewComment, setOnEditNewComment] = useState(newComment !== '')
 
     const [newReplies, setNewReplies] = useState(
-        chat.map(comment => ({ id: comment.sentAt, text: "", isEditing: false }))
+        cellInfo.value.chat.map(comment => ({ id: comment.sentAt, text: "", isEditing: false }))
     )
     const replyRefs = useRef({}) // To track reply elements for click outside detection
 
@@ -45,10 +43,10 @@ export function ChatModal({
     const [isDragging, setIsDragging] = useState(false)
 
 
-    useEffect(() => {
-        if (chatPrevInfo) {
-            chatTempInfoUpdate(cellId, width, scroll, newComment)
-            openChat(cellId)
+    useEffect(()=>{
+        if(chatPrevInfo){
+            chatTempInfoUpdate(cellInfo.id, width, scroll, newComment)
+            openChat(cellInfo.id)
             chatBodyRef.current.scrollTop = scroll
         }
     }, [])
@@ -75,9 +73,9 @@ export function ChatModal({
     }, []);
 
 
-    useEffect(() => {
-        chatTempInfoUpdate(cellId, width, scroll, newComment)
-    }, [newComment])
+    useEffect(()=>{
+        chatTempInfoUpdate(cellInfo.id, width, scroll, newComment)
+    },[newComment])
 
     // if user click outside the newcomment without text close it
     useEffect(() => {
@@ -147,7 +145,7 @@ export function ChatModal({
         if (onEditMode) {
             // not alowing user insert unvalid title
             if (!checkTitleValidation(textToEdit)) {
-                setTextToEdit(text)
+                setTextToEdit(cellInfo.value.chat)
                 showErrorMsg("Name can't be empty")
             }
             // if everyting ok update title changes
@@ -204,7 +202,7 @@ export function ChatModal({
         if (emptyPossibilities.includes(replyText.trim())) return;
 
         onAddReply(commentId, replyText);
-        chatTempInfoUpdate(cellId, width, scroll, newComment);
+        chatTempInfoUpdate(cellInfo.id, width, scroll, newComment);
 
         setNewReplies((prevReplies) =>
             prevReplies.map((reply) =>
@@ -241,11 +239,11 @@ export function ChatModal({
 
     const handleMouseUp = () => {
         setIsDragging(false)
-        chatTempInfoUpdate(cellId, width, scroll, newComment)
-    }
+        chatTempInfoUpdate(cellInfo.id, width, scroll, newComment)
+      }
 
-    function closeChat() {
-        chatTempInfoUpdate(cellId, width, 0, newComment)
+    function closeChat(){
+        chatTempInfoUpdate(cellInfo.id, width, 0, newComment)
         openChat(null)
         modalToggle()
 
@@ -343,7 +341,7 @@ export function ChatModal({
 
                     {/* Comment List */}
                     <ul className="comments-list">
-                        {chat.map(comment => {
+                        {cellInfo.value.chat.map(comment => {
                             const commenter = getUserById(comment.userId);
                             return (
                                 <li key={comment.sentAt} className="comment">
@@ -409,17 +407,17 @@ export function ChatModal({
                         })}
                     </ul>
                     {
-                        chat.length === 0
-                            ? <div className="empty-chat">
-                                <img src={emptyChatImg} />
-                                <p className="bold-text">
-                                    No updates yet for this item
-                                </p>
-                                <p className="text">
-                                    Be the first one to update about progress, mention someone or upload files to share with your team members
-                                </p>
-                            </div>
-                            : null
+                        cellInfo.value.chat.length === 0 
+                        ? <div className="empty-chat">
+                            <img src={emptyChatImg}/>
+                            <p className="bold-text">
+                                No updates yet for this item
+                            </p>
+                            <p className="text">
+                                Be the first one to update about progress, mention someone or upload files to share with your team members
+                            </p>
+                        </div>
+                        : null
                     }
                     {/* to have some distance to the bottom*/}
                     <div className="white-block" />

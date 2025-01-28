@@ -1,8 +1,10 @@
 import { utilService } from "../../../services/util.service.js"
 
-export function P_Date({tasks}){
+export function P_Date({tasks, labelId}){
 
-    const dates = tasks.map(task=> utilService.formatStrToDate(task.date))
+    const dates = tasks.map(task=> { 
+        const dateCell = task.cells.find(cell=> cell.labelId === labelId)
+        return utilService.formatStrToDate(dateCell.value)})
     const {firstDate, lastDate} = getFirstAndLastDate(dates)
     const finalStr = betweenDatesStr(firstDate, lastDate)
     const progressPrecentage = precentageOfToday(firstDate, lastDate)

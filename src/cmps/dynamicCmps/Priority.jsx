@@ -3,9 +3,9 @@ import { PriorityModal } from './modals/PriorityModal.jsx'
 import { openModal, closeModal } from '../../store/actions/boards.actions.js'
 import { useSelector } from "react-redux";
 
-export function Priority({cellId, group, task, priority, onTaskUpdate }) {
+export function Priority({cellInfo, onTaskUpdate}) {
     const openModals = useSelector(state => state.boardModule.openModals)
-    const modal = openModals.some(modalId => modalId === cellId)
+    const modal = openModals.some(modalId => modalId === (cellInfo.taskId + cellInfo.labelId))
 
     const modalRef = useRef(null)
     const priorityCellRef = useRef(null)
@@ -13,12 +13,12 @@ export function Priority({cellId, group, task, priority, onTaskUpdate }) {
     // close and open modal as needed
     function modalToggle() {
         modal
-        ? closeModal(cellId)
-        : openModal(cellId)
+        ? closeModal(cellInfo.taskId + cellInfo.labelId)
+        : openModal(cellInfo.taskId + cellInfo.labelId)
     }
 
     function onPriorityChange(priority){
-        onTaskUpdate({group, task, type:'priority', value: priority})
+        onTaskUpdate({...cellInfo, value: priority})
         modalToggle()
     }
 
@@ -47,8 +47,8 @@ export function Priority({cellId, group, task, priority, onTaskUpdate }) {
             className="priority-cell" 
             ref={priorityCellRef}
             onClick={modalToggle}
-            style={{ backgroundColor: priority.color }}>
-                {priority.text}
+            style={{ backgroundColor: cellInfo.value.color }}>
+                {cellInfo.value.text}
             </div>
 
             {/* priority modal*/}
