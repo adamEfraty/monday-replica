@@ -60,7 +60,7 @@ export function BoardDetailsHeader({ handleAddTask, boardTitle }) {
         <div
           onBlur={(e) => {
             if (!e.currentTarget.contains(e.relatedTarget)) {
-              handleFilterStateChange(false); // Only trigger if focus leaves the div and its children
+                filterBy.length === 0 && handleFilterStateChange(false); // Only trigger if focus leaves the div and its children
             }
           }}
           onClick={() => handleFilterStateChange(true)}
@@ -76,7 +76,7 @@ export function BoardDetailsHeader({ handleAddTask, boardTitle }) {
               autoFocus
               onBlur={(e) => {
                 if (!e.currentTarget.contains(e.relatedTarget)) {
-                  handleFilterStateChange(false);
+                  filterBy.length === 0 && handleFilterStateChange(false);
                 }
               }}
             />
