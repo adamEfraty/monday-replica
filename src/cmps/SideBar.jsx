@@ -29,6 +29,7 @@ export function SideBar({ boards, user, onRemoveBoard }) {
 
   function handleDotsClick(event, boardId) {
     event.stopPropagation();
+    console.log(boardId);
     onRemoveBoard(boardId);
   }
 
@@ -83,6 +84,7 @@ export function SideBar({ boards, user, onRemoveBoard }) {
           <button className="add-board-button" onClick={() => setMenuDisplay(!menuDisplay)}>
             <PlusIcon style={{ width: 28, height: 26 }} />
           </button>
+          
           {menuDisplay && <MenuModal type="addItem" handleAddBoard={handleAddBoard} />}
         </div>
       </div>
@@ -94,6 +96,7 @@ export function SideBar({ boards, user, onRemoveBoard }) {
             <div
               className="sidebar-board"
               onClick={() => {
+                console.log(board.id);
                 onChangeAdressOnce(
                   `/${utilService.getNameFromEmail(
                     user.email

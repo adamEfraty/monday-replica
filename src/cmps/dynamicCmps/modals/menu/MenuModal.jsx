@@ -9,6 +9,10 @@ export function MenuModal(props) {
       return (
         <SideBarBoard board={props.board} onRemoveBoard={props.onRemoveBoard} />
       );
+      case "task":
+        return (
+            <TaskMenu task={props.task} onRemoveTask={props.onRemoveTask} />
+        );
     default:
       console.error(`Unknown component type: ${props.type}`);
       return <div>Unknown component: {props.type}</div>;
