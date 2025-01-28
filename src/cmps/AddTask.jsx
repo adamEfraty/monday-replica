@@ -1,24 +1,35 @@
-import { useState } from "react"
+import { useState, useRef } from "react"
+import { showErrorMsg } from '../services/event-bus.service.js'
+
 
 export function AddTask({ group, handleAddTask }) {
 
     const [newTaskTitle, setNewTaskTitle] = useState("")
+    const inputRef = useRef(null)
 
     function onAddTask() {
-        if (newTaskTitle !== '')
+        if (newTaskTitle !== ''){
             handleAddTask(group, newTaskTitle)
+            setNewTaskTitle('')
+        } 
+        else showErrorMsg("Name can't be empty")
     }
 
     function handleKeyDown(event) {
-        if (event.key === "Enter")
+        if (event.key === "Enter"){
             onAddTask()
+            inputRef.current.blur()
+        }
+            
     }
 
     return (
-        <section style={{ borderLeft: `5px solid ${group?.color}`, borderBottomLeftRadius: 5 }} className="add-task stick">
+        <section 
+        style={{ borderLeft: `5px solid ${group?.color}`, borderBottomLeftRadius: 5 }} 
+        className="add-task">
             <input
+                ref={inputRef}
                 className="add-input"
-
                 onBlur={onAddTask}
                 onKeyDown={handleKeyDown}
                 type="text"

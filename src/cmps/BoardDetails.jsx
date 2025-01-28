@@ -5,6 +5,7 @@ import { logout, loadUsers } from "../store/actions/user.actions";
 import {
   loadBoards,
   removeTasks,
+  replaceLabels,
   updateTask,
 } from "../store/actions/boards.actions";
 import { SelectedTasksModal } from "./dynamicCmps/modals/SelectedTasksModal";
@@ -13,10 +14,13 @@ import { useNavigate, useParams } from "react-router";
 import { addGroup } from "../store/actions/boards.actions";
 import { addItem } from "../store/actions/boards.actions";
 import { updateGroup } from "../store/actions/boards.actions";
-import { removeGroup } from "../store/actions/boards.actions";
+import { removeGroup, replaceGroups } from "../store/actions/boards.actions";
 import { BoardDetailsHeader } from "./BoardDetailsHeader";
 import { boardService } from "../services/board.service";
 import { utilService } from "../services/util.service";
+import { closestCorners, DndContext } from "@dnd-kit/core";
+import { arrayMove, SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable"
+
 
 const BoardDetails = () => {
   const { boardId } = useParams();
@@ -33,7 +37,8 @@ const BoardDetails = () => {
   const filterBy = useSelector((state) => state.boardModule.filterBy);
 
 
-  // const groups = currentBoard?.groups || [];
+
+  const groups = currentBoard?.groups || [];
 
   useEffect(() => {
     // if (!currentBoard || currentBoard.id !== boardId)
@@ -51,7 +56,6 @@ const BoardDetails = () => {
   useEffect(() => {
     if (boards[0]) {
       const board = boards.find((board) => board.id === boardId);
-      console.log(boards, filterBy, currentBoard, boardId);
       const regExp = new RegExp(filterBy, "i");
       const filteredGroups = board.groups
         .map((group) => ({
@@ -65,6 +69,9 @@ const BoardDetails = () => {
   }, [filterBy]);
 
   //...............................
+
+
+
 
   function handleAddGroup() {
     addGroup(boardId);
@@ -88,8 +95,7 @@ const BoardDetails = () => {
 
   const progress = ["priority", "status", "members", "date"];
   const handleCheckBoxClick = (groupId, taskId) => {
-    console.log(groupId, taskId);
-    console.log(checkedBoxes);
+
     setCheckedBoxes((prev) => {
       if (prev.some((scdArr) => scdArr[1] == taskId)) {
         setCheckedGroups((prev) => prev.filter((id) => id !== groupId));
@@ -134,7 +140,6 @@ const BoardDetails = () => {
   }
 
   async function handleGroupNameChange(groupTitle, group) {
-    console.log(groupTitle, group);
     const updatedTask = { title: groupTitle };
 
     try {
@@ -150,35 +155,117 @@ const BoardDetails = () => {
 
   if (!currentBoard || (currentBoard.id !== boardId))
     return (
-      <div onClick={() => console.log(boards, currentBoard)}>Loading...</div>
+      <div >Loading...</div>
     );
-    
+
+
+
+  //................ IMPORTANT !!!
+  function getGroupPos(id) {
+    return groups.findIndex((group) => group.id === id)
+  }
+
+
+  function getTaskPos(taskId) {
+    for (let i = 0; i < groups.length; i++) {
+      const group = groups[i];
+
+      const taskPos = group.tasks.findIndex(task => task.id === taskId);
+
+      if (taskPos !== -1) {
+        return { groupIndex: i, taskIndex: taskPos };
+      }
+    }
+
+    return null;
+  }
+
+  function getLabelPos(id) {
+    return labels.findIndex(label => label.id === id)
+  }
+
+  async function handleDragEnd(event) {
+    const { active, over } = event;
+
+
+    if (active === over) return;
+
+
+    if (active.id[0] === 'l') {
+      const originalLabelPos = getLabelPos(active.id);
+      const moveToLabel = getLabelPos(over.id);
+
+      const newLabelArray = arrayMove(labels, originalLabelPos, moveToLabel)
+
+      await replaceLabels(boardId, newLabelArray)
+
+    }
+
+
+    if (active.id.length === 5) {
+      const { groupIndex: originalGroupPos, taskIndex: originalTaskPos } = getTaskPos(active.id);
+      const { groupIndex: moveToGroupPos, taskIndex: moveToTaskPos } = getTaskPos(over.id);
+
+      if (originalGroupPos !== moveToGroupPos) {
+        const movedTask = groups[originalGroupPos].tasks[originalTaskPos];
+
+        groups[originalGroupPos].tasks.splice(originalTaskPos, 1);
+
+        groups[moveToGroupPos].tasks.splice(moveToTaskPos, 0, movedTask);
+
+
+        return;
+      }
+
+      const newTaskOrder = arrayMove(groups[originalGroupPos].tasks, originalTaskPos, moveToTaskPos);
+      groups[originalGroupPos].tasks = newTaskOrder;
+
+      console.log(newTaskOrder);
+    }
+
+    const originalPos = getGroupPos(active.id);
+    const moveToPos = getGroupPos(over.id);
+    const newGroupsOrder = arrayMove(groups, originalPos, moveToPos);
+
+    await replaceGroups(boardId, newGroupsOrder);
+  }
+
   return (
     <div className="board-details">
       <BoardDetailsHeader handleAddTask={handleAddTask} boardTitle={currentBoard.title} />
       {currentBoard.groups.length > 0 ? (
-        <section className="group-list">
-          {currentBoard.groups.map((group) => (
-            <GroupPreview
-              group={group}
-              labels={currentBoard.labels}
-              loggedinUser={loggedinUser}
-              progress={progress}
-              key={uid()}
-              onTaskUpdate={onTaskUpdate}
-              checkedBoxes={checkedBoxes}
-              checkedGroups={checkedGroups}
-              handleMasterCheckboxClick={handleMasterCheckboxClick}
-              handleCheckBoxClick={handleCheckBoxClick}
-              handleAddTask={handleAddTask}
-              handleGroupNameChange={handleGroupNameChange}
-              handleDelete={handleDelete}
-              boardId={boardId}
-              users={users}
-              chatTempInfoUpdate={chatTempInfoUpdate}
-              openChat={openChat}
-            />
-          ))}
+        <section className="group-list" >
+          <DndContext onDragEnd={handleDragEnd} collisionDetection={closestCorners}>
+            <SortableContext items={groups.map((group) => group.id)} strategy={verticalListSortingStrategy}>
+              {groups.map((group) => (
+
+
+                < GroupPreview
+                  id={group.id}
+                  group={group}
+                  labels={currentBoard.labels}
+                  loggedinUser={loggedinUser}
+                  progress={progress}
+                  key={group.id}
+                  onTaskUpdate={onTaskUpdate}
+                  checkedBoxes={checkedBoxes}
+                  checkedGroups={checkedGroups}
+                  handleMasterCheckboxClick={handleMasterCheckboxClick}
+                  handleCheckBoxClick={handleCheckBoxClick}
+                  handleAddTask={handleAddTask}
+                  handleGroupNameChange={handleGroupNameChange}
+                  handleDelete={handleDelete}
+                  boardId={boardId}
+                  users={users}
+                  chatTempInfoUpdate={chatTempInfoUpdate}
+                  openChat={openChat}
+                />
+
+
+
+              ))}
+            </SortableContext>
+          </DndContext>
           <button className="modal-save-btn" onClick={handleAddGroup}>
             +Add a new group
           </button>
@@ -190,26 +277,26 @@ const BoardDetails = () => {
           )}
         </section>
       ) : (
-          boards.find((board) => board.id === boardId).groups.length === 0 ? (
-            <section className="no-groups-result">
-                            <img
-                className="search-empty-board-image"
-                src="https://cdn.monday.com/images/search_empty_state.svg"
-              ></img>
-              <h1>No groups here yet, add your first!</h1>
-              <button className="modal-save-btn" onClick={handleAddGroup}>
-                +Add a new group
-              </button>
-            </section>
-          ) : (
-            <section className="no-groups-result">
-              <img
-                className="search-empty-board-image"
-                src="https://cdn.monday.com/images/search_empty_state.svg"
-              ></img>
-              <h1>No tasks match this filter</h1>
-            </section>
-          )
+        boards.find((board) => board.id === boardId).groups.length === 0 ? (
+          <section className="no-groups-result">
+            <img
+              className="search-empty-board-image"
+              src="https://cdn.monday.com/images/search_empty_state.svg"
+            ></img>
+            <h1>No groups here yet, add your first!</h1>
+            <button className="modal-save-btn" onClick={handleAddGroup}>
+              +Add a new group
+            </button>
+          </section>
+        ) : (
+          <section className="no-groups-result">
+            <img
+              className="search-empty-board-image"
+              src="https://cdn.monday.com/images/search_empty_state.svg"
+            ></img>
+            <h1>No tasks match this filter</h1>
+          </section>
+        )
       )}
 
       {/* </section> */}

@@ -11,12 +11,13 @@ export function TaskTitle({ cellInfo,
   users,
   loggedinUser,
   group,
-  task,
   onTaskUpdate,
   chatTempInfoUpdate,
   openChat,
   checkedBoxes,
-  handleCheckBoxClick
+  handleCheckBoxClick,
+  listeners,
+  attributes,
 }) {
 
   const [onEditMode, setOnEditMode] = useState(false)
@@ -34,12 +35,13 @@ export function TaskTitle({ cellInfo,
   const chatPrevInfo = boardService.getChatTempInfo(cellInfo.taskId + cellInfo.labelId)
   const isChatWasOpen = boardService.getOpenChat()
 
-  useEffect(()=>{
+
+  useEffect(() => {
     // when user refresh the page while modal was open
     if(!modal && isChatWasOpen === (cellInfo.taskId + cellInfo.labelId)){
       modalToggle()
     }
-  },[])
+  }, [])
 
 
   function chatAnimation(isEnter) {
@@ -56,7 +58,7 @@ export function TaskTitle({ cellInfo,
     if (isEnter) {
       utilService.animateCSS(modalRef.current, 'fadeInRightBig', 0.3, missingStyle)
       setOpenAnimation(false)
-    } 
+    }
     else utilService.animateCSS(modalRef.current, 'fadeOutRightBig', 0.3, missingStyle)
   }
 
@@ -98,7 +100,6 @@ export function TaskTitle({ cellInfo,
     if (onEditMode) {
 
       if (!checkTitleValidation(textToEdit)) {
-        setTextToEdit(text)
         showErrorMsg("Name can't be empty")
       }
 
@@ -137,7 +138,7 @@ export function TaskTitle({ cellInfo,
 
   return (
     <>
-      <section className="task-title">
+      <section className="task-title" >
         <div className="checkbox-taskName">
           <div className="input-styles">
             <input
@@ -159,8 +160,10 @@ export function TaskTitle({ cellInfo,
                   type="text"
                 />
             }
+
           </div>
         </div>
+        <div style={{ cursor: 'grab' }} {...listeners} {...attributes}></div >
         <div className="chat-icon">
           <ChatIcon onClick={modalToggle} ref={ChatButtonRef} />
         </div>
@@ -169,7 +172,7 @@ export function TaskTitle({ cellInfo,
       {/*chat modal*/}
       {
         modal &&
-        <div ref={modalRef} style={openAnimation?{visibility: 'hidden'}: {visibility: 'visible'}}>
+        <div ref={modalRef} style={openAnimation ? { visibility: 'hidden' } : { visibility: 'visible' }}>
           <ChatModal
             onAddReply={onAddReply}
             onAddComment={onAddComment}

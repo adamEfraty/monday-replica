@@ -27,6 +27,7 @@ export const boardService = {
   updateGroupInBoard,
   addBoard,
   updateBoardName,
+  updateBoard,
   saveTempChatInfo,
   getChatTempInfo,
   getDefaultFilter,
@@ -46,11 +47,16 @@ async function addBoard() {
     const newBoard = {
       title: 'New Board',
       labels: [
-          {id: utilService.makeId(), type: "taskTitle", name:"task"}, 
-          {id: utilService.makeId(), type: "priority", name:"priority"}, 
-          {id: utilService.makeId(), type: "status", name:"status"}, 
-          {id: utilService.makeId(), type: "members", name:"members"}, 
-          {id: utilService.makeId(), type: "date", name:"date"}],
+        { id: utilService.makeIdForLabel(), type: 'taskTitle', name: 'task' },
+        {
+          id: utilService.makeIdForLabel(),
+          type: 'priority',
+          name: 'priority',
+        },
+        { id: utilService.makeIdForLabel(), type: 'status', name: 'status' },
+        { id: utilService.makeIdForLabel(), type: 'members', name: 'members' },
+        { id: utilService.makeIdForLabel(), type: 'date', name: 'date' },
+      ],
       groups: [],
     }
 
@@ -66,12 +72,10 @@ async function addBoard() {
 async function query() {
   try {
     let boards = await storageService.query(STORAGE_KEY)
-    console.log(boards)
     if (!boards || boards.length === 0) {
       await makeFirstBoard()
       boards = await storageService.query(STORAGE_KEY)
     }
-    console.log('dsfjsbdfkhbsdf ', boards)
     return boards
   } catch (error) {
     console.log('Error:', error)
@@ -226,6 +230,25 @@ async function updateGroupInBoard(boardId, groupId, updatedGroupData) {
   }
 }
 
+async function updateBoard(boardId, updatedBoardData) {
+  try {
+    const board = await getById(boardId)
+    if (!board) throw new Error('Board not found')
+
+    const updatedBoard = {
+      ...board,
+      ...updatedBoardData,
+    }
+
+    await save(updatedBoard)
+
+    return updatedBoard
+  } catch (error) {
+    console.error('Error updating board:', error)
+    throw error
+  }
+}
+
 async function updateBoardName(boardId, newName) {
   try {
     // Retrieve the board by ID
@@ -263,11 +286,12 @@ async function makeFirstBoard() {
     title: 'SAR default board',
     members: usersInBoard,
     labels: [
-      {id: utilService.makeId(), type: "taskTitle", name:"task"}, 
-      {id: utilService.makeId(), type: "priority", name:"priority"}, 
-      {id: utilService.makeId(), type: "status", name:"status"}, 
-      {id: utilService.makeId(), type: "members", name:"members"}, 
-      {id: utilService.makeId(), type: "date", name:"date"}],
+      { id: utilService.makeIdForLabel(), type: 'taskTitle', name: 'task' },
+      { id: utilService.makeIdForLabel(), type: 'priority', name: 'priority' },
+      { id: utilService.makeIdForLabel(), type: 'status', name: 'status' },
+      { id: utilService.makeIdForLabel(), type: 'members', name: 'members' },
+      { id: utilService.makeIdForLabel(), type: 'date', name: 'date' },
+    ],
     groups: [],
   }
 
@@ -279,17 +303,27 @@ async function makeFirstBoard() {
 }
 
 // newComments = [width: xxx, scroll: xxx, open: xxx, comments: [{id: xxx, comment: xxx}, ...]]
-function saveTempChatInfo(id, width, scroll, newComment){
+function saveTempChatInfo(id, width, scroll, newComment) {
   const newCommentsStr = sessionStorage.getItem(CHAT_KEY)
 
   // in case no newComments exists
-  if(!newCommentsStr) return sessionStorage.setItem(
-    CHAT_KEY, JSON.stringify({width, scroll, open: id, comments: [{id, comment: newComment}]}))
+  if (!newCommentsStr)
+    return sessionStorage.setItem(
+      CHAT_KEY,
+      JSON.stringify({
+        width,
+        scroll,
+        open: id,
+        comments: [{ id, comment: newComment }],
+      })
+    )
 
   const newComments = JSON.parse(newCommentsStr)
   newComments.width = width
   newComments.scroll = scroll
-  const commentIndex = newComments.comments.findIndex(comment=> comment.id === id)
+  const commentIndex = newComments.comments.findIndex(
+    (comment) => comment.id === id
+  )
 
   // if comment already in commends array
   if (commentIndex !== -1)
@@ -314,7 +348,8 @@ function getChatTempInfo(id) {
     if (commentIndex !== -1)
       return {
         id,
-        width: newComments.width,scroll: newComments.scroll,
+        width: newComments.width,
+        scroll: newComments.scroll,
         comment: newComments.comments[commentIndex].comment,
       }
     // in case it's not
@@ -376,7 +411,7 @@ function getFilterState() {
   }
 }
 
-async function addLableToBoard(boardId, newLable){
+async function addLableToBoard(boardId, newLable) {
   const board = await getById(boardId)
   if (board) {
     board.labels.push(newLable)
