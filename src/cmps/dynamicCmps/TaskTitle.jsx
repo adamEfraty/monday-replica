@@ -38,7 +38,7 @@ export function TaskTitle({ cellInfo,
 
   useEffect(() => {
     // when user refresh the page while modal was open
-    if(!modal && isChatWasOpen === (cellInfo.taskId + cellInfo.labelId)){
+    if (!modal && isChatWasOpen === (cellInfo.taskId + cellInfo.labelId)) {
       modalToggle()
     }
   }, [])
@@ -83,7 +83,7 @@ export function TaskTitle({ cellInfo,
       text: comment,
       replies: []
     }
-    onTaskUpdate({...cellInfo, value: {...cellInfo.value, chat: [newComment, ...cellInfo.value.chat]}})
+    onTaskUpdate({ ...cellInfo, value: { ...cellInfo.value, chat: [newComment, ...cellInfo.value.chat] } })
   }
 
   function onAddReply(commentSentTime, replyTxt) {
@@ -93,7 +93,8 @@ export function TaskTitle({ cellInfo,
         ? { ...comment, replies: [newReply, ...comment.replies] }
         : comment
     })
-    onTaskUpdate({...cellInfo, value: {...cellInfo.value, chat: updatedChat}})  }
+    onTaskUpdate({ ...cellInfo, value: { ...cellInfo.value, chat: updatedChat } })
+  }
 
 
   function toggleEditMode() {
@@ -104,7 +105,7 @@ export function TaskTitle({ cellInfo,
       }
 
       else {
-        onTaskUpdate({...cellInfo, value: {...cellInfo.value, title: textToEdit}})
+        onTaskUpdate({ ...cellInfo, value: { ...cellInfo.value, title: textToEdit } })
       }
     }
 
@@ -133,7 +134,7 @@ export function TaskTitle({ cellInfo,
   }
 
   function onUpdateTitleInChat(text) {
-    onTaskUpdate({...cellInfo, value: {...cellInfo.value, title: text}})
+    onTaskUpdate({ ...cellInfo, value: { ...cellInfo.value, title: text } })
   }
 
   return (
@@ -182,8 +183,8 @@ export function TaskTitle({ cellInfo,
             onUpdateTitleInChat={onUpdateTitleInChat}
             modalToggle={modalToggle}
             chatTempInfoUpdate={chatTempInfoUpdate}
-            chatPrevInfo={chatPrevInfo} 
-            openChat={openChat}/>
+            chatPrevInfo={chatPrevInfo}
+            openChat={openChat} />
         </div>
       }
 

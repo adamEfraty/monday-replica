@@ -87,7 +87,8 @@ const BoardDetails = () => {
 
   // function that set groups with each task update
   const onTaskUpdate = async (newCell) => {
-    await updateTask(currentBoard.id, newCell);}
+    await updateTask(currentBoard.id, newCell);
+  }
 
   // const cmpOrder = ["taskTitle", "priority", "status", "members", "date"];
 
@@ -181,7 +182,7 @@ const BoardDetails = () => {
   }
 
   function getLabelPos(id) {
-    return labels.findIndex(label => label.id === id)
+    return currentBoard.labels.findIndex(label => label.id === id)
   }
 
   async function handleDragEnd(event) {
@@ -195,7 +196,8 @@ const BoardDetails = () => {
       const originalLabelPos = getLabelPos(active.id);
       const moveToLabel = getLabelPos(over.id);
 
-      const newLabelArray = arrayMove(labels, originalLabelPos, moveToLabel)
+      console.log(originalLabelPos, moveToLabel, 'rico poko')
+      const newLabelArray = arrayMove(currentBoard.labels, originalLabelPos, moveToLabel)
 
       await replaceLabels(boardId, newLabelArray)
 
