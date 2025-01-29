@@ -11,7 +11,7 @@ import {
 } from "../store/actions/boards.actions";
 import { boardService } from "../services/board.service";
 import { Filter } from "@mui/icons-material";
-export function BoardDetailsHeader({ handleAddTask, boardTitle, boardId }) {
+export function BoardDetailsHeader({ handleAddTask, boardTitle, boardId, boardColumnsFilter, handleFilteredLabel }) {
   const filterBy = useSelector((state) => state.boardModule.filterBy);
   const boards = useSelector((state) => state.boardModule.boards);
   const [filterByToEdit, setFilterByToEdit] = useState(filterBy);
@@ -65,11 +65,11 @@ export function BoardDetailsHeader({ handleAddTask, boardTitle, boardId }) {
           </div>
         </div>
         <div
-          // onBlur={(e) => {
-          //   if (!e.currentTarget.contains(e.relatedTarget)) {
-          //     filterBy.length === 0 && handleFilterStateChange(false); // Only trigger if focus leaves the div and its children
-          //   }
-          // }}
+          onBlur={(e) => {
+            if (!e.currentTarget.contains(e.relatedTarget)) {
+              filterBy.length === 0 && handleFilterStateChange(false); // Only trigger if focus leaves the div and its children
+            }
+          }}
           onClick={() => handleFilterStateChange(true)}
           className={filterState ? "filter-input" : "choice-div"}
           tabIndex={0} // Make the div focusable
@@ -83,7 +83,7 @@ export function BoardDetailsHeader({ handleAddTask, boardTitle, boardId }) {
                 value={filterByToEdit}
                 autoFocus
               />
-              <FilterModal boardId={boardId} />
+              <FilterModal boardId={boardId} boardColumnsFilter={boardColumnsFilter} handleFilteredLabel={handleFilteredLabel} />
             </>
           ) : (
             <small>Search</small>

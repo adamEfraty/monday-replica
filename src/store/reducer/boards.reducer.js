@@ -6,11 +6,13 @@ export const REMOVE_BOARD = 'REMOVE_BOARD'
 export const ADD_BOARD = 'ADD_BOARD'
 export const OPEN_MODALS = 'OPEN_MODALS'
 export const SET_FILTER_BY = 'SET_FILTER'
+export const SET_FILTERED_COLUMNS = 'SET_FILTERED_COLUMNS'
 
 const initialState = {
   boards: [],
   openModals: [],
   filterBy: '',
+  filteredColumns: [],
   filterState: false,
 }
 
@@ -25,6 +27,7 @@ export const boardReducer = (state = initialState, action) => {
       return {
         ...state,
         boards: state.boards.filter((board) => board.id !== action.boardId),
+        filteredColumns: state.filteredColumns.filter(board => board.id !== action.boardId)
       }
     case ADD_BOARD:
       return {
@@ -52,6 +55,12 @@ export const boardReducer = (state = initialState, action) => {
       return {
         ...state,
         filterBy: action.filterBy,
+      }
+
+      case SET_FILTERED_COLUMNS:
+      return {
+        ...state,
+        filteredColumns: action.newFilteredColumns,
       }
 
     default:
