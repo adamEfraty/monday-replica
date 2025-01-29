@@ -24,21 +24,25 @@ export function TaskTitle({ cellInfo,
   const [textToEdit, setTextToEdit] = useState(cellInfo.value.title)
 
   // so we won't see the chat before the animation
-  const [openAnimation, setOpenAnimation] = useState(false)
+  const [openAnimation, setOpenAnimation] = useState(true)
+
+  const chatId = `chat-${cellInfo.taskId}`
 
   const openModals = useSelector(state => state.boardModule.openModals)
-  const modal = openModals.some(modalId => modalId === (cellInfo.taskId + cellInfo.labelId))
+  const modal = openModals.some(modalId => modalId === (chatId))
 
   const modalRef = useRef(null)
   const ChatButtonRef = useRef(null)
 
-  const chatPrevInfo = boardService.getChatTempInfo(cellInfo.taskId + cellInfo.labelId)
+  const chatPrevInfo = boardService.getChatTempInfo(chatId)
   const isChatWasOpen = boardService.getOpenChat()
 
 
   useEffect(() => {
+    // in this way the modal wont show itself after refresh
+    setTimeout(() => setOpenAnimation(false), 50)
     // when user refresh the page while modal was open
-    if(!modal && isChatWasOpen === (cellInfo.taskId + cellInfo.labelId)){
+    if(isChatWasOpen === chatId){
       modalToggle()
     }
   }, [])
@@ -66,20 +70,20 @@ export function TaskTitle({ cellInfo,
     if (modal) {
       // Close modal
       chatAnimation(false)
-      setTimeout(() => closeModal(cellInfo.taskId + cellInfo.labelId), 275)
+      setTimeout(() => closeModal(chatId), 275)
     } else {
       // Open modal
       setOpenAnimation(true)
-      openModal(cellInfo.taskId + cellInfo.labelId)
+      openModal(chatId)
       setTimeout(() => chatAnimation(true), 10) // Wait for ref to exists
 
     }
   }
 
-  function onAddComment(comment) {
+  function onAddComment(comment, sentAt) {
     const newComment = {
       userId: loggedinUser.id,
-      sentAt: new Date().getTime(),
+      sentAt,
       text: comment,
       replies: []
     }
@@ -176,6 +180,7 @@ export function TaskTitle({ cellInfo,
           <ChatModal
             onAddReply={onAddReply}
             onAddComment={onAddComment}
+            chatId={chatId}
             cellInfo={cellInfo}
             users={[...users]}
             loggedinUser={loggedinUser}

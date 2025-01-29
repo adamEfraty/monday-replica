@@ -11,6 +11,7 @@ import emptyChatImg from '../../../assets/images/empty-chat.png'
 
 export function ChatModal({ 
     cellInfo,
+    chatId,
     loggedinUser,
     users,
     onAddComment,
@@ -44,9 +45,9 @@ export function ChatModal({
 
 
     useEffect(()=>{
-        if(chatPrevInfo){
-            chatTempInfoUpdate(cellInfo.id, width, scroll, newComment)
-            openChat(cellInfo.id)
+        if(chatBodyRef){
+            chatTempInfoUpdate(chatId, width, scroll, newComment)
+            openChat(chatId)
             chatBodyRef.current.scrollTop = scroll
         }
     }, [])
@@ -74,7 +75,7 @@ export function ChatModal({
 
 
     useEffect(()=>{
-        chatTempInfoUpdate(cellInfo.id, width, scroll, newComment)
+        chatTempInfoUpdate(chatId, width, scroll, newComment)
     },[newComment])
 
     // if user click outside the newcomment without text close it
@@ -145,7 +146,7 @@ export function ChatModal({
         if (onEditMode) {
             // not alowing user insert unvalid title
             if (!checkTitleValidation(textToEdit)) {
-                setTextToEdit(cellInfo.value.chat)
+                setTextToEdit(cellInfo.value.chat.text)
                 showErrorMsg("Name can't be empty")
             }
             // if everyting ok update title changes
@@ -170,9 +171,12 @@ export function ChatModal({
         event.preventDefault()
         const emptyPossibilities = ["", "<p><br></p>", "<h1><br></h1>", "<h2><br></h2>", "<h3><br></h3>"]
         if (!emptyPossibilities.includes(newComment)) {
-            onAddComment(newComment)
+            const sentAt = Date.now()
+            onAddComment(newComment, sentAt)
             setNewComment("")
             setOnEditNewComment(false)
+            setNewReplies(prevNewReplaies=>
+                [...prevNewReplaies,{ id: sentAt, text: "", isEditing: false }])
         }
     }
 
@@ -202,7 +206,7 @@ export function ChatModal({
         if (emptyPossibilities.includes(replyText.trim())) return;
 
         onAddReply(commentId, replyText);
-        chatTempInfoUpdate(cellInfo.id, width, scroll, newComment);
+        chatTempInfoUpdate(chatId, width, scroll, newComment);
 
         setNewReplies((prevReplies) =>
             prevReplies.map((reply) =>
@@ -214,11 +218,12 @@ export function ChatModal({
     }
 
     function handleNewReplyToEdit(commentId) {
+        console.log(newReplies)
         setNewReplies((prevReplies) =>
             prevReplies.map((reply) =>
                 reply.id === commentId ? { ...reply, isEditing: true } : reply
             )
-        );
+        )
     }
 
 
@@ -239,11 +244,11 @@ export function ChatModal({
 
     const handleMouseUp = () => {
         setIsDragging(false)
-        chatTempInfoUpdate(cellInfo.id, width, scroll, newComment)
+        chatTempInfoUpdate(chatId, width, scroll, newComment)
       }
 
     function closeChat(){
-        chatTempInfoUpdate(cellInfo.id, width, 0, newComment)
+        chatTempInfoUpdate(chatId, width, 0, newComment)
         openChat(null)
         modalToggle()
 
