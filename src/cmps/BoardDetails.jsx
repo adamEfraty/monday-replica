@@ -227,7 +227,7 @@ const BoardDetails = () => {
   }
 
   function getLabelPos(id) {
-    return labels.findIndex((label) => label.id === id);
+    return currentBoard.labels.findIndex(label => label.id === id)
   }
 
   async function handleDragEnd(event) {
@@ -238,8 +238,10 @@ const BoardDetails = () => {
     if (active.id[0] === "l") {
       const originalLabelPos = getLabelPos(active.id);
       const moveToLabel = getLabelPos(over.id);
+      console.log(originalLabelPos, moveToLabel, 'rico poko')
+      const newLabelArray = arrayMove(currentBoard.labels, originalLabelPos, moveToLabel)
 
-      const newLabelArray = arrayMove(labels, originalLabelPos, moveToLabel);
+      await replaceLabels(boardId, newLabelArray)
 
       await replaceLabels(boardId, newLabelArray);
     }
