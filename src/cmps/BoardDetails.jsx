@@ -332,7 +332,7 @@ const BoardDetails = () => {
             />
           )}
         </section>
-      ) : boards.find((board) => board.id === boardId)?.groups?.length === 0 ? (
+      ) : boards.find((board) => board.id === boardId).groups.length === 0 ? (
         <section className="no-groups-result">
           <img
             className="search-empty-board-image"

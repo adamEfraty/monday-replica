@@ -396,7 +396,7 @@ function setFilterContextSession(txt) {
 function setFilteredColumnsSession(newColumn) {
   console.log('columns: ', newColumn)
   const filteredColumnsArr = JSON.parse(sessionStorage.getItem('filteredColumns'))
-  if(filteredColumnsArr[0]){
+  if(filteredColumnsArr && filteredColumnsArr[0]){
     console.log('filteredColumnsArr: ', filteredColumnsArr)
     const index = filteredColumnsArr.findIndex(column => column.id === newColumn.id)
     filteredColumnsArr[index] = newColumn
