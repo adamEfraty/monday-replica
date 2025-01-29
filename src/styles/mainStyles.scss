@@ -22,6 +22,7 @@
 @use './Board-details-header';
 @use './dynamicCmps/modals/garbage';
 @use './AddLabel.scss';
+@use './dynamicCmps/modals/FilterModal';
 
 * {
   padding: 0;

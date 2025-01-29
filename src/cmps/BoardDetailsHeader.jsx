@@ -2,11 +2,16 @@ import ArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import HomeIcon from "@mui/icons-material/HomeOutlined";
 import HorizDotsIcon from "@mui/icons-material/MoreHorizOutlined";
 import SearchIcon from "@mui/icons-material/SearchOutlined";
+import { FilterModal } from "./dynamicCmps/modals/filterModal";
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { handleFilter, getFilterContext } from "../store/actions/boards.actions";
+import {
+  handleFilter,
+  getFilterContext,
+} from "../store/actions/boards.actions";
 import { boardService } from "../services/board.service";
-export function BoardDetailsHeader({ handleAddTask, boardTitle }) {
+import { Filter } from "@mui/icons-material";
+export function BoardDetailsHeader({ handleAddTask, boardTitle, boardId }) {
   const filterBy = useSelector((state) => state.boardModule.filterBy);
   const boards = useSelector((state) => state.boardModule.boards);
   const [filterByToEdit, setFilterByToEdit] = useState(filterBy);
@@ -15,7 +20,7 @@ export function BoardDetailsHeader({ handleAddTask, boardTitle }) {
   useEffect(() => {
     const filter = getFilterContext();
     setFilterByToEdit(filter);
-  }, [])
+  }, []);
 
   useEffect(() => {
     handleFilter(filterByToEdit);
@@ -52,34 +57,34 @@ export function BoardDetailsHeader({ handleAddTask, boardTitle }) {
       <hr />
       <section className="board-header-actions">
         <div className="newTask-button">
-          <div className="new-task-button" onClick={() => handleAddTask()}>New Item</div>
+          <div className="new-task-button" onClick={() => handleAddTask()}>
+            New Item
+          </div>
           <div className="arrow-down">
             <ArrowDownIcon style={{ ...iconStyle, height: 20 }} />
           </div>
         </div>
         <div
-          onBlur={(e) => {
-            if (!e.currentTarget.contains(e.relatedTarget)) {
-                filterBy.length === 0 && handleFilterStateChange(false); // Only trigger if focus leaves the div and its children
-            }
-          }}
+          // onBlur={(e) => {
+          //   if (!e.currentTarget.contains(e.relatedTarget)) {
+          //     filterBy.length === 0 && handleFilterStateChange(false); // Only trigger if focus leaves the div and its children
+          //   }
+          // }}
           onClick={() => handleFilterStateChange(true)}
           className={filterState ? "filter-input" : "choice-div"}
           tabIndex={0} // Make the div focusable
         >
           <SearchIcon style={{ width: 24, height: 24 }} />
           {filterState ? (
-            <input
-              onChange={handleFilterChange}
-              type="text"
-              value={filterByToEdit}
-              autoFocus
-              onBlur={(e) => {
-                if (!e.currentTarget.contains(e.relatedTarget)) {
-                  filterBy.length === 0 && handleFilterStateChange(false);
-                }
-              }}
-            />
+            <>
+              <input
+                onChange={handleFilterChange}
+                type="text"
+                value={filterByToEdit}
+                autoFocus
+              />
+              <FilterModal boardId={boardId} />
+            </>
           ) : (
             <small>Search</small>
           )}
