@@ -2,17 +2,32 @@ import OptionsIcon from "@mui/icons-material/TuneOutlined";
 import { useSelector } from "react-redux";
 import { openModal, closeModal } from "../../../store/actions/boards.actions";
 import SearchIcon from "@mui/icons-material/SearchOutlined";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { getSvg } from "../../../services/svg.service";
 
-export function FilterModal({ boardId }) {
+export function FilterModal({ boardId, boardColumnsFilter, handleFilteredLabel }) {
   const openModals = useSelector((state) => state.boardModule.openModals);
   const modal = openModals.some((modalId) => modalId === `filter`);
   const boards = useSelector((state) => state.boardModule.boards);
-  const boardLabels = boards.find((board) => board.id === boardId).labels;
+  const [boardLabels, setBoardLabels] = useState(boards.find((board) => board.id === boardId).labels);
+  const [filterBy, setFilterBy] = useState("");  
+
+  useEffect(() => {
+    console.log(boardColumnsFilter)
+  }, [])
+
+  useEffect(() => {
+    const regExp = new RegExp(filterBy, "i");
+    setBoardLabels(boards.find((board) => board.id === boardId).labels.filter((label) => regExp.test(label.name)));
+  }, [filterBy]);
 
   function modalToggle() {
     modal ? closeModal(`filter`) : openModal(`filter`);
+  }
+
+  function handleFilterChange({ target }) {
+    const value = target.value;
+    setFilterBy(value);
   }
 
   return (
@@ -27,7 +42,7 @@ export function FilterModal({ boardId }) {
         <div className="filter-modal-content">
           <h4>Choose columns to search</h4>
           <div className="filter-input">
-            <input type="text" placeholder="Find a column" />
+            <input type="text" placeholder="Find a column" onChange={handleFilterChange} />
             <SearchIcon />
           </div>
           <section className="filter-selection">
@@ -44,9 +59,10 @@ export function FilterModal({ boardId }) {
                 <li key={label.id}>
                   <input
                     type="checkbox"
+                    onChange={() => handleFilteredLabel(label)}
                     id={label.id}
                     name={label.name}
-                    value={label.name}
+                    checked={boardColumnsFilter.labels.some((column) => column.id === label.id)}
                   />
                   <div>
                     {getSvg(`${label.type}-icon`)}
