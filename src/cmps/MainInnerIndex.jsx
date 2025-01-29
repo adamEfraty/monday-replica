@@ -6,8 +6,13 @@ import { addBoard, updateBoardName } from "../store/actions/boards.actions.js";
 import { loadUsers, logout } from "../store/actions/user.actions.js";
 import { BoardCard } from "./BoardCard.jsx";
 import ArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import { useSelector } from "react-redux";
 
 export function MainInnerIndex({ user, isBoard, boards }) {
+  const filteredColumns = useSelector((state) => state.boardModule.filteredColumns);
+  setTimeout(() => {
+    console.log(filteredColumns)
+  }, 1000)
   const navigate = useNavigate();
 
   useEffect(() => {

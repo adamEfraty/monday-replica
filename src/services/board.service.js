@@ -40,6 +40,9 @@ export const boardService = {
   setFilterContextSession,
   addLableToBoard,
   getDefultCell,
+  setFilteredColumnsSession,
+  getFilteredColumnsSession,
+  removeBoardFromFilteredColumnsSession,
 }
 
 async function addBoard() {
@@ -59,9 +62,8 @@ async function addBoard() {
       ],
       groups: [],
     }
-
     const savedBoard = await storageService.post(STORAGE_KEY, newBoard)
-
+    setFilteredColumnsSession({ id: savedBoard.id, labels: savedBoard.labels })
     return savedBoard
   } catch (error) {
     console.error('Error adding board:', error)
@@ -297,7 +299,8 @@ async function makeFirstBoard() {
 
   const boardsFromStorage = await storageService.query(STORAGE_KEY)
   if (!boardsFromStorage || boardsFromStorage.length < 2) {
-    await storageService.post(STORAGE_KEY, board)
+    const savedBoard = await storageService.post(STORAGE_KEY, board)
+    setFilteredColumnsSession([{ id: savedBoard.id, labels: savedBoard.labels }])
     console.log('First board created successfully')
   }
 }
@@ -388,6 +391,37 @@ function setFilterStateSession(state) {
 
 function setFilterContextSession(txt) {
   sessionStorage.setItem('filterContext', txt)
+}
+
+function setFilteredColumnsSession(newColumn) {
+  console.log('columns: ', newColumn)
+  const filteredColumnsArr = JSON.parse(sessionStorage.getItem('filteredColumns'))
+  if(filteredColumnsArr[0]){
+    console.log('filteredColumnsArr: ', filteredColumnsArr)
+    const index = filteredColumnsArr.findIndex(column => column.id === newColumn.id)
+    filteredColumnsArr[index] = newColumn
+    console.log('filteredColumnsArr: ', filteredColumnsArr)
+    sessionStorage.setItem('filteredColumns', JSON.stringify(filteredColumnsArr))
+    return filteredColumnsArr
+  }else{
+    sessionStorage.setItem('filteredColumns', JSON.stringify(newColumn))
+  }
+  sessionStorage.setItem('d', JSON.stringify([{ id: '1', name: 'tal' }]))
+}
+
+function getFilteredColumnsSession() {
+  const filteredColumns = sessionStorage.getItem('filteredColumns')
+  return filteredColumns
+}
+
+function removeBoardFromFilteredColumnsSession(boardId) {
+  const filteredColumns = sessionStorage.getItem('filteredColumns')
+  if(filteredColumns){
+    const filteredColumnsArr = JSON.parse(filteredColumns)
+    const newFilteredColumns = filteredColumnsArr.filter(column => column.id !== boardId)
+    sessionStorage.setItem('filteredColumns', JSON.stringify(newFilteredColumns))
+    return newFilteredColumns
+  }
 }
 
 function getFilterContextSession() {
