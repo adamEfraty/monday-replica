@@ -77,32 +77,33 @@ export function TaskPreview({
             </div>
 
             {labels.map(label => {
-                const cell = task.cells.find(cell=>cell.labelId===label.id)
+                const cell = task.cells.find(cell => cell.labelId === label.id)
                 return (
 
-                <section
-                    key={`task-${task.id}-label-${label.id}`}
-                    style={label.type === 'taskTitle' ? { borderLeft: `5px solid ${group?.color}` } : {}}
-                    className={`grid-item ${label.type} ${label.type === 'taskTitle' ? 'stick' : ''}`}
-                >
-                    <DynamicCmp
-                        listeners={listeners}
-                        attributes={attributes}
-                        cellInfo={cell}
-                        group={group}
-                        loggedinUser={loggedinUser}
-                        label={label}
-                        onTaskUpdate={onTaskUpdate}
-                        users={users}
-                        chatTempInfoUpdate={chatTempInfoUpdate}
-                        openChat={openChat}
-                        checkedBoxes={checkedBoxes}
-                        handleCheckBoxClick={handleCheckBoxClick}
-                    />
+                    <section
+                        key={`task-${task.id}-label-${label.id}`}
+                        style={label.type === 'taskTitle' ? { borderLeft: `5px solid ${group?.color}` } : {}}
+                        className={`grid-item ${label.type} ${label.type === 'taskTitle' ? 'stick' : ''}`}
+                    >
+                        <DynamicCmp
+                            listeners={listeners}
+                            attributes={attributes}
+                            cellInfo={cell}
+                            group={group}
+                            loggedinUser={loggedinUser}
+                            label={label}
+                            onTaskUpdate={onTaskUpdate}
+                            users={users}
+                            chatTempInfoUpdate={chatTempInfoUpdate}
+                            openChat={openChat}
+                            checkedBoxes={checkedBoxes}
+                            handleCheckBoxClick={handleCheckBoxClick}
+                        />
 
 
-                </section>
-            )})
+                    </section>
+                )
+            })
             }
         </section >
     );
@@ -152,7 +153,7 @@ function DynamicCmp({
         case "status":
             return (
                 <Status
-                    cellInfo={cellInfo} 
+                    cellInfo={cellInfo}
                     onTaskUpdate={onTaskUpdate}
                 />
             );

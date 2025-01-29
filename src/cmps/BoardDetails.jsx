@@ -6,6 +6,7 @@ import {
   loadBoards,
   removeTasks,
   replaceLabels,
+  setFilteredColumns,
   updateTask,
 } from "../store/actions/boards.actions";
 import { SelectedTasksModal } from "./dynamicCmps/modals/SelectedTasksModal";
@@ -19,8 +20,11 @@ import { BoardDetailsHeader } from "./BoardDetailsHeader";
 import { boardService } from "../services/board.service";
 import { utilService } from "../services/util.service";
 import { closestCorners, DndContext } from "@dnd-kit/core";
-import { arrayMove, SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable"
-
+import {
+  arrayMove,
+  SortableContext,
+  verticalListSortingStrategy,
+} from "@dnd-kit/sortable";
 
 const BoardDetails = () => {
   const { boardId } = useParams();
@@ -28,6 +32,13 @@ const BoardDetails = () => {
   const [checkedBoxes, setCheckedBoxes] = useState([]);
   const [checkedGroups, setCheckedGroups] = useState([]);
   const boards = useSelector((state) => state.boardModule.boards);
+  const filteredColumns = useSelector(
+    (state) => state.boardModule.filteredColumns
+  );
+  const [boardColumnsFilter, setBoardColumnsFilter] = useState({
+    id: "",
+    labels: [],
+  });
   const [currentBoard, setCurrentBoard] = useState(
     boards.find((board) => board.id === boardId)
   );
@@ -36,42 +47,63 @@ const BoardDetails = () => {
   const users = useSelector((state) => state.userModule.users);
   const filterBy = useSelector((state) => state.boardModule.filterBy);
 
-
-
   const groups = currentBoard?.groups || [];
+
+  useEffect(() => {
+    console.log("filteredColumns", filteredColumns);
+    filteredColumns &&
+      setBoardColumnsFilter(
+        filteredColumns.find((board) => board.id === boardId)
+      );
+  }, [filteredColumns]);
 
   useEffect(() => {
     // if (!currentBoard || currentBoard.id !== boardId)
     setCurrentBoard(boards.find((board) => board.id === boardId));
   }, [boards, boardId]);
 
-  useEffect(() => {
-    async function d() {
-      await loadBoards();
-      await loadUsers();
-    }
-    d();
-  }, [boards.groups]);
+  // useEffect(() => {
+  //   async function d() {
+  //     await loadBoards();
+  //     await loadUsers();
+  //     console.log('this is')
+  //   }
+  //   d();
+  // }, [boards.groups]);
 
   useEffect(() => {
+    console.log(boardColumnsFilter, filteredColumns);
     if (boards[0]) {
       const board = boards.find((board) => board.id === boardId);
       const regExp = new RegExp(filterBy, "i");
       const filteredGroups = board.groups
         .map((group) => ({
           ...group,
-          tasks: group.tasks.filter((task) => regExp.test(task.cells[0].value.title)), // Filter tasks
+          tasks: group.tasks.filter((task) => {
+            return boardColumnsFilter.labels.some((column) => {
+              const index = task.cells.findIndex(
+                (cell) => cell.type === column.type
+              );
+              if (index === -1) return false;
+              return column.type === "members"
+                ? task.cells[index].value.some((member) => regExp.test(member))
+                : regExp.test(
+                    column.type === "taskTitle"
+                      ? task.cells[index].value.title
+                      : column.type === "date"
+                      ? task.cells[index].value
+                      : task.cells[index].value.text
+                  );
+            });
+          }), // Filter tasks
         }))
         .filter((group) => group.tasks.length > 0); // Keep groups that have tasks
 
       setCurrentBoard({ ...board, groups: filteredGroups }); // Update currentBoard with filtered groups
     }
-  }, [filterBy]);
+  }, [filterBy, boardColumnsFilter]);
 
   //...............................
-
-
-
 
   function handleAddGroup() {
     addGroup(boardId);
@@ -87,7 +119,8 @@ const BoardDetails = () => {
 
   // function that set groups with each task update
   const onTaskUpdate = async (newCell) => {
-    await updateTask(currentBoard.id, newCell);}
+    await updateTask(currentBoard.id, newCell);
+  };
 
   // const cmpOrder = ["taskTitle", "priority", "status", "members", "date"];
 
@@ -95,7 +128,6 @@ const BoardDetails = () => {
 
   const progress = ["priority", "status", "members", "date"];
   const handleCheckBoxClick = (groupId, taskId) => {
-
     setCheckedBoxes((prev) => {
       if (prev.some((scdArr) => scdArr[1] == taskId)) {
         setCheckedGroups((prev) => prev.filter((id) => id !== groupId));
@@ -136,7 +168,12 @@ const BoardDetails = () => {
   }
 
   function handleAddTask(group = null, taskTitle = "New Task") {
-    addItem(boardId, group ? group.id : currentBoard.groups[0].id, taskTitle, !group && true);
+    addItem(
+      boardId,
+      group ? group.id : currentBoard.groups[0].id,
+      taskTitle,
+      !group && true
+    );
   }
 
   async function handleGroupNameChange(groupTitle, group) {
@@ -153,24 +190,19 @@ const BoardDetails = () => {
     removeGroup(boardId, groupId);
   }
 
-  if (!currentBoard || (currentBoard.id !== boardId))
-    return (
-      <div >Loading...</div>
-    );
-
-
+  if (!currentBoard || currentBoard.id !== boardId)
+    return <div>Loading...</div>;
 
   //................ IMPORTANT !!!
   function getGroupPos(id) {
-    return groups.findIndex((group) => group.id === id)
+    return groups.findIndex((group) => group.id === id);
   }
-
 
   function getTaskPos(taskId) {
     for (let i = 0; i < groups.length; i++) {
       const group = groups[i];
 
-      const taskPos = group.tasks.findIndex(task => task.id === taskId);
+      const taskPos = group.tasks.findIndex((task) => task.id === taskId);
 
       if (taskPos !== -1) {
         return { groupIndex: i, taskIndex: taskPos };
@@ -180,31 +212,45 @@ const BoardDetails = () => {
     return null;
   }
 
+  function handleFilteredLabel(label) {
+    boardColumnsFilter.labels.some((column) => column.id === label.id)
+      ? setFilteredColumns({
+          id: currentBoard.id,
+          labels: boardColumnsFilter.labels.filter(
+            (column) => column.id !== label.id
+          ),
+        })
+      : setFilteredColumns({
+          id: boardId,
+          labels: [...boardColumnsFilter.labels, label],
+        });
+  }
+
   function getLabelPos(id) {
-    return labels.findIndex(label => label.id === id)
+    return currentBoard.labels.findIndex(label => label.id === id)
   }
 
   async function handleDragEnd(event) {
     const { active, over } = event;
 
-
     if (active === over) return;
 
-
-    if (active.id[0] === 'l') {
+    if (active.id[0] === "l") {
       const originalLabelPos = getLabelPos(active.id);
       const moveToLabel = getLabelPos(over.id);
-
-      const newLabelArray = arrayMove(labels, originalLabelPos, moveToLabel)
+      console.log(originalLabelPos, moveToLabel, 'rico poko')
+      const newLabelArray = arrayMove(currentBoard.labels, originalLabelPos, moveToLabel)
 
       await replaceLabels(boardId, newLabelArray)
 
+      await replaceLabels(boardId, newLabelArray);
     }
 
-
     if (active.id.length === 5) {
-      const { groupIndex: originalGroupPos, taskIndex: originalTaskPos } = getTaskPos(active.id);
-      const { groupIndex: moveToGroupPos, taskIndex: moveToTaskPos } = getTaskPos(over.id);
+      const { groupIndex: originalGroupPos, taskIndex: originalTaskPos } =
+        getTaskPos(active.id);
+      const { groupIndex: moveToGroupPos, taskIndex: moveToTaskPos } =
+        getTaskPos(over.id);
 
       if (originalGroupPos !== moveToGroupPos) {
         const movedTask = groups[originalGroupPos].tasks[originalTaskPos];
@@ -213,11 +259,14 @@ const BoardDetails = () => {
 
         groups[moveToGroupPos].tasks.splice(moveToTaskPos, 0, movedTask);
 
-
         return;
       }
 
-      const newTaskOrder = arrayMove(groups[originalGroupPos].tasks, originalTaskPos, moveToTaskPos);
+      const newTaskOrder = arrayMove(
+        groups[originalGroupPos].tasks,
+        originalTaskPos,
+        moveToTaskPos
+      );
       groups[originalGroupPos].tasks = newTaskOrder;
 
       console.log(newTaskOrder);
@@ -232,15 +281,25 @@ const BoardDetails = () => {
 
   return (
     <div className="board-details">
-      <BoardDetailsHeader handleAddTask={handleAddTask} boardTitle={currentBoard.title} />
+      <BoardDetailsHeader
+        handleAddTask={handleAddTask}
+        boardTitle={currentBoard.title}
+        boardId={currentBoard.id}
+        boardColumnsFilter={boardColumnsFilter}
+        handleFilteredLabel={handleFilteredLabel}
+      />
       {currentBoard.groups.length > 0 ? (
-        <section className="group-list" >
-          <DndContext onDragEnd={handleDragEnd} collisionDetection={closestCorners}>
-            <SortableContext items={groups.map((group) => group.id)} strategy={verticalListSortingStrategy}>
+        <section className="group-list">
+          <DndContext
+            onDragEnd={handleDragEnd}
+            collisionDetection={closestCorners}
+          >
+            <SortableContext
+              items={groups.map((group) => group.id)}
+              strategy={verticalListSortingStrategy}
+            >
               {groups.map((group) => (
-
-
-                < GroupPreview
+                <GroupPreview
                   id={group.id}
                   group={group}
                   labels={currentBoard.labels}
@@ -260,9 +319,6 @@ const BoardDetails = () => {
                   chatTempInfoUpdate={chatTempInfoUpdate}
                   openChat={openChat}
                 />
-
-
-
               ))}
             </SortableContext>
           </DndContext>
@@ -276,27 +332,25 @@ const BoardDetails = () => {
             />
           )}
         </section>
+      ) : boards.find((board) => board.id === boardId).groups.length === 0 ? (
+        <section className="no-groups-result">
+          <img
+            className="search-empty-board-image"
+            src="https://cdn.monday.com/images/search_empty_state.svg"
+          ></img>
+          <h1>No groups here yet, add your first!</h1>
+          <button className="modal-save-btn" onClick={handleAddGroup}>
+            +Add a new group
+          </button>
+        </section>
       ) : (
-        boards.find((board) => board.id === boardId).groups.length === 0 ? (
-          <section className="no-groups-result">
-            <img
-              className="search-empty-board-image"
-              src="https://cdn.monday.com/images/search_empty_state.svg"
-            ></img>
-            <h1>No groups here yet, add your first!</h1>
-            <button className="modal-save-btn" onClick={handleAddGroup}>
-              +Add a new group
-            </button>
-          </section>
-        ) : (
-          <section className="no-groups-result">
-            <img
-              className="search-empty-board-image"
-              src="https://cdn.monday.com/images/search_empty_state.svg"
-            ></img>
-            <h1>No tasks match this filter</h1>
-          </section>
-        )
+        <section className="no-groups-result">
+          <img
+            className="search-empty-board-image"
+            src="https://cdn.monday.com/images/search_empty_state.svg"
+          ></img>
+          <h1>No tasks match this filter</h1>
+        </section>
       )}
 
       {/* </section> */}
