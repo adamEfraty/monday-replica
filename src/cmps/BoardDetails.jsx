@@ -232,14 +232,12 @@ const BoardDetails = () => {
 
   return (
     <div className="board-details">
-      <BoardDetailsHeader handleAddTask={handleAddTask} boardTitle={currentBoard.title} />
+      <BoardDetailsHeader handleAddTask={handleAddTask} boardTitle={currentBoard.title} boardId={currentBoard.id} />
       {currentBoard.groups.length > 0 ? (
         <section className="group-list" >
           <DndContext onDragEnd={handleDragEnd} collisionDetection={closestCorners}>
             <SortableContext items={groups.map((group) => group.id)} strategy={verticalListSortingStrategy}>
               {groups.map((group) => (
-
-
                 < GroupPreview
                   id={group.id}
                   group={group}
@@ -260,9 +258,6 @@ const BoardDetails = () => {
                   chatTempInfoUpdate={chatTempInfoUpdate}
                   openChat={openChat}
                 />
-
-
-
               ))}
             </SortableContext>
           </DndContext>
