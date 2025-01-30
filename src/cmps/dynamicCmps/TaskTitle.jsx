@@ -6,6 +6,7 @@ import { openModal, closeModal } from '../../store/actions/boards.actions.js'
 import { useSelector } from "react-redux";
 import { utilService } from "../../services/util.service.js";
 import { boardService } from "../../services/board.service.js";
+import ReactDOM from 'react-dom';
 
 export function TaskTitle({ cellInfo,
   users,
@@ -46,6 +47,7 @@ export function TaskTitle({ cellInfo,
       modalToggle()
     }
   }, [])
+
 
 
   function chatAnimation(isEnter) {
@@ -177,21 +179,31 @@ export function TaskTitle({ cellInfo,
       {/*chat modal*/}
       {
         modal &&
-        <div ref={modalRef} style={openAnimation ? { visibility: 'hidden' } : { visibility: 'visible' }}>
-          <ChatModal
-            onAddReply={onAddReply}
-            onAddComment={onAddComment}
-            chatId={chatId}
-            cellInfo={cellInfo}
-            users={[...users]}
-            loggedinUser={loggedinUser}
-            onUpdateTitleInChat={onUpdateTitleInChat}
-            modalToggle={modalToggle}
-            chatTempInfoUpdate={chatTempInfoUpdate}
-            chatPrevInfo={chatPrevInfo}
-            openChat={openChat} />
-        </div>
+        ReactDOM.createPortal(
+          <div
+            ref={modalRef}
+            style={{
+              visibility: openAnimation ? 'hidden' : 'visible',
+            }}
+          >
+            <ChatModal
+              onAddReply={onAddReply}
+              onAddComment={onAddComment}
+              chatId={chatId}
+              cellInfo={cellInfo}
+              users={[...users]}
+              loggedinUser={loggedinUser}
+              onUpdateTitleInChat={onUpdateTitleInChat}
+              modalToggle={modalToggle}
+              chatTempInfoUpdate={chatTempInfoUpdate}
+              chatPrevInfo={chatPrevInfo}
+              openChat={openChat}
+            />
+          </div>,
+          document.body // Appends the modal properly
+        )
       }
+
 
     </>
   )
