@@ -378,8 +378,8 @@ function getOpenChat() {
 }
 
 function replaceChats(newModals, modalId) {
-  if (modalId.slice(-5) === 'title') {
-    let result = newModals.filter((id) => id.slice(-5) !== 'title')
+  if (modalId.substring(0, 4) === 'chat') {
+    let result = newModals.filter((id) => id.substring(0, 4) !== 'chat')
     return [...result, modalId]
   }
   return newModals
@@ -489,4 +489,5 @@ function getDefultCell(label, taskId){
       return null;
   }
 }
+
 

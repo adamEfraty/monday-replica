@@ -12,13 +12,11 @@ export function AddTask({ group, handleAddTask }) {
             handleAddTask(group, newTaskTitle)
             setNewTaskTitle('')
         } 
-        else showErrorMsg("Name can't be empty")
     }
 
     function handleKeyDown(event) {
         if (event.key === "Enter"){
             onAddTask()
-            inputRef.current.blur()
         }
             
     }
