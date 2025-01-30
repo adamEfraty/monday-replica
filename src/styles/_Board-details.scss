@@ -110,7 +110,7 @@ section.group-grid {
 
 
 .labels-grid div {
-  padding: 0.7rem;
+  // padding: 0.7rem;
   text-align: center;
   font-weight: 800;
   border: 1px solid #e0dede;
@@ -245,7 +245,7 @@ div {
   }
 }
 section.labels-grid {
-  position: sticky;
+  // position: sticky;
   top: 200px;
   z-index: 4;
   background-color: #fff;
@@ -256,7 +256,7 @@ section.labels-grid {
 }
 
 div.group-title-flex {
-  position: sticky;
+  // position: sticky;
   padding: 1rem;
   top: 145px;
   background-color: #fff;
@@ -265,13 +265,13 @@ div.group-title-flex {
 .prog-box {
   border: 1px solid #e0dede;
 }
-// .stick {
-//   position: sticky;
-//   left: 0;
-//   z-index: 3;
-//   background-color: #ffffff;
-//   display: inline-block;
-// }
+.stick {
+  position: sticky;
+  left: 0;
+  z-index: 1;
+  background-color: #ffffff;
+  display: inline-block;
+}
 // .stick2 {
 //   position: sticky;
 //   z-index: 1000;

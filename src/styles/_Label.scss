@@ -1,0 +1,21 @@
+.label{
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    i{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 20px;
+        height: 20px;
+        position: absolute;
+        right: 10px;
+        font-size: 1.1em;
+        border-radius: 3px;
+        &:hover{
+            background-color: #E7E8EB;
+        }
+    }
+}

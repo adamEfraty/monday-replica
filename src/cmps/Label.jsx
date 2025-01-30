@@ -14,8 +14,12 @@ export function Label({ label, id }) {
 
     };
     return (
-        <div ref={setNodeRef} {...listeners} {...attributes} style={{ ...style, textAlign: 'center' }} key={`label-${label.id}`}>
-            {label.name}
+        <div ref={setNodeRef} {...listeners} {...attributes}  
+        style={style}
+        key={`label-${label.id}`}
+        className="label">
+            <p>{label.name}</p>
+            <i class="fa-solid fa-ellipsis"></i>
         </div>
     )
 
