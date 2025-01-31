@@ -15,6 +15,7 @@ import {
 export async function addBoard() {
   try {
     const savedBoard = await boardService.addBoard();
+    await setFilteredColumns({id: savedBoard.id, labels: savedBoard.labels});
 
     const boards = await boardService.query();
 
@@ -39,10 +40,6 @@ export async function loadBoards() {
     boardService.setFilteredColumnsSession(
       boards.map((board) => ({ id: board.id, labels: board.labels }))
     );
-    console.log(boards.map((board) => ({
-      id: board.id,
-      labels: board.labels,
-    })))
   await store.dispatch({ type: SET_BOARDS, boards });
   await store.dispatch({
     type: SET_FILTERED_COLUMNS,
@@ -317,6 +314,7 @@ export async function addLable(boardId, labelInfo) {
   };
   const newBoard = await boardService.addLableToBoard(boardId, newLabel);
   if (!newBoard) return;
+  await setFilteredColumns(newLabel);
 
   store.dispatch({
     type: EDIT_BOARD,
@@ -371,4 +369,9 @@ export async function setFilteredColumns(filteredColumns) {
   );
   console.log(newFilteredColumns);
   store.dispatch({ type: SET_FILTERED_COLUMNS, newFilteredColumns });
+}
+
+export function setFavories(favorites) {
+  const serviceFavorites = boardService.setFavorites(favorites);
+  store.dispatch({ type: SET_FAVORITES, serviceFavorites });
 }

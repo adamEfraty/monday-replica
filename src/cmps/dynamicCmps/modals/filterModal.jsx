@@ -12,14 +12,16 @@ export function FilterModal({ boardId, boardColumnsFilter, handleFilteredLabel }
   const [boardLabels, setBoardLabels] = useState(boards.find((board) => board.id === boardId).labels);
   const [filterBy, setFilterBy] = useState("");  
 
+
+
   useEffect(() => {
-    console.log(boardColumnsFilter)
-  }, [])
+    console.log(`boardColumnsFilter: `, boardColumnsFilter)
+  })
 
   useEffect(() => {
     const regExp = new RegExp(filterBy, "i");
     setBoardLabels(boards.find((board) => board.id === boardId).labels.filter((label) => regExp.test(label.name)));
-  }, [filterBy]);
+  }, [filterBy, boards]);
 
   function modalToggle() {
     modal ? closeModal(`filter`) : openModal(`filter`);
