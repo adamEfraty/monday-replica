@@ -27,6 +27,7 @@ import {
 } from "@dnd-kit/sortable";
 
 const BoardDetails = () => {
+  const loggedInUser = useSelector((state) => state.userModule.user);
   const { boardId } = useParams();
   const navigate = useNavigate();
   const [checkedBoxes, setCheckedBoxes] = useState([]);
@@ -43,6 +44,10 @@ const BoardDetails = () => {
     boards.find((board) => board.id === boardId)
   );
 
+  useEffect(() => {
+    console.log(filteredColumns);
+  }, []);
+
   const loggedinUser = useSelector((state) => state.userModule.user);
   const users = useSelector((state) => state.userModule.users);
   const filterBy = useSelector((state) => state.boardModule.filterBy);
@@ -50,12 +55,28 @@ const BoardDetails = () => {
   const groups = currentBoard?.groups || [];
 
   useEffect(() => {
-    console.log("filteredColumns", filteredColumns);
+    const index = boards.findIndex((board) => board.id === boardId);
+    index < 0 &&
+      navigate(
+        `/${utilService.getNameFromEmail(loggedInUser.email)}s-team.sunday.com`
+      );
+  }, [boards]);
+
+  useEffect(() => {
+    console.log(filteredColumns);
+  }, [filteredColumns]);
+
+  useEffect(() => {
+    console.log(
+      "filteredColumns csdfsdfsdf ",
+      boardColumnsFilter,
+      filteredColumns
+    );
     filteredColumns &&
       setBoardColumnsFilter(
         filteredColumns.find((board) => board.id === boardId)
       );
-  }, [filteredColumns]);
+  }, [filteredColumns, boardId]);
 
   useEffect(() => {
     // if (!currentBoard || currentBoard.id !== boardId)
@@ -75,31 +96,43 @@ const BoardDetails = () => {
     console.log(boardColumnsFilter, filteredColumns);
     if (boards[0]) {
       const board = boards.find((board) => board.id === boardId);
-      const regExp = new RegExp(filterBy, "i");
-      const filteredGroups = board.groups
-        .map((group) => ({
-          ...group,
-          tasks: group.tasks.filter((task) => {
-            return boardColumnsFilter.labels.some((column) => {
-              const index = task.cells.findIndex(
-                (cell) => cell.type === column.type
-              );
-              if (index === -1) return false;
-              return column.type === "members"
-                ? task.cells[index].value.some((member) => regExp.test(member))
-                : regExp.test(
-                    column.type === "taskTitle"
-                      ? task.cells[index].value.title
-                      : column.type === "date"
-                      ? task.cells[index].value
-                      : task.cells[index].value.text
-                  );
-            });
-          }), // Filter tasks
-        }))
-        .filter((group) => group.tasks.length > 0); // Keep groups that have tasks
+      if (!board) {
+        navigate(
+          `/${utilService.getNameFromEmail(
+            loggedInUser.email
+          )}s-team.sunday.com`
+        );
+      } else {
+        const regExp = new RegExp(filterBy, "i");
+        const filteredGroups = board.groups
+          .map((group) => ({
+            ...group,
+            tasks: group.tasks.filter((task) => {
+              return boardColumnsFilter.labels.some((column) => {
+                const index = task.cells.findIndex(
+                  (cell) => cell.type === column.type
+                );
+                if (index === -1) return false;
+                return column.type === "members"
+                  ? task.cells[index].value.some(
+                      (member) =>
+                        regExp.test(member.fullName) ||
+                        regExp.test(member.email)
+                    )
+                  : regExp.test(
+                      column.type === "taskTitle"
+                        ? task.cells[index].value.title
+                        : column.type === "date"
+                        ? task.cells[index].value
+                        : task.cells[index].value.text
+                    );
+              });
+            }), // Filter tasks
+          }))
+          .filter((group) => group.tasks.length > 0); // Keep groups that have tasks
 
-      setCurrentBoard({ ...board, groups: filteredGroups }); // Update currentBoard with filtered groups
+        setCurrentBoard({ ...board, groups: filteredGroups }); // Update currentBoard with filtered groups
+      }
     }
   }, [filterBy, boardColumnsFilter]);
 
@@ -227,7 +260,7 @@ const BoardDetails = () => {
   }
 
   function getLabelPos(id) {
-    return currentBoard.labels.findIndex(label => label.id === id)
+    return currentBoard.labels.findIndex((label) => label.id === id);
   }
 
   async function handleDragEnd(event) {
@@ -238,10 +271,14 @@ const BoardDetails = () => {
     if (active.id[0] === "l") {
       const originalLabelPos = getLabelPos(active.id);
       const moveToLabel = getLabelPos(over.id);
-      console.log(originalLabelPos, moveToLabel, 'rico poko')
-      const newLabelArray = arrayMove(currentBoard.labels, originalLabelPos, moveToLabel)
+      console.log(originalLabelPos, moveToLabel, "rico poko");
+      const newLabelArray = arrayMove(
+        currentBoard.labels,
+        originalLabelPos,
+        moveToLabel
+      );
 
-      await replaceLabels(boardId, newLabelArray)
+      await replaceLabels(boardId, newLabelArray);
 
       await replaceLabels(boardId, newLabelArray);
     }
@@ -332,27 +369,29 @@ const BoardDetails = () => {
             />
           )}
         </section>
-      ) : boards.find((board) => board.id === boardId).groups.length === 0 ? (
-        <section className="no-groups-result">
-          <img
-            className="search-empty-board-image"
-            src="https://cdn.monday.com/images/search_empty_state.svg"
-          ></img>
-          <h1>No groups here yet, add your first!</h1>
-          <button className="modal-save-btn" onClick={handleAddGroup}>
-            +Add a new group
-          </button>
-        </section>
       ) : (
-        <section className="no-groups-result">
-          <img
-            className="search-empty-board-image"
-            src="https://cdn.monday.com/images/search_empty_state.svg"
-          ></img>
-          <h1>No tasks match this filter</h1>
-        </section>
+        boards.find((board) => board.id === boardId) &&
+        (boards.find((board) => board.id === boardId).groups.length === 0 ? (
+          <section className="no-groups-result">
+            <img
+              className="search-empty-board-image"
+              src="https://cdn.monday.com/images/search_empty_state.svg"
+            ></img>
+            <h1>No groups here yet, add your first!</h1>
+            <button className="modal-save-btn" onClick={handleAddGroup}>
+              +Add a new group
+            </button>
+          </section>
+        ) : (
+          <section className="no-groups-result">
+            <img
+              className="search-empty-board-image"
+              src="https://cdn.monday.com/images/search_empty_state.svg"
+            ></img>
+            <h1>No tasks match this filter</h1>
+          </section>
+        ))
       )}
-
       {/* </section> */}
     </div>
   );

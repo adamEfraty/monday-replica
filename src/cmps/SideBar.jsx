@@ -6,6 +6,7 @@ import { useNavigate, useLocation } from "react-router";
 import { addBoard } from "../store/actions/boards.actions";
 import { utilService } from "../services/util.service";
 import ArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import ArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import PlusIcon from "@mui/icons-material/AddOutlined";
 import BoardIcon from "@mui/icons-material/SpaceDashboardOutlined";
 import HorizDotsIcon from "@mui/icons-material/MoreHorizOutlined";
@@ -14,6 +15,7 @@ import { useState } from "react";
 
 export function SideBar({ boards, user, onRemoveBoard }) {
   const [menuDisplay, setMenuDisplay] = useState(false);
+  const [favoritesOpen, setFavoritesOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -65,66 +67,83 @@ export function SideBar({ boards, user, onRemoveBoard }) {
           />
           <p>Favorites</p>
         </div>
-        {<ArrowDownIcon />}
+        {favoritesOpen ? (
+          <ArrowUpIcon onClick={() => setFavoritesOpen(!favoritesOpen)} />
+        ) : (
+          <ArrowDownIcon onClick={() => setFavoritesOpen(!favoritesOpen)} />
+        )}
       </section>
 
-      <hr />
-
       {/* Workspaces Section */}
-      <div className="workspaces">
-        <section>
-          <WorkspacesIcon className="side-bar-icon work" style={iconStyle} />
-          <p>Workspaces</p>
-        </section>
-        <div className="add-board">
-          <div>
-            <h3>Main Workspace</h3>
-            <ArrowDownIcon style={iconStyle} />
+      {favoritesOpen ? (
+        ""
+      ) : (
+        <>
+        <hr />
+          <div className="workspaces">
+            <section>
+              <WorkspacesIcon
+                className="side-bar-icon work"
+                style={iconStyle}
+              />
+              <p>Workspaces</p>
+            </section>
+            <div className="add-board">
+              <div>
+                <h3>Main Workspace</h3>
+                <ArrowDownIcon style={iconStyle} />
+              </div>
+              <button
+                className="add-board-button"
+                onClick={() => setMenuDisplay(!menuDisplay)}
+              >
+                <PlusIcon style={{ width: 28, height: 26 }} />
+              </button>
+
+              {menuDisplay && (
+                <MenuModal type="addItem" handleAddBoard={handleAddBoard} />
+              )}
+            </div>
           </div>
-          <button className="add-board-button" onClick={() => setMenuDisplay(!menuDisplay)}>
-            <PlusIcon style={{ width: 28, height: 26 }} />
-          </button>
-          
-          {menuDisplay && <MenuModal type="addItem" handleAddBoard={handleAddBoard} />}
-        </div>
-      </div>
 
-      {/* Board List */}
-      <ul className="sidebar-boardlist">
-        {boards.map((board) => (
-          <li key={board.id}>
-            <div
-              className="sidebar-board"
-              onClick={() => {
-                console.log(board.id);
-                onChangeAdressOnce(
-                  `/${utilService.getNameFromEmail(
-                    user.email
-                  )}s-team.sunday.com/boards/${board.id}`
-                );
-              }}
-            >
-              <section>
-                <BoardIcon style={iconStyle} />
-                {/* Board Title Navigation */}
-                <h3>{board.title}</h3>
-              </section>
+          {/* Board List */}
+          <ul className="sidebar-boardlist">
+            {boards.map((board) => (
+              <li key={board.id}>
+                <div
+                  className="sidebar-board"
+                  onClick={() => {
+                    console.log(board.id);
+                    onChangeAdressOnce(
+                      `/${utilService.getNameFromEmail(
+                        user.email
+                      )}s-team.sunday.com/boards/${board.id}`
+                    );
+                  }}
+                >
+                  <section>
+                    <BoardIcon style={iconStyle} />
+                    {/* Board Title Navigation */}
+                    <h3>{board.title}</h3>
+                  </section>
 
-              {/* <button
+                  {/* <button
                 className="options-menu"
                 onClick={() => onRemoveBoard(board.id)}
               >
                 X
               </button> */}
-              <HorizDotsIcon
-                onClick={(event) => handleDotsClick(event, board.id)}
-                className="horizontal-dots-icon"
-                style={iconStyle}
-              />
-            </div>
-          </li>
-        ))}
-      </ul>
+                  <HorizDotsIcon
+                    onClick={(event) => handleDotsClick(event, board.id)}
+                    className="horizontal-dots-icon"
+                    style={iconStyle}
+                  />
+                </div>
+              </li>
+            ))}
+          </ul>
+        </>
+      )}
     </nav>
   );
 }

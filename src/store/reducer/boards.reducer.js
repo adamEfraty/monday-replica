@@ -14,6 +14,7 @@ const initialState = {
   filterBy: '',
   filteredColumns: [],
   filterState: false,
+  favorites: [],
 }
 
 export const boardReducer = (state = initialState, action) => {
