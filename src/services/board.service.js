@@ -47,18 +47,21 @@ export const boardService = {
   setFavorites,
 };
 
-function setFavorites(favoriteId) {
+async function setFavorites(favoriteId) {
   const localFavorites = JSON.parse(localStorage.getItem(FAVORITES_KEY)) || [];
   if (localFavorites && localFavorites[0]) {
-    const index = localFavorites.findIndex((id) => id === favoriteId);
+    const index = await localFavorites.findIndex((id) => id === favoriteId);
     if (index !== -1) {
       localFavorites.splice(index, 1);
-    } else {
+    } else if(typeof favoriteId === "string") {
       localFavorites.push(favoriteId);
     }
     localStorage.setItem(FAVORITES_KEY, JSON.stringify(localFavorites));
+    return await localFavorites;
   } else {
-    localStorage.setItem(FAVORITES_KEY, JSON.stringify([favoriteId]));
+    const inputFavorite = Array.isArray(favoriteId) ? favoriteId : [favoriteId]
+    localStorage.setItem(FAVORITES_KEY, JSON.stringify(inputFavorite));
+    return inputFavorite;
   }
 }
 

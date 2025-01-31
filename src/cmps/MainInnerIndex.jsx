@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import BoardDetails from "./BoardDetails";
 import { useNavigate } from "react-router";
-import { loadBoards } from "../store/actions/boards.actions.js";
+import { loadBoards, setFavories } from "../store/actions/boards.actions.js";
 import { addBoard, updateBoardName } from "../store/actions/boards.actions.js";
 import { loadUsers, logout } from "../store/actions/user.actions.js";
 import { BoardCard } from "./BoardCard.jsx";
@@ -10,9 +10,6 @@ import { useSelector } from "react-redux";
 
 export function MainInnerIndex({ user, isBoard, boards }) {
   const filteredColumns = useSelector((state) => state.boardModule.filteredColumns);
-  setTimeout(() => {
-    console.log(filteredColumns)
-  }, 1000)
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -29,6 +26,11 @@ export function MainInnerIndex({ user, isBoard, boards }) {
 
   function onUpdateBoardName(id, title) {
     updateBoardName(id, title);
+  }
+
+  async function handleFavorite(boardId){
+    await setFavories(boardId);
+    console.log(boardId)
   }
 
   return !isBoard ? (
@@ -51,6 +53,7 @@ export function MainInnerIndex({ user, isBoard, boards }) {
                 key={board.id}
                 board={board}
                 onUpdateBoardName={onUpdateBoardName}
+                handleFavorite={handleFavorite}
               />
             ))}
           </div>
