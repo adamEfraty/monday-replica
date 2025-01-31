@@ -12,8 +12,6 @@ export function FilterModal({ boardId, boardColumnsFilter, handleFilteredLabel }
   const [boardLabels, setBoardLabels] = useState(boards.find((board) => board.id === boardId).labels);
   const [filterBy, setFilterBy] = useState("");  
 
-
-
   useEffect(() => {
     console.log(`boardColumnsFilter: `, boardColumnsFilter)
   })

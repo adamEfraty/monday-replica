@@ -7,6 +7,7 @@ export const ADD_BOARD = 'ADD_BOARD'
 export const OPEN_MODALS = 'OPEN_MODALS'
 export const SET_FILTER_BY = 'SET_FILTER'
 export const SET_FILTERED_COLUMNS = 'SET_FILTERED_COLUMNS'
+export const SET_FAVORITES = 'SET_FAVORITES'
 
 const initialState = {
   boards: [],
@@ -62,6 +63,12 @@ export const boardReducer = (state = initialState, action) => {
       return {
         ...state,
         filteredColumns: action.newFilteredColumns,
+      }
+
+      case SET_FAVORITES:
+      return {
+        ...state,
+        favorites: action.favorites,
       }
 
     default:

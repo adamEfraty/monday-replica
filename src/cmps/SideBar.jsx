@@ -12,10 +12,13 @@ import BoardIcon from "@mui/icons-material/SpaceDashboardOutlined";
 import HorizDotsIcon from "@mui/icons-material/MoreHorizOutlined";
 import { MenuModal } from "./dynamicCmps/modals/menu/MenuModal";
 import { useState } from "react";
+import { useSelector } from "react-redux";
+import { getSvg, SvgCmp } from "../services/svg.service";
 
 export function SideBar({ boards, user, onRemoveBoard }) {
   const [menuDisplay, setMenuDisplay] = useState(false);
   const [favoritesOpen, setFavoritesOpen] = useState(false);
+  const favorites = useSelector((state) => state.boardModule.favorites);
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -61,9 +64,10 @@ export function SideBar({ boards, user, onRemoveBoard }) {
       {/* Favorites Section */}
       <section className="favorites">
         <div>
-          <FavoritesIcon
+          <SvgCmp
+            type={!favoritesOpen ? `empty-rating-icon` : `full-rating-icon`}
             className="side-bar-icon favorites"
-            style={iconStyle}
+            style={favoritesOpen ? iconStyle : {...iconStyle, backgroundColor: ""}}
           />
           <p>Favorites</p>
         </div>
@@ -76,10 +80,37 @@ export function SideBar({ boards, user, onRemoveBoard }) {
 
       {/* Workspaces Section */}
       {favoritesOpen ? (
-        ""
+                  <ul className="sidebar-boardlist">
+                  {boards.map((board) => favorites.includes(board.id) && (
+                    <li key={board.id}>
+                      <div
+                        className="sidebar-board"
+                        onClick={() => {
+                          console.log(board.id);
+                          onChangeAdressOnce(
+                            `/${utilService.getNameFromEmail(
+                              user.email
+                            )}s-team.sunday.com/boards/${board.id}`
+                          );
+                        }}
+                      >
+                        <section>
+                          <BoardIcon style={iconStyle} />
+                          {/* Board Title Navigation */}
+                          <h3>{board.title}</h3>
+                        </section>
+                        <HorizDotsIcon
+                          onClick={(event) => handleDotsClick(event, board.id)}
+                          className="horizontal-dots-icon"
+                          style={iconStyle}
+                        />
+                      </div>
+                    </li>
+                  ))}
+                </ul>
       ) : (
         <>
-        <hr />
+          <hr />
           <div className="workspaces">
             <section>
               <WorkspacesIcon

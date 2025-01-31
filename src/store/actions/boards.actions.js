@@ -10,6 +10,7 @@ import {
   OPEN_MODALS,
   SET_FILTER_BY,
   SET_FILTERED_COLUMNS,
+  SET_FAVORITES
 } from "../reducer/boards.reducer";
 
 export async function addBoard() {
@@ -40,6 +41,8 @@ export async function loadBoards() {
     boardService.setFilteredColumnsSession(
       boards.map((board) => ({ id: board.id, labels: board.labels }))
     );
+    const favorites = await setFavories();
+    console.log(favorites);
   await store.dispatch({ type: SET_BOARDS, boards });
   await store.dispatch({
     type: SET_FILTERED_COLUMNS,
@@ -371,7 +374,8 @@ export async function setFilteredColumns(filteredColumns) {
   store.dispatch({ type: SET_FILTERED_COLUMNS, newFilteredColumns });
 }
 
-export function setFavories(favorites) {
-  const serviceFavorites = boardService.setFavorites(favorites);
-  store.dispatch({ type: SET_FAVORITES, serviceFavorites });
+export async function setFavories(favorite = []) {
+  const serviceFavorites = await boardService.setFavorites(favorite);
+  store.dispatch({ type: SET_FAVORITES, favorites: serviceFavorites });
+  return await serviceFavorites;
 }
