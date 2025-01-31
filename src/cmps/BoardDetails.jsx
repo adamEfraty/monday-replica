@@ -45,7 +45,7 @@ const BoardDetails = () => {
   );
 
   useEffect(() => {
-      console.log(filteredColumns);
+    console.log(filteredColumns);
   }, []);
 
   const loggedinUser = useSelector((state) => state.userModule.user);
@@ -114,8 +114,10 @@ const BoardDetails = () => {
                 );
                 if (index === -1) return false;
                 return column.type === "members"
-                  ? task.cells[index].value.some((member) =>
-                      regExp.test(member)
+                  ? task.cells[index].value.some(
+                      (member) =>
+                        regExp.test(member.fullName) ||
+                        regExp.test(member.email)
                     )
                   : regExp.test(
                       column.type === "taskTitle"
