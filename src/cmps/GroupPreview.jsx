@@ -153,7 +153,7 @@ export const GroupPreview = ({
               className="labels-grid"
               style={{
                 borderTopLeftRadius: 5,
-                gridTemplateColumns: `10px 400px repeat(${labels.length}, 150px) 500px`
+                gridTemplateColumns: `10px ${labels.map(label => `${label.width}px`).join(' ')} 500px`
               }}
             >
               <section className="ghost "></section>
@@ -175,7 +175,7 @@ export const GroupPreview = ({
                       < section className="title-group" key={`label-${label.id}`}>{label.name}</section>
                     </div >
                     :
-                    <Label key={label.id} id={label.id} label={label} boardId={boardId} />
+                    <Label key={label.id} id={label.id} label={label} boardId={boardId} groupId={group.id} />
                 ))}
               </SortableContext >
 
@@ -211,8 +211,7 @@ export const GroupPreview = ({
             <section
               className="progress-grid"
               style={{
-
-                gridTemplateColumns: `10px 400px repeat(${labels.length}, 150px) 500px`
+                gridTemplateColumns: `10px ${labels.map(label => `${label.width}px`).join(' ')} 500px`
               }}
             >
 

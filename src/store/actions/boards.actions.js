@@ -314,6 +314,7 @@ export async function addLable(boardId, labelInfo) {
     id: utilService.makeIdForLabel(),
     type: labelInfo.type,
     name: labelInfo.name,
+    width: 150,
   };
   const newBoard = await boardService.addLableToBoard(boardId, newLabel);
   if (!newBoard) return;

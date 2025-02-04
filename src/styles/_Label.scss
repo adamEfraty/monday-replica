@@ -71,6 +71,18 @@
         }
     }
 
+    .drag-label{
+        position: absolute;
+        right: 0px;
+        width: 7px;
+        height: 100%;
+        background-color: gray;
+        
+        &:hover{
+            background-color: blue;
+        }
+    }
+
     
 }
 

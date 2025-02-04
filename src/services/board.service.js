@@ -72,15 +72,11 @@ async function addBoard() {
     const newBoard = {
       title: "New Board",
       labels: [
-        { id: utilService.makeIdForLabel(), type: "taskTitle", name: "task" },
-        {
-          id: utilService.makeIdForLabel(),
-          type: "priority",
-          name: "priority",
-        },
-        { id: utilService.makeIdForLabel(), type: "status", name: "status" },
-        { id: utilService.makeIdForLabel(), type: "members", name: "members" },
-        { id: utilService.makeIdForLabel(), type: "date", name: "date" },
+        { id: utilService.makeIdForLabel(), type: "taskTitle", name: "task", width: 400 },
+        { id: utilService.makeIdForLabel(), type: "priority", name: "priority", width: 150 },
+        { id: utilService.makeIdForLabel(), type: "status", name: "status", width: 150 },
+        { id: utilService.makeIdForLabel(), type: "members", name: "members", width: 150 },
+        { id: utilService.makeIdForLabel(), type: "date", name: "date", width: 150 },
       ],
       groups: [],
     };
@@ -313,11 +309,11 @@ async function makeFirstBoard() {
     title: "SAR default board",
     members: usersInBoard,
     labels: [
-      { id: utilService.makeIdForLabel(), type: "taskTitle", name: "task" },
-      { id: utilService.makeIdForLabel(), type: "priority", name: "priority" },
-      { id: utilService.makeIdForLabel(), type: "status", name: "status" },
-      { id: utilService.makeIdForLabel(), type: "members", name: "members" },
-      { id: utilService.makeIdForLabel(), type: "date", name: "date" },
+      { id: utilService.makeIdForLabel(), type: "taskTitle", name: "task", width: 400 },
+      { id: utilService.makeIdForLabel(), type: "priority", name: "priority", width: 150 },
+      { id: utilService.makeIdForLabel(), type: "status", name: "status", width: 150 },
+      { id: utilService.makeIdForLabel(), type: "members", name: "members", width: 150 },
+      { id: utilService.makeIdForLabel(), type: "date", name: "date", width: 150 },
     ],
     groups: [],
   };

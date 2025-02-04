@@ -11,13 +11,12 @@ import { getSvg } from "../services/svg.service.jsx";
 
 
 
-export function Label({ label, id, boardId }) {
+export function Label({ label, id, boardId, groupId }) {
 
     const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id })
-    const labelId = `label-${label.id}`
 
     const openModals = useSelector(state => state.boardModule.openModals)
-    const modal = openModals.some(modalId => modalId === labelId)
+    const modal = openModals.some(modalId => modalId === (label.id+groupId))
     const modalRef = useRef(null)
     const buttonRef = useRef(null)
 
@@ -27,8 +26,8 @@ export function Label({ label, id, boardId }) {
     // close and open modal as needed
     function modalToggle() {
         modal
-        ? closeModal(labelId)
-        : openModal(labelId)
+        ? closeModal(label.id+groupId)
+        : openModal(label.id+groupId)
     }
 
     //if user click outside modal, close it
@@ -117,6 +116,11 @@ export function Label({ label, id, boardId }) {
                   onPointerDown={e => e.stopPropagation()}
                 />
             }
+
+            <div className="drag-label">
+                
+
+            </div>
 
 
             {
