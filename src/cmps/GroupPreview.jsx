@@ -175,7 +175,7 @@ export const GroupPreview = ({
                       < section className="title-group" key={`label-${label.id}`}>{label.name}</section>
                     </div >
                     :
-                    <Label key={label.id} id={label.id} label={label} />
+                    <Label key={label.id} id={label.id} label={label} boardId={boardId} />
                 ))}
               </SortableContext >
 

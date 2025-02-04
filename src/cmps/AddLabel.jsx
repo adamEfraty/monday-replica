@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { useState, useRef, useEffect } from "react";
 import { openModal, closeModal } from '../store/actions/boards.actions.js'
 import { getSvg } from "../services/svg.service.jsx";
+import { blue } from "@mui/material/colors";
 
 
 
@@ -53,7 +54,15 @@ export function AddLabel({groupId, boardId}){
         <section className="add-label">
             <button ref={buttonRef}
             className="add-column-button" 
-            onClick={modalToggle}>+</button>
+            onClick={modalToggle}
+            style={ modal ? {backgroundColor: '#EBEBEC'} : {}}
+            >
+                <div className={modal ? 'plus-open' : 'plus'}>
+                    {
+                        getSvg('thin-plus')
+                    }
+                </div>
+            </button>
             {
                 modal
                 ? <section className="add-label-modal" ref={modalRef}>

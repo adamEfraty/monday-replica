@@ -45,6 +45,8 @@ export const boardService = {
   getFilteredColumnsSession,
   removeBoardFromFilteredColumnsSession,
   setFavorites,
+  deleteLableFromBoard,
+  changeLabelName,
 };
 
 async function setFavorites(favoriteId) {
@@ -490,20 +492,47 @@ function getFilterState() {
 }
 
 async function addLableToBoard(boardId, newLable) {
-  const board = await getById(boardId);
+  const board = await getById(boardId)
   if (board) {
-    board.labels.push(newLable);
+    board.labels.push(newLable)
     const newGroups = board.groups.map((group) => ({
       ...group,
       tasks: group.tasks.map((task) => ({
         ...task,
         cells: [...task.cells, getDefultCell(newLable, task.id)],
       })),
-    }));
-    board.groups = newGroups;
-    save(board);
-    return board;
-  } else throw new Error("Board not found");
+    }))
+    board.groups = newGroups
+    save(board)
+    return board
+  } else throw new Error("Board not found")
+}
+
+async function deleteLableFromBoard(boardId, labelId) {
+  const board = await getById(boardId)
+  if(board){
+    board.labels = board.labels.filter(label => label.id !== labelId)
+    const newGroups = board.groups.map((group) => ({
+      ...group,
+      tasks: group.tasks.map((task) => ({
+        ...task,
+        cells: task.cells.filter(cell=>cell.labelId !== labelId),
+      })),
+    }))
+    board.groups = newGroups
+    save(board)
+    return board
+  } else throw new Error("Board not found")
+}
+
+async function changeLabelName(boardId, labelId, newName){
+  const board = await getById(boardId)
+  if(board){
+    board.labels = board.labels.map(label => 
+      (label.id === labelId) ? {...label, name: newName} : label)
+    save(board)
+    return board
+  } else throw new Error("Board not found")
 }
 
 function getDefultCell(label, taskId) {
@@ -543,3 +572,5 @@ function getDefultCell(label, taskId) {
       return null;
   }
 }
+
+

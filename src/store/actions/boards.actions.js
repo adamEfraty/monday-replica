@@ -326,6 +326,28 @@ export async function addLable(boardId, labelInfo) {
   });
 }
 
+export async function deleteLable(boardId, labelId){
+  const newBoard = await boardService.deleteLableFromBoard(boardId, labelId)
+  if (!newBoard) return;
+
+  store.dispatch({
+    type: EDIT_BOARD,
+    boardId,
+    updatedBoard: newBoard,
+  })
+}
+
+export async function onChangeLabelName(boardId, labelId, newName){
+  const newBoard = await boardService.changeLabelName(boardId, labelId, newName)
+  if (!newBoard) return;
+
+  store.dispatch({
+    type: EDIT_BOARD,
+    boardId,
+    updatedBoard: newBoard,
+  })
+}
+
 export async function replaceGroups(boardId, newGroups) {
   const board = await boardService.getById(boardId);
   if (!board) throw new Error("Board not found");
@@ -379,3 +401,4 @@ export async function setFavories(favorite = []) {
   store.dispatch({ type: SET_FAVORITES, favorites: serviceFavorites });
   return await serviceFavorites;
 }
+
