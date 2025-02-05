@@ -147,6 +147,7 @@ function DynamicCmp({
                     openChat={openChat}
                     checkedBoxes={checkedBoxes}
                     handleCheckBoxClick={handleCheckBoxClick}
+                    label={label}
                 />
             );
 

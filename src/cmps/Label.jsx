@@ -26,6 +26,20 @@ export function Label({ label, id, boardId, groupId }) {
     const board = useSelector((state) => 
         state.boardModule.boards.find(board=>board.id === boardId));
 
+    const [hoverLable, setHoverLabel] = useState(false)
+
+    // controls hoverlabel state
+    useEffect(() => {
+        const handleHoverLabel = (event) => {
+            if (labelRef.current) 
+                labelRef.current.contains(event.target) 
+                ? setHoverLabel(true)
+                : setHoverLabel(false)
+        }
+
+        document.addEventListener("mouseover", handleHoverLabel);
+        return () => document.removeEventListener("mouseout", handleHoverLabel);
+    }, []);
 
     // close and open modal as needed
     function modalToggle() {
@@ -79,7 +93,8 @@ export function Label({ label, id, boardId, groupId }) {
         modalToggle()
     }
 
-    function handleLongText(text, maxLetters = 8) { // going to be spence of column width
+    function handleLongText(text) { 
+        const maxLetters = Math.max(Math.floor(label.width / 7) - 20, 5)
         if (text.length < maxLetters) return text
         else {
           const shortenText = `${text.slice(0, maxLetters)}...`
@@ -91,7 +106,7 @@ export function Label({ label, id, boardId, groupId }) {
     const handleMouseMove = useCallback((event) => {
         if (!isDragging || !labelRef.current) return
         const labelBoundaries = labelRef.current.getBoundingClientRect()
-        const newWidth = event.clientX - labelBoundaries.x
+        const newWidth = event.clientX - labelBoundaries.x 
         const MIN_WIDTH = 100
         onUpdateReduxLabelWidth(board, boardId, label.id, Math.max(newWidth, MIN_WIDTH))
     }, [isDragging, board, boardId, label.id])
@@ -129,7 +144,8 @@ export function Label({ label, id, boardId, groupId }) {
         }}
         {...listeners} 
         {...attributes}  
-        style={{transform: CSS.Transform.toString(transform), transition}}
+        style={{transform: CSS.Transform.toString(transform), transition, 
+            backgroundColor: hoverLable || modal || isDragging ? '#F5F6F8' : 'white'}}
         // key={labelId} is it neccery?
         className="label"
         onMouseMove={handleMouseMove}
@@ -142,7 +158,11 @@ export function Label({ label, id, boardId, groupId }) {
                     className="fa-solid fa-ellipsis"
                     onClick={modalToggle}
                     onPointerDown={e => e.stopPropagation()} // Stops DnD from activating on mouse down
-                    > </i>
+                    style={{
+                        opacity: hoverLable || modal || isDragging ? "1" : "0",
+                        backgroundColor: modal && "#CBE4FE"
+                    }}>
+                    </i>
 
                     <p onClick={toggleEditMode}
                     onPointerDown={e => e.stopPropagation()}
@@ -163,7 +183,11 @@ export function Label({ label, id, boardId, groupId }) {
 
             <div className="drag-label"
             onPointerDown={e => e.stopPropagation()}
-            onMouseDown={handleMouseDown}>
+            onMouseDown={handleMouseDown}
+            style={{
+                opacity: hoverLable || modal || isDragging ? "1" : "0",
+                backgroundColor: isDragging && '#0073EA'
+                }}>
                 
 
             </div>

@@ -72,14 +72,17 @@
     }
 
     .drag-label{
+        z-index: 1;
+        cursor: col-resize;
         position: absolute;
-        right: -4px;
+        right: -5px;
         width: 8px;
         height: 100%;
-        background-color: gray;
+        background-color: #D0D4E4;
+        border-radius: 4px;
         
         &:hover{
-            background-color: blue;
+            background-color: #0073EA;
         }
     }
 

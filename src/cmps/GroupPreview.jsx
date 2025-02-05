@@ -21,6 +21,7 @@ import { horizontalListSortingStrategy, SortableContext, useSortable, verticalLi
 import { CSS } from "@dnd-kit/utilities";
 import { TaskPreview } from "./TaskPreview.jsx";
 import { Label } from "./Label.jsx";
+import { LabelTitle } from "./LabelTitle.jsx";
 import { Color } from "./dynamicCmps/modals/Color.jsx";
 
 export const GroupPreview = ({
@@ -171,7 +172,7 @@ export const GroupPreview = ({
 
                         />
                       </section>
-                      < section className="title-group" key={`label-${label.id}`}>{label.name}</section>
+                      <LabelTitle key={label.id} label={label} boardId={boardId} />
                     </div >
                     :
                     <Label key={label.id} id={label.id} label={label} boardId={boardId} groupId={group.id} />
