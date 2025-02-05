@@ -50,7 +50,7 @@ export function TaskPreview({
         <section
             ref={setNodeRef}
             className="group-grid"
-            style={{ ...style, gridTemplateColumns: `10px 400px repeat(${labels.length}, 150px) 500px` }}
+            style={{ ...style, gridTemplateColumns: `10px ${labels.map(label => `${label.width}px`).join(' ')} 500px` }}
             key={`task-${task.id}`}
         >
             <div className="dots">

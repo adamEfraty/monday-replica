@@ -47,6 +47,7 @@ export const boardService = {
   setFavorites,
   deleteLableFromBoard,
   changeLabelName,
+  changeLabelWidth,
 };
 
 async function setFavorites(favoriteId) {
@@ -530,6 +531,18 @@ async function changeLabelName(boardId, labelId, newName){
     return board
   } else throw new Error("Board not found")
 }
+
+async function changeLabelWidth(boardId, labelId, newWidth){
+  const board = await getById(boardId)
+  if(board){
+    board.labels = board.labels.map(label => 
+      (label.id === labelId) ? {...label, width: newWidth} : label)
+    save(board)
+    return board
+  } else throw new Error("Board not found")
+}
+
+
 
 function getDefultCell(label, taskId) {
   switch (label.type) {

@@ -91,7 +91,6 @@ export const GroupPreview = ({
 
 
 
-
   return (
     <div style={style} ref={setNodeRef} className="group-list-dnd" >
 

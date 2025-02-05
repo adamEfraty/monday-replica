@@ -2,13 +2,10 @@ import { useSortable } from "@dnd-kit/sortable"
 import { CSS } from "@dnd-kit/utilities"
 import { openModal, closeModal } from '../store/actions/boards.actions.js'
 import { useSelector } from "react-redux";
-import { useState, useRef, useEffect } from "react";
-import { deleteLable, onChangeLabelName } from "../store/actions/boards.actions.js";
+import { useState, useRef, useEffect, useCallback } from "react";
+import { deleteLable, onChangeLabelName, onUpdateReduxLabelWidth, onUpdateLocalLabelWidth } from "../store/actions/boards.actions.js";
 import { showErrorMsg } from '../services/event-bus.service.js'
 import { getSvg } from "../services/svg.service.jsx";
-
-
-
 
 
 export function Label({ label, id, boardId, groupId }) {
@@ -22,6 +19,13 @@ export function Label({ label, id, boardId, groupId }) {
 
     const [onEditMode, setOnEditMode] = useState(false)
     const [textToEdit, setTextToEdit] = useState(label.name)
+
+    const [isDragging, setIsDragging] = useState(false)
+    const labelRef = useRef(null)
+    // so no every width change there will be call to storage
+    const board = useSelector((state) => 
+        state.boardModule.boards.find(board=>board.id === boardId));
+
 
     // close and open modal as needed
     function modalToggle() {
@@ -83,13 +87,53 @@ export function Label({ label, id, boardId, groupId }) {
         }
       }
 
+    // Ensure `handleMouseMove` is stable
+    const handleMouseMove = useCallback((event) => {
+        if (!isDragging || !labelRef.current) return
+        const labelBoundaries = labelRef.current.getBoundingClientRect()
+        const newWidth = event.clientX - labelBoundaries.x
+        const MIN_WIDTH = 100
+        onUpdateReduxLabelWidth(board, boardId, label.id, Math.max(newWidth, MIN_WIDTH))
+    }, [isDragging, board, boardId, label.id])
 
+    // Ensure `handleMouseUp` is stable
+    const handleMouseUp = useCallback(() => {
+        if (!isDragging) return;
+        setIsDragging(false)
+        onUpdateLocalLabelWidth(boardId, label.id, label.width)
+    }, [isDragging, boardId, label.id, label.width])
+
+    useEffect(() => {
+        if (isDragging) {
+            document.addEventListener("mousemove", handleMouseMove)
+            document.addEventListener("mouseup", handleMouseUp)
+        } else {
+            document.removeEventListener("mousemove", handleMouseMove)
+            document.removeEventListener("mouseup", handleMouseUp)
+        }
+        return () => {
+            document.removeEventListener("mousemove", handleMouseMove)
+            document.removeEventListener("mouseup", handleMouseUp)
+        };
+    }, [isDragging, handleMouseMove, handleMouseUp])
+
+    // Handle mouse down correctly
+    const handleMouseDown = () => {
+        setIsDragging(true)
+    }
 
     return (
-        <div ref={setNodeRef} {...listeners} {...attributes}  
+        <div ref={el => { // Assign both refs
+            setNodeRef(el);  
+            labelRef.current = el;
+        }}
+        {...listeners} 
+        {...attributes}  
         style={{transform: CSS.Transform.toString(transform), transition}}
         // key={labelId} is it neccery?
-        className="label">
+        className="label"
+        onMouseMove={handleMouseMove}
+        onMouseUp={handleMouseUp}>
             {
               !onEditMode
                 ? 
@@ -117,7 +161,9 @@ export function Label({ label, id, boardId, groupId }) {
                 />
             }
 
-            <div className="drag-label">
+            <div className="drag-label"
+            onPointerDown={e => e.stopPropagation()}
+            onMouseDown={handleMouseDown}>
                 
 
             </div>

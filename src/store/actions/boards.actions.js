@@ -403,3 +403,27 @@ export async function setFavories(favorite = []) {
   return await serviceFavorites;
 }
 
+export function onUpdateReduxLabelWidth(board, boardId, labelId, newWidth){
+  
+  const newLabels = board.labels.map(label=> 
+    (label.id === labelId) ? {...label, width: newWidth} : label)
+  const newBoard = {...board, labels: newLabels}
+
+  store.dispatch({
+    type: EDIT_BOARD,
+    boardId,
+    updatedBoard: newBoard,
+  })
+
+}
+
+export async function onUpdateLocalLabelWidth(boardId, labelId, newWidth){
+  const newBoard = await boardService.changeLabelWidth(boardId, labelId, newWidth)
+
+  store.dispatch({
+    type: EDIT_BOARD,
+    boardId,
+    updatedBoard: newBoard,
+  })
+}
+
