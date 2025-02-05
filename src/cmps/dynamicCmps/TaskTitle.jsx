@@ -19,7 +19,7 @@ export function TaskTitle({ cellInfo,
   handleCheckBoxClick,
   listeners,
   attributes,
-  label,
+  labelWidth,
 }) {
 
   const [onEditMode, setOnEditMode] = useState(false)
@@ -133,7 +133,7 @@ export function TaskTitle({ cellInfo,
   }
 
   function handleLongText(text) {
-    const maxLetters = Math.floor(label.width / 7) - 32
+    const maxLetters = Math.floor(labelWidth / 7) - 32
     if (text.length < maxLetters) return text
     else {
       const shortenText = `${text.slice(0, maxLetters)}...`

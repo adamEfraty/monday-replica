@@ -1,6 +1,6 @@
 import { getSvg } from "../../../services/svg.service.jsx"
 
-export function PriorityModal({onPriorityChange}){
+export function PriorityModal({onPriorityChange, labelWidth}){
 
     //temporary priorities selection
     const priorities = [{text:'Low', color:'#86B6FB'},{text:'Medium', color:'#5559DF'},
@@ -8,7 +8,8 @@ export function PriorityModal({onPriorityChange}){
 
 
     return (
-        <section className="priority-modal">
+        <section className="priority-modal"
+        style={{"--cell-width": `${labelWidth}px`}}>
 
             <div className="white-arrow">{getSvg('white-arrow')}</div>
             {/* list of quick access prioritise */}

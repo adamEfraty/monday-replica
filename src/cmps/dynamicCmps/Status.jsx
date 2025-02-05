@@ -3,7 +3,7 @@ import { StatusModal } from './modals/StatusModal.jsx'
 import { openModal, closeModal } from '../../store/actions/boards.actions.js'
 import { useSelector } from "react-redux";
 
-export function Status({cellInfo, onTaskUpdate}) {
+export function Status({cellInfo, onTaskUpdate, labelWidth}) {
     const openModals = useSelector(state => state.boardModule.openModals)
     const modal = openModals.some(modalId => modalId === (cellInfo.taskId + cellInfo.labelId))
 
@@ -56,7 +56,8 @@ export function Status({cellInfo, onTaskUpdate}) {
             {modal &&
                 <div ref={modalRef}>
                     <StatusModal
-                        onStatusChange={onStatusChange} />
+                        onStatusChange={onStatusChange} 
+                        labelWidth={labelWidth}/>
                 </div>
             }
         </section>

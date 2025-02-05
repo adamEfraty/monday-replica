@@ -130,6 +130,7 @@ function DynamicCmp({
                 <Priority
                     cellInfo={cellInfo}
                     onTaskUpdate={onTaskUpdate}
+                    labelWidth={label.width}
                 />
             );
 
@@ -147,7 +148,7 @@ function DynamicCmp({
                     openChat={openChat}
                     checkedBoxes={checkedBoxes}
                     handleCheckBoxClick={handleCheckBoxClick}
-                    label={label}
+                    labelWidth={label.width}
                 />
             );
 
@@ -156,6 +157,7 @@ function DynamicCmp({
                 <Status
                     cellInfo={cellInfo}
                     onTaskUpdate={onTaskUpdate}
+                    labelWidth={label.width}
                 />
             );
 
@@ -165,6 +167,7 @@ function DynamicCmp({
                     cellInfo={cellInfo}
                     onTaskUpdate={onTaskUpdate}
                     users={users}
+                    labelWidth={label.width}
                 />
             );
 
@@ -173,6 +176,7 @@ function DynamicCmp({
                 <Date
                     cellInfo={cellInfo}
                     onTaskUpdate={onTaskUpdate}
+                    labelWidth={label.width}
                 />
             );
 
