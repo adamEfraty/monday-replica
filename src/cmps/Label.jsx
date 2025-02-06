@@ -6,7 +6,8 @@ import { useState, useRef, useEffect, useCallback } from "react";
 import { deleteLable, onChangeLabelName, onUpdateReduxLabelWidth, onUpdateLocalLabelWidth } from "../store/actions/boards.actions.js";
 import { showErrorMsg } from '../services/event-bus.service.js'
 import { getSvg } from "../services/svg.service.jsx";
-
+import { DeleteLabelConfirmation } from "./dynamicCmps/modals/DeleteLabelConfirmation.jsx"
+import { utilService } from "../services/util.service.js";
 
 export function Label({ label, id, boardId, groupId }) {
 
@@ -28,6 +29,11 @@ export function Label({ label, id, boardId, groupId }) {
 
     const [hoverLable, setHoverLabel] = useState(false)
 
+    const [deleteConfirmationModal, setDeleteConfirmationModal] = useState(false)
+    const confirmationRef = useRef(null)
+    const [animationActive, setAnimationActive] = useState(false)
+
+
     // controls hoverlabel state
     useEffect(() => {
         const handleHoverLabel = (event) => {
@@ -38,8 +44,9 @@ export function Label({ label, id, boardId, groupId }) {
         }
 
         document.addEventListener("mouseover", handleHoverLabel);
-        return () => document.removeEventListener("mouseout", handleHoverLabel);
-    }, []);
+        return () => document.removeEventListener("mouseout", handleHoverLabel)
+    }, [])
+
 
     // close and open modal as needed
     function modalToggle() {
@@ -66,8 +73,8 @@ export function Label({ label, id, boardId, groupId }) {
     }, [modal])
 
     function onDeleteLable(){
-        deleteLable(boardId, label.id)
-        modalToggle()
+        toggleConfirnationModal()
+        setTimeout(()=>deleteLable(boardId, label.id), 50)
     }
 
     function toggleEditMode() {
@@ -82,11 +89,28 @@ export function Label({ label, id, boardId, groupId }) {
         setOnEditMode(prev => !prev)
     }
 
-    // if user press enter go to spectate mode
+    // if user press enter go to spectate mode.
+    // have to manualy using space button, 
+    // otherwise dnd gets activate when clicking it.
     function handleKeyDown(event) {
-        if (event.key === "Enter")
-          toggleEditMode()
+        if (event.key === "Enter") 
+            toggleEditMode()
+        else if (event.key === " ") { 
+            event.preventDefault() // Prevent default spacebar scrolling behavior
+            
+            // creating space at the focus place
+            const { selectionStart, selectionEnd } = event.target
+            const newText = textToEdit.slice(0, selectionStart) + " " + 
+                textToEdit.slice(selectionEnd)
+            setTextToEdit(newText)
+    
+            // Move cursor forward after space is inserted
+            requestAnimationFrame(() => {
+                event.target.setSelectionRange(selectionStart + 1, selectionStart + 1)
+            })
+        }
     }
+    
 
     function onRenameLable(){
         setOnEditMode(true)
@@ -94,7 +118,8 @@ export function Label({ label, id, boardId, groupId }) {
     }
 
     function handleLongText(text) { 
-        const maxLetters = Math.max(Math.floor(label.width / 7) - 20, 5)
+        const maxLetters = Math.max(Math.floor(label.width / 9) -
+            (hoverLable || isDragging  ? 5 : 0), 0) 
         if (text.length < maxLetters) return text
         else {
           const shortenText = `${text.slice(0, maxLetters)}...`
@@ -106,7 +131,7 @@ export function Label({ label, id, boardId, groupId }) {
     const handleMouseMove = useCallback((event) => {
         if (!isDragging || !labelRef.current) return
         const labelBoundaries = labelRef.current.getBoundingClientRect()
-        const newWidth = event.clientX - labelBoundaries.x 
+        const newWidth = event.clientX - labelBoundaries.x -5
         const MIN_WIDTH = 100
         onUpdateReduxLabelWidth(board, boardId, label.id, Math.max(newWidth, MIN_WIDTH))
     }, [isDragging, board, boardId, label.id])
@@ -137,6 +162,33 @@ export function Label({ label, id, boardId, groupId }) {
         setIsDragging(true)
     }
 
+    function toggleConfirnationModal(){
+
+        const animationDuration = 0.2
+        closeModal(label.id+groupId)
+
+        if(deleteConfirmationModal){
+            confirmationAnimation(false, animationDuration)
+            setTimeout(()=>setDeleteConfirmationModal(prev=>!prev), animationDuration * 500)
+
+        } 
+        else{
+            setAnimationActive(true)
+            setDeleteConfirmationModal(prev=>!prev)
+            setTimeout(()=>{
+                confirmationAnimation(true, animationDuration)
+                setAnimationActive(false)
+            }, 10)
+            
+        }
+    }
+
+    function confirmationAnimation(isEnter, duration) {
+        if (!confirmationRef.current) return
+        const animation = isEnter ? 'fadeInDown' : 'fadeOutUp'
+        utilService.animateCSS(confirmationRef.current, animation, duration)
+      }
+
     return (
         <div ref={el => { // Assign both refs
             setNodeRef(el);  
@@ -146,7 +198,6 @@ export function Label({ label, id, boardId, groupId }) {
         {...attributes}  
         style={{transform: CSS.Transform.toString(transform), transition, 
             backgroundColor: hoverLable || modal || isDragging ? '#F5F6F8' : 'white'}}
-        // key={labelId} is it neccery?
         className="label"
         onMouseMove={handleMouseMove}
         onMouseUp={handleMouseUp}>
@@ -194,13 +245,13 @@ export function Label({ label, id, boardId, groupId }) {
 
 
             {
-                modal
-                ? <section 
+                modal &&
+                <section 
                 className="label-modal" 
                 ref={modalRef}
                 onPointerDown={e => e.stopPropagation()}>
                     
-                    <button onClick={onDeleteLable}>
+                    <button onClick={toggleConfirnationModal}>
                         {getSvg('trash2')}
                         Delete
                     </button>
@@ -210,7 +261,15 @@ export function Label({ label, id, boardId, groupId }) {
                     </button>
 
                 </section>
-                : null
+            }
+
+            {
+                deleteConfirmationModal &&
+                <DeleteLabelConfirmation
+                onDeleteLable={onDeleteLable}
+                toggleConfirnationModal={toggleConfirnationModal}
+                confirmationRef={confirmationRef}
+                animationActive={animationActive}/>
             }
         </div>
     )
