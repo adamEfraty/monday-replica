@@ -10,13 +10,13 @@ import {
   OPEN_MODALS,
   SET_FILTER_BY,
   SET_FILTERED_COLUMNS,
-  SET_FAVORITES
+  SET_FAVORITES,
 } from "../reducer/boards.reducer";
 
 export async function addBoard() {
   try {
     const savedBoard = await boardService.addBoard();
-    await setFilteredColumns({id: savedBoard.id, labels: savedBoard.labels});
+    await setFilteredColumns({ id: savedBoard.id, labels: savedBoard.labels });
 
     const boards = await boardService.query();
 
@@ -41,15 +41,17 @@ export async function loadBoards() {
     boardService.setFilteredColumnsSession(
       boards.map((board) => ({ id: board.id, labels: board.labels }))
     );
-    const favorites = await setFavories();
-    console.log(favorites);
+  const favorites = await setFavories();
+  console.log(favorites);
   await store.dispatch({ type: SET_BOARDS, boards });
   await store.dispatch({
     type: SET_FILTERED_COLUMNS,
-    newFilteredColumns: filteredColumns ? JSON.parse(filteredColumns) : boards.map((board) => ({
-      id: board.id,
-      labels: board.labels,
-    })),
+    newFilteredColumns: filteredColumns
+      ? JSON.parse(filteredColumns)
+      : boards.map((board) => ({
+          id: board.id,
+          labels: board.labels,
+        })),
   });
   showSuccessMsg("Boards loaded");
 }
@@ -89,7 +91,13 @@ export async function addItem(boardId, groupId, taskTitle, isStart = null) {
         ? {
             taskId,
             labelId: label.id,
-            value: { title: taskTitle, chat: [] },
+            value: {
+              title: taskTitle,
+              chat: [],
+              activities: [
+                { time: Date.now(), user: "Task created", activity: "created" },
+              ],
+            },
             type: label.type,
           }
         : boardService.getDefultCell(label, taskId)

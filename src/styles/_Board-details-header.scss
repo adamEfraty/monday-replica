@@ -2,6 +2,15 @@
   color: #323338;
 }
 
+.highlight {
+  // position: absolute;
+  // bottom: -2px; /* Adjust this value to position the hr correctly */
+  // left: 0;
+  width: 100%;
+  border: none;
+  border-top: 2px solid #0073ea; /* Adjust the border style as needed */
+}
+
 .boardTitle {
   font-size: 1.1rem;
   display: inline-flex;
