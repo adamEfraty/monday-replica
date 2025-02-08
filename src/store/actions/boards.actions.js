@@ -314,6 +314,7 @@ export async function addLable(boardId, labelInfo) {
     id: utilService.makeIdForLabel(),
     type: labelInfo.type,
     name: labelInfo.name,
+    width: 150,
   };
   const newBoard = await boardService.addLableToBoard(boardId, newLabel);
   if (!newBoard) return;
@@ -324,6 +325,28 @@ export async function addLable(boardId, labelInfo) {
     boardId,
     updatedBoard: newBoard,
   });
+}
+
+export async function deleteLable(boardId, labelId){
+  const newBoard = await boardService.deleteLableFromBoard(boardId, labelId)
+  if (!newBoard) return;
+
+  store.dispatch({
+    type: EDIT_BOARD,
+    boardId,
+    updatedBoard: newBoard,
+  })
+}
+
+export async function onChangeLabelName(boardId, labelId, newName){
+  const newBoard = await boardService.changeLabelName(boardId, labelId, newName)
+  if (!newBoard) return;
+
+  store.dispatch({
+    type: EDIT_BOARD,
+    boardId,
+    updatedBoard: newBoard,
+  })
 }
 
 export async function replaceGroups(boardId, newGroups) {
@@ -379,3 +402,28 @@ export async function setFavories(favorite = []) {
   store.dispatch({ type: SET_FAVORITES, favorites: serviceFavorites });
   return await serviceFavorites;
 }
+
+export function onUpdateReduxLabelWidth(board, boardId, labelId, newWidth){
+  
+  const newLabels = board.labels.map(label=> 
+    (label.id === labelId) ? {...label, width: newWidth} : label)
+  const newBoard = {...board, labels: newLabels}
+
+  store.dispatch({
+    type: EDIT_BOARD,
+    boardId,
+    updatedBoard: newBoard,
+  })
+
+}
+
+export async function onUpdateLocalLabelWidth(boardId, labelId, newWidth){
+  const newBoard = await boardService.changeLabelWidth(boardId, labelId, newWidth)
+
+  store.dispatch({
+    type: EDIT_BOARD,
+    boardId,
+    updatedBoard: newBoard,
+  })
+}
+

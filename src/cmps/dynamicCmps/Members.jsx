@@ -3,7 +3,7 @@ import { MembersModal } from './modals/MembersModal.jsx'
 import { openModal, closeModal } from '../../store/actions/boards.actions.js'
 import { useSelector } from "react-redux";
 
-export function Members({cellInfo, onTaskUpdate, users }) {
+export function Members({cellInfo, onTaskUpdate, users, labelWidth }) {
     const openModals = useSelector(state => state.boardModule.openModals)
     const modal = openModals.some(modalId => modalId === (cellInfo.taskId + cellInfo.labelId))
 
@@ -76,7 +76,8 @@ export function Members({cellInfo, onTaskUpdate, users }) {
                         ParticipateMembers={cellInfo.value}
                         onAddMember={onAddMember}
                         onRemoveMember={onRemoveMember}
-                        users={users} />
+                        users={users} 
+                        labelWidth={labelWidth}/>
 
                 </div>
             }

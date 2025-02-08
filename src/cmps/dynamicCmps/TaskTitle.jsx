@@ -19,6 +19,7 @@ export function TaskTitle({ cellInfo,
   handleCheckBoxClick,
   listeners,
   attributes,
+  labelWidth,
 }) {
 
   const [onEditMode, setOnEditMode] = useState(false)
@@ -131,7 +132,8 @@ export function TaskTitle({ cellInfo,
       toggleEditMode()
   }
 
-  function handleLongText(text, maxLetters = 30) {
+  function handleLongText(text) {
+    const maxLetters = Math.floor(labelWidth / 7) - 32
     if (text.length < maxLetters) return text
     else {
       const shortenText = `${text.slice(0, maxLetters)}...`
@@ -157,7 +159,7 @@ export function TaskTitle({ cellInfo,
           <div className="title-part ">
             {
               !onEditMode
-                ? <span onClick={toggleEditMode}>{handleLongText(cellInfo.value.title, 12)}</span>
+                ? <span onClick={toggleEditMode}>{handleLongText(cellInfo.value.title)}</span>
                 : <input
                   autoFocus={true}
                   value={textToEdit}

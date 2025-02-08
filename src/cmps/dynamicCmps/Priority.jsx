@@ -3,7 +3,7 @@ import { PriorityModal } from './modals/PriorityModal.jsx'
 import { openModal, closeModal } from '../../store/actions/boards.actions.js'
 import { useSelector } from "react-redux";
 
-export function Priority({cellInfo, onTaskUpdate}) {
+export function Priority({cellInfo, onTaskUpdate, labelWidth}) {
     const openModals = useSelector(state => state.boardModule.openModals)
     const modal = openModals.some(modalId => modalId === (cellInfo.taskId + cellInfo.labelId))
 
@@ -55,7 +55,8 @@ export function Priority({cellInfo, onTaskUpdate}) {
             {modal && 
                 <div ref={modalRef}>
                     <PriorityModal 
-                    onPriorityChange={onPriorityChange}/>
+                    onPriorityChange={onPriorityChange}
+                    labelWidth={labelWidth}/>
                 </div>
             }
         </section>

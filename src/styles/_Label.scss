@@ -1,10 +1,29 @@
+
 .label{
+    cursor: grab;
     position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
+    height: 100%;
+
+    input{
+        width: 70%;
+    }
+
+    div{
+        border: solid black 10px;
+    }
+
+    p{
+        cursor:text;
+        border: none;
+    }
 
     i{
+        cursor: pointer;
+        position: absolute;
+        top: 8px; // temporary
         display: flex;
         align-items: center;
         justify-content: center;
@@ -18,4 +37,56 @@
             background-color: #E7E8EB;
         }
     }
+
+    .label-modal{
+        display: flex;
+        flex-direction: column;
+        z-index: 1;
+        position: absolute;
+        top: -5px; // temporary
+        right: -205px; // temporary
+        width: 200px;
+        background-color: white;
+        padding: 7px;
+        box-shadow: 0px 4px 10px rgb(179, 179, 179);
+        border-radius: 8px;
+
+        button{
+            cursor: pointer;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            padding-left: 10px;
+            font-family: "Quicksand", serif;
+            color: rgb(80, 80, 80);
+            font-weight: 600;
+            background-color: white;
+            height: 30px;
+            border-color: transparent;
+            border-radius: 4px;
+
+            &:hover{
+                background-color: #F0F0F1;
+            }
+        }
+    }
+
+    .drag-label{
+        z-index: 1;
+        cursor: col-resize;
+        position: absolute;
+        right: -5px;
+        width: 8px;
+        height: 100%;
+        background-color: #D0D4E4;
+        border-radius: 4px;
+        
+        &:hover{
+            background-color: #0073EA;
+        }
+    }
+
+    
 }
+
+
