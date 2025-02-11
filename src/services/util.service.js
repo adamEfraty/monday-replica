@@ -9,6 +9,7 @@ export const utilService = {
   formatStrToDate,
   formatDateToPerfectStr,
   formatPerfectStrToDate,
+  formatDateStrToPerfectStr,
   getNameFromEmail,
   makeIdForLabel,
 }
@@ -147,20 +148,8 @@ function formatDateToStr(date) {
 }
 
 function formatDateToPerfectStr(date) {
-  const months = [
-    'Jan',
-    'Feb',
-    'Mar',
-    'Apr',
-    'May',
-    'Jun',
-    'Jul',
-    'Aug',
-    'Sep',
-    'Oct',
-    'Nov',
-    'Dec',
-  ]
+  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 
+    'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 
   const day = String(date.getDate())
   const month = date.getMonth()
@@ -170,23 +159,27 @@ function formatDateToPerfectStr(date) {
 }
 
 function formatPerfectStrToDate(string) {
-  const months = [
-    'Jan',
-    'Feb',
-    'Mar',
-    'Apr',
-    'May',
-    'Jun',
-    'Jul',
-    'Aug',
-    'Sep',
-    'Oct',
-    'Nov',
-    'Dec',
-  ]
+  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 
+    'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 
   const monthIndex = months.findIndex(string.month)
   return new Date(Number(year), monthIndex, Number(day))
+}
+
+function formatDateStrToPerfectStr(dateStr){
+  const thisYear = new Date().getFullYear()
+
+  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 
+    'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+
+  const day = Number(dateStr.slice(0,2))
+  const month = months[Number(dateStr.slice(3,5))-1]
+  const year = Number(dateStr.slice(6,10))
+
+  const datInfo = { day, month, year }
+  if(thisYear === datInfo.year)
+    return `${datInfo.month} ${datInfo.day}`
+  else return `${datInfo.month} ${datInfo.day}, ${datInfo.year}`
 }
 
 function getNameFromEmail(emailStr) {

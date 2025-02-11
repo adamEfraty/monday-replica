@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react';
 import { DateModal } from './modals/DateModal.jsx';
 import { openModal, closeModal } from '../../store/actions/boards.actions.js'
 import { useSelector } from "react-redux";
+import { utilService } from '../../services/util.service.js';
 
 export function Date({ cellInfo, onTaskUpdate, labelWidth }) {
     const openModals = useSelector(state => state.boardModule.openModals)
@@ -52,7 +53,7 @@ export function Date({ cellInfo, onTaskUpdate, labelWidth }) {
                 ref={dateCellRef}
                 onClick={modalToggle}>
 
-                {cellInfo.value}
+                {utilService.formatDateStrToPerfectStr(cellInfo.value)}
             </div>
 
             {/* Date modal */}
