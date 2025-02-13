@@ -282,7 +282,29 @@ div.group-title-flex {
 .label-title {
   display: flex;
   align-items: center;
-  gap: 35%;
+
+  .label-inner-title{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position:relative;
+    width: 100%;
+    height: 100%;
+
+    .drag-label{
+      cursor: col-resize;
+      position: absolute;
+      right: 0px;
+      width: 8px;
+      height: 100%;
+      background-color: #D0D4E4;
+      border-radius: 2px;
+      
+      &:hover{
+          background-color: #0073EA;
+      }
+  }
+}
 }
 
 .main-checkbox {

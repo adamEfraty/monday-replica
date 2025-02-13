@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux"
 import { getSvg } from "../../../services/svg.service.jsx"
 
-export function MembersModal({ParticipateMembers, onAddMember, onRemoveMember}){
+export function MembersModal({ParticipateMembers, onAddMember, onRemoveMember, labelWidth}){
     const users = useSelector((state) => state.userModule.users)
 
     const nonParticipateMembers = users.filter(member=> 
@@ -9,7 +9,8 @@ export function MembersModal({ParticipateMembers, onAddMember, onRemoveMember}){
 
 
     return (
-        <section className="members-modal">
+        <section className="members-modal"
+        style={{"--cell-width": `${labelWidth}px`}}>
             <div className="white-arrow">{getSvg('white-arrow')}</div>
 
             {/* list of members you can remove from task*/}

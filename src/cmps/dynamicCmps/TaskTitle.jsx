@@ -20,6 +20,7 @@ export function TaskTitle({
   handleCheckBoxClick,
   listeners,
   attributes,
+  labelWidth,
 }) {
   const [onEditMode, setOnEditMode] = useState(false);
   const [textToEdit, setTextToEdit] = useState(cellInfo.value.title);
@@ -144,8 +145,9 @@ export function TaskTitle({
     if (event.key === "Enter") toggleEditMode();
   }
 
-  function handleLongText(text, maxLetters = 30) {
-    if (text.length < maxLetters) return text;
+  function handleLongText(text) {
+    const maxLetters = Math.floor(labelWidth / 7) - 32
+    if (text.length < maxLetters) return text
     else {
       const shortenText = `${text.slice(0, maxLetters)}...`;
       return shortenText;
@@ -170,20 +172,19 @@ export function TaskTitle({
             />
           </div>
           <div className="title-part ">
-            {!onEditMode ? (
-              <span onClick={toggleEditMode}>
-                {handleLongText(cellInfo.value.title, 12)}
-              </span>
-            ) : (
-              <input
-                autoFocus={true}
-                value={textToEdit}
-                onChange={(event) => setTextToEdit(event.target.value)}
-                onBlur={toggleEditMode}
-                onKeyDown={handleKeyDown}
-                type="text"
-              />
-            )}
+            {
+              !onEditMode
+                ? <span onClick={toggleEditMode}>{handleLongText(cellInfo.value.title)}</span>
+                : <input
+                  autoFocus={true}
+                  value={textToEdit}
+                  onChange={event => setTextToEdit(event.target.value)}
+                  onBlur={toggleEditMode}
+                  onKeyDown={handleKeyDown}
+                  type="text"
+                />
+            }
+
           </div>
         </div>
         <div style={{ cursor: "grab" }} {...listeners} {...attributes}></div>

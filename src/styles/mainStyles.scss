@@ -24,6 +24,7 @@
 @use './AddLabel.scss';
 @use './dynamicCmps/modals/FilterModal';
 @use './Label';
+@use './dynamicCmps/modals/DeleteLabelConfirmation';
 
 * {
   padding: 0;

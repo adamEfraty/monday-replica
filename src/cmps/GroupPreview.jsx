@@ -21,6 +21,7 @@ import { horizontalListSortingStrategy, SortableContext, useSortable, verticalLi
 import { CSS } from "@dnd-kit/utilities";
 import { TaskPreview } from "./TaskPreview.jsx";
 import { Label } from "./Label.jsx";
+import { LabelTitle } from "./LabelTitle.jsx";
 import { Color } from "./dynamicCmps/modals/Color.jsx";
 
 export const GroupPreview = ({
@@ -91,7 +92,6 @@ export const GroupPreview = ({
 
 
 
-
   return (
     <div style={style} ref={setNodeRef} className="group-list-dnd" >
 
@@ -153,7 +153,7 @@ export const GroupPreview = ({
               className="labels-grid"
               style={{
                 borderTopLeftRadius: 5,
-                gridTemplateColumns: `10px 400px repeat(${labels.length}, 150px) 500px`
+                gridTemplateColumns: `10px ${labels.map(label => `${label.width}px`).join(' ')} 500px`
               }}
             >
               <section className="ghost "></section>
@@ -172,10 +172,10 @@ export const GroupPreview = ({
 
                         />
                       </section>
-                      < section className="title-group" key={`label-${label.id}`}>{label.name}</section>
+                      <LabelTitle key={label.id} label={label} boardId={boardId} />
                     </div >
                     :
-                    <Label key={label.id} id={label.id} label={label} />
+                    <Label key={label.id} id={label.id} label={label} boardId={boardId} groupId={group.id} />
                 ))}
               </SortableContext >
 
@@ -211,8 +211,7 @@ export const GroupPreview = ({
             <section
               className="progress-grid"
               style={{
-
-                gridTemplateColumns: `10px 400px repeat(${labels.length}, 150px) 500px`
+                gridTemplateColumns: `10px ${labels.map(label => `${label.width}px`).join(' ')} 500px`
               }}
             >
 

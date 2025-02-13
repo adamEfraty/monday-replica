@@ -2,8 +2,8 @@
   position: relative;
 
   .members-modal {
-    // temporary
-    $cell-width: 150px;
+     // in var so you can controll it in js!
+    --cell-width: 150px;
     $cell-height: 34px;
     $modal-width: 350px;
 
@@ -11,7 +11,7 @@
     position: absolute;
     position: absolute;
     top: calc($cell-height + 5px);
-    left: calc(($cell-width - $modal-width) /2);
+    left: calc((var(--cell-width) - $modal-width) /2);
     width: $modal-width;
     background-color: white;
     border: none;

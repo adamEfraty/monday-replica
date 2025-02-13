@@ -45,6 +45,9 @@ export const boardService = {
   getFilteredColumnsSession,
   removeBoardFromFilteredColumnsSession,
   setFavorites,
+  deleteLableFromBoard,
+  changeLabelName,
+  changeLabelWidth,
 };
 
 async function setFavorites(favoriteId) {
@@ -70,15 +73,11 @@ async function addBoard() {
     const newBoard = {
       title: "New Board",
       labels: [
-        { id: utilService.makeIdForLabel(), type: "taskTitle", name: "task" },
-        {
-          id: utilService.makeIdForLabel(),
-          type: "priority",
-          name: "priority",
-        },
-        { id: utilService.makeIdForLabel(), type: "status", name: "status" },
-        { id: utilService.makeIdForLabel(), type: "members", name: "members" },
-        { id: utilService.makeIdForLabel(), type: "date", name: "date" },
+        { id: utilService.makeIdForLabel(), type: "taskTitle", name: "task", width: 400 },
+        { id: utilService.makeIdForLabel(), type: "priority", name: "priority", width: 150 },
+        { id: utilService.makeIdForLabel(), type: "status", name: "status", width: 150 },
+        { id: utilService.makeIdForLabel(), type: "members", name: "members", width: 150 },
+        { id: utilService.makeIdForLabel(), type: "date", name: "date", width: 150 },
       ],
       groups: [],
     };
@@ -311,11 +310,11 @@ async function makeFirstBoard() {
     title: "SAR default board",
     members: usersInBoard,
     labels: [
-      { id: utilService.makeIdForLabel(), type: "taskTitle", name: "task" },
-      { id: utilService.makeIdForLabel(), type: "priority", name: "priority" },
-      { id: utilService.makeIdForLabel(), type: "status", name: "status" },
-      { id: utilService.makeIdForLabel(), type: "members", name: "members" },
-      { id: utilService.makeIdForLabel(), type: "date", name: "date" },
+      { id: utilService.makeIdForLabel(), type: "taskTitle", name: "task", width: 400 },
+      { id: utilService.makeIdForLabel(), type: "priority", name: "priority", width: 150 },
+      { id: utilService.makeIdForLabel(), type: "status", name: "status", width: 150 },
+      { id: utilService.makeIdForLabel(), type: "members", name: "members", width: 150 },
+      { id: utilService.makeIdForLabel(), type: "date", name: "date", width: 150 },
     ],
     groups: [],
   };
@@ -490,21 +489,60 @@ function getFilterState() {
 }
 
 async function addLableToBoard(boardId, newLable) {
-  const board = await getById(boardId);
+  const board = await getById(boardId)
   if (board) {
-    board.labels.push(newLable);
+    board.labels.push(newLable)
     const newGroups = board.groups.map((group) => ({
       ...group,
       tasks: group.tasks.map((task) => ({
         ...task,
         cells: [...task.cells, getDefultCell(newLable, task.id)],
       })),
-    }));
-    board.groups = newGroups;
-    save(board);
-    return board;
-  } else throw new Error("Board not found");
+    }))
+    board.groups = newGroups
+    save(board)
+    return board
+  } else throw new Error("Board not found")
 }
+
+async function deleteLableFromBoard(boardId, labelId) {
+  const board = await getById(boardId)
+  if(board){
+    board.labels = board.labels.filter(label => label.id !== labelId)
+    const newGroups = board.groups.map((group) => ({
+      ...group,
+      tasks: group.tasks.map((task) => ({
+        ...task,
+        cells: task.cells.filter(cell=>cell.labelId !== labelId),
+      })),
+    }))
+    board.groups = newGroups
+    save(board)
+    return board
+  } else throw new Error("Board not found")
+}
+
+async function changeLabelName(boardId, labelId, newName){
+  const board = await getById(boardId)
+  if(board){
+    board.labels = board.labels.map(label => 
+      (label.id === labelId) ? {...label, name: newName} : label)
+    save(board)
+    return board
+  } else throw new Error("Board not found")
+}
+
+async function changeLabelWidth(boardId, labelId, newWidth){
+  const board = await getById(boardId)
+  if(board){
+    board.labels = board.labels.map(label => 
+      (label.id === labelId) ? {...label, width: newWidth} : label)
+    save(board)
+    return board
+  } else throw new Error("Board not found")
+}
+
+
 
 function getDefultCell(label, taskId) {
   switch (label.type) {
@@ -543,3 +581,5 @@ function getDefultCell(label, taskId) {
       return null;
   }
 }
+
+

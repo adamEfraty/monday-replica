@@ -1,0 +1,99 @@
+.delete-label-confirmation-background{
+    z-index: 11;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    cursor: default;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+
+    .delete-label-confirmation{
+        $modal-width: 600px;
+        display: grid;
+        grid-template-rows: 10fr 9fr;
+        position: absolute;
+        top: 30px;
+        left: calc(50vw - ($modal-width/2));
+        width: $modal-width;
+        height: 165px;
+        background-color:white;
+        border-radius: 5px;
+        box-shadow: 0px 7px 15px rgba(0, 0, 0, 0.5);
+
+        .upper-modal{
+            display: flex;
+            flex-direction: column;
+            align-items: start;
+            border: none;
+            border-bottom: solid #D0D4E4 1px;
+            button{
+                cursor: pointer;
+                margin: 12px 22px 0px 0px;
+                width: 11px;
+                height: 11px;
+                align-self: end;
+                font-family: "Quicksand", serif;
+                font-weight: 600;
+                font-size: 1.3em;
+                border: none;
+                background-color: transparent;
+                color: #8D8E9B;
+
+                &:hover{
+                    color: #676879;
+                }
+            }
+            h4{
+                padding-left: 20px;
+                font-size: 1.1em;
+                font-weight: 700;
+                margin-bottom: 4px;
+            }
+            p{
+                padding-left: 20px;
+                font-size: 1.1em;
+                font-weight:500;
+            }
+        }
+
+        .lower-modal{
+            display: flex;
+            justify-content: end;
+            gap: 10px;
+            border: none;
+            padding: 18px 20px 20px;
+
+            button{
+                cursor: pointer;
+                height: 100%;
+                width: 77px;
+                font-family: "Quicksand", serif;
+                font-weight: 500;
+                font-size: 1.1em;
+                padding-bottom: 3px;
+                border-radius: 4px;
+                border-color: transparent;
+            }
+
+            button.cancel{
+                background-color: transparent;
+
+                &:hover{
+                    background-color: #F0F0F1;
+                }
+            }
+
+            button.delete{
+                background-color: #0073EA;
+                color: white;
+
+                &:hover{
+                    background-color: #0060B9;
+                }
+            }
+
+
+        }
+    }
+}

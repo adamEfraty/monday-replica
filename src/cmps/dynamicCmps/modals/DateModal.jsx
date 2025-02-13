@@ -1,14 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import { getSvg } from "../../../services/svg.service.jsx"
-
-import { convertDateToString } from '../../../services/util.service.js';
-
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
 import dayjs from 'dayjs';
 
-export function DateModal({ currentDate, onDateChange }) {
+export function DateModal({ currentDate, onDateChange, labelWidth }) {
 
     const [newJday, setNewJday] = useState(dayjs(currentDate, 'DD-MM-YYYY'))
 
@@ -22,7 +19,8 @@ export function DateModal({ currentDate, onDateChange }) {
     }
 
     return (
-        <section className="date-modal">
+        <section className="date-modal"
+        style={{"--cell-width": `${labelWidth}px`}}>
             <div className="white-arrow">{getSvg('white-arrow')}</div>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DateCalendar

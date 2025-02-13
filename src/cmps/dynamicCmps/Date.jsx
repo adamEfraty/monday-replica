@@ -3,7 +3,7 @@ import { DateModal } from './modals/DateModal.jsx';
 import { openModal, closeModal } from '../../store/actions/boards.actions.js'
 import { useSelector } from "react-redux";
 
-export function Date({ cellInfo, onTaskUpdate }) {
+export function Date({ cellInfo, onTaskUpdate, labelWidth }) {
     const openModals = useSelector(state => state.boardModule.openModals)
     const modal = openModals.some(modalId => modalId === (cellInfo.taskId + cellInfo.labelId))
 
@@ -60,7 +60,8 @@ export function Date({ cellInfo, onTaskUpdate }) {
                 <div ref={modalRef}>
                     <DateModal
                         currentDate={cellInfo.value}
-                        onDateChange={onDateChange} />
+                        onDateChange={onDateChange} 
+                        labelWidth={labelWidth}/>
                 </div>
             )}
         </section>

@@ -50,7 +50,7 @@ export function TaskPreview({
         <section
             ref={setNodeRef}
             className="group-grid"
-            style={{ ...style, gridTemplateColumns: `10px 400px repeat(${labels.length}, 150px) 500px` }}
+            style={{ ...style, gridTemplateColumns: `10px ${labels.map(label => `${label.width}px`).join(' ')} 500px` }}
             key={`task-${task.id}`}
         >
             <div className="dots">
@@ -130,6 +130,7 @@ function DynamicCmp({
                 <Priority
                     cellInfo={cellInfo}
                     onTaskUpdate={onTaskUpdate}
+                    labelWidth={label.width}
                 />
             );
 
@@ -147,6 +148,7 @@ function DynamicCmp({
                     openChat={openChat}
                     checkedBoxes={checkedBoxes}
                     handleCheckBoxClick={handleCheckBoxClick}
+                    labelWidth={label.width}
                 />
             );
 
@@ -155,6 +157,7 @@ function DynamicCmp({
                 <Status
                     cellInfo={cellInfo}
                     onTaskUpdate={onTaskUpdate}
+                    labelWidth={label.width}
                 />
             );
 
@@ -164,6 +167,7 @@ function DynamicCmp({
                     cellInfo={cellInfo}
                     onTaskUpdate={onTaskUpdate}
                     users={users}
+                    labelWidth={label.width}
                 />
             );
 
@@ -172,6 +176,7 @@ function DynamicCmp({
                 <Date
                     cellInfo={cellInfo}
                     onTaskUpdate={onTaskUpdate}
+                    labelWidth={label.width}
                 />
             );
 
