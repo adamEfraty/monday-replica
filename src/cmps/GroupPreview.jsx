@@ -276,6 +276,7 @@ const ProgressCmd = ({
         <P_Members
           tasks={tasks}
           labelId={label.id}
+          labelWidth={label.width}
         />
       )
 
