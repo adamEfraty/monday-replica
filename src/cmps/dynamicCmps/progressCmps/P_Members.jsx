@@ -1,6 +1,6 @@
 
 
-export function P_Members({tasks, labelId}){
+export function P_Members({tasks, labelId, labelWidth}){
     // tasks: [{taskId: xxx, cells: [{memberCell}, ...]}, ...]
     const defultImg = 'https://upload.wikimedia.org/wikipedia/commons/2/2c/Default_pfp.svg'
     const allMembers = allActiveMembers(tasks)
@@ -19,13 +19,23 @@ export function P_Members({tasks, labelId}){
         return result
     }
 
+    const numberOfMembersThatFits = Math.floor(labelWidth / 35) //this will changes base on images width
+    const displayedMembers = allMembers.slice(0, numberOfMembersThatFits);
+    const extraMembersCount = allMembers.length - numberOfMembersThatFits;
+
     return(
         <div className="progress-members">
             {
+                
                 allMembers.length
-                ? allMembers.map(member=>
+                ? displayedMembers.map(member=>
                     <img key={member.id} src={member.imgUrl}/>)
                 : <img src={defultImg}/>
+            }
+            {
+                extraMembersCount > 0 && 
+                    <div className="extra-members">+{extraMembersCount}</div>
+                
             }
         </div>
     )

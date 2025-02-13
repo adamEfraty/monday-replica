@@ -46,8 +46,9 @@ export function Members({cellInfo, onTaskUpdate, users, labelWidth }) {
 
     }, [modal])
 
-    const displayedMembers = cellInfo.value.slice(0, 3);
-    const extraMembersCount = cellInfo.value.length - 3;
+    const numberOfMembersThatFits = Math.floor(labelWidth / 35) //this will changes base on images width
+    const displayedMembers = cellInfo.value.slice(0, numberOfMembersThatFits);
+    const extraMembersCount = cellInfo.value.length - numberOfMembersThatFits;
     return (
         <section className="members">
             <div
@@ -65,7 +66,7 @@ export function Members({cellInfo, onTaskUpdate, users, labelWidth }) {
                         : <img src={defultImg} />
                 }
                 {extraMembersCount > 0 && (
-                    <div className="extra-members" style={{ color: 'black' }}>+{extraMembersCount}</div>
+                    <div className="extra-members">+{extraMembersCount}</div>
                 )}
             </div>
 

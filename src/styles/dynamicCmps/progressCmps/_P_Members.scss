@@ -2,6 +2,7 @@
     padding: 0px;
 
     .progress-members{
+        $member-image-size: 30px;
         height: 100%;
         width: 100%;
         display: flex;
@@ -12,12 +13,29 @@
         margin-left: 5px;
     
         img{
-            width: 30px;
-            height: 30px;
+            width: $member-image-size;
+            height: $member-image-size;
             border-radius: 50%;
             border: solid white 2px;
             margin-left: -10px;
         }
+
+        .extra-members{
+            padding: 0px;
+            font-weight: 500;
+            display: grid;
+            align-items: center;
+            justify-items: center;
+            width: $member-image-size;
+            height: $member-image-size;
+            border-radius: 50%;
+            border: solid white 2px;
+            margin-left: -10px;
+            background-color: #333333;
+            color: white;
+            font-size: 0.9em;
+    
+          }
     }
 
 }
