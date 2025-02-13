@@ -1,3 +1,5 @@
+
+
 .labels-grid {
   display: grid;
   grid-template-columns: 10px 600px repeat(5, 150px) 500px;
@@ -14,28 +16,26 @@
   width: 100%; /* Set a fixed width */
 }
 
-section.group-grid {
-  display: grid;
-  grid-template-columns: 10px 600px repeat(5, 150px) 500px;
-  grid-template-rows: 34px;
-  background: white;
 
-  &:hover {
-    // background-color: #cbcbcb;
-    // opacity: 0.7;
 
-    .dots {
-      background-color: #fff;
+.task-preview{
+  position: relative;
 
-      span {
-        opacity: 1;
-      }
-    }
+  .group-grid {
+    margin-left: 10px;
+    display: grid;
+    grid-template-columns: 10px 600px repeat(5, 150px) 500px;
+    grid-template-rows: 34px;
+    background: white;
   }
+
+
 }
 
 .group-list {
+  width: max-content;
   font-size: 13px;
+  position: relative;
   & input[type='checkbox'] {
     width: 20px;
     height: 20px;
@@ -265,13 +265,14 @@ div.group-title-flex {
 .prog-box {
   border: 1px solid #e0dede;
 }
-.stick {
+.stick-task {
   position: sticky;
-  left: 0;
+  left: 10px;
   z-index: 1;
   background-color: #ffffff;
   display: inline-block;
 }
+
 // .stick2 {
 //   position: sticky;
 //   z-index: 1000;

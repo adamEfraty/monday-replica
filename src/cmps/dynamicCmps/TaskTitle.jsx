@@ -7,6 +7,8 @@ import { useSelector } from "react-redux";
 import { utilService } from "../../services/util.service.js";
 import { boardService } from "../../services/board.service.js";
 import ReactDOM from 'react-dom';
+import { getSvg } from "../../services/svg.service.jsx";
+
 
 export function TaskTitle({ cellInfo,
   users,
@@ -20,6 +22,7 @@ export function TaskTitle({ cellInfo,
   listeners,
   attributes,
   labelWidth,
+  taskHovering,
 }) {
 
   const [onEditMode, setOnEditMode] = useState(false)
@@ -148,6 +151,13 @@ export function TaskTitle({ cellInfo,
   return (
     <>
       <section className="task-title" >
+
+        <div className="white-cover">
+        <div className="dots" style={{ visibility: taskHovering === cellInfo.taskId ? 'visible' : 'hidden' }}>
+        {getSvg('horizontal-dots')}
+          </div>
+        </div>
+
         <div className="checkbox-taskName">
           <div className="input-styles">
             <input

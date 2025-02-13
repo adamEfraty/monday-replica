@@ -1,8 +1,4 @@
 /* eslint-disable react/prop-types */
-import { useState } from "react";
-import { Popover } from "@mui/material";
-import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
-import { GarbageRemove } from "./dynamicCmps/modals/GarbageRemove.jsx";
 import { Priority } from "./dynamicCmps/Priority";
 import { Status } from "./dynamicCmps/Status";
 import { TaskTitle } from "./dynamicCmps/TaskTitle";
@@ -10,6 +6,7 @@ import { Date } from "./dynamicCmps/Date";
 import { Members } from "./dynamicCmps/Members";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
+import { useState } from "react";
 
 export function TaskPreview({
     task,
@@ -17,8 +14,6 @@ export function TaskPreview({
     labels,
     loggedinUser,
     onTaskUpdate,
-    removeTask,
-    boardId,
     users,
     chatTempInfoUpdate,
     openChat,
@@ -26,15 +21,6 @@ export function TaskPreview({
     handleCheckBoxClick,
     id
 }) {
-    const [open, setOpen] = useState(false);
-
-    const handlePopoverClick = (event) => {
-        setOpen(event.currentTarget);
-    };
-
-    const handlePopoverClose = () => {
-        setOpen(false);
-    };
 
 
     const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id });
@@ -42,70 +28,52 @@ export function TaskPreview({
     const style = {
         transform: CSS.Transform.toString(transform),
         transition,
-
-
     };
 
+    const [taskHovering, setTaskHovering] = useState(null)
+
     return (
-        <section
-            ref={setNodeRef}
-            className="group-grid"
-            style={{ ...style, gridTemplateColumns: `10px ${labels.map(label => `${label.width}px`).join(' ')} 500px` }}
-            key={`task-${task.id}`}
-        >
-            <div className="dots">
-                <span onClick={handlePopoverClick}>
-                    <MoreHorizIcon />
-                </span>
+        <section className="task-preview" 
+        onMouseOver={()=>setTaskHovering(task.id)} 
+        onMouseLeave={()=>setTaskHovering(null)}>
+            <section
+                ref={setNodeRef}
+                className="group-grid"
+                style={{ ...style, gridTemplateColumns: `${labels.map(label => `${label.width}px`).join(' ')} 500px` }}
+                key={`task-${task.id}`}
+            >
 
-                <Popover
-                    id="task-popover"
-                    open={Boolean(open)}
-                    anchorEl={open}
-                    onClose={handlePopoverClose}
-                    anchorOrigin={{
-                        vertical: 'bottom',
-                        horizontal: 'right',
-                    }}
-                    transformOrigin={{
-                        vertical: 'top',
-                        horizontal: 'center',
-                    }}
-                >
-                    <GarbageRemove someName={'Task'} someFunction={() => removeTask(boardId, group.id, task.id)} />
-                </Popover>
-            </div>
+                {labels.map(label => {
+                    const cell = task.cells.find(cell => cell.labelId === label.id)
+                    return (
 
-            {labels.map(label => {
-                const cell = task.cells.find(cell => cell.labelId === label.id)
-                return (
-
-                    <section
-                        key={`task-${task.id}-label-${label.id}`}
-                        style={label.type === 'taskTitle' ? { borderLeft: `5px solid ${group?.color}` } : {}}
-                        className={`grid-item ${label.type} ${label.type === 'taskTitle' ? 'stick' : ''}`}
-                    >
-                        <DynamicCmp
-                            listeners={listeners}
-                            attributes={attributes}
-                            cellInfo={cell}
-                            group={group}
-                            loggedinUser={loggedinUser}
-                            label={label}
-                            onTaskUpdate={onTaskUpdate}
-                            users={users}
-                            chatTempInfoUpdate={chatTempInfoUpdate}
-                            openChat={openChat}
-                            checkedBoxes={checkedBoxes}
-                            handleCheckBoxClick={handleCheckBoxClick}
-                        />
-
-
-                    </section>
-                )
-            })
-            }
-        </section >
+                        <section
+                            key={`task-${task.id}-label-${label.id}`}
+                            style={label.type === 'taskTitle' ? { borderLeft: `5px solid ${group?.color}` } : {}}
+                            className={`grid-item ${label.type} ${label.type === 'taskTitle' ? 'stick-task' : ''}`}
+                        >
+                            <DynamicCmp
+                                listeners={listeners}
+                                attributes={attributes}
+                                cellInfo={cell}
+                                group={group}
+                                loggedinUser={loggedinUser}
+                                label={label}
+                                onTaskUpdate={onTaskUpdate}
+                                users={users}
+                                chatTempInfoUpdate={chatTempInfoUpdate}
+                                openChat={openChat}
+                                checkedBoxes={checkedBoxes}
+                                handleCheckBoxClick={handleCheckBoxClick}
+                                taskHovering={taskHovering}
+                            />
+                        </section>
+                    )
+                })}
+            </section >
+        </section>
+        
+        
     );
 }
 
@@ -123,6 +91,7 @@ function DynamicCmp({
     handleCheckBoxClick,
     listeners,
     attributes,
+    taskHovering,
 }) {
     switch (label.type) {
         case "priority":
@@ -149,6 +118,7 @@ function DynamicCmp({
                     checkedBoxes={checkedBoxes}
                     handleCheckBoxClick={handleCheckBoxClick}
                     labelWidth={label.width}
+                    taskHovering={taskHovering}
                 />
             );
 
