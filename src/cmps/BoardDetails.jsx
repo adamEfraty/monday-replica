@@ -75,7 +75,7 @@ const BoardDetails = () => {
     );
     filteredColumns &&
       setBoardColumnsFilter(
-        filteredColumns.find((board) => board.id === boardId)
+        filteredColumns[1] && filteredColumns[1].find((board) => board.id === boardId)
       );
   }, [filteredColumns, boardId]);
 
@@ -84,17 +84,7 @@ const BoardDetails = () => {
     setCurrentBoard(boards.find((board) => board.id === boardId));
   }, [boards, boardId]);
 
-  // useEffect(() => {
-  //   async function d() {
-  //     await loadBoards();
-  //     await loadUsers();
-  //     console.log('this is')
-  //   }
-  //   d();
-  // }, [boards.groups]);
-
   useEffect(() => {
-    console.log(boardColumnsFilter, filteredColumns);
     const board = boards.find((board) => board.id === boardId);
     if (!board) {
       navigate(
@@ -148,7 +138,7 @@ const BoardDetails = () => {
 
   // function that set groups with each task update
   const onTaskUpdate = async (newCell) => {
-    await updateTask(currentBoard.id, newCell);
+    await updateTask(currentBoard.id, loggedInUser.id, newCell);
   };
 
   // const cmpOrder = ["taskTitle", "priority", "status", "members", "date"];
@@ -201,7 +191,8 @@ const BoardDetails = () => {
       boardId,
       group ? group.id : currentBoard.groups[0].id,
       taskTitle,
-      !group && true
+      !group && true,
+      loggedInUser.id,
     );
   }
 

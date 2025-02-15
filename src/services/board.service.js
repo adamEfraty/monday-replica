@@ -1,3 +1,4 @@
+import { useSelector } from "react-redux";
 import { updateTask } from "../store/actions/boards.actions.js";
 import { storageService } from "./async-storage.service.js";
 import { utilService } from "./util.service.js";
@@ -56,13 +57,13 @@ async function setFavorites(favoriteId) {
     const index = await localFavorites.findIndex((id) => id === favoriteId);
     if (index !== -1) {
       localFavorites.splice(index, 1);
-    } else if(typeof favoriteId === "string") {
+    } else if (typeof favoriteId === "string") {
       localFavorites.push(favoriteId);
     }
     localStorage.setItem(FAVORITES_KEY, JSON.stringify(localFavorites));
     return await localFavorites;
   } else {
-    const inputFavorite = Array.isArray(favoriteId) ? favoriteId : [favoriteId]
+    const inputFavorite = Array.isArray(favoriteId) ? favoriteId : [favoriteId];
     localStorage.setItem(FAVORITES_KEY, JSON.stringify(inputFavorite));
     return inputFavorite;
   }
@@ -73,11 +74,36 @@ async function addBoard() {
     const newBoard = {
       title: "New Board",
       labels: [
-        { id: utilService.makeIdForLabel(), type: "taskTitle", name: "task", width: 400 },
-        { id: utilService.makeIdForLabel(), type: "priority", name: "priority", width: 150 },
-        { id: utilService.makeIdForLabel(), type: "status", name: "status", width: 150 },
-        { id: utilService.makeIdForLabel(), type: "members", name: "members", width: 150 },
-        { id: utilService.makeIdForLabel(), type: "date", name: "date", width: 150 },
+        {
+          id: utilService.makeIdForLabel(),
+          type: "taskTitle",
+          name: "task",
+          width: 400,
+        },
+        {
+          id: utilService.makeIdForLabel(),
+          type: "priority",
+          name: "priority",
+          width: 150,
+        },
+        {
+          id: utilService.makeIdForLabel(),
+          type: "status",
+          name: "status",
+          width: 150,
+        },
+        {
+          id: utilService.makeIdForLabel(),
+          type: "members",
+          name: "members",
+          width: 150,
+        },
+        {
+          id: utilService.makeIdForLabel(),
+          type: "date",
+          name: "date",
+          width: 150,
+        },
       ],
       groups: [],
     };
@@ -204,10 +230,58 @@ async function removeTaskFromGroup(boardId, groupId, taskId) {
   return board; // Returning the updated group (optional, for use in UI or elsewhere)
 }
 // cell: {taskId:xxx, labelId: xxx, value: xxx, type: xxx}
-async function updateTaskInGroup(boardId, newCell) {
+async function updateTaskInGroup(boardId, userId, newCell) {
   try {
-    console.log("cell to update", newCell);
     const board = await getById(boardId); // Call directly without 'this'
+    const groupIndex = board.groups.findIndex((group) =>
+      group.tasks.some((task) => task.id === newCell.taskId)
+    );
+    const taskIndex = board.groups[groupIndex].tasks.findIndex(
+      (task) => task.id === newCell.taskId
+    );
+    const cellIndex = board.groups[groupIndex].tasks[taskIndex].cells.findIndex(
+      (cell) => cell.labelId === newCell.labelId
+    );
+    const newActivity = {
+      time: Date.now(),
+      userId,
+      taskId: newCell.taskId,
+      activity:
+        newCell.type === "members"
+          ? {
+              roupId: board.groups[groupIndex].id,
+              field: "members",
+              type:
+                board.groups[groupIndex].tasks[taskIndex].cells[cellIndex].value
+                  .length > newCell.value.length
+                  ? "Removed"
+                  : "Added",
+              item:
+                board.groups[groupIndex].tasks[taskIndex].cells[cellIndex].value
+                  .length > newCell.value.length
+                  ? board.groups[groupIndex].tasks[taskIndex].cells[
+                      cellIndex
+                    ].value.filter((member) => !newCell.value.includes(member))
+                  : newCell.value.filter(
+                      (member) =>
+                        !board.groups[groupIndex].tasks[taskIndex].cells[
+                          cellIndex
+                        ].value.includes(member)
+                    ),
+            }
+          : {
+              groupId: board.groups[groupIndex].id,
+              field: newCell.type,
+              type: "Changed",
+              preChange:
+                board.groups[groupIndex].tasks[taskIndex].cells[cellIndex]
+                  .value,
+              postChange: newCell.value,
+            },
+    };
+
+    console.log("newActivity", newActivity);
+    console.log("cell to update", newCell);
     const updatedBoard = {
       ...board,
       groups: board.groups.map((group) => ({
@@ -215,13 +289,29 @@ async function updateTaskInGroup(boardId, newCell) {
         tasks: group.tasks.map((task) => ({
           ...task,
           cells: task.cells.map((cell) =>
-            cell.taskId === newCell.taskId && cell.labelId === newCell.labelId
+            cell.taskId === newCell.taskId && cell.type === "taskTitle"
+              ? cell.labelId === newCell.labelId ? {
+                  ...cell,
+                  value: {
+                    ...newCell.value,
+                    activities: [...cell.value.activities, newActivity],
+                  },
+              } : {
+                  ...cell,
+                  value: {
+                    ...cell.value,
+                    activities: [...cell.value.activities, newActivity],
+                  },
+                }
+              : cell.taskId === newCell.taskId &&
+                cell.labelId === newCell.labelId
               ? newCell
               : cell
           ),
         })),
       })),
     };
+    console.log("About to update: ", updatedBoard);
     await save(updatedBoard).then(() => {
       console.log("updated board", updatedBoard);
     });
@@ -310,11 +400,36 @@ async function makeFirstBoard() {
     title: "SAR default board",
     members: usersInBoard,
     labels: [
-      { id: utilService.makeIdForLabel(), type: "taskTitle", name: "task", width: 400 },
-      { id: utilService.makeIdForLabel(), type: "priority", name: "priority", width: 150 },
-      { id: utilService.makeIdForLabel(), type: "status", name: "status", width: 150 },
-      { id: utilService.makeIdForLabel(), type: "members", name: "members", width: 150 },
-      { id: utilService.makeIdForLabel(), type: "date", name: "date", width: 150 },
+      {
+        id: utilService.makeIdForLabel(),
+        type: "taskTitle",
+        name: "task",
+        width: 400,
+      },
+      {
+        id: utilService.makeIdForLabel(),
+        type: "priority",
+        name: "priority",
+        width: 150,
+      },
+      {
+        id: utilService.makeIdForLabel(),
+        type: "status",
+        name: "status",
+        width: 150,
+      },
+      {
+        id: utilService.makeIdForLabel(),
+        type: "members",
+        name: "members",
+        width: 150,
+      },
+      {
+        id: utilService.makeIdForLabel(),
+        type: "date",
+        name: "date",
+        width: 150,
+      },
     ],
     groups: [],
   };
@@ -427,7 +542,9 @@ function setFilteredColumnsSession(newColumn) {
     const index = filteredColumnsArr.findIndex(
       (column) => column.id === newColumn.id
     );
-    index < 0 ? filteredColumnsArr.push(newColumn) : filteredColumnsArr[index] = newColumn;
+    index < 0
+      ? filteredColumnsArr.push(newColumn)
+      : (filteredColumnsArr[index] = newColumn);
     console.log("filteredColumnsArr: ", filteredColumnsArr);
     sessionStorage.setItem(
       "filteredColumns",
@@ -489,60 +606,60 @@ function getFilterState() {
 }
 
 async function addLableToBoard(boardId, newLable) {
-  const board = await getById(boardId)
+  const board = await getById(boardId);
   if (board) {
-    board.labels.push(newLable)
+    board.labels.push(newLable);
     const newGroups = board.groups.map((group) => ({
       ...group,
       tasks: group.tasks.map((task) => ({
         ...task,
         cells: [...task.cells, getDefultCell(newLable, task.id)],
       })),
-    }))
-    board.groups = newGroups
-    save(board)
-    return board
-  } else throw new Error("Board not found")
+    }));
+    board.groups = newGroups;
+    save(board);
+    return board;
+  } else throw new Error("Board not found");
 }
 
 async function deleteLableFromBoard(boardId, labelId) {
-  const board = await getById(boardId)
-  if(board){
-    board.labels = board.labels.filter(label => label.id !== labelId)
+  const board = await getById(boardId);
+  if (board) {
+    board.labels = board.labels.filter((label) => label.id !== labelId);
     const newGroups = board.groups.map((group) => ({
       ...group,
       tasks: group.tasks.map((task) => ({
         ...task,
-        cells: task.cells.filter(cell=>cell.labelId !== labelId),
+        cells: task.cells.filter((cell) => cell.labelId !== labelId),
       })),
-    }))
-    board.groups = newGroups
-    save(board)
-    return board
-  } else throw new Error("Board not found")
+    }));
+    board.groups = newGroups;
+    save(board);
+    return board;
+  } else throw new Error("Board not found");
 }
 
-async function changeLabelName(boardId, labelId, newName){
-  const board = await getById(boardId)
-  if(board){
-    board.labels = board.labels.map(label => 
-      (label.id === labelId) ? {...label, name: newName} : label)
-    save(board)
-    return board
-  } else throw new Error("Board not found")
+async function changeLabelName(boardId, labelId, newName) {
+  const board = await getById(boardId);
+  if (board) {
+    board.labels = board.labels.map((label) =>
+      label.id === labelId ? { ...label, name: newName } : label
+    );
+    save(board);
+    return board;
+  } else throw new Error("Board not found");
 }
 
-async function changeLabelWidth(boardId, labelId, newWidth){
-  const board = await getById(boardId)
-  if(board){
-    board.labels = board.labels.map(label => 
-      (label.id === labelId) ? {...label, width: newWidth} : label)
-    save(board)
-    return board
-  } else throw new Error("Board not found")
+async function changeLabelWidth(boardId, labelId, newWidth) {
+  const board = await getById(boardId);
+  if (board) {
+    board.labels = board.labels.map((label) =>
+      label.id === labelId ? { ...label, width: newWidth } : label
+    );
+    save(board);
+    return board;
+  } else throw new Error("Board not found");
 }
-
-
 
 function getDefultCell(label, taskId) {
   switch (label.type) {
@@ -581,5 +698,3 @@ function getDefultCell(label, taskId) {
       return null;
   }
 }
-
-

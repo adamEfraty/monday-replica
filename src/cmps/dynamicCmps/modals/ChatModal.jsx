@@ -489,10 +489,9 @@ export function ChatModal({
         </div>
       </div>            
         ) : (
-            <ActivityModal activities={cellInfo.value.activities} />
+            <ActivityModal activities={cellInfo.value.activities} taskTitle={textToEdit} />
         )
       }
-
     </section>
   );
 }
