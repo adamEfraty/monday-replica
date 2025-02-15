@@ -10,13 +10,13 @@ import {
   OPEN_MODALS,
   SET_FILTER_BY,
   SET_FILTERED_COLUMNS,
-  SET_FAVORITES
+  SET_FAVORITES,
 } from "../reducer/boards.reducer";
 
 export async function addBoard() {
   try {
     const savedBoard = await boardService.addBoard();
-    await setFilteredColumns({id: savedBoard.id, labels: savedBoard.labels});
+    await setFilteredColumns({ id: savedBoard.id, labels: savedBoard.labels });
 
     const boards = await boardService.query();
 
@@ -41,15 +41,17 @@ export async function loadBoards() {
     boardService.setFilteredColumnsSession(
       boards.map((board) => ({ id: board.id, labels: board.labels }))
     );
-    const favorites = await setFavories();
-    console.log(favorites);
+  const favorites = await setFavories();
+  console.log(favorites);
   await store.dispatch({ type: SET_BOARDS, boards });
   await store.dispatch({
     type: SET_FILTERED_COLUMNS,
-    newFilteredColumns: filteredColumns ? JSON.parse(filteredColumns) : boards.map((board) => ({
-      id: board.id,
-      labels: board.labels,
-    })),
+    newFilteredColumns: filteredColumns
+      ? JSON.parse(filteredColumns)
+      : boards.map((board) => ({
+          id: board.id,
+          labels: board.labels,
+        })),
   });
   showSuccessMsg("Boards loaded");
 }
@@ -76,7 +78,7 @@ export async function addGroup(boardId) {
   showSuccessMsg("Group added successfully");
 }
 
-export async function addItem(boardId, groupId, taskTitle, isStart = null) {
+export async function addItem(boardId, groupId, taskTitle, isStart = null, userId) {
   const board = await boardService.getById(boardId);
   const labels = [...board.labels];
   const taskId = utilService.makeId();
@@ -89,7 +91,18 @@ export async function addItem(boardId, groupId, taskTitle, isStart = null) {
         ? {
             taskId,
             labelId: label.id,
-            value: { title: taskTitle, chat: [] },
+            value: {
+              title: taskTitle,
+              chat: [],
+              activities: [
+                {
+                  time: Date.now(),
+                  taskId,
+                  userId,
+                  activity: { field: "taskTitle", type: "created", groupId },
+                },
+              ],
+            },
             type: label.type,
           }
         : boardService.getDefultCell(label, taskId)
@@ -111,7 +124,7 @@ export async function addItem(boardId, groupId, taskTitle, isStart = null) {
 
 export async function removeGroup(boardId, groupId) {
   await boardService.removeGroupFromBoard(boardId, groupId);
-
+ 
   const board = await boardService.getById(boardId);
   if (!board) throw new Error("Board not found");
 
@@ -225,8 +238,9 @@ export async function removeBoard(boardId) {
   }
 }
 
-export async function updateTask(boardId, newCell) {
-  await boardService.updateTaskInGroup(boardId, newCell);
+export async function updateTask(boardId, userId, newCell) {
+  console.log("It is me you looking for ", boardId, userId, newCell);
+  await boardService.updateTaskInGroup(boardId, userId, newCell);
 
   const board = await boardService.getById(boardId);
   const cellGroup = board.groups.find((group) =>
@@ -327,26 +341,30 @@ export async function addLable(boardId, labelInfo) {
   });
 }
 
-export async function deleteLable(boardId, labelId){
-  const newBoard = await boardService.deleteLableFromBoard(boardId, labelId)
+export async function deleteLable(boardId, labelId) {
+  const newBoard = await boardService.deleteLableFromBoard(boardId, labelId);
   if (!newBoard) return;
 
   store.dispatch({
     type: EDIT_BOARD,
     boardId,
     updatedBoard: newBoard,
-  })
+  });
 }
 
-export async function onChangeLabelName(boardId, labelId, newName){
-  const newBoard = await boardService.changeLabelName(boardId, labelId, newName)
+export async function onChangeLabelName(boardId, labelId, newName) {
+  const newBoard = await boardService.changeLabelName(
+    boardId,
+    labelId,
+    newName
+  );
   if (!newBoard) return;
 
   store.dispatch({
     type: EDIT_BOARD,
     boardId,
     updatedBoard: newBoard,
-  })
+  });
 }
 
 export async function replaceGroups(boardId, newGroups) {
@@ -403,27 +421,29 @@ export async function setFavories(favorite = []) {
   return await serviceFavorites;
 }
 
-export function onUpdateReduxLabelWidth(board, boardId, labelId, newWidth){
-  
-  const newLabels = board.labels.map(label=> 
-    (label.id === labelId) ? {...label, width: newWidth} : label)
-  const newBoard = {...board, labels: newLabels}
+export function onUpdateReduxLabelWidth(board, boardId, labelId, newWidth) {
+  const newLabels = board.labels.map((label) =>
+    label.id === labelId ? { ...label, width: newWidth } : label
+  );
+  const newBoard = { ...board, labels: newLabels };
 
   store.dispatch({
     type: EDIT_BOARD,
     boardId,
     updatedBoard: newBoard,
-  })
-
+  });
 }
 
-export async function onUpdateLocalLabelWidth(boardId, labelId, newWidth){
-  const newBoard = await boardService.changeLabelWidth(boardId, labelId, newWidth)
+export async function onUpdateLocalLabelWidth(boardId, labelId, newWidth) {
+  const newBoard = await boardService.changeLabelWidth(
+    boardId,
+    labelId,
+    newWidth
+  );
 
   store.dispatch({
     type: EDIT_BOARD,
     boardId,
     updatedBoard: newBoard,
-  })
+  });
 }
-

@@ -18,6 +18,7 @@ export function Priority({cellInfo, onTaskUpdate, labelWidth}) {
     }
 
     function onPriorityChange(priority){
+        console.log(priority, {...cellInfo, value: priority})
         onTaskUpdate({...cellInfo, value: priority})
         modalToggle()
     }
