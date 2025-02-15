@@ -432,12 +432,38 @@
   }
 }
 
-
 .activity-modal{
+  padding: 18px;
   display: flex;
-  gap: 10px;
+  gap: 5rem;
   & div{
     display: flex;
-    gap: 10px;
+  }
+  & > div{
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+  }
+  & .time{
+    display: flex;
+    align-items: center;
+  }
+
+  & .created{
+    gap: 5rem
   }
 }
+
+.activities-modal-container {
+  max-height: 75vh; /* Adjust based on your needs */
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  padding: 10px;
+}
+
+.activities-modal {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+

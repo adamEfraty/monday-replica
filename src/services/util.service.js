@@ -233,12 +233,12 @@ function milisecondsTimeCalc(savedTime) {
   // Convert milliseconds to minutes
   const minutesPassed =
     timeDifference < 60000
-      ? `${Math.floor(timeDifference / 1000)} seconds`
+      ? `${Math.floor(timeDifference / 1000)}s`
       : timeDifference < 3600000
-      ? `${Math.floor(timeDifference / 60000)} minutes`
+      ? `${Math.floor(timeDifference / 60000)}m`
       : timeDifference < 86400000
-      ? `${Math.floor(timeDifference / 3600000)} hours`
-      : `${Math.floor(timeDifference / 86400000)} days`;
+      ? `${Math.floor(timeDifference / 3600000)}h`
+      : `${Math.floor(timeDifference / 86400000)}d`;
 
   return minutesPassed;
 }
