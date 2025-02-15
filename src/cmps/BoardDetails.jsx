@@ -75,7 +75,7 @@ const BoardDetails = () => {
     );
     filteredColumns &&
       setBoardColumnsFilter(
-        filteredColumns[1] && filteredColumns[1].find((board) => board.id === boardId)
+        filteredColumns.find((board) => board.id === boardId)
       );
   }, [filteredColumns, boardId]);
 
@@ -91,34 +91,37 @@ const BoardDetails = () => {
         `/${utilService.getNameFromEmail(loggedInUser.email)}s-team.sunday.com`
       );
     } else if (board.groups.some((group) => group.tasks.length > 0)) {
-      const regExp = new RegExp(filterBy, "i");
-      const filteredGroups = board.groups
-        .map((group) => ({
-          ...group,
-          tasks: group.tasks.filter((task) => {
-            return boardColumnsFilter.labels.some((column) => {
-              const index = task.cells.findIndex(
-                (cell) => cell.type === column.type
-              );
-              if (index === -1) return false;
-              return column.type === "members"
-                ? task.cells[index].value.some(
-                    (member) =>
-                      regExp.test(member.fullName) || regExp.test(member.email)
-                  )
-                : regExp.test(
-                    column.type === "taskTitle"
-                      ? task.cells[index].value.title
-                      : column.type === "date"
-                      ? task.cells[index].value
-                      : task.cells[index].value.text
-                  );
-            });
-          }), // Filter tasks
-        }))
-        .filter((group) => group.tasks.length > 0); // Keep groups that have tasks
-
-      setCurrentBoard({ ...board, groups: filteredGroups }); // Update currentBoard with filtered groups
+      if (filterBy.length > 0) {
+        const regExp = new RegExp(filterBy, "i");
+        const filteredGroups = board.groups
+          .map((group) => ({
+            ...group,
+            tasks: group.tasks.filter((task) => {
+              return boardColumnsFilter.labels.some((column) => {
+                const index = task.cells.findIndex(
+                  (cell) => cell.type === column.type
+                );
+                if (index === -1) return false;
+                return column.type === "members"
+                  ? task.cells[index].value.some(
+                      (member) =>
+                        regExp.test(member.fullName) ||
+                        regExp.test(member.email)
+                    )
+                  : regExp.test(
+                      column.type === "taskTitle"
+                        ? task.cells[index].value.title
+                        : column.type === "date"
+                        ? task.cells[index].value
+                        : task.cells[index].value.text
+                    );
+              });
+            }), // Filter tasks
+          }))
+          .filter((group) => group.tasks.length > 0); // Keep groups that have tasks
+          setCurrentBoard({ ...board, groups: filteredGroups }); // Update currentBoard with filtered groups
+      }
+      filterBy.length === 0 && setCurrentBoard(board); // Update currentBoard with filtered groups
     }
   }, [filterBy, boardColumnsFilter]);
 
@@ -192,7 +195,7 @@ const BoardDetails = () => {
       group ? group.id : currentBoard.groups[0].id,
       taskTitle,
       !group && true,
-      loggedInUser.id,
+      loggedInUser.id
     );
   }
 
