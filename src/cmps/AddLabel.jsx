@@ -65,7 +65,7 @@ export function AddLabel({groupId, boardId}){
             </button>
             {
                 modal
-                ? <section className="add-label-modal" ref={modalRef}>
+                && <section className="add-label-modal" ref={modalRef}>
 
                     <ul>
                         {
@@ -81,7 +81,6 @@ export function AddLabel({groupId, boardId}){
                     </ul>
                     
                 </section>
-                : null
             }
         </section>
     )

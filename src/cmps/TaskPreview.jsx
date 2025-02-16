@@ -19,7 +19,9 @@ export function TaskPreview({
     openChat,
     checkedBoxes,
     handleCheckBoxClick,
-    id
+    id,
+    removeTask,
+    boardId,
 }) {
 
 
@@ -66,6 +68,8 @@ export function TaskPreview({
                                 checkedBoxes={checkedBoxes}
                                 handleCheckBoxClick={handleCheckBoxClick}
                                 taskHovering={taskHovering}
+                                removeTask={removeTask}
+                                boardId={boardId}
                             />
                         </section>
                     )
@@ -92,6 +96,8 @@ function DynamicCmp({
     listeners,
     attributes,
     taskHovering,
+    removeTask,
+    boardId,
 }) {
     switch (label.type) {
         case "priority":
@@ -119,6 +125,8 @@ function DynamicCmp({
                     handleCheckBoxClick={handleCheckBoxClick}
                     labelWidth={label.width}
                     taskHovering={taskHovering}
+                    removeTask={removeTask}
+                    boardId={boardId}
                 />
             );
 

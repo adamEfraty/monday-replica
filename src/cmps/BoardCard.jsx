@@ -14,20 +14,22 @@ export function BoardCard({ board, onUpdateBoardName, handleFavorite }) {
         src="https://cdn.monday.com/images/quick_search_recent_board2.svg"
         alt="Board Thumbnail"
       />
-      <input
-        onBlur={() => onUpdateBoardName(board.id, boardName)}
-        type="text"
-        className="board-input"
-        value={boardName}
-        onChange={(e) => setBoardName(e.target.value)}
-      />
-      <div onClick={() => handleFavorite(board.id)}>
-        <SvgCmp
-          type={`${
-            favorites.includes(board.id) ? "full" : "empty"
-          }-rating-icon`}
+      <section style={{display: "flex", alignItems: "center", width: "90%"}}>
+        <input
+          onBlur={() => onUpdateBoardName(board.id, boardName)}
+          type="text"
+          className="board-input"
+          value={boardName}
+          onChange={(e) => setBoardName(e.target.value)}
         />
-      </div>
+        <div onClick={() => handleFavorite(board.id)}>
+          <SvgCmp
+            type={`${
+              favorites.includes(board.id) ? "full" : "empty"
+            }-rating-icon`}
+          />
+        </div>
+      </section>
     </div>
   );
 }

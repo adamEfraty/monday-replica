@@ -9,7 +9,6 @@ import { MondayIndex } from "./pages/MondayIndex";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import { utilService } from "./services/util.service";
-import { useNavigate } from "react-router-dom";
 
 function App() {
   const loggedInUser = useSelector((state) => state.userModule.user);

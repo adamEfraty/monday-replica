@@ -25,6 +25,7 @@
 @use './dynamicCmps/modals/FilterModal';
 @use './Label';
 @use './dynamicCmps/modals/DeleteLabelConfirmation';
+@use './dynamicCmps//modals/DeleteTaskModal';
 
 * {
   padding: 0;

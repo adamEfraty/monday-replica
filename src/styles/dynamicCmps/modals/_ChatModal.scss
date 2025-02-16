@@ -111,24 +111,38 @@
 
       }
     }
+  }
 
-    .navigation{
+  .navigation {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 0.5rem;
+    & div {
       display: flex;
       align-items: center;
-      justify-content: center;
-      margin-top: 10px;
-      margin-left: 10px;
-      width: 100px;
-      height: 27px;
-      padding-bottom: 10px;
-      padding-right: 5px;
-      border-bottom: solid #0073EA 3px;
-
-      .updates{
-        display: flex;
-        gap: 7px;
-        font-size: 0.9em;
+      gap: 0.2rem;
+      & h5 {
+        font-size: 14px;
+        font-weight: 500;
       }
+      margin-bottom: 0.1rem;
+      padding: 0.25rem;
+      border-radius: 6px;
+      position: relative; /* Add relative positioning */
+      .highlight {
+        position: absolute;
+        bottom: -2px; /* Adjust this value to position the hr correctly */
+        left: 0;
+        width: 100%;
+        border: none;
+        border-top: 2px solid #0073ea; /* Adjust the border style as needed */
+      }
+    }
+  
+    & > div:hover {
+      cursor: pointer;
+      background-color: rgba(103, 104, 121, 0.1);
     }
   }
 
@@ -417,3 +431,39 @@
     }
   }
 }
+
+.activity-modal{
+  padding: 18px;
+  display: flex;
+  gap: 5rem;
+  & div{
+    display: flex;
+  }
+  & > div{
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+  }
+  & .time{
+    display: flex;
+    align-items: center;
+  }
+
+  & .created{
+    gap: 5rem
+  }
+}
+
+.activities-modal-container {
+  max-height: 75vh; /* Adjust based on your needs */
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  padding: 10px;
+}
+
+.activities-modal {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+

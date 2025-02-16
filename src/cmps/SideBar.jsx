@@ -1,6 +1,5 @@
 import HomeIcon from "@mui/icons-material/HomeOutlined";
 import MyWorkIcon from "@mui/icons-material/EventAvailableOutlined";
-import FavoritesIcon from "@mui/icons-material/StarBorderRounded";
 import WorkspacesIcon from "@mui/icons-material/GridViewOutlined";
 import { useNavigate, useLocation } from "react-router";
 import { addBoard } from "../store/actions/boards.actions";

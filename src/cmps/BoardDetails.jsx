@@ -8,6 +8,7 @@ import {
   replaceLabels,
   setFilteredColumns,
   updateTask,
+  removeTask,
 } from "../store/actions/boards.actions";
 import { SelectedTasksModal } from "./dynamicCmps/modals/SelectedTasksModal";
 import { useSelector } from "react-redux";
@@ -70,7 +71,8 @@ const BoardDetails = () => {
     console.log(
       "filteredColumns csdfsdfsdf ",
       boardColumnsFilter,
-      filteredColumns
+      filteredColumns,
+      boards
     );
     filteredColumns &&
       setBoardColumnsFilter(
@@ -83,26 +85,14 @@ const BoardDetails = () => {
     setCurrentBoard(boards.find((board) => board.id === boardId));
   }, [boards, boardId]);
 
-  // useEffect(() => {
-  //   async function d() {
-  //     await loadBoards();
-  //     await loadUsers();
-  //     console.log('this is')
-  //   }
-  //   d();
-  // }, [boards.groups]);
-
   useEffect(() => {
-    console.log(boardColumnsFilter, filteredColumns);
-    if (boards[0]) {
-      const board = boards.find((board) => board.id === boardId);
-      if (!board) {
-        navigate(
-          `/${utilService.getNameFromEmail(
-            loggedInUser.email
-          )}s-team.sunday.com`
-        );
-      } else {
+    const board = boards.find((board) => board.id === boardId);
+    if (!board) {
+      navigate(
+        `/${utilService.getNameFromEmail(loggedInUser.email)}s-team.sunday.com`
+      );
+    } else if (board.groups.some((group) => group.tasks.length > 0)) {
+      if (filterBy.length > 0) {
         const regExp = new RegExp(filterBy, "i");
         const filteredGroups = board.groups
           .map((group) => ({
@@ -130,9 +120,9 @@ const BoardDetails = () => {
             }), // Filter tasks
           }))
           .filter((group) => group.tasks.length > 0); // Keep groups that have tasks
-
-        setCurrentBoard({ ...board, groups: filteredGroups }); // Update currentBoard with filtered groups
+          setCurrentBoard({ ...board, groups: filteredGroups }); // Update currentBoard with filtered groups
       }
+      filterBy.length === 0 && setCurrentBoard(board); // Update currentBoard with filtered groups
     }
   }, [filterBy, boardColumnsFilter]);
 
@@ -152,7 +142,7 @@ const BoardDetails = () => {
 
   // function that set groups with each task update
   const onTaskUpdate = async (newCell) => {
-    await updateTask(currentBoard.id, newCell);
+    await updateTask(currentBoard.id, loggedInUser.id, newCell);
   };
 
   // const cmpOrder = ["taskTitle", "priority", "status", "members", "date"];
@@ -205,7 +195,8 @@ const BoardDetails = () => {
       boardId,
       group ? group.id : currentBoard.groups[0].id,
       taskTitle,
-      !group && true
+      !group && true,
+      loggedInUser.id
     );
   }
 
