@@ -10,12 +10,13 @@
 
     .white-cover{
       position: absolute;
-      left: -55px;  
+      left: -55px; 
+      top: -1px; 
       display: flex;
       align-items: center;
       justify-content: end;
       width: 50px;
-      height: 100%;
+      height: calc(100% + 3px);
       background-color: white;
 
       .dots{
@@ -83,6 +84,5 @@
 .input-styles {
   border: #dedede 1px solid;
   align-content: center;
-  border: #dedede 1px solid;
   padding: 0 1rem;
 }

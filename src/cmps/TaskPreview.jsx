@@ -41,7 +41,7 @@ export function TaskPreview({
             <section
                 ref={setNodeRef}
                 className="group-grid"
-                style={{ ...style, gridTemplateColumns: `${labels.map(label => `${label.width}px`).join(' ')} 500px` }}
+                style={{ ...style, gridTemplateColumns: `${labels.map(label => `${label.width}px`).join(' ')} 100px` }}
                 key={`task-${task.id}`}
             >
 

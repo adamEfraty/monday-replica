@@ -9,11 +9,35 @@
 }
 
 .progress-grid {
+  position: relative;
   display: grid;
   grid-template-columns: 10px 600px repeat(5, 150px) 500px;
 
   grid-template-rows: 34px;
   width: 100%; /* Set a fixed width */
+
+  .invisible{
+    position: sticky;
+    left: 0px;
+
+    .white-cover{
+      position: absolute;
+      left: -40px;
+      top: -1px;
+      width: 50px;
+      height: calc(100% + 3px);
+      background-color: white;
+    }
+  }
+
+
+
+  .taskTitle{
+    position: sticky;
+    left: 11px;
+    background-color: white;
+    border-right: solid #e0dede 1px;
+  }
 }
 
 
@@ -48,6 +72,7 @@
 
 .board-details {
   overflow: auto;
+  height: calc(100vh - 43px);
   position: relative;
   display: flex;
   flex-direction: column;
@@ -55,6 +80,16 @@
   border-top-left-radius: 12px;
   padding-left: 2rem;
   padding-bottom: 3rem;
+
+  /* Style Crossbar */
+  &::-webkit-scrollbar {
+    // width: 8px;
+
+  }
+  &::-webkit-scrollbar-thumb {
+    // background: #b2b2b2;
+  }
+  
 }
 /* Grid Items */
 .grid-item {
@@ -189,12 +224,9 @@ div {
   opacity: 0.8;
 }
 
-.add-input {
-  border: none;
-  padding: 0.5rem 3rem;
-}
-
 .modal-save-btn {
+  position: sticky;
+  left: 0px;
   margin-top: 20px;
   background-color: #67bfec;
   color: white;
@@ -256,10 +288,11 @@ section.labels-grid {
 }
 
 div.group-title-flex {
-  // position: sticky;
+  position: sticky;
+  left: 0px;
+  width: 500px;
   padding: 1rem;
-  top: 145px;
-  background-color: #fff;
+  background-color: white;
   z-index: 4;
 }
 .prog-box {
@@ -281,8 +314,23 @@ div.group-title-flex {
 // }
 
 .label-title {
+  z-index: 1;
+  position: sticky;
+  left: 10px;
   display: flex;
   align-items: center;
+  background-color: white;
+
+  .white-cover{
+    position: absolute;
+    left: -55px;
+    top: -1px;
+    width: 50px;
+    height: calc(100% + 3px);
+    border: none;
+ 
+    background-color: white; 
+  }
 
   .label-inner-title{
     display: flex;
@@ -345,13 +393,22 @@ div.group-title-flex {
 }
 
 .add-task {
-  margin-left: 10px;
-  opacity: 0.5;
+  position: sticky;
+  left: 10px;
+  width: 500px;
   border: 1px solid #e0dede;
   border-right: none;
   border-top: none;
-  &:hover {
+  opacity: 0.5;
+
+  &:hover{
     opacity: 1;
+  }
+
+  .add-input{
+    border: none;
+    padding: 0.5rem 3rem;
+    background-color: transparent;
   }
 }
 
