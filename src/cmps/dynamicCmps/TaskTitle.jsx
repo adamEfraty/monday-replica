@@ -208,7 +208,9 @@ export function TaskTitle({
 
         <div className="white-cover">
           <div ref={dotsRef}className="dots" 
-            style={{ visibility: taskHovering === cellInfo.taskId ? 'visible' : 'hidden' }}
+            style={{ visibility: deleteTaskModal || (taskHovering === cellInfo.taskId) ? 'visible' : 'hidden' ,
+              backgroundColor: deleteTaskModal && '#CAE3FD'
+            }}
             onClick={deleteModalToggle}>
             {getSvg('horizontal-dots')}
           </div>
