@@ -1,12 +1,15 @@
-import { useState, useRef, useEffect } from "react";
-import { showErrorMsg } from "../../services/event-bus.service.js";
-import { ChatModal } from "./modals/ChatModal.jsx";
-import ChatIcon from "@mui/icons-material/MapsUgcOutlined";
-import { openModal, closeModal } from "../../store/actions/boards.actions.js";
-import { useSelector } from "react-redux";
-import { utilService } from "../../services/util.service.js";
-import { boardService } from "../../services/board.service.js";
-import ReactDOM from "react-dom";
+import { useState, useRef, useEffect } from "react"
+import { showErrorMsg } from "../../services/event-bus.service.js"
+import { ChatModal } from "./modals/ChatModal.jsx"
+import ChatIcon from "@mui/icons-material/MapsUgcOutlined"
+import { openModal, closeModal } from "../../store/actions/boards.actions.js"
+import { useSelector } from "react-redux"
+import { utilService } from "../../services/util.service.js"
+import { boardService } from "../../services/board.service.js"
+import ReactDOM from 'react-dom'
+import { getSvg } from "../../services/svg.service.jsx"
+import { DeleteTaskModal } from './modals/DeleteTaskModal.jsx'
+
 
 export function TaskTitle({
   cellInfo,
@@ -21,35 +24,50 @@ export function TaskTitle({
   listeners,
   attributes,
   labelWidth,
+  taskHovering,
+  removeTask,
+  boardId,
 }) {
-  const [onEditMode, setOnEditMode] = useState(false);
-  const [textToEdit, setTextToEdit] = useState(cellInfo.value.title);
+
+  //edit task title
+
+  const [onEditMode, setOnEditMode] = useState(false)
+  const [textToEdit, setTextToEdit] = useState(cellInfo.value.title)
+
+  //chat stuff
 
   // so we won't see the chat before the animation
-  const [openAnimation, setOpenAnimation] = useState(true);
+  const [openAnimation, setOpenAnimation] = useState(true)
 
-  const chatId = `chat-${cellInfo.taskId}`;
+  const chatId = `chat-${cellInfo.taskId}`
 
-  const openModals = useSelector((state) => state.boardModule.openModals);
-  const modal = openModals.some((modalId) => modalId === chatId);
+  const openModals = useSelector((state) => state.boardModule.openModals)
+  const modal = openModals.some((modalId) => modalId === chatId)
 
-  const modalRef = useRef(null);
-  const ChatButtonRef = useRef(null);
+  const modalRef = useRef(null)
+  const ChatButtonRef = useRef(null)
 
-  const chatPrevInfo = boardService.getChatTempInfo(chatId);
-  const isChatWasOpen = boardService.getOpenChat();
+  const chatPrevInfo = boardService.getChatTempInfo(chatId)
+  const isChatWasOpen = boardService.getOpenChat()
+
+  // delete task
+
+  const deleteTaskModal = openModals.some((modalId) => modalId === 'delete-'+ cellInfo.taskId)
+
+  const deleteTaskModalRef = useRef(null)
+  const dotsRef = useRef(null)
 
   useEffect(() => {
     // in this way the modal wont show itself after refresh
     setTimeout(() => setOpenAnimation(false), 50);
     // when user refresh the page while modal was open
     if (isChatWasOpen === chatId) {
-      modalToggle();
+      modalToggle()
     }
-  }, []);
+  }, [])
 
   function chatAnimation(isEnter) {
-    if (!modalRef.current) return;
+    if (!modalRef.current) return
 
     const missingStyle = {
       position: "fixed",
@@ -79,13 +97,13 @@ export function TaskTitle({
   function modalToggle() {
     if (modal) {
       // Close modal
-      chatAnimation(false);
-      setTimeout(() => closeModal(chatId), 275);
+      chatAnimation(false)
+      setTimeout(() => closeModal(chatId), 275)
     } else {
       // Open modal
-      setOpenAnimation(true);
-      openModal(chatId);
-      setTimeout(() => chatAnimation(true), 10); // Wait for ref to exists
+      setOpenAnimation(true)
+      openModal(chatId)
+      setTimeout(() => chatAnimation(true), 10) // Wait for ref to exists
     }
   }
 
@@ -111,12 +129,12 @@ export function TaskTitle({
     const updatedChat = cellInfo.value.chat.map((comment) => {
       return comment.sentAt === commentSentTime
         ? { ...comment, replies: [newReply, ...comment.replies] }
-        : comment;
+        : comment
     });
     onTaskUpdate({
       ...cellInfo,
       value: { ...cellInfo.value, chat: updatedChat },
-    });
+    })
   }
 
   function toggleEditMode() {
@@ -127,40 +145,88 @@ export function TaskTitle({
         onTaskUpdate({
           ...cellInfo,
           value: { ...cellInfo.value, title: textToEdit },
-        });
+        })
       }
     }
 
-    setOnEditMode((prev) => !prev);
+    setOnEditMode((prev) => !prev)
   }
 
   function checkTitleValidation(title) {
     // not alowing user insert blank title
     if (title === "") return false;
-    return true;
+    return true
   }
 
   // if user press enter go to spectate mode
   function handleKeyDown(event) {
-    if (event.key === "Enter") toggleEditMode();
+    if (event.key === "Enter") toggleEditMode()
   }
 
   function handleLongText(text) {
     const maxLetters = Math.floor(labelWidth / 7) - 32
     if (text.length < maxLetters) return text
     else {
-      const shortenText = `${text.slice(0, maxLetters)}...`;
-      return shortenText;
+      const shortenText = `${text.slice(0, maxLetters)}...`
+      return shortenText
     }
   }
 
   function onUpdateTitleInChat(text) {
-    onTaskUpdate({ ...cellInfo, value: { ...cellInfo.value, title: text } });
+    onTaskUpdate({ ...cellInfo, value: { ...cellInfo.value, title: text } })
   }
+
+  // close and open delete modal as needed
+  function deleteModalToggle() {
+    deleteTaskModal
+    ? closeModal('delete-'+ cellInfo.taskId)
+    : openModal('delete-'+ cellInfo.taskId)
+  }
+
+  //if user click outside delete modal close it
+  function handleClickOutsideModal(event) {
+    if (!deleteTaskModalRef.current.contains(event.target)
+      && !dotsRef.current.contains(event.target))
+      deleteModalToggle()
+  }
+
+  // open listener to handleClickOutsideModal only when modal open
+  useEffect(() => {
+      if (deleteTaskModal) document.addEventListener
+          ('mousedown', handleClickOutsideModal)
+        else document.removeEventListener
+          ('mousedown', handleClickOutsideModal)
+      return () => document.removeEventListener
+          ('mousedown', handleClickOutsideModal)
+
+  }, [deleteTaskModal])
+
 
   return (
     <>
       <section className="task-title">
+
+        <div className="white-cover">
+          <div ref={dotsRef}className="dots" 
+            style={{ visibility: deleteTaskModal || (taskHovering === cellInfo.taskId) ? 'visible' : 'hidden' ,
+              backgroundColor: deleteTaskModal && '#CAE3FD'
+            }}
+            onClick={deleteModalToggle}>
+            {getSvg('horizontal-dots')}
+          </div>
+          {
+            deleteTaskModal && <div ref={deleteTaskModalRef}>
+              <DeleteTaskModal 
+              removeTask={removeTask}
+              boardId={boardId} 
+              groupId={group.id} 
+              taskId={cellInfo.taskId}/>
+            </div>
+          }
+        </div>
+
+
+
         <div className="checkbox-taskName">
           <div className="input-styles">
             <input
@@ -219,5 +285,5 @@ export function TaskTitle({
           document.body // Appends the modal properly
         )}
     </>
-  );
+  )
 }

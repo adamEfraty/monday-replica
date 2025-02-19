@@ -1,7 +1,3 @@
-.board-details-header {
-  color: #323338;
-}
-
 .highlight {
   // position: absolute;
   // bottom: -2px; /* Adjust this value to position the hr correctly */
@@ -63,9 +59,9 @@
 }
 
 header.board-details-header {
-  // position: sticky;
-  // top: 0;
-  background-color: #fff;
+  position: sticky;
+  left: 0px;
+  background-color: white;
   z-index: 11;
 }
 

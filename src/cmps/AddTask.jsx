@@ -1,4 +1,5 @@
 import { useState, useRef } from "react"
+import { useSelector } from "react-redux"
 import { showErrorMsg } from '../services/event-bus.service.js'
 
 
@@ -23,7 +24,7 @@ export function AddTask({ group, handleAddTask }) {
 
     return (
         <section 
-        style={{ borderLeft: `5px solid ${group?.color}`, borderBottomLeftRadius: 5 }} 
+        style={{ borderLeft: `5px solid ${group?.color}`, borderBottomLeftRadius: 5}}
         className="add-task">
             <input
                 ref={inputRef}

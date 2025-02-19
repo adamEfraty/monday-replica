@@ -144,7 +144,7 @@ export const GroupPreview = ({
         </div>
       </div>
 
-      <section className="group-list">
+      <section className="task-list">
         {/* Render group labels by labels array */}
 
         {expanded && (
@@ -153,7 +153,7 @@ export const GroupPreview = ({
               className="labels-grid"
               style={{
                 borderTopLeftRadius: 5,
-                gridTemplateColumns: `10px ${labels.map(label => `${label.width}px`).join(' ')} 500px`
+                gridTemplateColumns: `10px ${labels.map(label => `${label.width}px`).join(' ')} 100px`
               }}
             >
               <section className="ghost "></section>
@@ -162,6 +162,7 @@ export const GroupPreview = ({
                 {labels.map(label => (
                   label.type === 'taskTitle' ?
                     <div style={{ borderLeft: `5px solid ${group?.color}`, borderTopLeftRadius: 5 }} key={`label-${label.id}`} className="label-title">
+                      <div className="white-cover"/>
                       <section className="main-checkbox">
                         <input
                           type="checkbox"
@@ -205,17 +206,18 @@ export const GroupPreview = ({
                 />
               ))}
             </SortableContext>
-            <AddTask group={group} handleAddTask={handleAddTask} />
+            <AddTask group={group} handleAddTask={handleAddTask}/>
 
             {/* Render progress by progress array */}
             <section
               className="progress-grid"
               style={{
-                gridTemplateColumns: `10px ${labels.map(label => `${label.width}px`).join(' ')} 500px`
+                gridTemplateColumns: `10px ${labels.map(label => `${label.width}px`).join(' ')} 100px`
               }}
             >
-
-              <div className="invisible"></div>
+              <div className="invisible">
+                <div className="white-cover"/>
+              </div>
 
               {labels.map((lable, index) =>
                 progress.includes(lable.type) ? (

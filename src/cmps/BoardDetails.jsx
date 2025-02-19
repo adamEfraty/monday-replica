@@ -8,6 +8,7 @@ import {
   replaceLabels,
   setFilteredColumns,
   updateTask,
+  removeTask,
 } from "../store/actions/boards.actions";
 import { SelectedTasksModal } from "./dynamicCmps/modals/SelectedTasksModal";
 import { useSelector } from "react-redux";
