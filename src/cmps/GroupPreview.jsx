@@ -1,20 +1,10 @@
-import { Date } from "./dynamicCmps/Date";
-import { Members } from "./dynamicCmps/Members";
-import { Status } from "./dynamicCmps/Status";
-import { TaskTitle } from "./dynamicCmps/TaskTitle";
-import { Priority } from "./dynamicCmps/Priority";
 import { AddTask } from "./AddTask.jsx";
 import { P_Priority } from "./dynamicCmps/progressCmps/P_Priority.jsx";
 import { P_Status } from "./dynamicCmps/progressCmps/P_Status.jsx";
 import { P_Date } from "./dynamicCmps/progressCmps/P_Date.jsx";
 import { P_Members } from "./dynamicCmps/progressCmps/P_Members.jsx";
 import { AddLabel } from "./AddLabel.jsx";
-import Popover from '@mui/material/Popover';
-import { GarbageRemove } from "./dynamicCmps/modals/GarbageRemove.jsx";
-import { useState } from "react";
-import ArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import { ArrowRightIcon } from "@mui/x-date-pickers/icons";
-import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+import { useEffect, useState, useRef } from "react";
 import { useSelector } from "react-redux";
 import { removeTask } from "../store/actions/boards.actions.js";
 import { horizontalListSortingStrategy, SortableContext, useSortable, verticalListSortingStrategy } from "@dnd-kit/sortable";
@@ -22,7 +12,17 @@ import { CSS } from "@dnd-kit/utilities";
 import { TaskPreview } from "./TaskPreview.jsx";
 import { Label } from "./Label.jsx";
 import { LabelTitle } from "./LabelTitle.jsx";
-import { Color } from "./dynamicCmps/modals/Color.jsx";
+
+import { GroupTitle } from "./GroupTitle.jsx";
+import { LabelsGrid } from "./LabelsGrid.jsx";
+
+// Group Title Stuff:
+// import ArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+// import { ArrowRightIcon } from "@mui/x-date-pickers/icons";
+// import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+// import Popover from '@mui/material/Popover';
+// import { GarbageRemove } from "./dynamicCmps/modals/GarbageRemove.jsx";
+// import { Color } from "./dynamicCmps/modals/Color.jsx";
 
 export const GroupPreview = ({
   labels,
@@ -42,6 +42,7 @@ export const GroupPreview = ({
   chatTempInfoUpdate,
   openChat,
   id,
+  boardScroll,
 
 }) => {
   const [expanded, setExpanded] = useState(true);
@@ -51,25 +52,6 @@ export const GroupPreview = ({
 
   const [anchorEl, setAnchorEl] = useState(null);
   const [anchorE2, setAnchorE2] = useState(null);
-
-
-
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClick2 = (event) => {
-    setAnchorE2(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
-  const handleClose2 = () => {
-    setAnchorE2(null);
-  };
-
 
   const open = Boolean(anchorEl);
   const open2 = Boolean(anchorE2);
@@ -91,12 +73,124 @@ export const GroupPreview = ({
   };
 
 
+  const titleRef = useRef(null)
+  const [titlePositionY, setTitlePositionY] = useState(0)
+
+  useEffect(() => {
+    if(titleRef.current){
+      const yPosition = titleRef.current.getBoundingClientRect().y
+      setTitlePositionY(yPosition)
+
+    }
+
+
+  }, [boardScroll])
+
+  // useEffect(() => {
+  //   if (!titleRef.current) return;
+
+  //   if (requestRef.current) {
+  //     cancelAnimationFrame(requestRef.current);
+  //   }
+
+  //   requestRef.current = requestAnimationFrame(() => {
+  //     const yPosition = titleRef.current.getBoundingClientRect().y;
+  //     setTitlePositionY(yPosition);
+  //   });
+
+  //   return () => cancelAnimationFrame(requestRef.current);
+  // }, [boardScroll]);
+
+
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClick2 = (event) => {
+    setAnchorE2(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleClose2 = () => {
+    setAnchorE2(null);
+  };
+
+  function handelExpandedChange(newExpantion){
+    setExpanded(newExpantion)
+  }
+
+  function handelGroupTitleChange(newGroupTitle){
+    setGroupTitle(newGroupTitle)
+  }
 
   return (
     <div style={style} ref={setNodeRef} className="group-list-dnd" >
 
+      {
+        titlePositionY < 260 &&
+        <div>
+          <div className="fixed-group-title">
+            <GroupTitle
+              boardId={boardId}
+              group={group} 
+              groupTitle={groupTitle}
+              handleClick2={handleClick2} 
+              id2={id2}
+              open2={open2} 
+              anchorE2={anchorE2} 
+              handleClose2={handleClose2}
+              titleHead={titleHead}
+              expanded={expanded}
+              attributes={attributes}
+              listeners={attributes}
+              handleGroupNameChange={handleGroupNameChange}
+              handelExpandedChange={handelExpandedChange}
+              handelGroupTitleChange={handelGroupTitleChange}
+              handleDelete={handleDelete}
+            />
+          </div>
+          
+          {/* style={{position: 'absolute', top: `${270-titlePositionY}px`}} */}
+          <div className="fixed-labels">
+            <LabelsGrid 
+                    boardId={boardId}
+                    group={group}
+                    labels={labels}
+                    handleMasterCheckboxClick={handleMasterCheckboxClick}
+                    checkedGroups={checkedGroups}
+              />
+          </div>
+        </div>
+      }
 
-      <div className="group-title-flex">
+      
+
+      <GroupTitle
+          titleRef={titleRef}
+          boardId={boardId}
+          group={group} 
+          groupTitle={groupTitle}
+          handleClick2={handleClick2} 
+          id2={id2}
+          open2={open2} 
+          anchorE2={anchorE2} 
+          handleClose2={handleClose2}
+          titleHead={titleHead}
+          expanded={expanded}
+          attributes={attributes}
+          listeners={attributes}
+          handleGroupNameChange={handleGroupNameChange}
+          handelExpandedChange={handelExpandedChange}
+          handelGroupTitleChange={handelGroupTitleChange}
+          handleDelete={handleDelete}
+      />
+
+
+      {/* <div className="group-title">
 
         <div className="change-location">
           <span className="remove" onClick={handleClick2}><MoreHorizIcon />
@@ -142,14 +236,23 @@ export const GroupPreview = ({
         <div {...listeners} {...attributes} style={{ cursor: "grab", width: '100%', padding: '1rem' }}>
 
         </div>
-      </div>
+      </div> */}
 
       <section className="task-list">
         {/* Render group labels by labels array */}
 
         {expanded && (
           <div>
-            <section
+
+            <LabelsGrid 
+                  boardId={boardId}
+                  group={group}
+                  labels={labels}
+                  handleMasterCheckboxClick={handleMasterCheckboxClick}
+                  checkedGroups={checkedGroups}
+            />
+
+            {/* <section
               className="labels-grid"
               style={{
                 borderTopLeftRadius: 5,
@@ -181,7 +284,7 @@ export const GroupPreview = ({
               </SortableContext >
 
               <AddLabel groupId={group.id} boardId={boardId}/>
-            </section>
+            </section> */}
 
             {/* Render tasks by cmp order */}
 

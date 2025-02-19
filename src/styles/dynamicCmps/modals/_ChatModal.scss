@@ -1,6 +1,6 @@
 .chat-modal {
   z-index: 200; // this z-index bs has to be solved..
-  position: fixed; // unfortunately since absolute sticks with group-list element
+  position: fixed;
   top: 43px; // probably will change later
   right: 0px;
   height: 100vh;

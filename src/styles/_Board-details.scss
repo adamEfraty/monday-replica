@@ -22,7 +22,7 @@
 
     .white-cover{
       position: absolute;
-      left: -40px;
+      left: -39px;
       top: -1px;
       width: 50px;
       height: calc(100% + 3px);
@@ -91,6 +91,21 @@
   }
   
 }
+
+.fixed-group-title{
+  z-index: 10;
+  position: fixed;
+  top: 206px;
+  width: calc(100vw - 313px);
+  background-color: white;
+}
+
+.fixed-labels{
+  z-index: 10;
+  position: fixed;
+  top: 270px;
+}
+
 /* Grid Items */
 .grid-item {
   text-align: center;
@@ -251,7 +266,7 @@ div {
   width: 100%;
 }
 
-.group-title-flex {
+.group-title {
   display: flex;
   gap: 10px;
 
@@ -278,7 +293,7 @@ div {
 }
 section.labels-grid {
   // position: sticky;
-  top: 200px;
+  // top: 227px;
   z-index: 4;
   background-color: #fff;
 
@@ -287,7 +302,7 @@ section.labels-grid {
   }
 }
 
-div.group-title-flex {
+div.group-title {
   position: sticky;
   left: 0px;
   width: 500px;
@@ -323,9 +338,9 @@ div.group-title-flex {
 
   .white-cover{
     position: absolute;
-    left: -55px;
+    left: -47px;
     top: -1px;
-    width: 50px;
+    width: 40px;
     height: calc(100% + 3px);
     border: none;
  

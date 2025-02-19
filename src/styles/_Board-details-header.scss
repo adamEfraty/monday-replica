@@ -61,6 +61,7 @@
 header.board-details-header {
   position: sticky;
   left: 0px;
+  top:0px;
   background-color: white;
   z-index: 11;
 }
@@ -70,6 +71,7 @@ header.board-details-header {
   align-items: center;
   gap: 1rem;
   margin-top: 1rem;
+  margin-bottom: 1rem;
   & > div {
     display: flex;
     align-items: center;

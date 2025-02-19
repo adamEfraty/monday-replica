@@ -1,6 +1,6 @@
 import "../styles/_Board-Details.scss";
 import { GroupPreview } from "./GroupPreview";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { logout, loadUsers } from "../store/actions/user.actions";
 import {
   loadBoards,
@@ -26,6 +26,7 @@ import {
   SortableContext,
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
+
 
 const BoardDetails = () => {
   const loggedInUser = useSelector((state) => state.userModule.user);
@@ -54,6 +55,9 @@ const BoardDetails = () => {
   const filterBy = useSelector((state) => state.boardModule.filterBy);
 
   const groups = currentBoard?.groups || [];
+
+  const boardDetailsRef = useRef(null)
+  const [boardScroll, setBoardScroll] = useState(0)
 
   useEffect(() => {
     const index = boards.findIndex((board) => board.id === boardId);
@@ -125,6 +129,21 @@ const BoardDetails = () => {
       filterBy.length === 0 && setCurrentBoard(board); // Update currentBoard with filtered groups
     }
   }, [filterBy, boardColumnsFilter]);
+
+  useEffect(() => {
+
+    const handleScroll = () => {
+      const scrollPosition = boardDetailsRef.current.scrollTop
+      setBoardScroll(scrollPosition);
+    };
+    
+    if(boardDetailsRef.current){
+      boardDetailsRef.current.addEventListener("scroll", handleScroll);
+      return () => {
+        boardDetailsRef.current.removeEventListener("scroll", handleScroll); // Cleanup listener on unmount
+      }
+    }
+  }, [])
 
   //...............................
 
@@ -308,7 +327,7 @@ const BoardDetails = () => {
   }
 
   return (
-    <div className="board-details">
+    <div className="board-details" ref={boardDetailsRef}>
       <BoardDetailsHeader
         handleAddTask={handleAddTask}
         boardTitle={currentBoard.title}
@@ -326,7 +345,7 @@ const BoardDetails = () => {
               items={groups.map((group) => group.id)}
               strategy={verticalListSortingStrategy}
             >
-              {groups.map((group) => (
+              {groups.map((group, index) => (
                 <GroupPreview
                   id={group.id}
                   group={group}
@@ -346,6 +365,7 @@ const BoardDetails = () => {
                   users={users}
                   chatTempInfoUpdate={chatTempInfoUpdate}
                   openChat={openChat}
+                  boardScroll={boardScroll}
                 />
               ))}
             </SortableContext>
