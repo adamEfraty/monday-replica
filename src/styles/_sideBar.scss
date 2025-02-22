@@ -166,3 +166,34 @@
     opacity: 1;
   }
 }
+
+.add-item-popover {
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+  color: #888;
+  li {
+    color: black;
+    margin-top: 15px;
+    // padding: 5px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  & ul {
+    display: flex;
+    gap: 4px;
+    padding: 5px;
+    border-radius: 5px;
+    align-items: center;
+    &:hover {
+      cursor: pointer;
+      background-color: rgba(103, 104, 121, 0.1);
+    }
+  }
+}
+
+#add-item-popover {
+  margin-left: 8px;
+}

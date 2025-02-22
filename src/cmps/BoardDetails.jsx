@@ -8,7 +8,6 @@ import {
   replaceLabels,
   setFilteredColumns,
   updateTask,
-  removeTask,
 } from "../store/actions/boards.actions";
 import { SelectedTasksModal } from "./dynamicCmps/modals/SelectedTasksModal";
 import { useSelector } from "react-redux";
@@ -73,7 +72,7 @@ const BoardDetails = () => {
       boardColumnsFilter,
       filteredColumns,
       boards
-    );
+    )
     filteredColumns &&
       setBoardColumnsFilter(
         filteredColumns.find((board) => board.id === boardId)
@@ -120,7 +119,7 @@ const BoardDetails = () => {
             }), // Filter tasks
           }))
           .filter((group) => group.tasks.length > 0); // Keep groups that have tasks
-          setCurrentBoard({ ...board, groups: filteredGroups }); // Update currentBoard with filtered groups
+        setCurrentBoard({ ...board, groups: filteredGroups }); // Update currentBoard with filtered groups
       }
       filterBy.length === 0 && setCurrentBoard(board); // Update currentBoard with filtered groups
     }
@@ -255,6 +254,7 @@ const BoardDetails = () => {
   }
 
   async function handleDragEnd(event) {
+    console.log('im hereeee')
     const { active, over } = event;
 
     if (active === over) return;
@@ -268,6 +268,7 @@ const BoardDetails = () => {
         originalLabelPos,
         moveToLabel
       );
+      console.log("newLabelArray", newLabelArray);
 
       await replaceLabels(boardId, newLabelArray);
 
@@ -281,13 +282,13 @@ const BoardDetails = () => {
         getTaskPos(over.id);
 
       if (originalGroupPos !== moveToGroupPos) {
+        console.log("move to another group");
         const movedTask = groups[originalGroupPos].tasks[originalTaskPos];
 
         groups[originalGroupPos].tasks.splice(originalTaskPos, 1);
 
         groups[moveToGroupPos].tasks.splice(moveToTaskPos, 0, movedTask);
 
-        return;
       }
 
       const newTaskOrder = arrayMove(
@@ -303,6 +304,7 @@ const BoardDetails = () => {
     const originalPos = getGroupPos(active.id);
     const moveToPos = getGroupPos(over.id);
     const newGroupsOrder = arrayMove(groups, originalPos, moveToPos);
+    console.log(newGroupsOrder);
 
     await replaceGroups(boardId, newGroupsOrder);
   }

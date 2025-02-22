@@ -13,6 +13,7 @@ import { MenuModal } from "./dynamicCmps/modals/menu/MenuModal";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { getSvg, SvgCmp } from "../services/svg.service";
+import Popover from "@mui/material/Popover";
 
 export function SideBar({ boards, user, onRemoveBoard }) {
   const [menuDisplay, setMenuDisplay] = useState(false);
@@ -20,6 +21,9 @@ export function SideBar({ boards, user, onRemoveBoard }) {
   const favorites = useSelector((state) => state.boardModule.favorites);
   const location = useLocation();
   const navigate = useNavigate();
+  const [anchorEl, setAnchorEl] = useState(null);
+  const popoverOpen = Boolean(anchorEl);
+  const popoverId = popoverOpen ? "add-item-popover" : undefined;
 
   function onChangeAdressOnce(fullAddress) {
     if (location.pathname !== fullAddress) {
@@ -125,14 +129,26 @@ export function SideBar({ boards, user, onRemoveBoard }) {
               </div>
               <button
                 className="add-board-button"
-                onClick={() => setMenuDisplay(!menuDisplay)}
+                onClick={(ev) =>  setAnchorEl(ev.currentTarget)}
               >
                 <PlusIcon style={{ width: 28, height: 26 }} />
               </button>
-
-              {menuDisplay && (
+              <Popover
+              id={popoverId}
+              open={popoverOpen}
+              anchorEl={anchorEl}
+              onClose={() => setAnchorEl(null)}
+              anchorOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+              transformOrigin={{
+                vertical: "right",
+                horizontal: "bottom",
+              }}
+            >
                 <MenuModal type="addItem" handleAddBoard={handleAddBoard} />
-              )}
+            </Popover>
             </div>
           </div>
 
