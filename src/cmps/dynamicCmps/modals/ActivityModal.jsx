@@ -2,15 +2,23 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { utilService } from "../../../services/util.service";
 import TimeIcon from "@mui/icons-material/AccessTime";
+import ExportIcon from "@mui/icons-material/FileUploadOutlined";
+import ArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 
 export function ActivityModal({ activities }) {
   const boards = useSelector((state) => state.boardModule.boards);
   const users = useSelector((state) => state.userModule.users);
-  useEffect(() => {
-    console.log(activities);
-  }, []);
   return activities[0] ? (
     <div className="activities-modal-container">
+      <section className="header-activities">
+        <section className="newTask-button">
+          <div className="new-task-button">Filter Log</div>
+          <div className="arrow-down">
+            <ArrowDownIcon />
+          </div>
+        </section>
+        <ExportIcon className="export-icon" />
+      </section>
       <ul className="activities-modal">
         {activities.map((activity) => {
           const user = users.find((user) => user.id === activity.userId);
@@ -20,13 +28,14 @@ export function ActivityModal({ activities }) {
           const group = boards[idx].groups.find(
             (group) => group.id === activity.activity.groupId
           );
+          console.log(group);
           const task = group.tasks.find((task) => task.id === activity.taskId);
           const userName = user.fullName
             .split(" ")
             .map((name) => name[0])
             .join("")
             .toUpperCase();
-  
+
           return (
             <section key={activity.id}>
               <section className="activity-modal-container">
@@ -78,5 +87,5 @@ export function ActivityModal({ activities }) {
     </div>
   ) : (
     <h1>No Activities</h1>
-  );  
+  );
 }
