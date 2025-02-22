@@ -69,10 +69,11 @@ async function setFavorites(favoriteId) {
   }
 }
 
-async function addBoard() {
+async function addBoard(boardName) {
   try {
+    console.log(boardName)
     const newBoard = {
-      title: "New Board",
+      title: boardName,
       labels: [
         {
           id: utilService.makeIdForLabel(),
@@ -107,6 +108,7 @@ async function addBoard() {
       ],
       groups: [],
     };
+    console.log("newBoard: ", newBoard);
     const savedBoard = await storageService.post(STORAGE_KEY, newBoard);
 
     return savedBoard;
