@@ -8,6 +8,7 @@ export const OPEN_MODALS = 'OPEN_MODALS'
 export const SET_FILTER_BY = 'SET_FILTER'
 export const SET_FILTERED_COLUMNS = 'SET_FILTERED_COLUMNS'
 export const SET_FAVORITES = 'SET_FAVORITES'
+export const SET_MODAL = "SET_MODAL"
 
 const initialState = {
   boards: [],
@@ -16,6 +17,7 @@ const initialState = {
   filteredColumns: [],
   filterState: false,
   favorites: [],
+  addBoardModalState: false,
 }
 
 export const boardReducer = (state = initialState, action) => {
@@ -69,6 +71,12 @@ export const boardReducer = (state = initialState, action) => {
       return {
         ...state,
         favorites: action.favorites,
+      }
+
+      case SET_MODAL:
+      return {
+        ...state,
+        addBoardModalState: action.value
       }
 
     default:

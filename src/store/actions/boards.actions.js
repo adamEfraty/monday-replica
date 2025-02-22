@@ -13,9 +13,10 @@ import {
   SET_FAVORITES,
 } from "../reducer/boards.reducer";
 
-export async function addBoard() {
+export async function addBoard(boardName) {
   try {
-    const savedBoard = await boardService.addBoard();
+    console.log(boardName)
+    const savedBoard = await boardService.addBoard(boardName);
     await setFilteredColumns({ id: savedBoard.id, labels: savedBoard.labels });
 
     const boards = await boardService.query();

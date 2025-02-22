@@ -14,6 +14,9 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import { getSvg, SvgCmp } from "../services/svg.service";
 import Popover from "@mui/material/Popover";
+import { CreateBoard } from "./dynamicCmps/modals/CreateBoard";
+import { useDispatch } from "react-redux";
+import { SET_MODAL } from "../store/reducer/boards.reducer";
 
 export function SideBar({ boards, user, onRemoveBoard }) {
   const [menuDisplay, setMenuDisplay] = useState(false);
@@ -24,15 +27,18 @@ export function SideBar({ boards, user, onRemoveBoard }) {
   const [anchorEl, setAnchorEl] = useState(null);
   const popoverOpen = Boolean(anchorEl);
   const popoverId = popoverOpen ? "add-item-popover" : undefined;
+  const addBoardModalState = useSelector((state) => state.boardModule.addBoardModalState);
+  const dispatch = useDispatch();
+
+  function setOpenModal(value){
+    console.log(value);
+    dispatch({ type: SET_MODAL, value });
+  }
 
   function onChangeAdressOnce(fullAddress) {
     if (location.pathname !== fullAddress) {
       navigate(`${fullAddress}`);
     }
-  }
-
-  function handleAddBoard() {
-    addBoard();
   }
 
   function handleDotsClick(event, boardId) {
@@ -147,7 +153,10 @@ export function SideBar({ boards, user, onRemoveBoard }) {
                 horizontal: "bottom",
               }}
             >
-                <MenuModal type="addItem" handleAddBoard={handleAddBoard} />
+                <MenuModal type="addItem" handleOpenModal={() => {
+                  console.log('im heree')
+                  setOpenModal(!addBoardModalState)}
+                  } />
             </Popover>
             </div>
           </div>
