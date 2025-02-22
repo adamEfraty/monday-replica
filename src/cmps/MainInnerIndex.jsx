@@ -11,7 +11,6 @@ import { CreateBoard } from "./dynamicCmps/modals/CreateBoard.jsx";
 
 export function MainInnerIndex({ user, isBoard, boards }) {
   const filteredColumns = useSelector((state) => state.boardModule.filteredColumns);
-  const addBoardModalState = useSelector((state) => state.boardModule.addBoardModalState);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -30,11 +29,6 @@ export function MainInnerIndex({ user, isBoard, boards }) {
     updateBoardName(id, title);
   }
 
-  function handleAddBoard(boardName = "New Board") {
-    console.log(boardName);
-    addBoard(boardName);
-  }
-
   async function handleFavorite(boardId){
     await setFavories(boardId);
     console.log(boardId)
@@ -42,7 +36,6 @@ export function MainInnerIndex({ user, isBoard, boards }) {
 
   return !isBoard ? (
     <div className="main-inner-index">
-      {addBoardModalState && <CreateBoard handleAddBoard={handleAddBoard} />}
       <section className="welcome-section">
         <small>Hello {user.fullName}!</small>
         <small id="bold">
