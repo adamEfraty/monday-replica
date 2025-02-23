@@ -31,6 +31,8 @@ export function TaskTitle({
 
   //edit task title
 
+    console.log(cellInfo)
+
   const [onEditMode, setOnEditMode] = useState(false)
   const [textToEdit, setTextToEdit] = useState(cellInfo.value.title)
 

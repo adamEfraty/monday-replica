@@ -18,7 +18,7 @@ export function CreateBoard({ handleAddBoard }) {
         <label htmlFor="boardName">Board name:</label>
         <input type="text" id="boardName" name="boardName" required />
         <section className="create-board-buttons">
-          <button type="button">Cancel</button>
+          <button type="button" className="cancel-button">Cancel</button>
           <button type="submit">Create</button>
         </section>
       </form>

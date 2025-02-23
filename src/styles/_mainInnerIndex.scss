@@ -117,8 +117,16 @@
         border: none;
         border-radius: 5px;
         background-color: #0073ea;
+        cursor: pointer;
         &:hover{
           background-color: #0060b9;
+        }
+      }
+      .cancel-button{
+        background-color: #ffffff;
+        color: black;
+        &:hover{
+          background-color: #e8e8e8;
         }
       }
     }

@@ -72,7 +72,7 @@ const BoardDetails = () => {
       boardColumnsFilter,
       filteredColumns,
       boards
-    )
+    );
     filteredColumns &&
       setBoardColumnsFilter(
         filteredColumns.find((board) => board.id === boardId)
@@ -254,7 +254,7 @@ const BoardDetails = () => {
   }
 
   async function handleDragEnd(event) {
-    console.log('im hereeee')
+    console.log("im hereeee");
     const { active, over } = event;
 
     if (active === over) return;
@@ -288,7 +288,6 @@ const BoardDetails = () => {
         groups[originalGroupPos].tasks.splice(originalTaskPos, 1);
 
         groups[moveToGroupPos].tasks.splice(moveToTaskPos, 0, movedTask);
-
       }
 
       const newTaskOrder = arrayMove(
@@ -357,6 +356,7 @@ const BoardDetails = () => {
           </button>
           {checkedBoxes.length > 0 && (
             <SelectedTasksModal
+              boardId={boardId}
               checkedTasks={checkedBoxes}
               handleDeleteTasks={handleDeleteTasks}
             />
