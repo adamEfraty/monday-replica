@@ -2,6 +2,7 @@ import { useSelector } from "react-redux";
 import { updateTask } from "../store/actions/boards.actions.js";
 import { storageService } from "./async-storage.service.js";
 import { utilService } from "./util.service.js";
+import { add } from "@dnd-kit/utilities";
 
 const imageLinks = [
   "https://images.pexels.com/photos/30061809/pexels-photo-30061809/free-photo-of-fashionable-woman-posing-with-colorful-headscarf.jpeg?auto=compress&cs=tinysrgb&w=600",
@@ -49,6 +50,7 @@ export const boardService = {
   deleteLableFromBoard,
   changeLabelName,
   changeLabelWidth,
+  addMultipleItemsToGroup,
 };
 
 async function setFavorites(favoriteId) {
@@ -71,7 +73,7 @@ async function setFavorites(favoriteId) {
 
 async function addBoard(boardName) {
   try {
-    console.log(boardName)
+    console.log(boardName);
     const newBoard = {
       title: boardName,
       labels: [
@@ -165,17 +167,87 @@ async function addGroupToBoard(boardId, newGroup) {
   return newGroup;
 }
 
-async function addItemToGroup(boardId, groupId, newItem, isStart = null) {
+async function addItemToGroup(
+  boardId,
+  groupId,
+  newItem,
+  isStart = null,
+  idx = null
+) {
   const board = await getById(boardId);
   if (!board) throw new Error("Board not found");
 
   const groupIndex = board.groups.findIndex((group) => group.id === groupId);
   if (groupIndex === -1) throw new Error("Group not found");
 
-  isStart
+  idx
+    ? board.groups[groupIndex].tasks.splice(idx, 0, newItem)
+    : isStart
     ? board.groups[groupIndex].tasks.unshift(newItem)
     : board.groups[groupIndex].tasks.push(newItem);
   await save(board);
+}
+
+async function addMultipleItemsToGroup(boardId, tasksToAdd) {
+  const board = await getById(boardId);
+  if (!board) throw new Error("Board not found");
+
+  tasksToAdd.forEach((task) => {
+    console.log(task)
+    const group = board.groups.find((group) => group.id === task[0]);
+    if (!group) throw new Error("Group not found");
+
+    console.log(group)
+
+    const taskToDuplicateIdx = group.tasks.findIndex((t) => t.id === task[1]);
+    if (!group.tasks[taskToDuplicateIdx]) throw new Error("Task not found");
+
+    const mapped = group.tasks[taskToDuplicateIdx].cells.map((cell) => ({
+      ...cell,
+      taskId: "sfkjsdfhsbd",
+    }));
+    console.log(mapped);
+
+    const newTaskId = utilService.makeId();
+
+    const newItem = {
+      ...group.tasks[taskToDuplicateIdx],
+      id: newTaskId,
+      cells: group.tasks[taskToDuplicateIdx].cells.map((cell, idx) =>
+        idx === 0
+          ? {
+              ...cell,
+              taskId: newTaskId,
+              value: {
+                title: `${cell.value.title} (copy)`,
+                chat: [],
+                activities: [
+                  {
+                    time: Date.now(),
+                    taskId: newTaskId,
+                    userId: cell.value.activities[0].userId,
+                    activity: {
+                      groupId: group.id,
+                      field: "taskTitle",
+                      type: "Duplicated",
+                    },
+                  },
+                ],
+              },
+            }
+          : {
+              ...cell,
+              taskId: newTaskId,
+            }
+      ),
+    };
+
+    console.log(newItem);
+
+    group.tasks.splice(taskToDuplicateIdx +1, 0, newItem);
+  });
+
+  return await save(board);
 }
 
 async function removeGroupFromBoard(boardId, groupId) {
@@ -292,19 +364,21 @@ async function updateTaskInGroup(boardId, userId, newCell) {
           ...task,
           cells: task.cells.map((cell) =>
             cell.taskId === newCell.taskId && cell.type === "taskTitle"
-              ? cell.labelId === newCell.labelId ? {
-                  ...cell,
-                  value: {
-                    ...newCell.value,
-                    activities: [...cell.value.activities, newActivity],
-                  },
-              } : {
-                  ...cell,
-                  value: {
-                    ...cell.value,
-                    activities: [...cell.value.activities, newActivity],
-                  },
-                }
+              ? cell.labelId === newCell.labelId
+                ? {
+                    ...cell,
+                    value: {
+                      ...newCell.value,
+                      activities: [...cell.value.activities, newActivity],
+                    },
+                  }
+                : {
+                    ...cell,
+                    value: {
+                      ...cell.value,
+                      activities: [...cell.value.activities, newActivity],
+                    },
+                  }
               : cell.taskId === newCell.taskId &&
                 cell.labelId === newCell.labelId
               ? newCell

@@ -14,12 +14,12 @@ export function CreateBoard({ handleAddBoard }) {
   return (
     <section className="create-board">
       <h1>Create Board</h1>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="create-board-form">
         <label htmlFor="boardName">Board name:</label>
         <input type="text" id="boardName" name="boardName" required />
-        <section>
+        <section className="create-board-buttons">
+          <button type="button" className="cancel-button">Cancel</button>
           <button type="submit">Create</button>
-          <button type="button">Cancel</button>
         </section>
       </form>
       <h6 onClick={closeModal}>X</h6>

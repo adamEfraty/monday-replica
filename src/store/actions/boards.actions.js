@@ -448,3 +448,13 @@ export async function onUpdateLocalLabelWidth(boardId, labelId, newWidth) {
     updatedBoard: newBoard,
   });
 }
+
+export async function duplicateTasks(boardId, tasksToDuplicate) {
+  const newBoard = await boardService.addMultipleItemsToGroup(boardId, tasksToDuplicate);
+
+  store.dispatch({
+    type: EDIT_BOARD,
+    boardId,
+    updatedBoard: newBoard,
+  });
+}
