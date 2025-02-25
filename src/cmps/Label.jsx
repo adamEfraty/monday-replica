@@ -4,7 +4,6 @@ import { openModal, closeModal } from '../store/actions/boards.actions.js'
 import { useSelector } from "react-redux";
 import { useState, useRef, useEffect, useCallback } from "react";
 import { deleteLable, onChangeLabelName, onUpdateReduxLabelWidth, onUpdateLocalLabelWidth } from "../store/actions/boards.actions.js";
-import { showErrorMsg } from '../services/event-bus.service.js'
 import { getSvg } from "../services/svg.service.jsx";
 import { DeleteLabelConfirmation } from "./dynamicCmps/modals/DeleteLabelConfirmation.jsx"
 import { utilService } from "../services/util.service.js";
@@ -81,7 +80,6 @@ export function Label({ label, id, boardId, groupId }) {
         if (onEditMode) {
             if (textToEdit === '') {
                 setTextToEdit(label.name)
-                showErrorMsg("Name can't be empty")
             }
             else 
                 onChangeLabelName(boardId, label.id, textToEdit) 

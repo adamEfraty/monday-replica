@@ -1,5 +1,4 @@
 import { boardService } from "../../services/board.service";
-import { showSuccessMsg } from "../../services/event-bus.service";
 import { utilService } from "../../services/util.service";
 import { store } from "../store";
 
@@ -26,7 +25,6 @@ export async function addBoard(boardName) {
       boards,
     });
 
-    showSuccessMsg("Board added successfully");
 
     return savedBoard;
   } catch (error) {
@@ -54,7 +52,6 @@ export async function loadBoards() {
           labels: board.labels,
         })),
   });
-  showSuccessMsg("Boards loaded");
 }
 
 export async function addGroup(boardId) {
@@ -76,7 +73,6 @@ export async function addGroup(boardId) {
     updatedBoard: board,
   });
 
-  showSuccessMsg("Group added successfully");
 }
 
 export async function addItem(boardId, groupId, taskTitle, isStart = null, userId) {
@@ -120,7 +116,6 @@ export async function addItem(boardId, groupId, taskTitle, isStart = null, userI
     updatedBoard,
   });
 
-  showSuccessMsg("Item added successfully");
 }
 
 export async function removeGroup(boardId, groupId) {
@@ -140,7 +135,6 @@ export async function removeGroup(boardId, groupId) {
     updatedBoard,
   });
 
-  showSuccessMsg("Group removed successfully");
 }
 
 export async function updateGroup(boardId, groupId, updatedGroupData) {
@@ -164,7 +158,6 @@ export async function updateGroup(boardId, groupId, updatedGroupData) {
     updatedBoard,
   });
 
-  showSuccessMsg("Group updated successfully");
 }
 
 export async function removeTasks(boardId, tasksArr) {
@@ -226,7 +219,6 @@ export async function removeTask(boardId, groupId, taskId) {
   });
 
   // Show success message
-  showSuccessMsg("Task removed successfully");
 }
 
 export async function removeBoard(boardId) {
@@ -278,7 +270,6 @@ export async function updateTask(boardId, userId, newCell) {
     updatedBoard,
   });
 
-  showSuccessMsg("Task updated successfully");
 }
 
 export async function updateBoardName(boardId, newName) {
@@ -385,7 +376,6 @@ export async function replaceGroups(boardId, newGroups) {
     updatedBoard,
   });
 
-  showSuccessMsg("Groups updated successfully");
 }
 
 export async function replaceLabels(boardId, newLabels) {
@@ -404,8 +394,6 @@ export async function replaceLabels(boardId, newLabels) {
     boardId,
     updatedBoard,
   });
-
-  showSuccessMsg("Labels updated successfully");
 }
 
 export async function setFilteredColumns(filteredColumns) {

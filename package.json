@@ -30,7 +30,8 @@
     "react-router-dom": "^7.1.1",
     "redux": "^5.0.1",
     "sass": "^1.83.1",
-    "sass-loader": "^16.0.4"
+    "sass-loader": "^16.0.4",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "@eslint/js": "^9.17.0",

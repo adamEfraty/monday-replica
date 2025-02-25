@@ -202,12 +202,6 @@ async function addMultipleItemsToGroup(boardId, tasksToAdd) {
     const taskToDuplicateIdx = group.tasks.findIndex((t) => t.id === task[1]);
     if (!group.tasks[taskToDuplicateIdx]) throw new Error("Task not found");
 
-    const mapped = group.tasks[taskToDuplicateIdx].cells.map((cell) => ({
-      ...cell,
-      taskId: "sfkjsdfhsbd",
-    }));
-    console.log(mapped);
-
     const newTaskId = utilService.makeId();
 
     const newItem = {

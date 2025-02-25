@@ -3,7 +3,6 @@ import {
   utilService,
 } from "../../../services/util.service.js";
 import { useState, useEffect, useRef } from "react";
-import { showErrorMsg } from "../../../services/event-bus.service.js";
 import "animate.css";
 import { getSvg } from "../../../services/svg.service.jsx";
 
@@ -170,7 +169,6 @@ export function ChatModal({
       // not alowing user insert unvalid title
       if (!checkTitleValidation(textToEdit)) {
         setTextToEdit(cellInfo.value.chat.text);
-        showErrorMsg("Name can't be empty");
       }
       // if everyting ok update title changes
       else onUpdateTitleInChat(textToEdit);
@@ -487,7 +485,7 @@ export function ChatModal({
           {/* to have some distance to the bottom*/}
           <div className="white-block" />
         </div>
-      </div>            
+      </div>
         ) : (
             <ActivityModal activities={cellInfo.value.activities} taskTitle={textToEdit} />
         )
