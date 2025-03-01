@@ -1,0 +1,69 @@
+.add-label{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    $add-label-width: 25px;
+    $add-label-height: 25px;
+    position: relative;
+    width: $add-label-width;
+    height: 100%;
+    margin-left: 10px;
+
+    .add-column-button{
+        cursor: pointer;
+        width: $add-label-width;
+        height: $add-label-height;
+        background-color: transparent;
+        border-color: transparent;
+        border-radius: 4px;
+        color: #737373;
+        $ptt: 0.2s; // plus transition time
+
+        &:hover{
+            background-color: #EBEBEC;
+        }
+
+        .plus{
+            border: none;
+            transition: transform $ptt ease, color $ptt ease, margin-right $ptt ease;
+        }
+
+        .plus-open{
+            border: none;
+            margin-right: 3px;
+            color: #005EB6;
+            transform: rotate(45deg);
+            transition: transform $ptt ease, color $ptt ease, margin-right $ptt ease;
+        }        
+      }
+
+    .add-label-modal{
+        position: absolute;
+        right: $add-label-width + 5px;
+        top: -5px;
+        width: 150px;
+        background-color: white;
+        padding: 10px;
+        box-shadow: 0px 3px 12px rgb(200, 200, 200);
+        border-radius: 6px;
+        z-index: 1;
+
+        ul{
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .label-option{
+            cursor: pointer;
+            display: flex;
+            gap: 5px;
+            padding: 5px;
+            border-radius: 4px;
+
+            &:hover{
+                background-color: #F0F0F1;
+            }
+        }
+    }
+}

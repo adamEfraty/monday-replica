@@ -1,0 +1,135 @@
+.grid-item.members {
+  position: relative;
+
+  .members-modal {
+     // in var so you can controll it in js!
+    --cell-width: 150px;
+    $cell-height: 34px;
+    $modal-width: 350px;
+
+    z-index: 11;
+    position: absolute;
+    position: absolute;
+    top: calc($cell-height + 5px);
+    left: calc((var(--cell-width) - $modal-width) /2);
+    width: $modal-width;
+    background-color: white;
+    border: none;
+    box-shadow: 1px 1px 7px rgb(200, 200, 200);
+    border-radius: 8px;
+    color: black;
+    padding: 20px;
+
+    .white-arrow{
+      position: absolute;
+      top:-9px;
+      left: calc(#{$modal-width} / 2 - 12px);
+    }
+
+    p {
+      border: none;
+      text-align: left;
+      padding-top: 0px;
+    }
+
+    .participate-list {
+      list-style-type: none;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+
+
+      li {
+        position: relative;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        background-color: #E5F4FF;
+        border-radius: 10px;
+        height: 23px;
+      }
+
+      img {
+        position: absolute;
+        left: -1px;
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+      }
+      p{
+        margin-left: 27px;
+        font-size: 0.9em;
+      }
+
+      button {
+        margin-right: 2px;
+        display: grid;
+        align-content: center;
+        cursor: pointer;
+        width: 18px;
+        height: 18px;
+        background: none;
+        border-color: transparent;
+        border-radius: 50%;
+        i{
+          font-weight:100;
+          font-size: 0.6em;
+        }
+
+        &:hover {
+          background-color: white;
+        }
+      }
+    }
+
+    .suggested-people{
+      margin-top: 10px;
+      opacity: 0.6;
+      font-size: 1.05em;
+    }
+
+    .non-participate-list{
+      overflow-y: auto;
+      margin-top: 5px;
+      min-height: 20px;
+      max-height: 200px;
+
+      &::-webkit-scrollbar {
+        width: 4px;
+      }
+      &::-webkit-scrollbar-thumb {
+        background: #b2b2b2;
+        border-radius: 4px;
+      }
+
+      ul {
+        list-style-type: none;
+      }
+
+      li {
+        cursor: pointer;
+        padding: 6px 8px 6px 8px;
+        display: flex;
+        align-items: center;
+        border-radius: 4px;
+
+        &:hover {
+          background-color: #F0F0F1;
+        }
+      }
+
+      img {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+      }
+
+      p {
+        padding-top: 0px;
+        border: none;
+        margin-left: 15px;
+      }
+
+    }
+  }
+}

@@ -1,0 +1,75 @@
+.selected-tasks-modal {
+  position: fixed;
+  border-radius: 4px;;
+  bottom: 40px; /* Adjust this value to move it slightly above the bottom */
+  left: 52.5%;
+  transform: translateX(-50%); /* Center horizontally */
+  background-color: #ffffff;
+  box-shadow: 0px 15px 50px rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  padding-right: 10px;
+  z-index: 70;
+  &-header {
+    display: flex;
+
+    &-blur {
+      background-color: #0073ea;
+      backdrop-filter: blur(10px);
+      padding: 8px;
+      padding-left: 25px;
+      padding-right: 25px;
+      border-top-left-radius: 4px;
+      border-bottom-left-radius: 4px;
+      // box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      color: white;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: 2.5rem;
+    }
+
+    h4 {
+      margin: 5px 0px 0px 20px;
+      font-size: 1.5rem;
+      color: #353535;
+      font-weight: 400;
+    }
+  }
+
+  &-icons {
+    display: flex;
+    align-items: center;
+
+    div {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 0 10px;
+      cursor: pointer;
+
+      svg {
+        font-size: 1.5rem;
+        color: #666;
+      }
+
+      h4 {
+        margin: 5px 0 0;
+        font-size: 0.75rem;
+        color: #666;
+      }
+
+      &:hover {
+        svg {
+          color: #0666b4;
+        }
+
+        h4 {
+          color: #0666b4;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,23 @@
+.index-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.content {
+  display: grid;
+  grid-template-columns: 255px 1fr;
+  gap: 10px;
+  height: 100%;
+}
+
+.side-bar {
+  grid-column: 1 / 2;
+  height: 100%;
+  overflow-y: auto;
+}
+
+.main-inner-index {
+  height: 100%;
+  overflow-y: auto;
+}
