@@ -133,8 +133,9 @@ const BoardDetails = () => {
   useEffect(() => {
 
     const handleScroll = () => {
-      const scrollPosition = boardDetailsRef.current.scrollTop
-      setBoardScroll(scrollPosition);
+      const scrollPositionY = boardDetailsRef.current.scrollTop
+      const scrollPositionX = boardDetailsRef.current.scrollLeft
+      setBoardScroll({x: scrollPositionX, y: scrollPositionY})
     };
     
     if(boardDetailsRef.current){

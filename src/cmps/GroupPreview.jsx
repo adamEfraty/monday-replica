@@ -74,15 +74,21 @@ export const GroupPreview = ({
 
 
   const titleRef = useRef(null)
+  const fixedAreaRef = useRef(null)
   const [titlePositionY, setTitlePositionY] = useState(0)
 
+
+
+
   useEffect(() => {
+    // if(fixedAreaRef.current){
+    //   fixedAreaRef.current.scrollLeft = boardScroll.x
+    // }
+
     if(titleRef.current){
       const yPosition = titleRef.current.getBoundingClientRect().y
       setTitlePositionY(yPosition)
-
     }
-
 
   }, [boardScroll])
 
@@ -131,8 +137,8 @@ export const GroupPreview = ({
     <div style={style} ref={setNodeRef} className="group-list-dnd" >
 
       {
-        titlePositionY < 260 &&
-        <div>
+        titlePositionY < 260 && 
+        <div className="fixed-area" ref={fixedAreaRef}>
           <div className="fixed-group-title">
             <GroupTitle
               boardId={boardId}
@@ -153,9 +159,8 @@ export const GroupPreview = ({
               handleDelete={handleDelete}
             />
           </div>
-          
-          {/* style={{position: 'absolute', top: `${270-titlePositionY}px`}} */}
-          <div className="fixed-labels">
+          {/* style={{left: -boardScroll.x}} */} 
+          <div className="fixed-labels" style={{left: -boardScroll.x}}>
             <LabelsGrid 
                     boardId={boardId}
                     group={group}
@@ -188,6 +193,7 @@ export const GroupPreview = ({
           handelGroupTitleChange={handelGroupTitleChange}
           handleDelete={handleDelete}
       />
+
 
 
       {/* <div className="group-title">
