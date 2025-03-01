@@ -53,8 +53,9 @@ export function ActivityModal({ activities }) {
                   )}
                   {activity.activity.type === "Added" ||
                   activity.activity.type === "Removed" ? (
-                    <p>{activity.activity.type}</p>
-                  ) : activity.activity.type === "created" || activity.activity.type === "Duplicated" ? (
+                      <p>{activity.activity.type}</p>
+                    ) : activity.activity.type === "created" ||
+                    activity.activity.type === "Duplicated" ? (
                     <div className="created">
                       <p>{activity.activity.type}</p>
                       <div>

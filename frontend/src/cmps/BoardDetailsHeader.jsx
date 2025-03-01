@@ -10,7 +10,6 @@ import {
   getFilterContext,
 } from "../store/actions/boards.actions";
 import { boardService } from "../services/board.service";
-import { Filter } from "@mui/icons-material";
 export function BoardDetailsHeader({ handleAddTask, boardTitle, boardId, boardColumnsFilter, handleFilteredLabel }) {
   const filterBy = useSelector((state) => state.boardModule.filterBy);
   const boards = useSelector((state) => state.boardModule.boards);
