@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import BoardDetails from "./BoardDetails";
+import BoardDetails from "./BoardDetails.jsx";
 import { useNavigate } from "react-router";
 import { loadBoards, setFavories } from "../store/actions/boards.actions.js";
 import { addBoard, updateBoardName } from "../store/actions/boards.actions.js";

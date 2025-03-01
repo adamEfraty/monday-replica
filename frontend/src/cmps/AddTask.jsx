@@ -1,6 +1,5 @@
 import { useState, useRef } from "react"
 import { useSelector } from "react-redux"
-import { showErrorMsg } from '../services/event-bus.service.js'
 
 
 export function AddTask({ group, handleAddTask }) {

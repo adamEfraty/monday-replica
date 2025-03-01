@@ -1,7 +1,6 @@
 import { useNavigate } from "react-router";
 import { signup } from "../store/actions/user.actions";
 import { useState } from "react";
-import { showErrorMsg, showSuccessMsg } from "../services/event-bus.service";
 import { AppHeader } from "../cmps/AppHeader";
 import { Link } from "react-router-dom";
 import { ImgUploader } from "../cmps/ImageUploader";
@@ -23,10 +22,8 @@ export function SignUp() {
 
     try {
       signup(user);
-      showSuccessMsg("made a new account");
       navigate(`/${utilService.getNameFromEmail(user.email)}s-team.sunday.com`);
     } catch (err) {
-      showErrorMsg("something went wrong");
       console.log(err);
     }
   }

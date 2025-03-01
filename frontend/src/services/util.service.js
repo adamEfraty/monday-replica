@@ -1,3 +1,5 @@
+import * as XLSX from "xlsx";
+
 export const utilService = {
   makeId,
   saveToStorage,
@@ -241,4 +243,14 @@ function milisecondsTimeCalc(savedTime) {
       : `${Math.floor(timeDifference / 86400000)}d`;
 
   return minutesPassed;
+}
+
+function downloadExcelFile(data, fileName) {
+  const blob = new Blob([data], { type: "application/vnd.ms-excel" });
+  const url = window.URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = fileName;
+  a.click();
+  window.URL.revokeObjectURL(url);
 }

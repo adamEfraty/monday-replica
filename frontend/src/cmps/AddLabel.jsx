@@ -1,4 +1,4 @@
-import { addLable } from "../store/actions/boards.actions";
+import { addLable } from "../store/actions/boards.actions.js";
 import { useSelector } from "react-redux";
 import { useState, useRef, useEffect } from "react";
 import { openModal, closeModal } from '../store/actions/boards.actions.js'

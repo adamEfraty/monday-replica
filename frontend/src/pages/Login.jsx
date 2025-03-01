@@ -1,7 +1,6 @@
 import { useNavigate } from "react-router";
 import { login } from "../store/actions/user.actions";
 import { useState } from "react";
-import { showErrorMsg, showSuccessMsg } from "../services/event-bus.service";
 import { AppHeader } from "../cmps/AppHeader";
 import { Link } from "react-router-dom";
 import { utilService } from "../services/util.service";
@@ -21,18 +20,14 @@ export function Login() {
     e.preventDefault();
 
     if (!user.email || !user.password) {
-      showErrorMsg("Please fill in all fields");
       return;
     }
     await login(user)
       .then((returnedUser) => {
         navigate(`/${utilService.getNameFromEmail(returnedUser.email)}s-team.sunday.com`);
       })
-      .then(() => {
-        showSuccessMsg("Logged in successfully");
-      })
       .catch((err) => {
-        showErrorMsg(err.message || "Invalid credentials");
+        console.log("error: ", err);
       });
   }
 

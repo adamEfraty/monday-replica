@@ -1,5 +1,4 @@
 import { useState, useRef, useEffect } from "react"
-import { showErrorMsg } from "../../services/event-bus.service.js"
 import { ChatModal } from "./modals/ChatModal.jsx"
 import ChatIcon from "@mui/icons-material/MapsUgcOutlined"
 import { openModal, closeModal } from "../../store/actions/boards.actions.js"
@@ -142,7 +141,6 @@ export function TaskTitle({
   function toggleEditMode() {
     if (onEditMode) {
       if (!checkTitleValidation(textToEdit)) {
-        showErrorMsg("Name can't be empty");
       } else {
         onTaskUpdate({
           ...cellInfo,

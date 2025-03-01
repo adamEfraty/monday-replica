@@ -1,3 +1,8 @@
+import { Date } from "./dynamicCmps/Date.jsx";
+import { Members } from "./dynamicCmps/Members.jsx";
+import { Status } from "./dynamicCmps/Status.jsx";
+import { TaskTitle } from "./dynamicCmps/TaskTitle.jsx";
+import { Priority } from "./dynamicCmps/Priority.jsx";
 import { AddTask } from "./AddTask.jsx";
 import { P_Priority } from "./dynamicCmps/progressCmps/P_Priority.jsx";
 import { P_Status } from "./dynamicCmps/progressCmps/P_Status.jsx";
@@ -271,7 +276,7 @@ export const GroupPreview = ({
                 {labels.map(label => (
                   label.type === 'taskTitle' ?
                     <div style={{ borderLeft: `5px solid ${group?.color}`, borderTopLeftRadius: 5 }} key={`label-${label.id}`} className="label-title">
-                      <div className="white-cover" />
+                      <div className="white-cover"/>
                       <section className="main-checkbox">
                         <input
                           type="checkbox"
@@ -293,7 +298,7 @@ export const GroupPreview = ({
 
             {/* Render tasks by cmp order */}
 
-            <SortableContext items={group.tasks.map(task => task?.id)} strategy={verticalListSortingStrategy}> {/* for dnd Radwan */}
+            <SortableContext items={group.tasks.map(task => task.id)} strategy={verticalListSortingStrategy}> {/* for dnd Radwan */}
               {group.tasks.map((task) => (
 
                 <TaskPreview
@@ -314,7 +319,7 @@ export const GroupPreview = ({
                 />
               ))}
             </SortableContext>
-            <AddTask group={group} handleAddTask={handleAddTask} />
+            <AddTask group={group} handleAddTask={handleAddTask}/>
 
             {/* Render progress by progress array */}
             <section
@@ -324,7 +329,7 @@ export const GroupPreview = ({
               }}
             >
               <div className="invisible">
-                <div className="white-cover" />
+                <div className="white-cover"/>
               </div>
 
               {labels.map((lable, index) =>
