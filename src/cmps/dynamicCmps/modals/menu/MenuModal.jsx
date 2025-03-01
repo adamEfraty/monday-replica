@@ -4,7 +4,7 @@ import { SideBarBoard } from "./menuOptions/SideBarBoard.option";
 export function MenuModal(props) {
   switch (props.type) {
     case "addItem":
-      return <AddItem handleAddBoard={props.handleAddBoard} />;
+      return <AddItem handleOpenModal={props.handleOpenModal} />;
     case "sideBarBoard":
       return (
         <SideBarBoard board={props.board} onRemoveBoard={props.onRemoveBoard} />

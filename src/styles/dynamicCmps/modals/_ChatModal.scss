@@ -457,7 +457,6 @@
 .activities-modal-container {
   max-height: 75vh; /* Adjust based on your needs */
   overflow-y: auto;
-  border: 1px solid #ddd;
   padding: 10px;
 }
 
@@ -467,3 +466,12 @@
   margin: 0;
 }
 
+.header-activities{
+  & > .newTask-button{
+    display: flex;
+  }
+  display: flex;
+  justify-content: space-between;
+  width: 94%;
+  margin-left: 3%;
+}

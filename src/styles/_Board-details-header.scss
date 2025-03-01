@@ -1,7 +1,8 @@
+.board-details-header {
+  color: #323338;
+}
+
 .highlight {
-  // position: absolute;
-  // bottom: -2px; /* Adjust this value to position the hr correctly */
-  // left: 0;
   width: 100%;
   border: none;
   border-top: 2px solid #0073ea; /* Adjust the border style as needed */
@@ -58,7 +59,7 @@
   width: 95%;
 }
 
-header.board-details-header {
+header.board-details-header{
   position: sticky;
   left: 0px;
   top:0px;

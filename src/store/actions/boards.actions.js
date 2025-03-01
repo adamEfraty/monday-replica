@@ -13,9 +13,10 @@ import {
   SET_FAVORITES,
 } from "../reducer/boards.reducer";
 
-export async function addBoard() {
+export async function addBoard(boardName) {
   try {
-    const savedBoard = await boardService.addBoard();
+    console.log(boardName)
+    const savedBoard = await boardService.addBoard(boardName);
     await setFilteredColumns({ id: savedBoard.id, labels: savedBoard.labels });
 
     const boards = await boardService.query();
@@ -440,6 +441,16 @@ export async function onUpdateLocalLabelWidth(boardId, labelId, newWidth) {
     labelId,
     newWidth
   );
+
+  store.dispatch({
+    type: EDIT_BOARD,
+    boardId,
+    updatedBoard: newBoard,
+  });
+}
+
+export async function duplicateTasks(boardId, tasksToDuplicate) {
+  const newBoard = await boardService.addMultipleItemsToGroup(boardId, tasksToDuplicate);
 
   store.dispatch({
     type: EDIT_BOARD,

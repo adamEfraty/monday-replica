@@ -7,6 +7,7 @@ import { loadUsers, logout } from "../store/actions/user.actions.js";
 import { BoardCard } from "./BoardCard.jsx";
 import ArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { useSelector } from "react-redux";
+import { CreateBoard } from "./dynamicCmps/modals/CreateBoard.jsx";
 
 export function MainInnerIndex({ user, isBoard, boards }) {
   const filteredColumns = useSelector((state) => state.boardModule.filteredColumns);
