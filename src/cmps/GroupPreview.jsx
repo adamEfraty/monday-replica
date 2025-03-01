@@ -162,7 +162,7 @@ export const GroupPreview = ({
                 {labels.map(label => (
                   label.type === 'taskTitle' ?
                     <div style={{ borderLeft: `5px solid ${group?.color}`, borderTopLeftRadius: 5 }} key={`label-${label.id}`} className="label-title">
-                      <div className="white-cover"/>
+                      <div className="white-cover" />
                       <section className="main-checkbox">
                         <input
                           type="checkbox"
@@ -180,12 +180,12 @@ export const GroupPreview = ({
                 ))}
               </SortableContext >
 
-              <AddLabel groupId={group.id} boardId={boardId}/>
+              <AddLabel groupId={group.id} boardId={boardId} />
             </section>
 
             {/* Render tasks by cmp order */}
 
-            <SortableContext items={group.tasks.map(task => task.id)} strategy={verticalListSortingStrategy}> {/* for dnd Radwan */}
+            <SortableContext items={group.tasks.map(task => task?.id)} strategy={verticalListSortingStrategy}> {/* for dnd Radwan */}
               {group.tasks.map((task) => (
 
                 <TaskPreview
@@ -206,7 +206,7 @@ export const GroupPreview = ({
                 />
               ))}
             </SortableContext>
-            <AddTask group={group} handleAddTask={handleAddTask}/>
+            <AddTask group={group} handleAddTask={handleAddTask} />
 
             {/* Render progress by progress array */}
             <section
@@ -216,7 +216,7 @@ export const GroupPreview = ({
               }}
             >
               <div className="invisible">
-                <div className="white-cover"/>
+                <div className="white-cover" />
               </div>
 
               {labels.map((lable, index) =>
