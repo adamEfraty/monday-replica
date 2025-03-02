@@ -8,3 +8,12 @@
 2.3.2025, 9:47:38 - INFO - Up and running on http://localhost:3000
 2.3.2025, 14:59:21 - INFO - Up and running on http://localhost:3000
 2.3.2025, 14:59:29 - INFO - Up and running on http://localhost:3000
+2.3.2025, 15:40:43 - INFO - Up and running on http://localhost:3000
+2.3.2025, 15:40:49 - INFO - Up and running on http://localhost:3000
+2.3.2025, 15:45:44 - INFO - Up and running on http://localhost:3000
+2.3.2025, 15:58:37 - INFO - Up and running on http://localhost:3000
+2.3.2025, 15:58:39 - INFO - Up and running on http://localhost:3000
+2.3.2025, 15:58:41 - DEBUG - auth.service - signup with email: rain@doe.com, fullName: ran Doe
+2.3.2025, 15:58:42 - DEBUG - auth.route - new account created: {"email":"rain@doe.com","password":"$2b$10$wVycu1j5hklyUk1aRk6ZhOBLR0FtN8ckd8cL4A3SL3cYkuFJAzx66","fullName":"ran Doe","_id":"67c46412973ca52faf2d3be9"}
+2.3.2025, 15:58:42 - DEBUG - auth.service - login with email: rain@doe.com
+2.3.2025, 15:58:42 - INFO - User signup: | {"_id":"67c46412973ca52faf2d3be9","email":"rain@doe.com","fullName":"ran Doe","imgUrl":null,"isAdmin":null}
