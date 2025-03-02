@@ -21,7 +21,7 @@ export function SignUp() {
     e.preventDefault();
 
     try {
-      signup(user);
+      await signup(user);
       navigate(`/${utilService.getNameFromEmail(user.email)}s-team.sunday.com`);
     } catch (err) {
       console.log(err);

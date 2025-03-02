@@ -1,5 +1,4 @@
 import { HashRouter as Router, Routes, Route, Navigate } from "react-router-dom";
-
 import "./styles/mainStyles.scss";
 import { UserMsg } from "./cmps/Usermsg";
 import { Login } from "./pages/Login";
@@ -11,13 +10,21 @@ import { useEffect } from "react";
 import { utilService } from "./services/util.service";
 
 function App() {
-  const loggedInUser = useSelector((state) => state.userModule.user);
+  const loggedInUser = useSelector((state) => state.userModule.user) || null;
+
   useEffect(() => {
-  }, [])
+    console.log(loggedInUser);
+  }, [loggedInUser]);
+
+  let name = null;
+  if (loggedInUser) {
+    name = utilService.getNameFromEmail(loggedInUser?.email);
+  }
 
   return (
     <div>
       <Router>
+        <UserMsg />
         {!loggedInUser ? (
           <Routes>
             <Route path="/" element={<HomePage />} />
@@ -26,14 +33,13 @@ function App() {
           </Routes>
         ) : (
           <Routes>
-            <Route path="/" element={<Navigate to={`/${utilService.getNameFromEmail(loggedInUser.email)}s-team.sunday.com`} />} />
-            <Route path={`/${utilService.getNameFromEmail(loggedInUser.email)}s-team.sunday.com`} element={<MondayIndex />} />
-            <Route path={`/${utilService.getNameFromEmail(loggedInUser.email)}s-team.sunday.com/boards/:boardId`} element={<MondayIndex isBoard={true} />} />
-            <Route path={`/${utilService.getNameFromEmail(loggedInUser.email)}s-team.sunday.com/board`} element={<MondayIndex isBoard={true} />} />
+            <Route path="/" element={<Navigate to={`/${name}s-team.sunday.com`} />} />
+            <Route path={`/${name}s-team.sunday.com`} element={<MondayIndex />} />
+            <Route path={`/${name}s-team.sunday.com/boards/:boardId`} element={<MondayIndex isBoard={true} />} />
+            <Route path={`/${name}s-team.sunday.com/board`} element={<MondayIndex />} />
           </Routes>
         )}
       </Router>
-      <UserMsg />
     </div>
   );
 }

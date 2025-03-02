@@ -1,5 +1,4 @@
-import { userService } from '../../services/user.service.js'
-
+import { userService } from '../../services/user/index.js'
 import { REMOVE_USER, SET_USER, SET_USERS } from '../reducer/user.reducer.js'
 
 import { store } from '../store.js'
@@ -37,7 +36,8 @@ export async function updateUser(user) {
 export async function login(credentials) {
   try {
     const user = await userService.login(credentials)
-    store.dispatch({
+
+    await store.dispatch({
       type: SET_USER,
       user,
     })

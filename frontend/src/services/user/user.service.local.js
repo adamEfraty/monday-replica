@@ -1,5 +1,4 @@
-import { storageService } from './async-storage.service'
-
+import { storageService } from '../async-storage.service.js'
 const STORAGE_KEY_LOGGEDIN_USER = 'loggedinUser'
 const STORAGE_KEY_USER_DB = 'user'
 
@@ -33,12 +32,12 @@ function remove(userId) {
 }
 
 async function update(userToUpdate) {
-  const user = await getById(userToUpdate.id)
+  const user = await getById(userToUpdate._id)
   const updatedUser = await storageService.put(STORAGE_KEY_USER_DB, {
     ...user,
     ...userToUpdate,
   })
-  if (getLoggedinUser().id === updatedUser.id) saveLocalUser(updatedUser)
+  if (getLoggedinUser()._id === updatedUser._id) saveLocalUser(updatedUser)
   return updatedUser
 }
 
@@ -86,7 +85,7 @@ async function spendBalance(amount) {
 
 function saveLocalUser(user) {
   user = {
-    id: user.id,
+    _id: user._id,
     email: user.email,
     fullName: user.fullName,
     imgUrl: user.imgUrl,

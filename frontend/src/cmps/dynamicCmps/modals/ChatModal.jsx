@@ -176,7 +176,7 @@ export function ChatModal({
     setOnEditMode((prev) => !prev);
   }
 
-  const handleCmpChage = (cmp) => {setComponent(cmp)};
+  const handleCmpChage = (cmp) => { setComponent(cmp) };
 
   function checkTitleValidation(title) {
     // not alowing user insert blank title
@@ -255,7 +255,6 @@ export function ChatModal({
   }
 
   function handleNewReplyToEdit(commentId) {
-    console.log(newReplies);
     setNewReplies((prevReplies) =>
       prevReplies.map((reply) =>
         reply.id === commentId ? { ...reply, isEditing: true } : reply
@@ -347,147 +346,147 @@ export function ChatModal({
       </div>
       {
         component === "updates" ? (
-      <div className="chat-body" ref={chatBodyRef}>
-        <div className="chat-inner-body">
-          {/* Create Comment */}
-          {editNewComment ? (
-            <form
-              ref={createCommentRef}
-              onSubmit={handleCommentSubmit}
-              className="create-comment"
-            >
-              <ReactQuill
-                className="textarea-quill"
-                value={newComment}
-                onChange={setNewComment}
-                modules={{
-                  toolbar: [
-                    ["bold", "italic", "underline"], // Inline styles
-                    [{ header: [1, 2, 3, false] }], // Headers
-                    [{ list: "ordered" }], // Lists
-                    ["clean"], // Remove formatting
-                  ],
-                }}
-              />
-              <button className="update-button" type="submit">
-                Update
-              </button>
-            </form>
-          ) : (
-            <div
-              className="create-comment-blur"
-              onClick={() => setOnEditNewComment(true)}
-            >
-              <p className="placeholder">
-                Write an update and mention others with @
-              </p>
-            </div>
-          )}
-
-          {/* Comment List */}
-          <ul className="comments-list">
-            {cellInfo.value.chat.map((comment) => {
-              const commenter = getUserById(comment.userId);
-              return (
-                <li key={comment.sentAt} className="comment">
-                  <div className="comment-info">
-                    <img src={commenter.imgUrl} alt={commenter.name} />
-                    <p className="username">{commenter.fullName}</p>
-                    <p className="time">{simplifyTimeToStr(comment.sentAt)}</p>
-                  </div>
-
-                  <div
-                    className="comment-text"
-                    dangerouslySetInnerHTML={{ __html: comment.text }}
+          <div className="chat-body" ref={chatBodyRef}>
+            <div className="chat-inner-body">
+              {/* Create Comment */}
+              {editNewComment ? (
+                <form
+                  ref={createCommentRef}
+                  onSubmit={handleCommentSubmit}
+                  className="create-comment"
+                >
+                  <ReactQuill
+                    className="textarea-quill"
+                    value={newComment}
+                    onChange={setNewComment}
+                    modules={{
+                      toolbar: [
+                        ["bold", "italic", "underline"], // Inline styles
+                        [{ header: [1, 2, 3, false] }], // Headers
+                        [{ list: "ordered" }], // Lists
+                        ["clean"], // Remove formatting
+                      ],
+                    }}
                   />
+                  <button className="update-button" type="submit">
+                    Update
+                  </button>
+                </form>
+              ) : (
+                <div
+                  className="create-comment-blur"
+                  onClick={() => setOnEditNewComment(true)}
+                >
+                  <p className="placeholder">
+                    Write an update and mention others with @
+                  </p>
+                </div>
+              )}
 
-                  {/* Replaies List to The Comment */}
-                  <ul className="replies-list">
-                    {comment.replies.map((reply) => {
-                      const replier = getUserById(reply.userId);
-                      return (
-                        <li
-                          key={`${reply.sentAt}-${reply.userId}`}
-                          className="reply"
-                        >
-                          <img src={replier.imgUrl} alt={replier.fullName} />
-                          <div className="replay-container">
-                            <p className="reply-username">{replier.fullName}</p>
-                            <div
-                              className="reply-text"
-                              dangerouslySetInnerHTML={{ __html: reply.text }}
-                            />
-                          </div>
-                          <p className="reply-time">
-                            {simplifyTimeToStr(reply.sentAt)}
-                          </p>
-                        </li>
-                      );
-                    })}
-                  </ul>
-
-                  {/* Create New Reply to Comment */}
-                  <div
-                    className="create-reply"
-                    ref={(el) => (replyRefs.current[comment.sentAt] = el)}
-                  >
-                    <img src={loggedinUser.imgUrl} />
-                    {findNewReplyByComment(comment)?.isEditing ? (
-                      <form
-                        onSubmit={(event) =>
-                          handleReplySubmit(event, comment.sentAt)
-                        }
-                      >
-                        <ReactQuill
-                          className="textarea-quill"
-                          value={findNewReplyByComment(comment)?.text}
-                          onChange={(event) =>
-                            handleReplyChange(event, comment.sentAt)
-                          }
-                          modules={{
-                            toolbar: [
-                              ["bold", "italic", "underline"], // Inline styles
-                              [{ header: [1, 2, 3, false] }], // Headers
-                              [{ list: "ordered" }], // Lists
-                              ["clean"], // Remove formatting
-                            ],
-                          }}
-                        />
-                        <button className="reply-button" type="submit">
-                          Reply
-                        </button>
-                      </form>
-                    ) : (
-                      <div
-                        className="create-reply-blur"
-                        onClick={() => handleNewReplyToEdit(comment.sentAt)}
-                      >
-                        <p className="placeholder">
-                          Write a reply and mention others with @
-                        </p>
+              {/* Comment List */}
+              <ul className="comments-list">
+                {cellInfo.value.chat.map((comment) => {
+                  const commenter = getUserById(comment.userId);
+                  return (
+                    <li key={comment.sentAt} className="comment">
+                      <div className="comment-info">
+                        <img src={commenter.imgUrl} alt={commenter.name} />
+                        <p className="username">{commenter.fullName}</p>
+                        <p className="time">{simplifyTimeToStr(comment.sentAt)}</p>
                       </div>
-                    )}
-                  </div>
-                </li>
-              );
-            })}
-          </ul>
-          {cellInfo.value.chat.length === 0 ? (
-            <div className="empty-chat">
-              <img src={emptyChatImg} />
-              <p className="bold-text">No updates yet for this item</p>
-              <p className="text">
-                Be the first one to update about progress, mention someone or
-                upload files to share with your team members
-              </p>
+
+                      <div
+                        className="comment-text"
+                        dangerouslySetInnerHTML={{ __html: comment.text }}
+                      />
+
+                      {/* Replaies List to The Comment */}
+                      <ul className="replies-list">
+                        {comment.replies.map((reply) => {
+                          const replier = getUserById(reply.userId);
+                          return (
+                            <li
+                              key={`${reply.sentAt}-${reply.userId}`}
+                              className="reply"
+                            >
+                              <img src={replier.imgUrl} alt={replier.fullName} />
+                              <div className="replay-container">
+                                <p className="reply-username">{replier.fullName}</p>
+                                <div
+                                  className="reply-text"
+                                  dangerouslySetInnerHTML={{ __html: reply.text }}
+                                />
+                              </div>
+                              <p className="reply-time">
+                                {simplifyTimeToStr(reply.sentAt)}
+                              </p>
+                            </li>
+                          );
+                        })}
+                      </ul>
+
+                      {/* Create New Reply to Comment */}
+                      <div
+                        className="create-reply"
+                        ref={(el) => (replyRefs.current[comment.sentAt] = el)}
+                      >
+                        <img src={loggedinUser.imgUrl} />
+                        {findNewReplyByComment(comment)?.isEditing ? (
+                          <form
+                            onSubmit={(event) =>
+                              handleReplySubmit(event, comment.sentAt)
+                            }
+                          >
+                            <ReactQuill
+                              className="textarea-quill"
+                              value={findNewReplyByComment(comment)?.text}
+                              onChange={(event) =>
+                                handleReplyChange(event, comment.sentAt)
+                              }
+                              modules={{
+                                toolbar: [
+                                  ["bold", "italic", "underline"], // Inline styles
+                                  [{ header: [1, 2, 3, false] }], // Headers
+                                  [{ list: "ordered" }], // Lists
+                                  ["clean"], // Remove formatting
+                                ],
+                              }}
+                            />
+                            <button className="reply-button" type="submit">
+                              Reply
+                            </button>
+                          </form>
+                        ) : (
+                          <div
+                            className="create-reply-blur"
+                            onClick={() => handleNewReplyToEdit(comment.sentAt)}
+                          >
+                            <p className="placeholder">
+                              Write a reply and mention others with @
+                            </p>
+                          </div>
+                        )}
+                      </div>
+                    </li>
+                  );
+                })}
+              </ul>
+              {cellInfo.value.chat.length === 0 ? (
+                <div className="empty-chat">
+                  <img src={emptyChatImg} />
+                  <p className="bold-text">No updates yet for this item</p>
+                  <p className="text">
+                    Be the first one to update about progress, mention someone or
+                    upload files to share with your team members
+                  </p>
+                </div>
+              ) : null}
+              {/* to have some distance to the bottom*/}
+              <div className="white-block" />
             </div>
-          ) : null}
-          {/* to have some distance to the bottom*/}
-          <div className="white-block" />
-        </div>
-      </div>
+          </div>
         ) : (
-            <ActivityModal activities={cellInfo.value.activities} taskTitle={textToEdit} />
+          <ActivityModal activities={cellInfo.value.activities} taskTitle={textToEdit} />
         )
       }
     </section>
