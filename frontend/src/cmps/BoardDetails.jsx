@@ -90,7 +90,7 @@ const BoardDetails = () => {
     const board = boards.find((board) => board.id === boardId);
     if (!board) {
       navigate(
-        `/${utilService.getNameFromEmail(loggedInUser.email)}s-team.sunday.com`
+        `/${utilService.getNameFromEmail(loggedInUser?.email)}s-team.sunday.com`
       );
     } else if (board.groups.some((group) => group.tasks.length > 0)) {
       if (filterBy.length > 0) {
@@ -138,7 +138,7 @@ const BoardDetails = () => {
     if (boardDetailsRef.current) {
       boardDetailsRef.current.addEventListener("scroll", handleScroll);
       return () => {
-        boardDetailsRef.current.removeEventListener("scroll", handleScroll); // Cleanup listener on unmount
+        boardDetailsRef.current?.removeEventListener("scroll", handleScroll); // Cleanup listener on unmount
       }
     }
   }, [])

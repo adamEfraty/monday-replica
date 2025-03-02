@@ -16,8 +16,9 @@ export function AppHeader() {
   const navigate = useNavigate();
 
   async function onLogOut() {
-    navigate("/");
     await logout();
+    navigate("/");
+
 
 
   }

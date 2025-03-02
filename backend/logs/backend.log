@@ -74,3 +74,16 @@
 3.3.2025, 1:32:55 - INFO - User login:  | {"_id":"67c45c55c2f1ef4df8072022","email":"kiwi@gmail.com","fullName":"Kiwi","id":"E3iHE","imgUrl":"https://res.cloudinary.com/danlxus36/image/upload/v1740682607/3_iij9dg.jpg"}
 3.3.2025, 1:35:50 - DEBUG - auth.service - login with email: please@gmail.com
 3.3.2025, 1:35:50 - INFO - User login:  | {"_id":"67c4e9ebc1ee0556159862de","email":"please@gmail.com","fullName":"please work","imgUrl":"https://res.cloudinary.com/danlxus36/image/upload/v1740958185/6_uqm2so.jpg","isAdmin":null}
+3.3.2025, 1:37:49 - INFO - Up and running on http://localhost:3000
+3.3.2025, 1:38:43 - DEBUG - auth.service - signup with email: sar@gmail.com, fullName: sar
+3.3.2025, 1:38:44 - DEBUG - auth.route - new account created: {"email":"sar@gmail.com","password":"$2b$10$XgNrA0WIu.eo4xpenpLo9eECZmR1Y0nuo6ct6eqyvCwgjKGT.SGY2","fullName":"sar","imgUrl":"https://res.cloudinary.com/danlxus36/image/upload/v1740958721/2_ii84uz.jpg","_id":"67c4ec04169a1cf59098f6a6"}
+3.3.2025, 1:38:44 - DEBUG - auth.service - login with email: sar@gmail.com
+3.3.2025, 1:38:44 - INFO - User signup: | {"_id":"67c4ec04169a1cf59098f6a6","email":"sar@gmail.com","fullName":"sar","imgUrl":"https://res.cloudinary.com/danlxus36/image/upload/v1740958721/2_ii84uz.jpg","isAdmin":null}
+3.3.2025, 1:40:10 - DEBUG - auth.service - login with email: sar@gmail.com
+3.3.2025, 1:40:10 - INFO - User login:  | {"_id":"67c4ec04169a1cf59098f6a6","email":"sar@gmail.com","fullName":"sar","imgUrl":"https://res.cloudinary.com/danlxus36/image/upload/v1740958721/2_ii84uz.jpg","isAdmin":null}
+3.3.2025, 1:45:03 - DEBUG - auth.service - login with email: kiwi@gmail.com
+3.3.2025, 1:45:03 - INFO - User login:  | {"_id":"67c45c55c2f1ef4df8072022","email":"kiwi@gmail.com","fullName":"Kiwi","id":"E3iHE","imgUrl":"https://res.cloudinary.com/danlxus36/image/upload/v1740682607/3_iij9dg.jpg"}
+3.3.2025, 1:47:16 - DEBUG - auth.service - login with email: sar@gmail.com
+3.3.2025, 1:47:17 - INFO - User login:  | {"_id":"67c4ec04169a1cf59098f6a6","email":"sar@gmail.com","fullName":"sar","imgUrl":"https://res.cloudinary.com/danlxus36/image/upload/v1740958721/2_ii84uz.jpg","isAdmin":null}
+3.3.2025, 1:47:25 - DEBUG - auth.service - login with email: sar@gmail.com
+3.3.2025, 1:47:25 - INFO - User login:  | {"_id":"67c4ec04169a1cf59098f6a6","email":"sar@gmail.com","fullName":"sar","imgUrl":"https://res.cloudinary.com/danlxus36/image/upload/v1740958721/2_ii84uz.jpg","isAdmin":null}
