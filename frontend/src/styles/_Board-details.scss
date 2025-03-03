@@ -107,10 +107,6 @@
   .fixed-group-title{
   }
   
-  .fixed-labels{
-    position: relative;
-    margin-top: 1px;
-  }
 
   // .shadow{
   //   position: fixed;
@@ -124,6 +120,13 @@
 
 
 
+}
+
+.absolute-labels{
+  position: absolute;
+  z-index: 12;
+  top: 63px;
+  margin-top: 1px;
 }
 
 

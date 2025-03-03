@@ -1,4 +1,3 @@
-import { boardService } from '../../services/board.service'
 
 export const SET_BOARDS = 'SET_BOARDS'
 export const EDIT_BOARD = 'EDIT_BOARD'

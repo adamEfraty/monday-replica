@@ -21,14 +21,6 @@ import { LabelTitle } from "./LabelTitle.jsx";
 import { GroupTitle } from "./GroupTitle.jsx";
 import { LabelsGrid } from "./LabelsGrid.jsx";
 
-// Group Title Stuff:
-// import ArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-// import { ArrowRightIcon } from "@mui/x-date-pickers/icons";
-// import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
-// import Popover from '@mui/material/Popover';
-// import { GarbageRemove } from "./dynamicCmps/modals/GarbageRemove.jsx";
-// import { Color } from "./dynamicCmps/modals/Color.jsx";
-
 export const GroupPreview = ({
   labels,
   group,
@@ -82,13 +74,12 @@ export const GroupPreview = ({
   const fixedAreaRef = useRef(null)
   const [titlePositionY, setTitlePositionY] = useState(0)
 
+  const absoluteLabelsRef = useRef(null)
+
 
 
 
   useEffect(() => {
-    // if(fixedAreaRef.current){
-    //   fixedAreaRef.current.scrollLeft = boardScroll.x
-    // }
 
     if(titleRef.current){
       const yPosition = titleRef.current.getBoundingClientRect().y
@@ -96,22 +87,6 @@ export const GroupPreview = ({
     }
 
   }, [boardScroll])
-
-  // useEffect(() => {
-  //   if (!titleRef.current) return;
-
-  //   if (requestRef.current) {
-  //     cancelAnimationFrame(requestRef.current);
-  //   }
-
-  //   requestRef.current = requestAnimationFrame(() => {
-  //     const yPosition = titleRef.current.getBoundingClientRect().y;
-  //     setTitlePositionY(yPosition);
-  //   });
-
-  //   return () => cancelAnimationFrame(requestRef.current);
-  // }, [boardScroll]);
-
 
 
   const handleClick = (event) => {
@@ -143,29 +118,32 @@ export const GroupPreview = ({
 
       {
         titlePositionY < 260 && 
-        <div className="fixed-area" ref={fixedAreaRef}>
-          <div className="fixed-group-title">
-            <GroupTitle
-              boardId={boardId}
-              group={group} 
-              groupTitle={groupTitle}
-              handleClick2={handleClick2} 
-              id2={id2}
-              open2={open2} 
-              anchorE2={anchorE2} 
-              handleClose2={handleClose2}
-              titleHead={titleHead}
-              expanded={expanded}
-              attributes={attributes}
-              listeners={attributes}
-              handleGroupNameChange={handleGroupNameChange}
-              handelExpandedChange={handelExpandedChange}
-              handelGroupTitleChange={handelGroupTitleChange}
-              handleDelete={handleDelete}
-            />
+        <>
+          <div className="fixed-area" ref={fixedAreaRef}>
+            <div className="fixed-group-title">
+              <GroupTitle
+                boardId={boardId}
+                group={group} 
+                groupTitle={groupTitle}
+                handleClick2={handleClick2} 
+                id2={id2}
+                open2={open2} 
+                anchorE2={anchorE2} 
+                handleClose2={handleClose2}
+                titleHead={titleHead}
+                expanded={expanded}
+                attributes={attributes}
+                listeners={attributes}
+                handleGroupNameChange={handleGroupNameChange}
+                handelExpandedChange={handelExpandedChange}
+                handelGroupTitleChange={handelGroupTitleChange}
+                handleDelete={handleDelete}
+              />
+            </div>
           </div>
-          {/* style={{left: -boardScroll.x}} */} 
-          <div className="fixed-labels" style={{left: -boardScroll.x}}>
+
+          {/* style={{left: -boardScroll.x}} */}
+          <div className="absolute-labels" ref={absoluteLabelsRef}>
             <LabelsGrid 
                     boardId={boardId}
                     group={group}
@@ -174,7 +152,7 @@ export const GroupPreview = ({
                     checkedGroups={checkedGroups}
               />
           </div>
-        </div>
+        </>
       }
 
       
@@ -200,55 +178,6 @@ export const GroupPreview = ({
       />
 
 
-
-      {/* <div className="group-title">
-
-        <div className="change-location">
-          <span className="remove" onClick={handleClick2}><MoreHorizIcon />
-          </span>
-
-          <Popover
-            id={id2}
-            open={open2}
-            anchorEl={anchorE2}
-            onClose={handleClose2}
-            anchorOrigin={{
-              vertical: 'bottom',
-              horizontal: 'right',
-            }}
-            transformOrigin={{
-              vertical: 'top',
-              horizontal: 'center',
-            }}
-          >
-            <div className="flex-for-modal">
-              <Color closeAll={handleClose2} color={group.color} boardId={boardId} groupId={group.id} />
-              <GarbageRemove someName={'Group'} someFunction={() => handleDelete(group.id, boardId)} />
-            </div>
-          </Popover>
-
-
-
-          <span className="arrow" onClick={() => setExpanded((prev) => !prev)}>
-            {expanded ? <ArrowDownIcon /> : <ArrowRightIcon />}
-          </span>
-          <input
-            onBlur={() => handleGroupNameChange(groupTitle, group)}
-            style={titleHead}
-            className="task-input hov"
-            type="text"
-            value={groupTitle}
-            onChange={(e) => setGroupTitle(e.target.value)}
-          />
-
-
-
-        </div>
-        <div {...listeners} {...attributes} style={{ cursor: "grab", width: '100%', padding: '1rem' }}>
-
-        </div>
-      </div> */}
-
       <section className="task-list">
         {/* Render group labels by labels array */}
 
@@ -263,38 +192,6 @@ export const GroupPreview = ({
                   checkedGroups={checkedGroups}
             />
 
-            {/* <section
-              className="labels-grid"
-              style={{
-                borderTopLeftRadius: 5,
-                gridTemplateColumns: `10px ${labels.map(label => `${label.width}px`).join(' ')} 100px`
-              }}
-            >
-              <section className="ghost "></section>
-
-              <SortableContext items={labels.map(label => label.id)} strategy={horizontalListSortingStrategy}>
-                {labels.map(label => (
-                  label.type === 'taskTitle' ?
-                    <div style={{ borderLeft: `5px solid ${group?.color}`, borderTopLeftRadius: 5 }} key={`label-${label.id}`} className="label-title">
-                      <div className="white-cover"/>
-                      <section className="main-checkbox">
-                        <input
-                          type="checkbox"
-                          className="checkbox"
-                          onChange={() => { }}
-                          onClick={() => handleMasterCheckboxClick(group)}
-                          checked={checkedGroups.includes(group.id)}
-
-                        />
-                      </section>
-                      <LabelTitle key={label.id} label={label} boardId={boardId} />
-                    </div >
-                    :
-                    <Label key={label.id} id={label.id} label={label} boardId={boardId} groupId={group.id} />
-                ))}
-              </SortableContext >
-              <AddLabel groupId={group.id} boardId={boardId}/>
-            </section> */}
 
             {/* Render tasks by cmp order */}
 

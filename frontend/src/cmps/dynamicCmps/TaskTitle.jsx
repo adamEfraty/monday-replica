@@ -4,7 +4,7 @@ import ChatIcon from "@mui/icons-material/MapsUgcOutlined"
 import { openModal, closeModal } from "../../store/actions/boards.actions.js"
 import { useSelector } from "react-redux"
 import { utilService } from "../../services/util.service.js"
-import { boardService } from "../../services/board.service.js"
+import { boardService } from "../../services/board"
 import ReactDOM from 'react-dom'
 import { getSvg } from "../../services/svg.service.jsx"
 import { DeleteTaskModal } from './modals/DeleteTaskModal.jsx'
@@ -27,10 +27,6 @@ export function TaskTitle({
   removeTask,
   boardId,
 }) {
-
-  //edit task title
-
-    console.log(cellInfo)
 
   const [onEditMode, setOnEditMode] = useState(false)
   const [textToEdit, setTextToEdit] = useState(cellInfo.value.title)

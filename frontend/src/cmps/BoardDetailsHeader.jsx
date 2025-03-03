@@ -9,7 +9,7 @@ import {
   handleFilter,
   getFilterContext,
 } from "../store/actions/boards.actions";
-import { boardService } from "../services/board.service";
+import { boardService } from "../services/board";
 export function BoardDetailsHeader({ handleAddTask, boardTitle, boardId, boardColumnsFilter, handleFilteredLabel }) {
   const filterBy = useSelector((state) => state.boardModule.filterBy);
   const boards = useSelector((state) => state.boardModule.boards);

@@ -1,4 +1,4 @@
-import { boardService } from "../../services/board.service";
+import { boardService } from "../../services/board";
 import { utilService } from "../../services/util.service";
 import { store } from "../store";
 

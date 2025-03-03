@@ -17,7 +17,7 @@ import { addItem } from "../store/actions/boards.actions";
 import { updateGroup } from "../store/actions/boards.actions";
 import { removeGroup, replaceGroups } from "../store/actions/boards.actions";
 import { BoardDetailsHeader } from "./BoardDetailsHeader";
-import { boardService } from "../services/board.service";
+import { boardService } from "../services/board";
 import { utilService } from "../services/util.service";
 import { closestCorners, DndContext } from "@dnd-kit/core";
 import {
