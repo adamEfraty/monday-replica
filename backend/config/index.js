@@ -1,4 +1,4 @@
-import configProd from './prod.js'
+// import configProd from './prod.js'
 import configDev from './dev.js'
 
 
