@@ -30,8 +30,7 @@ export function SideBar({ boards, user, onRemoveBoard }) {
   const addBoardModalState = useSelector((state) => state.boardModule.addBoardModalState);
   const dispatch = useDispatch();
 
-  function setOpenModal(value){
-    console.log(value);
+  function setOpenModal(value) {
     dispatch({ type: SET_MODAL, value });
   }
 
@@ -43,7 +42,6 @@ export function SideBar({ boards, user, onRemoveBoard }) {
 
   function handleDotsClick(event, boardId) {
     event.stopPropagation();
-    console.log(boardId);
     onRemoveBoard(boardId);
   }
 
@@ -76,7 +74,7 @@ export function SideBar({ boards, user, onRemoveBoard }) {
           <SvgCmp
             type={!favoritesOpen ? `empty-rating-icon` : `full-rating-icon`}
             className="side-bar-icon favorites"
-            style={favoritesOpen ? iconStyle : {...iconStyle, backgroundColor: ""}}
+            style={favoritesOpen ? iconStyle : { ...iconStyle, backgroundColor: "" }}
           />
           <p>Favorites</p>
         </div>
@@ -89,34 +87,34 @@ export function SideBar({ boards, user, onRemoveBoard }) {
 
       {/* Workspaces Section */}
       {favoritesOpen ? (
-                  <ul className="sidebar-boardlist">
-                  {boards.map((board) => favorites.includes(board.id) && (
-                    <li key={board.id}>
-                      <div
-                        className="sidebar-board"
-                        onClick={() => {
-                          console.log(board.id);
-                          onChangeAdressOnce(
-                            `/${utilService.getNameFromEmail(
-                              user.email
-                            )}s-team.sunday.com/boards/${board.id}`
-                          );
-                        }}
-                      >
-                        <section>
-                          <BoardIcon style={iconStyle} />
-                          {/* Board Title Navigation */}
-                          <h3>{board.title}</h3>
-                        </section>
-                        <HorizDotsIcon
-                          onClick={(event) => handleDotsClick(event, board.id)}
-                          className="horizontal-dots-icon"
-                          style={iconStyle}
-                        />
-                      </div>
-                    </li>
-                  ))}
-                </ul>
+        <ul className="sidebar-boardlist">
+          {boards.map((board) => favorites.includes(board.id) && (
+            <li key={board.id}>
+              <div
+                className="sidebar-board"
+                onClick={() => {
+                  console.log(board.id);
+                  onChangeAdressOnce(
+                    `/${utilService.getNameFromEmail(
+                      user.email
+                    )}s-team.sunday.com/boards/${board.id}`
+                  );
+                }}
+              >
+                <section>
+                  <BoardIcon style={iconStyle} />
+                  {/* Board Title Navigation */}
+                  <h3>{board.title}</h3>
+                </section>
+                <HorizDotsIcon
+                  onClick={(event) => handleDotsClick(event, board.id)}
+                  className="horizontal-dots-icon"
+                  style={iconStyle}
+                />
+              </div>
+            </li>
+          ))}
+        </ul>
       ) : (
         <>
           <hr />
@@ -135,29 +133,30 @@ export function SideBar({ boards, user, onRemoveBoard }) {
               </div>
               <button
                 className="add-board-button"
-                onClick={(ev) =>  setAnchorEl(ev.currentTarget)}
+                onClick={(ev) => setAnchorEl(ev.currentTarget)}
               >
                 <PlusIcon style={{ width: 28, height: 26 }} />
               </button>
               <Popover
-              id={popoverId}
-              open={popoverOpen}
-              anchorEl={anchorEl}
-              onClose={() => setAnchorEl(null)}
-              anchorOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              transformOrigin={{
-                vertical: "right",
-                horizontal: "bottom",
-              }}
-            >
+                id={popoverId}
+                open={popoverOpen}
+                anchorEl={anchorEl}
+                onClose={() => setAnchorEl(null)}
+                anchorOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                transformOrigin={{
+                  vertical: "right",
+                  horizontal: "bottom",
+                }}
+              >
                 <MenuModal type="addItem" handleOpenModal={() => {
                   console.log('im heree')
-                  setOpenModal(!addBoardModalState)}
-                  } />
-            </Popover>
+                  setOpenModal(!addBoardModalState)
+                }
+                } />
+              </Popover>
             </div>
           </div>
 

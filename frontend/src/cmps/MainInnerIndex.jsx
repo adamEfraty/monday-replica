@@ -29,15 +29,14 @@ export function MainInnerIndex({ user, isBoard, boards }) {
     updateBoardName(id, title);
   }
 
-  async function handleFavorite(boardId){
+  async function handleFavorite(boardId) {
     await setFavories(boardId);
-    console.log(boardId)
   }
 
   return !isBoard ? (
     <div className="main-inner-index">
       <section className="welcome-section">
-        <small>Hello {user.fullName}!</small>
+        <small>Hello {user?.fullName}!</small>
         <small id="bold">
           Quickly access your recent boards, Inbox and workspaces
         </small>

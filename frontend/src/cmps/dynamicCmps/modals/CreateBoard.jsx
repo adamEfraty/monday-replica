@@ -9,7 +9,6 @@ export function CreateBoard({ handleAddBoard }) {
     ev.preventDefault();
     const boardName = ev.target.boardName.value;
     handleAddBoard(boardName);
-    console.log(boardName);
   }
   return (
     <section className="create-board">
