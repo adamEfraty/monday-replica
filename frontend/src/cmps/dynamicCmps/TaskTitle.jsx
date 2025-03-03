@@ -28,12 +28,7 @@ export function TaskTitle({
   boardId,
 }) {
 
-<<<<<<< HEAD
-=======
   //edit task title
-
-
->>>>>>> origin/master
   const [onEditMode, setOnEditMode] = useState(false)
   const [textToEdit, setTextToEdit] = useState(cellInfo.value.title)
 

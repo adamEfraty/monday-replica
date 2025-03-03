@@ -1,13 +1,7 @@
-<<<<<<< HEAD:frontend/src/services/board/board.service.local.js
-import { storageService } from "../async-storage.service.js";
-import { utilService } from "../util.service.js";
-=======
-import { useSelector } from 'react-redux'
-import { updateTask } from '../store/actions/boards.actions.js'
-import { storageService } from './async-storage.service.js'
-import { utilService } from './util.service.js'
-import { add } from '@dnd-kit/utilities'
->>>>>>> origin/master:frontend/src/services/board.service.js
+import { storageService } from '../async-storage.service.js'
+import { utilService } from '../util.service.js'
+
+
 
 const imageLinks = [
   'https://images.pexels.com/photos/30061809/pexels-photo-30061809/free-photo-of-fashionable-woman-posing-with-colorful-headscarf.jpeg?auto=compress&cs=tinysrgb&w=600',

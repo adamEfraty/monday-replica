@@ -41,8 +41,4 @@ async function ajax(endpoint, method = 'GET', data = null) {
     }
     throw err
   }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> origin/master
