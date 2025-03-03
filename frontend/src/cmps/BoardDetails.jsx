@@ -45,9 +45,7 @@ const BoardDetails = () => {
     boards.find((board) => board.id === boardId)
   );
 
-  useEffect(() => {
-    console.log(filteredColumns);
-  }, []);
+
 
   const loggedinUser = useSelector((state) => state.userModule.user);
   const users = useSelector((state) => state.userModule.users);
@@ -92,7 +90,7 @@ const BoardDetails = () => {
     const board = boards.find((board) => board.id === boardId);
     if (!board) {
       navigate(
-        `/${utilService.getNameFromEmail(loggedInUser.email)}s-team.sunday.com`
+        `/${utilService.getNameFromEmail(loggedInUser?.email)}s-team.sunday.com`
       );
     } else if (board.groups.some((group) => group.tasks.length > 0)) {
       if (filterBy.length > 0) {
@@ -108,17 +106,17 @@ const BoardDetails = () => {
                 if (index === -1) return false;
                 return column.type === "members"
                   ? task.cells[index].value.some(
-                      (member) =>
-                        regExp.test(member.fullName) ||
-                        regExp.test(member.email)
-                    )
+                    (member) =>
+                      regExp.test(member.fullName) ||
+                      regExp.test(member.email)
+                  )
                   : regExp.test(
-                      column.type === "taskTitle"
-                        ? task.cells[index].value.title
-                        : column.type === "date"
+                    column.type === "taskTitle"
+                      ? task.cells[index].value.title
+                      : column.type === "date"
                         ? task.cells[index].value
                         : task.cells[index].value.text
-                    );
+                  );
               });
             }), // Filter tasks
           }))
@@ -134,13 +132,13 @@ const BoardDetails = () => {
     const handleScroll = () => {
       const scrollPositionY = boardDetailsRef.current.scrollTop
       const scrollPositionX = boardDetailsRef.current.scrollLeft
-      setBoardScroll({x: scrollPositionX, y: scrollPositionY})
+      setBoardScroll({ x: scrollPositionX, y: scrollPositionY })
     };
-    
-    if(boardDetailsRef.current){
+
+    if (boardDetailsRef.current) {
       boardDetailsRef.current.addEventListener("scroll", handleScroll);
       return () => {
-        boardDetailsRef.current.removeEventListener("scroll", handleScroll); // Cleanup listener on unmount
+        boardDetailsRef.current?.removeEventListener("scroll", handleScroll); // Cleanup listener on unmount
       }
     }
   }, [])
@@ -215,7 +213,7 @@ const BoardDetails = () => {
       group ? group.id : currentBoard.groups[0].id,
       taskTitle,
       !group && true,
-      loggedInUser.id
+      loggedInUser._id
     );
   }
 
@@ -258,15 +256,15 @@ const BoardDetails = () => {
   function handleFilteredLabel(label) {
     boardColumnsFilter.labels.some((column) => column.id === label.id)
       ? setFilteredColumns({
-          id: currentBoard.id,
-          labels: boardColumnsFilter.labels.filter(
-            (column) => column.id !== label.id
-          ),
-        })
+        id: currentBoard.id,
+        labels: boardColumnsFilter.labels.filter(
+          (column) => column.id !== label.id
+        ),
+      })
       : setFilteredColumns({
-          id: boardId,
-          labels: [...boardColumnsFilter.labels, label],
-        });
+        id: boardId,
+        labels: [...boardColumnsFilter.labels, label],
+      });
   }
 
   function getLabelPos(id) {
@@ -274,7 +272,6 @@ const BoardDetails = () => {
   }
 
   async function handleDragEnd(event) {
-    console.log("im hereeee");
     const { active, over } = event;
 
     if (active === over) return;
@@ -288,7 +285,6 @@ const BoardDetails = () => {
         originalLabelPos,
         moveToLabel
       );
-      console.log("newLabelArray", newLabelArray);
 
       await replaceLabels(boardId, newLabelArray);
 
