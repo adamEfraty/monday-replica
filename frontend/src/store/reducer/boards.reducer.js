@@ -29,8 +29,8 @@ export const boardReducer = (state = initialState, action) => {
     case REMOVE_BOARD:
       return {
         ...state,
-        boards: state.boards.filter((board) => board.id !== action.boardId),
-        filteredColumns: state.filteredColumns.filter(board => board.id !== action.boardId)
+        boards: state.boards.filter((board) => board._id !== action.boardId),
+        filteredColumns: state.filteredColumns.filter(board => board._id !== action.boardId)
       }
     case ADD_BOARD:
       return {
@@ -41,7 +41,7 @@ export const boardReducer = (state = initialState, action) => {
       return {
         ...state,
         boards: state.boards.map((board) =>
-          board.id === action.boardId
+          board._id === action.boardId
             ? {
                 ...action.updatedBoard,
                 groups: [...action.updatedBoard.groups],

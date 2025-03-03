@@ -10,7 +10,7 @@ export function LabelTitle({ label, boardId }) {
     const labelRef = useRef(null)
     // so no every width change there will be call to storage
     const board = useSelector((state) => 
-        state.boardModule.boards.find(board=>board.id === boardId));
+        state.boardModule.boards.find(board=>board._id === boardId));
     const [hoverLable, setHoverLabel] = useState(false)
 
     // controls hoverlabel state

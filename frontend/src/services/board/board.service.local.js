@@ -36,14 +36,13 @@ export const boardService = {
   setFilteredColumnsSession,
   getFilteredColumnsSession,
   removeBoardFromFilteredColumnsSession,
-  setFavorites,
   deleteLableFromBoard,
   changeLabelName,
   changeLabelWidth,
   addMultipleItemsToGroup,
 }
 
-// main functions
+// BASIC FUNCTIONS *************
 
 async function query() {
   try {
@@ -76,26 +75,27 @@ async function save(boardToSave) {
   }
 }
 
-// **************************
+// // FROM HERE ON THERE IS NOT SUPPOSE TO BE DIFFRENCE BETWEEN LOCAL AND REMOTE SERVICES
 
+// change so each board has isFavorite prop instead whatever this bs
 
-async function setFavorites(favoriteId) {
-  const localFavorites = JSON.parse(localStorage.getItem(FAVORITES_KEY)) || []
-  if (localFavorites && localFavorites[0]) {
-    const index = await localFavorites.findIndex((id) => id === favoriteId)
-    if (index !== -1) {
-      localFavorites.splice(index, 1)
-    } else if (typeof favoriteId === 'string') {
-      localFavorites.push(favoriteId)
-    }
-    localStorage.setItem(FAVORITES_KEY, JSON.stringify(localFavorites))
-    return await localFavorites
-  } else {
-    const inputFavorite = Array.isArray(favoriteId) ? favoriteId : [favoriteId]
-    localStorage.setItem(FAVORITES_KEY, JSON.stringify(inputFavorite))
-    return inputFavorite
-  }
-}
+// async function setFavorites(favoriteId) {
+//   const localFavorites = JSON.parse(localStorage.getItem(FAVORITES_KEY)) || []
+//   if (localFavorites && localFavorites[0]) {
+//     const index = await localFavorites.findIndex((id) => id === favoriteId)
+//     if (index !== -1) {
+//       localFavorites.splice(index, 1)
+//     } else if (typeof favoriteId === 'string') {
+//       localFavorites.push(favoriteId)
+//     }
+//     localStorage.setItem(FAVORITES_KEY, JSON.stringify(localFavorites))
+//     return await localFavorites
+//   } else {
+//     const inputFavorite = Array.isArray(favoriteId) ? favoriteId : [favoriteId]
+//     localStorage.setItem(FAVORITES_KEY, JSON.stringify(inputFavorite))
+//     return inputFavorite
+//   }
+// }
 
 async function addBoard(boardName) {
   try {
@@ -499,7 +499,7 @@ async function makeFirstBoard() {
 
   const savedBoard = await save(board)
   setFilteredColumnsSession([
-    { id: savedBoard.id, labels: savedBoard.labels },
+    { id: savedboard._id, labels: savedBoard.labels },
   ])
   console.log('First board created successfully')
 }

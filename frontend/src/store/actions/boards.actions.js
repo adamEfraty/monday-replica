@@ -16,7 +16,7 @@ export async function addBoard(boardName) {
   try {
     console.log(boardName)
     const savedBoard = await boardService.addBoard(boardName);
-    await setFilteredColumns({ id: savedBoard.id, labels: savedBoard.labels });
+    await setFilteredColumns({ id: savedBoard._id, labels: savedBoard.labels });
 
     const boards = await boardService.query();
 
@@ -38,17 +38,16 @@ export async function loadBoards() {
   const filteredColumns = await boardService.getFilteredColumnsSession();
   !filteredColumns &&
     boardService.setFilteredColumnsSession(
-      boards.map((board) => ({ id: board.id, labels: board.labels }))
+      boards.map((board) => ({ id: board._id, labels: board.labels }))
     );
-  const favorites = await setFavories();
-  console.log(favorites);
+  // const favorites = await setFavories(); //fix it later
   await store.dispatch({ type: SET_BOARDS, boards });
   await store.dispatch({
     type: SET_FILTERED_COLUMNS,
     newFilteredColumns: filteredColumns
       ? JSON.parse(filteredColumns)
       : boards.map((board) => ({
-          id: board.id,
+          id: board._id,
           labels: board.labels,
         })),
   });
