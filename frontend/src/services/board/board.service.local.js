@@ -1,15 +1,6 @@
 import { storageService } from '../async-storage.service.js'
 import { utilService } from '../util.service.js'
 
-
-
-const imageLinks = [
-  'https://images.pexels.com/photos/30061809/pexels-photo-30061809/free-photo-of-fashionable-woman-posing-with-colorful-headscarf.jpeg?auto=compress&cs=tinysrgb&w=600',
-  'https://images.pexels.com/photos/30007901/pexels-photo-30007901/free-photo-of-thoughtful-man-in-grey-coat-outdoors.jpeg?auto=compress&cs=tinysrgb&w=600',
-  'https://images.pexels.com/photos/28773362/pexels-photo-28773362/free-photo-of-dynamic-black-and-white-portrait-of-young-man-on-phone.jpeg?auto=compress&cs=tinysrgb&w=600',
-  'https://images.pexels.com/photos/30071289/pexels-photo-30071289/free-photo-of-portrait-of-a-bearded-man-outdoors.jpeg?auto=compress&cs=tinysrgb&w=600',
-]
-
 const STORAGE_KEY = 'boards'
 const CHAT_KEY = 'chat'
 const FAVORITES_KEY = 'favorites'
@@ -51,6 +42,42 @@ export const boardService = {
   changeLabelWidth,
   addMultipleItemsToGroup,
 }
+
+// main functions
+
+async function query() {
+  try {
+    let boards = await storageService.query(STORAGE_KEY)
+    if (!boards || boards.length === 0) {
+      await makeFirstBoard()
+      boards = await storageService.query(STORAGE_KEY)
+    }
+    return boards
+  } catch (error) {
+    console.log('Error:', error)
+    throw error
+  }
+}
+
+function getById(id) {
+  return storageService.get(STORAGE_KEY, id)
+}
+
+function remove(id) {
+  return storageService.remove(STORAGE_KEY, id)
+}
+
+async function save(boardToSave) {
+  console.log('this is the board to save: ', boardToSave)
+  if (boardToSave.id) {
+    return storageService.put(STORAGE_KEY, boardToSave)
+  } else {
+    return storageService.post(STORAGE_KEY, boardToSave)
+  }
+}
+
+// **************************
+
 
 async function setFavorites(favoriteId) {
   const localFavorites = JSON.parse(localStorage.getItem(FAVORITES_KEY)) || []
@@ -114,37 +141,6 @@ async function addBoard(boardName) {
   } catch (error) {
     console.error('Error adding board:', error)
     throw error
-  }
-}
-
-async function query() {
-  try {
-    let boards = await storageService.query(STORAGE_KEY)
-    if (!boards || boards.length === 0) {
-      await makeFirstBoard()
-      boards = await storageService.query(STORAGE_KEY)
-    }
-    return boards
-  } catch (error) {
-    console.log('Error:', error)
-    throw error
-  }
-}
-
-function getById(id) {
-  return storageService.get(STORAGE_KEY, id)
-}
-
-function remove(id) {
-  return storageService.remove(STORAGE_KEY, id)
-}
-
-async function save(boardToSave) {
-  console.log('this is the board to save: ', boardToSave)
-  if (boardToSave.id) {
-    return storageService.put(STORAGE_KEY, boardToSave)
-  } else {
-    return storageService.post(STORAGE_KEY, boardToSave)
   }
 }
 
@@ -501,14 +497,11 @@ async function makeFirstBoard() {
     groups: [],
   }
 
-  const boardsFromStorage = await storageService.query(STORAGE_KEY)
-  if (!boardsFromStorage || boardsFromStorage.length < 2) {
-    const savedBoard = await storageService.post(STORAGE_KEY, board)
-    setFilteredColumnsSession([
-      { id: savedBoard.id, labels: savedBoard.labels },
-    ])
-    console.log('First board created successfully')
-  }
+  const savedBoard = await save(board)
+  setFilteredColumnsSession([
+    { id: savedBoard.id, labels: savedBoard.labels },
+  ])
+  console.log('First board created successfully')
 }
 
 // newComments = [width: xxx, scroll: xxx, open: xxx, comments: [{id: xxx, comment: xxx}, ...]]

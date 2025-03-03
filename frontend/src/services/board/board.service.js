@@ -1,14 +1,14 @@
 import { httpService } from '../http.service'
 
 export const boardService = {
-    getBoards,
+    query,
     getById,
-    add,
-    update,
+    save,
     remove,
 }
 
-async function getBoards() {
+//add so when there is no boards there should be added one
+async function query() {
     return await httpService.get(`board`)
 }
 
@@ -20,10 +20,11 @@ async function remove(boardId) {
 	return await httpService.delete(`board/${boardId}`)
 }
 
-async function add(boardName) {
-    return await httpService.post('board', boardName)
-}
-
-async function update(board) {
+async function save(board) {
+  console.log('this is the board to save: ', board)
+  if (board.id) {
+    return await httpService.post('board', board)
+  } else {
     return await httpService.put(`board/${board._id}`, board)
+  }
 }
