@@ -50,7 +50,7 @@ export function MainInnerIndex({ user, isBoard, boards }) {
           <div className="boards-container">
             {boards.map((board) => (
               <BoardCard
-                key={board.id}
+                key={board._id}
                 board={board}
                 onUpdateBoardName={onUpdateBoardName}
                 handleFavorite={handleFavorite}
