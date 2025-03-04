@@ -277,6 +277,18 @@ export async function updateBoardName(boardId, newName) {
   }
 }
 
+export async function updateBoardFavorite(boardId) {
+  try {
+    const updatedBoard = await boardService.updateBoardFavorite(boardId)
+
+    store.dispatch({ type: EDIT_BOARD, boardId, updatedBoard })
+
+    return updatedBoard
+  } catch (error) {
+    console.error('error dispatching board name update:', error)
+  }
+}
+
 export function openModal(modalId) {
   const currentModals = store.getState().boardModule.openModals
   let newModals = currentModals.includes(modalId)
@@ -394,11 +406,11 @@ export async function setFilteredColumns(filteredColumns) {
   store.dispatch({ type: SET_FILTERED_COLUMNS, newFilteredColumns })
 }
 
-export async function setFavories(favorite = []) {
-  const serviceFavorites = await boardService.setFavorites(favorite)
-  store.dispatch({ type: SET_FAVORITES, favorites: serviceFavorites })
-  return await serviceFavorites
-}
+// export async function setFavories(favorite = []) {
+//   const serviceFavorites = await boardService.setFavorites(favorite)
+//   store.dispatch({ type: SET_FAVORITES, favorites: serviceFavorites })
+//   return await serviceFavorites
+// }
 
 export function onUpdateReduxLabelWidth(board, boardId, labelId, newWidth) {
   const newLabels = board.labels.map((label) =>

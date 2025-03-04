@@ -2,11 +2,17 @@ import { useNavigate } from "react-router";
 import { useState, useEffect } from "react";
 import { SvgCmp } from "../services/svg.service";
 import { useSelector } from "react-redux";
-
-export function BoardCard({ board, onUpdateBoardName, handleFavorite }) {
+import { updateBoardFavorite } from "../store/actions/boards.actions";
+export function BoardCard({ board, onUpdateBoardName }) {
   const favorites = useSelector((state) => state.boardModule.favorites);
   const [boardName, setBoardName] = useState(board.title);
   const navigate = useNavigate();
+
+  async function handleToggle() {
+    const updatedBoard = await updateBoardFavorite(board._id)
+    console.log(updatedBoard, ' from card')
+  }
+
   return (
     <div className="board-card" key={board._id}>
       <img
@@ -14,7 +20,7 @@ export function BoardCard({ board, onUpdateBoardName, handleFavorite }) {
         src="https://cdn.monday.com/images/quick_search_recent_board2.svg"
         alt="Board Thumbnail"
       />
-      <section style={{display: "flex", alignItems: "center", width: "90%"}}>
+      <section style={{ display: "flex", alignItems: "center", width: "90%" }}>
         <input
           onBlur={() => onUpdateBoardName(board._id, boardName)}
           type="text"
@@ -22,11 +28,13 @@ export function BoardCard({ board, onUpdateBoardName, handleFavorite }) {
           value={boardName}
           onChange={(e) => setBoardName(e.target.value)}
         />
-        <div onClick={() => handleFavorite(board._id)}>
+        <div onClick={handleToggle} style={{ cursor: 'pointer' }} >
+
           <SvgCmp
-            type={`${
-              favorites.includes(board._id) ? "full" : "empty"
-            }-rating-icon`}
+            type={`${board?.isFavorite ? "full" : "empty"
+              }-rating-icon`}
+
+
           />
         </div>
       </section>

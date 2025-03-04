@@ -36,6 +36,7 @@ export const boardService = {
   changeLabelName,
   changeLabelWidth,
   addMultipleItemsToGroup,
+  updateBoardFavorite,
 }
 
 const CHAT_KEY = 'chat'
@@ -58,11 +59,11 @@ async function query() {
 }
 
 async function getById(boardId) {
-	return await httpService.get(`board/${boardId}`)
+  return await httpService.get(`board/${boardId}`)
 }
 
 async function remove(boardId) {
-	return await httpService.delete(`board/${boardId}`)
+  return await httpService.delete(`board/${boardId}`)
 }
 
 async function save(board) {
@@ -75,7 +76,6 @@ async function save(board) {
 }
 
 // FROM HERE ON THERE IS NOT SUPPOSE TO BE DIFFRENCE BETWEEN LOCAL AND REMOTE SERVICES
-
 
 // change so each board has isFavorite prop instead whatever this bs
 
@@ -101,6 +101,7 @@ async function addBoard(boardName) {
   try {
     const newBoard = {
       title: boardName,
+      isFavorite: false,
       labels: [
         {
           id: utilService.makeIdForLabel(),
@@ -444,6 +445,24 @@ async function updateBoardName(boardId, newName) {
   }
 }
 
+async function updateBoardFavorite(boardId) {
+  try {
+    // Retrieve the board by ID
+    const board = await getById(boardId)
+    if (!board) throw new Error(`Board with ID ${boardId} not found`)
+
+    // Update the board's name
+    board.isFavorite = !board.isFavorite
+
+    // Save the updated board back to storage
+    const updatedBoard = await save(board)
+    return updatedBoard
+  } catch (error) {
+    console.error('Error updating board name:', error)
+    throw error
+  }
+}
+
 async function makeFirstBoard() {
   const imageLinks = [
     'https://images.pexels.com/photos/30061809/pexels-photo-30061809/free-photo-of-fashionable-woman-posing-with-colorful-headscarf.jpeg?auto=compress&cs=tinysrgb&w=600',
@@ -498,9 +517,7 @@ async function makeFirstBoard() {
   }
 
   const savedBoard = await save(board)
-  setFilteredColumnsSession([
-    { id: savedBoard._id, labels: savedBoard.labels },
-  ])
+  setFilteredColumnsSession([{ id: savedBoard._id, labels: savedBoard.labels }])
   console.log('First board created successfully')
 }
 

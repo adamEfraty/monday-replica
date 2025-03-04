@@ -88,7 +88,7 @@ export function SideBar({ boards, user, onRemoveBoard }) {
       {/* Workspaces Section */}
       {favoritesOpen ? (
         <ul className="sidebar-boardlist">
-          {boards.map((board) => favorites.includes(board._id) && (
+          {boards.map((board) => board.isFavorite && (
             <li key={board._id}>
               <div
                 className="sidebar-board"

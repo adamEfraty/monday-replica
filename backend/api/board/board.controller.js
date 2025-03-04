@@ -28,6 +28,7 @@ export async function addBoard(req, res) {
   const { title: boardName } = req.body
   const boardToSave = {
     title: boardName,
+    isFavorite: false,
     groups: [],
     labels: [
       {
@@ -84,8 +85,8 @@ export async function removeBoard(req, res) {
 }
 
 export async function updateBoard(req, res) {
-  const { _id, title, labels, groups } = req.body
-  const boardToSave = { _id, title, labels, groups }
+  const { _id, title, labels, groups, isFavorite } = req.body
+  const boardToSave = { _id, title, labels, groups, isFavorite }
 
   try {
     const updatedBoard = await boardService.update(boardToSave)
