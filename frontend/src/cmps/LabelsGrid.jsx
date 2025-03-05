@@ -9,6 +9,7 @@ export function LabelsGrid({
     labels,
     handleMasterCheckboxClick,
     checkedGroups,
+    isFixed,
 }){
     return(
         <section
@@ -38,11 +39,16 @@ export function LabelsGrid({
                     <LabelTitle key={label.id} label={label} boardId={boardId} />
                 </div >
                 :
-                <Label key={label.id} id={label.id} label={label} boardId={boardId} groupId={group.id} />
+                <Label key={label.id} 
+                id={label.id} 
+                label={label} 
+                boardId={boardId} 
+                groupId={group.id} 
+                isFixed={isFixed}/>
             ))}
             </SortableContext >
 
-            <AddLabel groupId={group.id} boardId={boardId}/>
+            <AddLabel groupId={group.id} boardId={boardId} isFixed={isFixed}/>
         </section>
     )
 }

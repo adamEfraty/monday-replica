@@ -370,6 +370,7 @@ const BoardDetails = () => {
                     labels={currentBoard.labels}
                     handleMasterCheckboxClick={handleMasterCheckboxClick}
                     checkedGroups={checkedGroups}
+                    isFixed={true}
               />
           </div>
 

@@ -180,6 +180,7 @@ export const GroupPreview = ({
                   labels={labels}
                   handleMasterCheckboxClick={handleMasterCheckboxClick}
                   checkedGroups={checkedGroups}
+                  isFixed={false}
             />
 
 
