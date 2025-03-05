@@ -33,10 +33,10 @@ function App() {
           </Routes>
         ) : (
           <Routes>
-            <Route path="/" element={<Navigate to={`/${name}s-team.sunday.com`} />} />
-            <Route path={`/${name}s-team.sunday.com`} element={<MondayIndex />} />
-            <Route path={`/${name}s-team.sunday.com/boards/:boardId`} element={<MondayIndex isBoard={true} />} />
-            <Route path={`/${name}s-team.sunday.com/board`} element={<MondayIndex />} />
+            <Route path="/" element={<Navigate to={`/${name}s-team.someday.com`} />} />
+            <Route path={`/${name}s-team.someday.com`} element={<MondayIndex />} />
+            <Route path={`/${name}s-team.someday.com/boards/:boardId`} element={<MondayIndex isBoard={true} />} />
+            <Route path={`/${name}s-team.someday.com/board`} element={<MondayIndex />} />
           </Routes>
         )}
       </Router>

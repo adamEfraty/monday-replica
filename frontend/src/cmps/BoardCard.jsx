@@ -7,6 +7,7 @@ export function BoardCard({ board, onUpdateBoardName, handleFavorite }) {
   const favorites = useSelector((state) => state.boardModule.favorites);
   const [boardName, setBoardName] = useState(board.title);
   const navigate = useNavigate();
+
   return (
     <div className="board-card" key={board._id}>
       <img

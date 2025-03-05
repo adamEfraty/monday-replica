@@ -53,7 +53,7 @@ export function SideBar({ boards, user, onRemoveBoard }) {
       <section
         onClick={() =>
           onChangeAdressOnce(
-            `/${utilService.getNameFromEmail(user.email)}s-team.sunday.com`
+            `/${utilService.getNameFromEmail(user.email)}s-team.someday.com`
           )
         }
       >
@@ -97,7 +97,7 @@ export function SideBar({ boards, user, onRemoveBoard }) {
                   onChangeAdressOnce(
                     `/${utilService.getNameFromEmail(
                       user.email
-                    )}s-team.sunday.com/boards/${board._id}`
+                    )}s-team.someday.com/boards/${board._id}`
                   );
                 }}
               >
@@ -171,7 +171,7 @@ export function SideBar({ boards, user, onRemoveBoard }) {
                     onChangeAdressOnce(
                       `/${utilService.getNameFromEmail(
                         user.email
-                      )}s-team.sunday.com/boards/${board._id}`
+                      )}s-team.someday.com/boards/${board._id}`
                     );
                   }}
                 >

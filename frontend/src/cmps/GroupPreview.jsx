@@ -40,6 +40,8 @@ export const GroupPreview = ({
   openChat,
   id,
   boardScroll,
+  updateFixedGroup,
+  fixedGroup,
 
 }) => {
   const [expanded, setExpanded] = useState(true);
@@ -71,10 +73,7 @@ export const GroupPreview = ({
 
 
   const titleRef = useRef(null)
-  const fixedAreaRef = useRef(null)
   const [titlePositionY, setTitlePositionY] = useState(0)
-
-  const absoluteLabelsRef = useRef(null)
 
 
 
@@ -84,6 +83,7 @@ export const GroupPreview = ({
     if(titleRef.current){
       const yPosition = titleRef.current.getBoundingClientRect().y
       setTitlePositionY(yPosition)
+      updateFixedGroup(group.id, yPosition)
     }
 
   }, [boardScroll])
@@ -116,10 +116,11 @@ export const GroupPreview = ({
   return (
     <div style={style} ref={setNodeRef} className="group-list-dnd" >
 
+
       {
         titlePositionY < 260 && 
         <>
-          <div className="fixed-area" ref={fixedAreaRef}>
+          <div className="fixed-area">
             <div className="fixed-group-title">
               <GroupTitle
                 boardId={boardId}
@@ -140,17 +141,6 @@ export const GroupPreview = ({
                 handleDelete={handleDelete}
               />
             </div>
-          </div>
-
-          {/* style={{left: -boardScroll.x}} */}
-          <div className="absolute-labels" ref={absoluteLabelsRef}>
-            <LabelsGrid 
-                    boardId={boardId}
-                    group={group}
-                    labels={labels}
-                    handleMasterCheckboxClick={handleMasterCheckboxClick}
-                    checkedGroups={checkedGroups}
-              />
           </div>
         </>
       }

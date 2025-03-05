@@ -21,7 +21,7 @@ export function ActivityModal({ activities }) {
       </section>
       <ul className="activities-modal">
         {activities.map((activity) => {
-          const user = users.find((user) => user.id === activity.userId);
+          const user = users.find((user) => user._id === activity.userId);
           const idx = boards.findIndex((board) =>
             board.groups.some((group) => group.id === activity.activity.groupId)
           );

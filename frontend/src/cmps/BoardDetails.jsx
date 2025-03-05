@@ -25,6 +25,7 @@ import {
   SortableContext,
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
+import { LabelsGrid } from "./LabelsGrid";
 
 
 const BoardDetails = () => {
@@ -53,12 +54,14 @@ const BoardDetails = () => {
 
   const boardDetailsRef = useRef(null)
   const [boardScroll, setBoardScroll] = useState(0)
+  const [goupTitlesYPosition, setGoupTitlesYPosition] = useState({})
+  const [fixedGroup, setFixedGroup] = useState(null)
 
   useEffect(() => {
     const index = boards.findIndex((board) => board._id === boardId);
     index < 0 &&
       navigate(
-        `/${utilService.getNameFromEmail(loggedInUser.email)}s-team.sunday.com`
+        `/${utilService.getNameFromEmail(loggedInUser.email)}s-team.someday.com`
       );
   }, [boards]);
 
@@ -88,7 +91,7 @@ const BoardDetails = () => {
     const board = boards.find((board) => board._id === boardId);
     if (!board) {
       navigate(
-        `/${utilService.getNameFromEmail(loggedInUser?.email)}s-team.sunday.com`
+        `/${utilService.getNameFromEmail(loggedInUser?.email)}s-team.someday.com`
       );
     } else if (board.groups.some((group) => group.tasks.length > 0)) {
       if (filterBy.length > 0) {
@@ -140,6 +143,14 @@ const BoardDetails = () => {
       }
     }
   }, [])
+
+  useEffect(()=>{
+    if(groups.length){
+      setFixedGroup(groups[0])
+      setGoupTitlesYPosition({})
+    }
+    else  setFixedGroup(null)
+  },[groups])
 
   //...............................
 
@@ -322,6 +333,23 @@ const BoardDetails = () => {
     await replaceGroups(boardId, newGroupsOrder);
   }
 
+  function updateFixedGroup(groupId, yPos) {
+    setGoupTitlesYPosition(prev => ({ ...prev, [groupId]: yPos }))
+    let groupIdToFixed = ''
+    let highestFixedHeight = -Infinity
+    for (const groupId in goupTitlesYPosition) {
+      if (goupTitlesYPosition[groupId] < 260 && 
+        goupTitlesYPosition[groupId] >= highestFixedHeight) {
+          highestFixedHeight = goupTitlesYPosition[groupId]
+          groupIdToFixed = groupId
+      }
+    }
+
+    setFixedGroup(groups.find(group=>group.id === groupIdToFixed))
+  }
+
+  // console.log('fixedGroup', fixedGroup)
+
   return (
     <div className="board-details" ref={boardDetailsRef}>
       <BoardDetailsHeader
@@ -331,6 +359,22 @@ const BoardDetails = () => {
         boardColumnsFilter={boardColumnsFilter}
         handleFilteredLabel={handleFilteredLabel}
       />
+
+
+      {
+          fixedGroup &&
+          <div className="sticky-labels">
+            <LabelsGrid 
+                    boardId={boardId}
+                    group={fixedGroup}
+                    labels={currentBoard.labels}
+                    handleMasterCheckboxClick={handleMasterCheckboxClick}
+                    checkedGroups={checkedGroups}
+              />
+          </div>
+
+      }
+
       {currentBoard.groups.length > 0 ? (
         <section className="group-list">
           <DndContext
@@ -362,6 +406,8 @@ const BoardDetails = () => {
                   chatTempInfoUpdate={chatTempInfoUpdate}
                   openChat={openChat}
                   boardScroll={boardScroll}
+                  updateFixedGroup={updateFixedGroup}
+                  fixedGroup={fixedGroup}
                 />
               ))}
             </SortableContext>

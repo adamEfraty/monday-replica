@@ -25,7 +25,7 @@ export function Login() {
     await login(user)
       .then((returnedUser) => {
         console.log(returnedUser, ' from log in!')
-        navigate(`/${utilService.getNameFromEmail(returnedUser?.email)}s-team.sunday.com`);
+        navigate(`/${utilService.getNameFromEmail(returnedUser?.email)}s-team.someday.com`);
       })
       .catch((err) => {
         console.log("error: ", err);
