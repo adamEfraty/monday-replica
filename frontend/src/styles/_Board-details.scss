@@ -21,6 +21,7 @@
     left: 0px;
 
     .white-cover{
+      z-index: 100;
       position: absolute;
       left: -39px;
       top: -1px;
@@ -33,10 +34,13 @@
 
 
   .taskTitle{
+    z-index: 1;
     position: sticky;
-    left: 11px;
+    left: -33px;
     background-color: white;
     border-right: solid #e0dede 1px;
+    border-bottom: solid white 1px;
+
   }
 }
 
@@ -133,6 +137,7 @@
 }
 
 .sticky-labels{
+  width: max-content;
   position: sticky;
   z-index: 5;
   top: 227px;
