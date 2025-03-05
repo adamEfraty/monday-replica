@@ -22,7 +22,7 @@ export function SignUp() {
 
     try {
       await signup(user);
-      navigate(`/${utilService.getNameFromEmail(user.email)}s-team.sunday.com`);
+      navigate(`/${utilService.getNameFromEmail(user.email)}s-team.someday.com`);
     } catch (err) {
       console.log(err);
     }

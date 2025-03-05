@@ -87,3 +87,122 @@
 3.3.2025, 1:47:17 - INFO - User login:  | {"_id":"67c4ec04169a1cf59098f6a6","email":"sar@gmail.com","fullName":"sar","imgUrl":"https://res.cloudinary.com/danlxus36/image/upload/v1740958721/2_ii84uz.jpg","isAdmin":null}
 3.3.2025, 1:47:25 - DEBUG - auth.service - login with email: sar@gmail.com
 3.3.2025, 1:47:25 - INFO - User login:  | {"_id":"67c4ec04169a1cf59098f6a6","email":"sar@gmail.com","fullName":"sar","imgUrl":"https://res.cloudinary.com/danlxus36/image/upload/v1740958721/2_ii84uz.jpg","isAdmin":null}
+3.3.2025, 16:51:16 - INFO - Up and running on http://localhost:3000
+3.3.2025, 17:01:03 - INFO - Up and running on http://localhost:3000
+3.3.2025, 17:15:50 - INFO - Up and running on http://localhost:3000
+3.3.2025, 17:25:53 - INFO - Up and running on http://localhost:3000
+3.3.2025, 17:26:06 - INFO - Up and running on http://localhost:3000
+3.3.2025, 17:26:14 - INFO - Up and running on http://localhost:3000
+3.3.2025, 17:29:56 - INFO - Up and running on http://localhost:3000
+3.3.2025, 17:30:00 - INFO - Up and running on http://localhost:3000
+3.3.2025, 17:35:01 - INFO - Up and running on http://localhost:3000
+3.3.2025, 17:35:18 - INFO - Up and running on http://localhost:3000
+3.3.2025, 17:35:32 - INFO - Up and running on http://localhost:3000
+3.3.2025, 17:35:47 - INFO - Up and running on http://localhost:3000
+3.3.2025, 17:35:55 - INFO - Up and running on http://localhost:3000
+3.3.2025, 17:36:13 - INFO - Up and running on http://localhost:3000
+3.3.2025, 17:39:51 - INFO - Up and running on http://localhost:3000
+3.3.2025, 17:40:10 - INFO - Up and running on http://localhost:3000
+3.3.2025, 17:42:54 - INFO - Up and running on http://localhost:3000
+3.3.2025, 17:42:57 - INFO - Up and running on http://localhost:3000
+3.3.2025, 17:43:02 - INFO - Up and running on http://localhost:3000
+3.3.2025, 17:43:06 - INFO - Up and running on http://localhost:3000
+3.3.2025, 17:43:09 - INFO - Up and running on http://localhost:3000
+3.3.2025, 17:45:06 - INFO - Up and running on http://localhost:3000
+3.3.2025, 17:45:13 - INFO - Up and running on http://localhost:3000
+3.3.2025, 17:45:25 - INFO - Up and running on http://localhost:3000
+3.3.2025, 17:45:31 - INFO - Up and running on http://localhost:3000
+3.3.2025, 17:46:18 - INFO - Up and running on http://localhost:3000
+3.3.2025, 17:47:02 - INFO - Up and running on http://localhost:3000
+3.3.2025, 17:47:07 - INFO - Up and running on http://localhost:3000
+3.3.2025, 17:47:14 - INFO - Up and running on http://localhost:3000
+3.3.2025, 17:47:26 - INFO - Up and running on http://localhost:3000
+3.3.2025, 17:47:28 - INFO - Up and running on http://localhost:3000
+3.3.2025, 17:47:52 - INFO - Up and running on http://localhost:3000
+3.3.2025, 17:50:59 - INFO - Up and running on http://localhost:3000
+3.3.2025, 17:53:35 - INFO - Up and running on http://localhost:3000
+3.3.2025, 17:53:40 - INFO - Up and running on http://localhost:3000
+3.3.2025, 17:53:48 - INFO - Up and running on http://localhost:3000
+3.3.2025, 17:53:57 - INFO - Up and running on http://localhost:3000
+3.3.2025, 17:54:01 - INFO - Up and running on http://localhost:3000
+3.3.2025, 18:10:19 - INFO - Up and running on http://localhost:3000
+3.3.2025, 18:10:25 - INFO - Up and running on http://localhost:3000
+3.3.2025, 18:11:10 - INFO - Up and running on http://localhost:3000
+3.3.2025, 18:11:17 - INFO - Up and running on http://localhost:3000
+3.3.2025, 18:11:23 - INFO - Up and running on http://localhost:3000
+3.3.2025, 18:11:27 - INFO - Up and running on http://localhost:3000
+3.3.2025, 18:12:16 - INFO - Up and running on http://localhost:3000
+3.3.2025, 18:28:36 - INFO - Up and running on http://localhost:3000
+3.3.2025, 18:29:26 - INFO - Up and running on http://localhost:3000
+3.3.2025, 18:29:30 - INFO - Up and running on http://localhost:3000
+3.3.2025, 18:29:59 - INFO - Up and running on http://localhost:3000
+3.3.2025, 18:30:20 - INFO - Up and running on http://localhost:3000
+3.3.2025, 18:30:23 - INFO - Up and running on http://localhost:3000
+3.3.2025, 18:30:30 - INFO - Up and running on http://localhost:3000
+3.3.2025, 18:30:49 - INFO - Up and running on http://localhost:3000
+3.3.2025, 18:34:46 - INFO - Up and running on http://localhost:3000
+3.3.2025, 18:35:22 - INFO - Up and running on http://localhost:3000
+3.3.2025, 18:35:57 - INFO - Up and running on http://localhost:3000
+3.3.2025, 18:36:02 - INFO - Up and running on http://localhost:3000
+3.3.2025, 18:36:16 - INFO - Up and running on http://localhost:3000
+3.3.2025, 18:37:11 - INFO - Up and running on http://localhost:3000
+3.3.2025, 18:40:13 - INFO - Up and running on http://localhost:3000
+3.3.2025, 18:40:19 - INFO - Up and running on http://localhost:3000
+3.3.2025, 18:40:25 - INFO - Up and running on http://localhost:3000
+3.3.2025, 18:41:03 - INFO - Up and running on http://localhost:3000
+3.3.2025, 22:22:28 - INFO - Up and running on http://localhost:3000
+4.3.2025, 0:17:58 - INFO - Up and running on http://localhost:3000
+4.3.2025, 0:26:26 - ERROR - cannot update board undefined | BSONError: hex string must be 24 characters
+4.3.2025, 0:26:26 - ERROR - hex string must be 24 characters
+4.3.2025, 0:26:49 - ERROR - cannot update board undefined | BSONError: hex string must be 24 characters
+4.3.2025, 0:26:49 - ERROR - hex string must be 24 characters
+4.3.2025, 0:29:10 - INFO - Up and running on http://localhost:3000
+4.3.2025, 0:29:21 - INFO - Up and running on http://localhost:3000
+4.3.2025, 0:29:31 - ERROR - cannot update board undefined | BSONError: hex string must be 24 characters
+4.3.2025, 0:29:31 - ERROR - hex string must be 24 characters
+4.3.2025, 0:30:39 - INFO - Up and running on http://localhost:3000
+4.3.2025, 0:30:40 - ERROR - cannot update board undefined | BSONError: hex string must be 24 characters
+4.3.2025, 0:30:40 - ERROR - hex string must be 24 characters
+4.3.2025, 0:31:11 - ERROR - cannot update board undefined | BSONError: hex string must be 24 characters
+4.3.2025, 0:31:11 - ERROR - hex string must be 24 characters
+4.3.2025, 0:32:22 - ERROR - cannot update board undefined | BSONError: hex string must be 24 characters
+4.3.2025, 0:32:22 - ERROR - hex string must be 24 characters
+4.3.2025, 0:33:04 - INFO - Up and running on http://localhost:3000
+4.3.2025, 0:33:05 - ERROR - cannot update board undefined | BSONError: hex string must be 24 characters
+4.3.2025, 0:33:05 - ERROR - hex string must be 24 characters
+4.3.2025, 0:36:01 - ERROR - cannot remove board undefined | BSONError: hex string must be 24 characters
+4.3.2025, 0:36:01 - ERROR - hex string must be 24 characters
+4.3.2025, 0:36:17 - INFO - Up and running on http://localhost:3000
+4.3.2025, 0:36:30 - INFO - Up and running on http://localhost:3000
+4.3.2025, 0:36:34 - ERROR - cannot remove board undefined | BSONError: hex string must be 24 characters
+4.3.2025, 0:36:34 - ERROR - hex string must be 24 characters
+4.3.2025, 0:36:59 - INFO - Up and running on http://localhost:3000
+4.3.2025, 0:37:02 - ERROR - cannot remove board undefined | BSONError: hex string must be 24 characters
+4.3.2025, 0:37:02 - ERROR - hex string must be 24 characters
+4.3.2025, 0:38:29 - ERROR - cannot remove board undefined | BSONError: hex string must be 24 characters
+4.3.2025, 0:38:29 - ERROR - hex string must be 24 characters
+4.3.2025, 0:38:52 - ERROR - cannot remove board undefined | BSONError: hex string must be 24 characters
+4.3.2025, 0:38:52 - ERROR - hex string must be 24 characters
+4.3.2025, 0:40:20 - ERROR - cannot remove board undefined | BSONError: hex string must be 24 characters
+4.3.2025, 0:40:20 - ERROR - hex string must be 24 characters
+4.3.2025, 0:40:32 - ERROR - cannot remove board undefined | BSONError: hex string must be 24 characters
+4.3.2025, 0:40:32 - ERROR - hex string must be 24 characters
+4.3.2025, 0:40:50 - INFO - Up and running on http://localhost:3000
+4.3.2025, 0:42:36 - ERROR - cannot remove board undefined | BSONError: hex string must be 24 characters
+4.3.2025, 0:42:36 - ERROR - hex string must be 24 characters
+4.3.2025, 0:42:37 - ERROR - cannot remove board undefined | BSONError: hex string must be 24 characters
+4.3.2025, 0:42:37 - ERROR - hex string must be 24 characters
+4.3.2025, 0:42:38 - ERROR - cannot remove board undefined | BSONError: hex string must be 24 characters
+4.3.2025, 0:42:38 - ERROR - hex string must be 24 characters
+4.3.2025, 0:43:28 - ERROR - cannot remove board undefined | BSONError: hex string must be 24 characters
+4.3.2025, 0:43:28 - ERROR - hex string must be 24 characters
+4.3.2025, 0:43:29 - ERROR - cannot remove board undefined | BSONError: hex string must be 24 characters
+4.3.2025, 0:43:29 - ERROR - hex string must be 24 characters
+4.3.2025, 0:46:26 - ERROR - cannot remove board undefined | BSONError: hex string must be 24 characters
+4.3.2025, 0:46:26 - ERROR - hex string must be 24 characters
+4.3.2025, 0:46:27 - ERROR - cannot remove board undefined | BSONError: hex string must be 24 characters
+4.3.2025, 0:46:27 - ERROR - hex string must be 24 characters
+4.3.2025, 0:46:38 - ERROR - cannot remove board undefined | BSONError: hex string must be 24 characters
+4.3.2025, 0:46:38 - ERROR - hex string must be 24 characters
+4.3.2025, 12:59:55 - INFO - Up and running on http://localhost:3000
+4.3.2025, 17:37:28 - INFO - Up and running on http://localhost:3000

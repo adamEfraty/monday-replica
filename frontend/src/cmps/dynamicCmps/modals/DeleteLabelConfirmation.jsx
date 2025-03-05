@@ -1,7 +1,11 @@
 import { useRef } from "react";
 
 
-export function DeleteLabelConfirmation({ onDeleteLable, toggleConfirnationModal, confirmationRef, animationActive }) {
+export function DeleteLabelConfirmation({ onDeleteLable, 
+    toggleConfirnationModal, 
+    confirmationRef, 
+    animationActive, 
+    labelName }) {
 
     return (
         <div className="delete-label-confirmation-background" onPointerDown={e => e.stopPropagation()}>
@@ -11,7 +15,7 @@ export function DeleteLabelConfirmation({ onDeleteLable, toggleConfirnationModal
             ref={confirmationRef}>
                 <div className="upper-modal">
                     <button onClick={toggleConfirnationModal}>×</button>
-                    <h4>Delete Status column?</h4>
+                    <h4>{`Delete ${labelName} column?`}</h4>
                     <p>We'll keep it in your trash for 30 days, and then permanently delete it.</p>
                 </div>
 
