@@ -447,10 +447,6 @@ async function updateBoardName(boardId, newName) {
 
 async function updateBoardFavorite(boardId) {
   try {
-<<<<<<< HEAD
-=======
-    // Retrieve the board by ID
->>>>>>> c842188a5be60b084fabd2d13b05b683faaa6b35
     const board = await getById(boardId)
     if (!board) throw new Error(`Board with ID ${boardId} not found`)
 
