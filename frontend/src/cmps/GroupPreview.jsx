@@ -80,7 +80,7 @@ export const GroupPreview = ({
 
   useEffect(() => {
 
-    if(titleRef.current){
+    if (titleRef.current) {
       const yPosition = titleRef.current.getBoundingClientRect().y
       setTitlePositionY(yPosition)
       updateFixedGroup(group.id, yPosition)
@@ -105,11 +105,11 @@ export const GroupPreview = ({
     setAnchorE2(null);
   };
 
-  function handelExpandedChange(newExpantion){
+  function handelExpandedChange(newExpantion) {
     setExpanded(newExpantion)
   }
 
-  function handelGroupTitleChange(newGroupTitle){
+  function handelGroupTitleChange(newGroupTitle) {
     setGroupTitle(newGroupTitle)
   }
 
@@ -118,23 +118,23 @@ export const GroupPreview = ({
 
 
       {
-        titlePositionY < 260 && 
+        titlePositionY < 260 &&
         <>
           <div className="fixed-area">
             <div className="fixed-group-title">
               <GroupTitle
                 boardId={boardId}
-                group={group} 
+                group={group}
                 groupTitle={groupTitle}
-                handleClick2={handleClick2} 
+                handleClick2={handleClick2}
                 id2={id2}
-                open2={open2} 
-                anchorE2={anchorE2} 
+                open2={open2}
+                anchorE2={anchorE2}
                 handleClose2={handleClose2}
                 titleHead={titleHead}
                 expanded={expanded}
                 attributes={attributes}
-                listeners={attributes}
+                listeners={listeners}
                 handleGroupNameChange={handleGroupNameChange}
                 handelExpandedChange={handelExpandedChange}
                 handelGroupTitleChange={handelGroupTitleChange}
@@ -145,26 +145,26 @@ export const GroupPreview = ({
         </>
       }
 
-      
+
 
       <GroupTitle
-          titleRef={titleRef}
-          boardId={boardId}
-          group={group} 
-          groupTitle={groupTitle}
-          handleClick2={handleClick2} 
-          id2={id2}
-          open2={open2} 
-          anchorE2={anchorE2} 
-          handleClose2={handleClose2}
-          titleHead={titleHead}
-          expanded={expanded}
-          attributes={attributes}
-          listeners={attributes}
-          handleGroupNameChange={handleGroupNameChange}
-          handelExpandedChange={handelExpandedChange}
-          handelGroupTitleChange={handelGroupTitleChange}
-          handleDelete={handleDelete}
+        titleRef={titleRef}
+        boardId={boardId}
+        group={group}
+        groupTitle={groupTitle}
+        handleClick2={handleClick2}
+        id2={id2}
+        open2={open2}
+        anchorE2={anchorE2}
+        handleClose2={handleClose2}
+        titleHead={titleHead}
+        expanded={expanded}
+        attributes={attributes}
+        listeners={attributes}
+        handleGroupNameChange={handleGroupNameChange}
+        handelExpandedChange={handelExpandedChange}
+        handelGroupTitleChange={handelGroupTitleChange}
+        handleDelete={handleDelete}
       />
 
 
@@ -174,13 +174,13 @@ export const GroupPreview = ({
         {expanded && (
           <div>
 
-            <LabelsGrid 
-                  boardId={boardId}
-                  group={group}
-                  labels={labels}
-                  handleMasterCheckboxClick={handleMasterCheckboxClick}
-                  checkedGroups={checkedGroups}
-                  isFixed={false}
+            <LabelsGrid
+              boardId={boardId}
+              group={group}
+              labels={labels}
+              handleMasterCheckboxClick={handleMasterCheckboxClick}
+              checkedGroups={checkedGroups}
+              isFixed={false}
             />
 
 
@@ -207,7 +207,7 @@ export const GroupPreview = ({
                 />
               ))}
             </SortableContext>
-            <AddTask group={group} handleAddTask={handleAddTask}/>
+            <AddTask group={group} handleAddTask={handleAddTask} />
 
             {/* Render progress by progress array */}
             <section
@@ -217,7 +217,7 @@ export const GroupPreview = ({
               }}
             >
               <div className="invisible">
-                <div className="white-cover"/>
+                <div className="white-cover" />
               </div>
 
               {labels.map((lable, index) =>
