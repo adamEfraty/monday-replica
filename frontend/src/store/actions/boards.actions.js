@@ -14,7 +14,6 @@ import {
 
 export async function addBoard(boardName) {
   try {
-    console.log(boardName)
     const savedBoard = await boardService.addBoard(boardName)
     await setFilteredColumns({ id: savedBoard._id, labels: savedBoard.labels })
 

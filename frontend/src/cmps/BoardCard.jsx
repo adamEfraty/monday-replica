@@ -4,10 +4,14 @@ import { SvgCmp } from "../services/svg.service";
 import { useSelector } from "react-redux";
 import { updateBoardFavorite } from "../store/actions/boards.actions";
 
+
 export function BoardCard({ board, onUpdateBoardName, handleFavorite }) {
+
   const favorites = useSelector((state) => state.boardModule.favorites);
   const [boardName, setBoardName] = useState(board.title);
   const navigate = useNavigate();
+
+
 
   return (
     <div className="board-card" key={board._id}>
@@ -28,9 +32,10 @@ export function BoardCard({ board, onUpdateBoardName, handleFavorite }) {
           <SvgCmp
             type={`${board.isFavorite ? "full" : "empty"
               }-rating-icon`}
+
           />
         </div>
-      </section>
-    </div>
+      </section >
+    </div >
   );
 }
