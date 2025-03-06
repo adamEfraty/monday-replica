@@ -18,11 +18,11 @@ export function CreateBoard({ handleAddBoard }) {
         <label htmlFor="boardName">Board name:</label>
         <input type="text" id="boardName" name="boardName" required />
         <section className="create-board-buttons">
-          <button type="button" className="cancel-button">Cancel</button>
+          <button onClick={() => closeModal()} type="button" className="cancel-button">Cancel</button>
           <button type="submit">Create</button>
         </section>
       </form>
-      <h6 onClick={closeModal}>X</h6>
+      <h6 className="x-btn" style={{ cursor: 'pointer' }} onClick={closeModal}>X</h6>
     </section>
   );
 }
