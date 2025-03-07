@@ -118,7 +118,7 @@ export const GroupPreview = ({
 
 
       {
-        titlePositionY < 260 && 
+        fixedGroup && fixedGroup.id === group.id && 
         <>
           <div className="fixed-area">
             <div className="fixed-group-title">
@@ -134,7 +134,7 @@ export const GroupPreview = ({
                 titleHead={titleHead}
                 expanded={expanded}
                 attributes={attributes}
-                listeners={attributes}
+                listeners={listeners}
                 handleGroupNameChange={handleGroupNameChange}
                 handelExpandedChange={handelExpandedChange}
                 handelGroupTitleChange={handelGroupTitleChange}
@@ -160,7 +160,7 @@ export const GroupPreview = ({
           titleHead={titleHead}
           expanded={expanded}
           attributes={attributes}
-          listeners={attributes}
+          listeners={listeners}
           handleGroupNameChange={handleGroupNameChange}
           handelExpandedChange={handelExpandedChange}
           handelGroupTitleChange={handelGroupTitleChange}

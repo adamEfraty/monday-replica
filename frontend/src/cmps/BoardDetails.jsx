@@ -348,7 +348,7 @@ const BoardDetails = () => {
     setFixedGroup(groups.find(group=>group.id === groupIdToFixed))
   }
 
-  // console.log('fixedGroup', fixedGroup)
+  console.log('fixedGroup', fixedGroup)
 
   return (
     <div className="board-details" ref={boardDetailsRef}>
