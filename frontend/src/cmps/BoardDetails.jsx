@@ -57,6 +57,8 @@ const BoardDetails = () => {
   const [goupTitlesYPosition, setGoupTitlesYPosition] = useState({})
   const [fixedGroup, setFixedGroup] = useState(null)
 
+  const [expandedGroupsId, setExpandedGroupsId] = useState([])
+
   useEffect(() => {
     const index = boards.findIndex((board) => board._id === boardId);
     index < 0 &&
@@ -345,10 +347,23 @@ const BoardDetails = () => {
       }
     }
 
-    setFixedGroup(groups.find(group=>group.id === groupIdToFixed))
+    setFixedGroup(groups.find(group => group.id === groupIdToFixed))
+  }
+  
+  function updateExpandedGroups(groupId, expanded) {
+    setExpandedGroupsId(prev => {
+        if (expanded) 
+            return prev.includes(groupId) ? prev : [...prev, groupId]
+         else 
+            return prev.filter(id => id !== groupId)
+    })
   }
 
-  console.log('fixedGroup', fixedGroup)
+  function isFixedGroupExpanded(){
+    return fixedGroup && expandedGroupsId && 
+    expandedGroupsId.some(groupId=> groupId === fixedGroup.id)
+  }
+
 
   return (
     <div className="board-details" ref={boardDetailsRef}>
@@ -362,7 +377,7 @@ const BoardDetails = () => {
 
 
       {
-          fixedGroup &&
+          isFixedGroupExpanded() &&
           <div className="sticky-labels">
             <LabelsGrid 
                     boardId={boardId}
@@ -377,7 +392,8 @@ const BoardDetails = () => {
       }
 
       {currentBoard.groups.length > 0 ? (
-        <section className="group-list">
+        <section className="group-list"
+        style={{marginTop:`${isFixedGroupExpanded() ? '-37px' : '0px'}`}}>
           <DndContext
             onDragEnd={handleDragEnd}
             collisionDetection={closestCorners}
@@ -409,6 +425,7 @@ const BoardDetails = () => {
                   boardScroll={boardScroll}
                   updateFixedGroup={updateFixedGroup}
                   fixedGroup={fixedGroup}
+                  updateExpandedGroups={updateExpandedGroups}
                 />
               ))}
             </SortableContext>
