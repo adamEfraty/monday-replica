@@ -186,26 +186,29 @@ export const GroupPreview = ({
 
             {/* Render tasks by cmp order */}
 
-            <SortableContext items={group.tasks.map(task => task.id)} strategy={verticalListSortingStrategy}> {/* for dnd Radwan */}
-              {group.tasks.map((task) => (
+            <SortableContext items={group.tasks?.map(task => task?.id)} strategy={verticalListSortingStrategy}> {/* for dnd Radwan */}
+              {group.tasks.map((task) => {
+                console.log(task, ' TASK SOMETHING !!')
+                return (
 
-                <TaskPreview
-                  id={task.id}
-                  key={task.id}
-                  task={task}
-                  group={group}
-                  labels={labels}
-                  loggedinUser={loggedinUser}
-                  onTaskUpdate={onTaskUpdate}
-                  removeTask={removeTask}
-                  boardId={boardId}
-                  users={users}
-                  chatTempInfoUpdate={chatTempInfoUpdate}
-                  openChat={openChat}
-                  checkedBoxes={checkedBoxes}
-                  handleCheckBoxClick={handleCheckBoxClick}
-                />
-              ))}
+                  <TaskPreview
+                    id={task?.id}
+                    key={task.id}
+                    task={task}
+                    group={group}
+                    labels={labels}
+                    loggedinUser={loggedinUser}
+                    onTaskUpdate={onTaskUpdate}
+                    removeTask={removeTask}
+                    boardId={boardId}
+                    users={users}
+                    chatTempInfoUpdate={chatTempInfoUpdate}
+                    openChat={openChat}
+                    checkedBoxes={checkedBoxes}
+                    handleCheckBoxClick={handleCheckBoxClick}
+                  />
+                )
+              })}
             </SortableContext>
             <AddTask group={group} handleAddTask={handleAddTask} />
 
