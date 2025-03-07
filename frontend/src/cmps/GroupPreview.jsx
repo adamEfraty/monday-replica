@@ -42,6 +42,7 @@ export const GroupPreview = ({
   boardScroll,
   updateFixedGroup,
   fixedGroup,
+  updateExpandedGroups,
 
 }) => {
   const [expanded, setExpanded] = useState(true);
@@ -88,6 +89,10 @@ export const GroupPreview = ({
 
   }, [boardScroll])
 
+  useEffect(()=>{
+    updateExpandedGroups(group.id, expanded)
+  },[expanded])
+
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -118,7 +123,7 @@ export const GroupPreview = ({
 
 
       {
-        fixedGroup && fixedGroup.id === group.id && 
+        expanded && fixedGroup && fixedGroup.id === group.id && 
         <>
           <div className="fixed-area">
             <div className="fixed-group-title">
@@ -181,6 +186,7 @@ export const GroupPreview = ({
               handleMasterCheckboxClick={handleMasterCheckboxClick}
               checkedGroups={checkedGroups}
               isFixed={false}
+              expanded={expanded}
             />
 
 
