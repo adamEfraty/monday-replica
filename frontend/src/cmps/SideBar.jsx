@@ -153,10 +153,7 @@ export function SideBar({ boards, user, onRemoveBoard }) {
                 horizontal: "bottom",
               }}
             >
-                <MenuModal type="addItem" handleOpenModal={() => {
-                  console.log('im heree')
-                  setOpenModal(!addBoardModalState)}
-                  } />
+                <MenuModal type="addItem" handleOpenModal={() => setOpenModal(!addBoardModalState)} />
             </Popover>
             </div>
           </div>

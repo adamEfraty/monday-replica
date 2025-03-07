@@ -245,12 +245,33 @@ function milisecondsTimeCalc(savedTime) {
   return minutesPassed;
 }
 
-function downloadExcelFile(data, fileName) {
-  const blob = new Blob([data], { type: "application/vnd.ms-excel" });
-  const url = window.URL.createObjectURL(blob);
-  const a = document.createElement("a");
-  a.href = url;
-  a.download = fileName;
-  a.click();
-  window.URL.revokeObjectURL(url);
-}
+// function downloadExcelFile(data, fileName) {
+//         // Create a new workbook
+//         const wb = XLSX.utils.book_new();
+        
+//         // Sample data
+//         const data = [
+//             ["Project Name", "Status", "Due Date"],
+//             ["Project Alpha", "In Progress", "2025-03-01"],
+//             ["Project Beta", "Completed", "2025-02-20"],
+//         ];
+
+//         // Convert the data to a worksheet
+//         const ws = XLSX.utils.aoa_to_sheet(data);
+
+//         // Optional: Apply styling (note that this is limited with xlsx)
+//         // Example: Format header
+//         const headerCell = ws['A1'].s = { 
+//             font: { bold: true, color: { rgb: "FFFFFF" } },
+//             fill: { 
+//                 patternType: "solid", 
+//                 fgColor: { rgb: "0070C0" }
+//             }
+//         };
+
+//         // Add the worksheet to the workbook
+//         XLSX.utils.book_append_sheet(wb, ws, "Projects");
+
+//         // Create a link and trigger the download
+//         XLSX.writeFile(wb, "project_management.xlsx");
+// }
