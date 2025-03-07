@@ -224,6 +224,17 @@
 4.3.2025, 18:16:59 - INFO - Up and running on http://localhost:3000
 >>>>>>> c842188a5be60b084fabd2d13b05b683faaa6b35
 6.3.2025, 2:19:01 - INFO - Up and running on http://localhost:3000
+6.3.2025, 3:21:39 - INFO - Up and running on http://localhost:3000
+6.3.2025, 16:42:10 - INFO - Up and running on http://localhost:3000
+6.3.2025, 16:42:26 - DEBUG - auth.service - login with email: kiwi@gmail.com
+6.3.2025, 16:42:26 - INFO - User login:  | {"_id":"67c45c55c2f1ef4df8072022","email":"kiwi@gmail.com","fullName":"Kiwi","id":"E3iHE","imgUrl":"https://res.cloudinary.com/danlxus36/image/upload/v1740682607/3_iij9dg.jpg"}
+6.3.2025, 18:03:12 - INFO - Up and running on http://localhost:3000
+6.3.2025, 18:06:23 - INFO - Up and running on http://localhost:3000
+6.3.2025, 18:06:34 - DEBUG - auth.service - login with email: kiwi@gmail.com
+6.3.2025, 18:06:34 - INFO - User login:  | {"_id":"67c45c55c2f1ef4df8072022","email":"kiwi@gmail.com","fullName":"Kiwi","id":"E3iHE","imgUrl":"https://res.cloudinary.com/danlxus36/image/upload/v1740682607/3_iij9dg.jpg"}
+7.3.2025, 2:32:49 - INFO - Up and running on http://localhost:3000
+7.3.2025, 2:33:04 - DEBUG - auth.service - login with email: kiwi@gmail.com
+7.3.2025, 2:33:04 - INFO - User login:  | {"_id":"67c45c55c2f1ef4df8072022","email":"kiwi@gmail.com","fullName":"Kiwi","id":"E3iHE","imgUrl":"https://res.cloudinary.com/danlxus36/image/upload/v1740682607/3_iij9dg.jpg"}
 5.3.2025, 17:18:47 - INFO - Up and running on http://localhost:3000
 5.3.2025, 18:31:03 - INFO - Up and running on http://localhost:3000
 5.3.2025, 21:24:12 - INFO - Up and running on http://localhost:3000
