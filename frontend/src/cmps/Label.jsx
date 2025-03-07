@@ -7,13 +7,16 @@ import { deleteLable, onChangeLabelName, onUpdateReduxLabelWidth, onUpdateLocalL
 import { getSvg } from "../services/svg.service.jsx";
 import { DeleteLabelConfirmation } from "./dynamicCmps/modals/DeleteLabelConfirmation.jsx"
 import { utilService } from "../services/util.service.js";
+import ReactDOM from 'react-dom'
 
-export function Label({ label, id, boardId, groupId }) {
+
+export function Label({ label, id, boardId, groupId, isFixed}) {
 
     const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id })
 
+    const modalId = `${label.id}${groupId}${isFixed?'fix':''}`
     const openModals = useSelector(state => state.boardModule.openModals)
-    const modal = openModals.some(modalId => modalId === (label.id+groupId))
+    const modal = openModals.some(modId => modId === modalId)
     const modalRef = useRef(null)
     const buttonRef = useRef(null)
 
@@ -24,7 +27,7 @@ export function Label({ label, id, boardId, groupId }) {
     const labelRef = useRef(null)
     // so no every width change there will be call to storage
     const board = useSelector((state) => 
-        state.boardModule.boards.find(board=>board.id === boardId));
+        state.boardModule.boards.find(board=>board._id === boardId));
 
     const [hoverLable, setHoverLabel] = useState(false)
 
@@ -50,8 +53,8 @@ export function Label({ label, id, boardId, groupId }) {
     // close and open modal as needed
     function modalToggle() {
         modal
-        ? closeModal(label.id+groupId)
-        : openModal(label.id+groupId)
+        ? closeModal(modalId)
+        : openModal(modalId)
     }
 
     //if user click outside modal, close it
@@ -163,7 +166,7 @@ export function Label({ label, id, boardId, groupId }) {
     function toggleConfirnationModal(){
 
         const animationDuration = 0.2
-        closeModal(label.id+groupId)
+        closeModal(modalId)
 
         if(deleteConfirmationModal){
             confirmationAnimation(false, animationDuration)
@@ -263,11 +266,16 @@ export function Label({ label, id, boardId, groupId }) {
 
             {
                 deleteConfirmationModal &&
-                <DeleteLabelConfirmation
-                onDeleteLable={onDeleteLable}
-                toggleConfirnationModal={toggleConfirnationModal}
-                confirmationRef={confirmationRef}
-                animationActive={animationActive}/>
+                ReactDOM.createPortal(
+                    <DeleteLabelConfirmation
+                    onDeleteLable={onDeleteLable}
+                    toggleConfirnationModal={toggleConfirnationModal}
+                    confirmationRef={confirmationRef}
+                    animationActive={animationActive}
+                    labelName={label.name}/>
+
+                    ,document.body // Appends the modal properly
+                )
             }
         </div>
     )

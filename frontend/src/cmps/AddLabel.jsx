@@ -7,9 +7,10 @@ import { blue } from "@mui/material/colors";
 
 
 
-export function AddLabel({groupId, boardId}){
+export function AddLabel({groupId, boardId, isFixed}){
+    const modalId = `addlabel-${groupId}${isFixed?'fix':''}`
     const openModals = useSelector(state => state.boardModule.openModals)
-    const modal = openModals.some(modalId => modalId === (`addlabel-${groupId}`))
+    const modal = openModals.some(modId => modId === modalId)
     const modalRef = useRef(null)
     const buttonRef = useRef(null)
 
@@ -23,8 +24,8 @@ export function AddLabel({groupId, boardId}){
     // close and open modal as needed
     function modalToggle() {
         modal
-        ? closeModal(`addlabel-${groupId}`)
-        : openModal(`addlabel-${groupId}`)
+        ? closeModal(modalId)
+        : openModal(modalId)
     }
 
     //if user click outside modal close it

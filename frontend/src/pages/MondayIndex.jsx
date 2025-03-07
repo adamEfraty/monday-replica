@@ -18,7 +18,6 @@ export function MondayIndex({ isBoard = false }) {
   }
 
   function handleAddBoard(boardName = "New Board") {
-    console.log(boardName);
     addBoard(boardName);
   }
 

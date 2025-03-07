@@ -1,7 +1,7 @@
 .main-inner-index {
   display: grid;
   grid-template-rows: 75px 1fr;
-  font-family: "Roboto", sans-serif;
+  font-family: 'Roboto', sans-serif;
   box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.6);
   border-top-left-radius: 5px;
   background-color: #fff;
@@ -23,8 +23,8 @@
     }
   }
 
-  hr{
-    margin-top: 0.4rem ;
+  hr {
+    margin-top: 0.4rem;
   }
 
   .recently-visited-section {
@@ -86,7 +86,7 @@
   }
 }
 
-.create-board{
+.create-board {
   position: absolute;
   top: 150px;
   left: 700px;
@@ -95,22 +95,23 @@
   padding: 40px;
   box-shadow: 0px 3px 12px rgba(0, 0, 0, 0.1);
   border-radius: 5px;
-  & > form{
+  & > form {
     margin-top: 12px;
     display: flex;
     flex-direction: column;
-    & > input{
+    & > input {
       padding: 10px;
       border: 1px solid #e0e0e0;
       border-radius: 5px;
       font-size: 16px;
     }
-    & > .create-board-buttons{
+    & > .create-board-buttons {
       display: flex;
-      gap: 5px;
+      width: 100%;
+      justify-content: space-between;
       margin-top: 12px;
       align-self: end;
-      & button{
+      & button {
         padding: 10px;
         font-size: 18px;
         color: white;
@@ -118,14 +119,14 @@
         border-radius: 5px;
         background-color: #0073ea;
         cursor: pointer;
-        &:hover{
+        &:hover {
           background-color: #0060b9;
         }
       }
-      .cancel-button{
+      .cancel-button {
         background-color: #ffffff;
         color: black;
-        &:hover{
+        &:hover {
           background-color: #e8e8e8;
         }
       }

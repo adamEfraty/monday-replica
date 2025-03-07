@@ -1,10 +1,8 @@
-
-
 .labels-grid {
   display: grid;
+  font-size: 0.8rem;
   grid-template-columns: 10px 600px repeat(5, 150px) 500px;
   grid-template-rows: 34px;
-
   width: 100%;
 }
 
@@ -16,11 +14,12 @@
   grid-template-rows: 34px;
   width: 100%; /* Set a fixed width */
 
-  .invisible{
+  .invisible {
     position: sticky;
     left: 0px;
 
     .white-cover{
+      z-index: 100;
       position: absolute;
       left: -39px;
       top: -1px;
@@ -33,16 +32,17 @@
 
 
   .taskTitle{
+    z-index: 1;
     position: sticky;
-    left: 11px;
+    left: -33px;
     background-color: white;
     border-right: solid #e0dede 1px;
+    border-bottom: solid white 1px;
+
   }
 }
 
-
-
-.task-preview{
+.task-preview {
   position: relative;
 
   .group-grid {
@@ -52,14 +52,13 @@
     grid-template-rows: 34px;
     background: white;
   }
-
-
 }
 
 .group-list {
   width: max-content;
   font-size: 13px;
   position: relative;
+  margin-top: -37px;
   & input[type='checkbox'] {
     width: 20px;
     height: 20px;
@@ -84,15 +83,13 @@
   /* Style Crossbar */
   &::-webkit-scrollbar {
     // width: 8px;
-
   }
   &::-webkit-scrollbar-thumb {
     // background: #b2b2b2;
   }
-  
 }
 
-.fixed-area{
+.fixed-area {
   z-index: 10;
   position: fixed;
   // width: calc(100vw - 378px);
@@ -102,14 +99,7 @@
   top: 206px;
   background-color: white;
 
-
-
-  .fixed-group-title{
-  }
-  
-  .fixed-labels{
-    position: relative;
-    margin-top: 1px;
+  .fixed-group-title {
   }
 
   // .shadow{
@@ -121,12 +111,24 @@
   //   background-color: #2d98ce;
   //   box-shadow: 5px 5px 10px black;
   // }
-
-
-
 }
 
+.sticky-something {
+  z-index: 222;
+  position: sticky;
+  top: 213px;
+  width: 100px;
+  height: 1px;
+  background-color: red;
+}
 
+.sticky-labels{
+  width: max-content;
+  position: sticky;
+  z-index: 5;
+  top: 227px;
+  margin-top: 1px;
+}
 
 /* Grid Items */
 .grid-item {
@@ -179,7 +181,6 @@
   text-align: center;
   font-weight: 800;
 }
-
 
 .labels-grid div {
   // padding: 0.7rem;
@@ -327,7 +328,7 @@ section.labels-grid {
 div.group-title {
   position: sticky;
   left: 0px;
-  width: 500px;
+  width: 100%;
   padding: 1rem;
   background-color: white;
   z-index: 4;
@@ -358,50 +359,54 @@ div.group-title {
   align-items: center;
   background-color: white;
 
-  .white-cover{
+  .white-cover {
     position: absolute;
     left: -47px;
     top: -1px;
     width: 40px;
     height: calc(100% + 3px);
     border: none;
- 
-    background-color: white; 
+
+    background-color: white;
   }
 
-  .label-inner-title{
+  .label-inner-title {
     display: flex;
     align-items: center;
     justify-content: center;
-    position:relative;
+    position: relative;
     width: 100%;
     height: 100%;
 
-    .drag-label{
+    .drag-label {
       cursor: col-resize;
       position: absolute;
       right: 0px;
       width: 8px;
       height: 100%;
-      background-color: #D0D4E4;
+      background-color: #d0d4e4;
       border-radius: 2px;
-      
-      &:hover{
-          background-color: #0073EA;
+
+      &:hover {
+        background-color: #0073ea;
       }
+    }
   }
-}
 }
 
 .main-checkbox {
+  display: flex;
+  align-items: center;
+
   border-right: 1px solid #e0dede;
-  padding: 7px 0;
   padding-right: 1.34rem;
   padding-left: 0.65rem;
 
   input {
     position: relative;
     left: 5px;
+    height: 20px;
+    width: 20px;
   }
 }
 
@@ -438,11 +443,11 @@ div.group-title {
   border-top: none;
   opacity: 0.5;
 
-  &:hover{
+  &:hover {
     opacity: 1;
   }
 
-  .add-input{
+  .add-input {
     border: none;
     padding: 0.5rem 3rem;
     background-color: transparent;

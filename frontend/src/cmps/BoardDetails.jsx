@@ -17,7 +17,7 @@ import { addItem } from "../store/actions/boards.actions";
 import { updateGroup } from "../store/actions/boards.actions";
 import { removeGroup, replaceGroups } from "../store/actions/boards.actions";
 import { BoardDetailsHeader } from "./BoardDetailsHeader";
-import { boardService } from "../services/board.service";
+import { boardService } from "../services/board";
 import { utilService } from "../services/util.service";
 import { closestCorners, DndContext } from "@dnd-kit/core";
 import {
@@ -25,6 +25,7 @@ import {
   SortableContext,
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
+import { LabelsGrid } from "./LabelsGrid";
 
 
 const BoardDetails = () => {
@@ -41,13 +42,9 @@ const BoardDetails = () => {
     id: "",
     labels: [],
   });
-  const [currentBoard, setCurrentBoard] = useState(
-    boards.find((board) => board.id === boardId)
+  const [currentBoard, setcurrentBoard] = useState(
+    boards.find((board) => board._id === boardId)
   );
-
-  useEffect(() => {
-    console.log(filteredColumns);
-  }, []);
 
   const loggedinUser = useSelector((state) => state.userModule.user);
   const users = useSelector((state) => state.userModule.users);
@@ -57,12 +54,14 @@ const BoardDetails = () => {
 
   const boardDetailsRef = useRef(null)
   const [boardScroll, setBoardScroll] = useState(0)
+  const [goupTitlesYPosition, setGoupTitlesYPosition] = useState({})
+  const [fixedGroup, setFixedGroup] = useState(null)
 
   useEffect(() => {
-    const index = boards.findIndex((board) => board.id === boardId);
+    const index = boards.findIndex((board) => board._id === boardId);
     index < 0 &&
       navigate(
-        `/${utilService.getNameFromEmail(loggedInUser.email)}s-team.sunday.com`
+        `/${utilService.getNameFromEmail(loggedInUser.email)}s-team.someday.com`
       );
   }, [boards]);
 
@@ -79,20 +78,20 @@ const BoardDetails = () => {
     );
     filteredColumns &&
       setBoardColumnsFilter(
-        filteredColumns.find((board) => board.id === boardId)
+        filteredColumns.find((board) => board._id === boardId)
       );
   }, [filteredColumns, boardId]);
 
   useEffect(() => {
-    // if (!currentBoard || currentBoard.id !== boardId)
-    setCurrentBoard(boards.find((board) => board.id === boardId));
+    // if (!currentBoard || currentBoard._id !== boardId)
+    setcurrentBoard(boards.find((board) => board._id === boardId));
   }, [boards, boardId]);
 
   useEffect(() => {
-    const board = boards.find((board) => board.id === boardId);
+    const board = boards.find((board) => board._id === boardId);
     if (!board) {
       navigate(
-        `/${utilService.getNameFromEmail(loggedInUser.email)}s-team.sunday.com`
+        `/${utilService.getNameFromEmail(loggedInUser?.email)}s-team.someday.com`
       );
     } else if (board.groups.some((group) => group.tasks.length > 0)) {
       if (filterBy.length > 0) {
@@ -108,24 +107,24 @@ const BoardDetails = () => {
                 if (index === -1) return false;
                 return column.type === "members"
                   ? task.cells[index].value.some(
-                      (member) =>
-                        regExp.test(member.fullName) ||
-                        regExp.test(member.email)
-                    )
+                    (member) =>
+                      regExp.test(member.fullName) ||
+                      regExp.test(member.email)
+                  )
                   : regExp.test(
-                      column.type === "taskTitle"
-                        ? task.cells[index].value.title
-                        : column.type === "date"
+                    column.type === "taskTitle"
+                      ? task.cells[index].value.title
+                      : column.type === "date"
                         ? task.cells[index].value
                         : task.cells[index].value.text
-                    );
+                  );
               });
             }), // Filter tasks
           }))
           .filter((group) => group.tasks.length > 0); // Keep groups that have tasks
-        setCurrentBoard({ ...board, groups: filteredGroups }); // Update currentBoard with filtered groups
+        setcurrentBoard({ ...board, groups: filteredGroups }); // Update currentBoard with filtered groups
       }
-      filterBy.length === 0 && setCurrentBoard(board); // Update currentBoard with filtered groups
+      filterBy.length === 0 && setcurrentBoard(board); // Update currentBoard with filtered groups
     }
   }, [filterBy, boardColumnsFilter]);
 
@@ -134,16 +133,24 @@ const BoardDetails = () => {
     const handleScroll = () => {
       const scrollPositionY = boardDetailsRef.current.scrollTop
       const scrollPositionX = boardDetailsRef.current.scrollLeft
-      setBoardScroll({x: scrollPositionX, y: scrollPositionY})
+      setBoardScroll({ x: scrollPositionX, y: scrollPositionY })
     };
-    
-    if(boardDetailsRef.current){
+
+    if (boardDetailsRef.current) {
       boardDetailsRef.current.addEventListener("scroll", handleScroll);
       return () => {
-        boardDetailsRef.current.removeEventListener("scroll", handleScroll); // Cleanup listener on unmount
+        boardDetailsRef.current?.removeEventListener("scroll", handleScroll); // Cleanup listener on unmount
       }
     }
   }, [])
+
+  useEffect(()=>{
+    if(groups.length){
+      setFixedGroup(groups[0])
+      setGoupTitlesYPosition({})
+    }
+    else  setFixedGroup(null)
+  },[groups])
 
   //...............................
 
@@ -161,7 +168,7 @@ const BoardDetails = () => {
 
   // function that set groups with each task update
   const onTaskUpdate = async (newCell) => {
-    await updateTask(currentBoard.id, loggedInUser.id, newCell);
+    await updateTask(currentBoard._id, loggedInUser.id, newCell);
   };
 
   // const cmpOrder = ["taskTitle", "priority", "status", "members", "date"];
@@ -196,7 +203,7 @@ const BoardDetails = () => {
   };
   async function handleDeleteTasks() {
     for (const [groupId, taskId] of checkedBoxes) {
-      await removeTasks(currentBoard.id, groupId, taskId).then(() => {
+      await removeTasks(currentBoard._id, groupId, taskId).then(() => {
         setCheckedBoxes((prev) =>
           prev.filter((scdArr) => scdArr[1] !== taskId)
         );
@@ -204,7 +211,7 @@ const BoardDetails = () => {
     }
   }
   async function handleDeleteTasks() {
-    await removeTasks(currentBoard.id, checkedBoxes).then(() => {
+    await removeTasks(currentBoard._id, checkedBoxes).then(() => {
       setCheckedBoxes([]);
     });
   }
@@ -215,7 +222,7 @@ const BoardDetails = () => {
       group ? group.id : currentBoard.groups[0].id,
       taskTitle,
       !group && true,
-      loggedInUser.id
+      loggedInUser._id
     );
   }
 
@@ -233,7 +240,7 @@ const BoardDetails = () => {
     removeGroup(boardId, groupId);
   }
 
-  if (!currentBoard || currentBoard.id !== boardId)
+  if (!currentBoard || currentBoard?._id !== boardId)
     return <div>Loading...</div>;
 
   //................ IMPORTANT !!!
@@ -258,15 +265,15 @@ const BoardDetails = () => {
   function handleFilteredLabel(label) {
     boardColumnsFilter.labels.some((column) => column.id === label.id)
       ? setFilteredColumns({
-          id: currentBoard.id,
-          labels: boardColumnsFilter.labels.filter(
-            (column) => column.id !== label.id
-          ),
-        })
+        id: currentBoard._id,
+        labels: boardColumnsFilter.labels.filter(
+          (column) => column.id !== label.id
+        ),
+      })
       : setFilteredColumns({
-          id: boardId,
-          labels: [...boardColumnsFilter.labels, label],
-        });
+        id: boardId,
+        labels: [...boardColumnsFilter.labels, label],
+      });
   }
 
   function getLabelPos(id) {
@@ -274,7 +281,6 @@ const BoardDetails = () => {
   }
 
   async function handleDragEnd(event) {
-    console.log("im hereeee");
     const { active, over } = event;
 
     if (active === over) return;
@@ -288,7 +294,6 @@ const BoardDetails = () => {
         originalLabelPos,
         moveToLabel
       );
-      console.log("newLabelArray", newLabelArray);
 
       await replaceLabels(boardId, newLabelArray);
 
@@ -328,15 +333,49 @@ const BoardDetails = () => {
     await replaceGroups(boardId, newGroupsOrder);
   }
 
+  function updateFixedGroup(groupId, yPos) {
+    setGoupTitlesYPosition(prev => ({ ...prev, [groupId]: yPos }))
+    let groupIdToFixed = ''
+    let highestFixedHeight = -Infinity
+    for (const groupId in goupTitlesYPosition) {
+      if (goupTitlesYPosition[groupId] < 260 && 
+        goupTitlesYPosition[groupId] >= highestFixedHeight) {
+          highestFixedHeight = goupTitlesYPosition[groupId]
+          groupIdToFixed = groupId
+      }
+    }
+
+    setFixedGroup(groups.find(group=>group.id === groupIdToFixed))
+  }
+
+  console.log('fixedGroup', fixedGroup)
+
   return (
     <div className="board-details" ref={boardDetailsRef}>
       <BoardDetailsHeader
         handleAddTask={handleAddTask}
         boardTitle={currentBoard.title}
-        boardId={currentBoard.id}
+        boardId={currentBoard._id}
         boardColumnsFilter={boardColumnsFilter}
         handleFilteredLabel={handleFilteredLabel}
       />
+
+
+      {
+          fixedGroup &&
+          <div className="sticky-labels">
+            <LabelsGrid 
+                    boardId={boardId}
+                    group={fixedGroup}
+                    labels={currentBoard.labels}
+                    handleMasterCheckboxClick={handleMasterCheckboxClick}
+                    checkedGroups={checkedGroups}
+                    isFixed={true}
+              />
+          </div>
+
+      }
+
       {currentBoard.groups.length > 0 ? (
         <section className="group-list">
           <DndContext
@@ -368,6 +407,8 @@ const BoardDetails = () => {
                   chatTempInfoUpdate={chatTempInfoUpdate}
                   openChat={openChat}
                   boardScroll={boardScroll}
+                  updateFixedGroup={updateFixedGroup}
+                  fixedGroup={fixedGroup}
                 />
               ))}
             </SortableContext>
@@ -384,8 +425,8 @@ const BoardDetails = () => {
           )}
         </section>
       ) : (
-        boards.find((board) => board.id === boardId) &&
-        (boards.find((board) => board.id === boardId).groups.length === 0 ? (
+        boards.find((board) => board._id === boardId) &&
+        (boards.find((board) => board._id === boardId).groups.length === 0 ? (
           <section className="no-groups-result">
             <img
               className="search-empty-board-image"

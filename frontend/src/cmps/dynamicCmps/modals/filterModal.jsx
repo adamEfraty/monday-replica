@@ -9,16 +9,13 @@ export function FilterModal({ boardId, boardColumnsFilter, handleFilteredLabel }
   const openModals = useSelector((state) => state.boardModule.openModals);
   const modal = openModals.some((modalId) => modalId === `filter`);
   const boards = useSelector((state) => state.boardModule.boards);
-  const [boardLabels, setBoardLabels] = useState(boards.find((board) => board.id === boardId).labels);
-  const [filterBy, setFilterBy] = useState("");  
+  const [boardLabels, setBoardLabels] = useState(boards.find((board) => board._id === boardId).labels);
+  const [filterBy, setFilterBy] = useState("");
 
-  useEffect(() => {
-    console.log(`boardColumnsFilter: `, boardColumnsFilter)
-  })
 
   useEffect(() => {
     const regExp = new RegExp(filterBy, "i");
-    setBoardLabels(boards.find((board) => board.id === boardId).labels.filter((label) => regExp.test(label.name)));
+    setBoardLabels(boards.find((board) => board._id === boardId).labels.filter((label) => regExp.test(label.name)));
   }, [filterBy, boards]);
 
   function modalToggle() {

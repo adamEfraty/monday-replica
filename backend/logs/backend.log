@@ -1,0 +1,240 @@
+2.3.2025, 7:46:52 - INFO - Up and running on http://localhost:3000
+2.3.2025, 7:48:41 - INFO - Up and running on http://localhost:3000
+2.3.2025, 7:48:44 - INFO - Up and running on http://localhost:3000
+2.3.2025, 7:58:03 - INFO - Up and running on http://localhost:3000
+2.3.2025, 7:58:05 - INFO - Up and running on http://localhost:3000
+2.3.2025, 9:21:24 - INFO - Up and running on http://localhost:3000
+2.3.2025, 9:47:02 - INFO - Up and running on http://localhost:3000
+2.3.2025, 9:47:38 - INFO - Up and running on http://localhost:3000
+2.3.2025, 14:59:21 - INFO - Up and running on http://localhost:3000
+2.3.2025, 14:59:29 - INFO - Up and running on http://localhost:3000
+2.3.2025, 15:40:43 - INFO - Up and running on http://localhost:3000
+2.3.2025, 15:40:49 - INFO - Up and running on http://localhost:3000
+2.3.2025, 15:45:44 - INFO - Up and running on http://localhost:3000
+2.3.2025, 15:58:37 - INFO - Up and running on http://localhost:3000
+2.3.2025, 15:58:39 - INFO - Up and running on http://localhost:3000
+2.3.2025, 15:58:41 - DEBUG - auth.service - signup with email: rain@doe.com, fullName: ran Doe
+2.3.2025, 15:58:42 - DEBUG - auth.route - new account created: {"email":"rain@doe.com","password":"$2b$10$wVycu1j5hklyUk1aRk6ZhOBLR0FtN8ckd8cL4A3SL3cYkuFJAzx66","fullName":"ran Doe","_id":"67c46412973ca52faf2d3be9"}
+2.3.2025, 15:58:42 - DEBUG - auth.service - login with email: rain@doe.com
+2.3.2025, 15:58:42 - INFO - User signup: | {"_id":"67c46412973ca52faf2d3be9","email":"rain@doe.com","fullName":"ran Doe","imgUrl":null,"isAdmin":null}
+2.3.2025, 16:02:37 - INFO - Up and running on http://localhost:3000
+2.3.2025, 16:02:41 - DEBUG - auth.service - login with email: rain@doe.com
+2.3.2025, 16:02:41 - INFO - User login:  | {"_id":"67c46412973ca52faf2d3be9","email":"rain@doe.com","fullName":"ran Doe","imgUrl":null,"isAdmin":null}
+2.3.2025, 16:58:15 - INFO - Up and running on http://localhost:3000
+2.3.2025, 16:59:05 - DEBUG - auth.service - login with email: kiwi@gmail.com
+2.3.2025, 16:59:06 - INFO - User login:  | {"_id":"67c45c55c2f1ef4df8072022","email":"kiwi@gmail.com","fullName":"Kiwi","id":"E3iHE","imgUrl":"https://res.cloudinary.com/danlxus36/image/upload/v1740682607/3_iij9dg.jpg"}
+2.3.2025, 17:03:35 - DEBUG - auth.service - login with email: kiwi@gmail.com
+2.3.2025, 17:03:35 - INFO - User login:  | {"_id":"67c45c55c2f1ef4df8072022","email":"kiwi@gmail.com","fullName":"Kiwi","id":"E3iHE","imgUrl":"https://res.cloudinary.com/danlxus36/image/upload/v1740682607/3_iij9dg.jpg"}
+2.3.2025, 17:04:18 - DEBUG - auth.service - login with email: kiwi@gmail.com
+2.3.2025, 17:04:18 - INFO - User login:  | {"_id":"67c45c55c2f1ef4df8072022","email":"kiwi@gmail.com","fullName":"Kiwi","id":"E3iHE","imgUrl":"https://res.cloudinary.com/danlxus36/image/upload/v1740682607/3_iij9dg.jpg"}
+2.3.2025, 17:32:48 - INFO - Up and running on http://localhost:3000
+2.3.2025, 17:35:24 - INFO - Up and running on http://localhost:3000
+3.3.2025, 1:01:50 - INFO - Up and running on http://localhost:3000
+3.3.2025, 1:01:53 - DEBUG - auth.service - login with email: kiwi@gmail.com
+3.3.2025, 1:01:53 - INFO - User login:  | {"_id":"67c45c55c2f1ef4df8072022","email":"kiwi@gmail.com","fullName":"Kiwi","id":"E3iHE","imgUrl":"https://res.cloudinary.com/danlxus36/image/upload/v1740682607/3_iij9dg.jpg"}
+3.3.2025, 1:09:31 - DEBUG - auth.service - signup with email: something@gmail.com, fullName: hey
+3.3.2025, 1:09:31 - DEBUG - auth.route - new account created: {"email":"something@gmail.com","password":"$2b$10$SViJQmUAHP7nFIcQKlf1F.ZX44j1jSbN9GnzrQSj2wKuzW1mI2kG.","fullName":"hey","imgUrl":"https://res.cloudinary.com/danlxus36/image/upload/v1740956968/5_r8trns.jpg","_id":"67c4e52b5b1dbe6f5cf24f44"}
+3.3.2025, 1:09:31 - DEBUG - auth.service - login with email: something@gmail.com
+3.3.2025, 1:09:31 - INFO - User signup: | {"_id":"67c4e52b5b1dbe6f5cf24f44","email":"something@gmail.com","fullName":"hey","imgUrl":"https://res.cloudinary.com/danlxus36/image/upload/v1740956968/5_r8trns.jpg","isAdmin":null}
+3.3.2025, 1:11:37 - DEBUG - auth.service - signup with email: radwan@gmail.com, fullName: 123
+3.3.2025, 1:11:37 - DEBUG - auth.route - new account created: {"email":"radwan@gmail.com","password":"$2b$10$GpTPERs4alMVHTq4nMP48elOFzFxkT9VXrMwdj3txljkc/yWpreca","fullName":"123","imgUrl":"https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png","_id":"67c4e5a95b1dbe6f5cf24f45"}
+3.3.2025, 1:11:37 - DEBUG - auth.service - login with email: radwan@gmail.com
+3.3.2025, 1:11:37 - INFO - User signup: | {"_id":"67c4e5a95b1dbe6f5cf24f45","email":"radwan@gmail.com","fullName":"123","imgUrl":"https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png","isAdmin":null}
+3.3.2025, 1:18:08 - DEBUG - auth.service - login with email: kiwi@gmail.com
+3.3.2025, 1:18:08 - INFO - User login:  | {"_id":"67c45c55c2f1ef4df8072022","email":"kiwi@gmail.com","fullName":"Kiwi","id":"E3iHE","imgUrl":"https://res.cloudinary.com/danlxus36/image/upload/v1740682607/3_iij9dg.jpg"}
+3.3.2025, 1:19:31 - INFO - Up and running on http://localhost:3000
+3.3.2025, 1:19:56 - DEBUG - auth.service - login with email: kiwi@gmail.com
+3.3.2025, 1:19:56 - INFO - User login:  | {"_id":"67c45c55c2f1ef4df8072022","email":"kiwi@gmail.com","fullName":"Kiwi","id":"E3iHE","imgUrl":"https://res.cloudinary.com/danlxus36/image/upload/v1740682607/3_iij9dg.jpg"}
+3.3.2025, 1:20:17 - INFO - Up and running on http://localhost:3000
+3.3.2025, 1:22:04 - DEBUG - auth.service - login with email: kiwi@gmail.com
+3.3.2025, 1:22:04 - INFO - User login:  | {"_id":"67c45c55c2f1ef4df8072022","email":"kiwi@gmail.com","fullName":"Kiwi","id":"E3iHE","imgUrl":"https://res.cloudinary.com/danlxus36/image/upload/v1740682607/3_iij9dg.jpg"}
+3.3.2025, 1:22:42 - DEBUG - auth.service - login with email: kiwi@gmail.com
+3.3.2025, 1:22:42 - INFO - User login:  | {"_id":"67c45c55c2f1ef4df8072022","email":"kiwi@gmail.com","fullName":"Kiwi","id":"E3iHE","imgUrl":"https://res.cloudinary.com/danlxus36/image/upload/v1740682607/3_iij9dg.jpg"}
+3.3.2025, 1:23:54 - DEBUG - auth.service - login with email: kiwi@gmail.com
+3.3.2025, 1:23:54 - INFO - User login:  | {"_id":"67c45c55c2f1ef4df8072022","email":"kiwi@gmail.com","fullName":"Kiwi","id":"E3iHE","imgUrl":"https://res.cloudinary.com/danlxus36/image/upload/v1740682607/3_iij9dg.jpg"}
+3.3.2025, 1:24:38 - DEBUG - auth.service - login with email: kiwi@gmail.com
+3.3.2025, 1:24:38 - INFO - User login:  | {"_id":"67c45c55c2f1ef4df8072022","email":"kiwi@gmail.com","fullName":"Kiwi","id":"E3iHE","imgUrl":"https://res.cloudinary.com/danlxus36/image/upload/v1740682607/3_iij9dg.jpg"}
+3.3.2025, 1:25:40 - DEBUG - auth.service - login with email: kiwi@gmail.com
+3.3.2025, 1:25:40 - INFO - User login:  | {"_id":"67c45c55c2f1ef4df8072022","email":"kiwi@gmail.com","fullName":"Kiwi","id":"E3iHE","imgUrl":"https://res.cloudinary.com/danlxus36/image/upload/v1740682607/3_iij9dg.jpg"}
+3.3.2025, 1:27:00 - DEBUG - auth.service - login with email: kiwi@gmail.com
+3.3.2025, 1:27:00 - INFO - User login:  | {"_id":"67c45c55c2f1ef4df8072022","email":"kiwi@gmail.com","fullName":"Kiwi","id":"E3iHE","imgUrl":"https://res.cloudinary.com/danlxus36/image/upload/v1740682607/3_iij9dg.jpg"}
+3.3.2025, 1:27:52 - DEBUG - auth.service - login with email: radwan@gmail.com
+3.3.2025, 1:27:52 - INFO - User login:  | {"_id":"67c4e5a95b1dbe6f5cf24f45","email":"radwan@gmail.com","fullName":"123","imgUrl":"https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png","isAdmin":null}
+3.3.2025, 1:28:25 - DEBUG - auth.service - login with email: radwan@gmail.com
+3.3.2025, 1:28:25 - INFO - User login:  | {"_id":"67c4e5a95b1dbe6f5cf24f45","email":"radwan@gmail.com","fullName":"123","imgUrl":"https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png","isAdmin":null}
+3.3.2025, 1:29:47 - DEBUG - auth.service - signup with email: please@gmail.com, fullName: please work
+3.3.2025, 1:29:47 - DEBUG - auth.route - new account created: {"email":"please@gmail.com","password":"$2b$10$miOJ8BEYRLhd6OzwkSRCcuE9e3k7VF/UPPDn4fAYuRYhX.wJ.9o4m","fullName":"please work","imgUrl":"https://res.cloudinary.com/danlxus36/image/upload/v1740958185/6_uqm2so.jpg","_id":"67c4e9ebc1ee0556159862de"}
+3.3.2025, 1:29:47 - DEBUG - auth.service - login with email: please@gmail.com
+3.3.2025, 1:29:47 - INFO - User signup: | {"_id":"67c4e9ebc1ee0556159862de","email":"please@gmail.com","fullName":"please work","imgUrl":"https://res.cloudinary.com/danlxus36/image/upload/v1740958185/6_uqm2so.jpg","isAdmin":null}
+3.3.2025, 1:31:09 - DEBUG - auth.service - login with email: radwan@gmail.com
+3.3.2025, 1:31:09 - INFO - User login:  | {"_id":"67c4e5a95b1dbe6f5cf24f45","email":"radwan@gmail.com","fullName":"123","imgUrl":"https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png","isAdmin":null}
+3.3.2025, 1:32:48 - DEBUG - auth.service - login with email: radwan@gmail.com
+3.3.2025, 1:32:48 - INFO - User login:  | {"_id":"67c4e5a95b1dbe6f5cf24f45","email":"radwan@gmail.com","fullName":"123","imgUrl":"https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png","isAdmin":null}
+3.3.2025, 1:32:55 - DEBUG - auth.service - login with email: kiwi@gmail.com
+3.3.2025, 1:32:55 - INFO - User login:  | {"_id":"67c45c55c2f1ef4df8072022","email":"kiwi@gmail.com","fullName":"Kiwi","id":"E3iHE","imgUrl":"https://res.cloudinary.com/danlxus36/image/upload/v1740682607/3_iij9dg.jpg"}
+3.3.2025, 1:35:50 - DEBUG - auth.service - login with email: please@gmail.com
+3.3.2025, 1:35:50 - INFO - User login:  | {"_id":"67c4e9ebc1ee0556159862de","email":"please@gmail.com","fullName":"please work","imgUrl":"https://res.cloudinary.com/danlxus36/image/upload/v1740958185/6_uqm2so.jpg","isAdmin":null}
+3.3.2025, 1:37:49 - INFO - Up and running on http://localhost:3000
+3.3.2025, 1:38:43 - DEBUG - auth.service - signup with email: sar@gmail.com, fullName: sar
+3.3.2025, 1:38:44 - DEBUG - auth.route - new account created: {"email":"sar@gmail.com","password":"$2b$10$XgNrA0WIu.eo4xpenpLo9eECZmR1Y0nuo6ct6eqyvCwgjKGT.SGY2","fullName":"sar","imgUrl":"https://res.cloudinary.com/danlxus36/image/upload/v1740958721/2_ii84uz.jpg","_id":"67c4ec04169a1cf59098f6a6"}
+3.3.2025, 1:38:44 - DEBUG - auth.service - login with email: sar@gmail.com
+3.3.2025, 1:38:44 - INFO - User signup: | {"_id":"67c4ec04169a1cf59098f6a6","email":"sar@gmail.com","fullName":"sar","imgUrl":"https://res.cloudinary.com/danlxus36/image/upload/v1740958721/2_ii84uz.jpg","isAdmin":null}
+3.3.2025, 1:40:10 - DEBUG - auth.service - login with email: sar@gmail.com
+3.3.2025, 1:40:10 - INFO - User login:  | {"_id":"67c4ec04169a1cf59098f6a6","email":"sar@gmail.com","fullName":"sar","imgUrl":"https://res.cloudinary.com/danlxus36/image/upload/v1740958721/2_ii84uz.jpg","isAdmin":null}
+3.3.2025, 1:45:03 - DEBUG - auth.service - login with email: kiwi@gmail.com
+3.3.2025, 1:45:03 - INFO - User login:  | {"_id":"67c45c55c2f1ef4df8072022","email":"kiwi@gmail.com","fullName":"Kiwi","id":"E3iHE","imgUrl":"https://res.cloudinary.com/danlxus36/image/upload/v1740682607/3_iij9dg.jpg"}
+3.3.2025, 1:47:16 - DEBUG - auth.service - login with email: sar@gmail.com
+3.3.2025, 1:47:17 - INFO - User login:  | {"_id":"67c4ec04169a1cf59098f6a6","email":"sar@gmail.com","fullName":"sar","imgUrl":"https://res.cloudinary.com/danlxus36/image/upload/v1740958721/2_ii84uz.jpg","isAdmin":null}
+3.3.2025, 1:47:25 - DEBUG - auth.service - login with email: sar@gmail.com
+3.3.2025, 1:47:25 - INFO - User login:  | {"_id":"67c4ec04169a1cf59098f6a6","email":"sar@gmail.com","fullName":"sar","imgUrl":"https://res.cloudinary.com/danlxus36/image/upload/v1740958721/2_ii84uz.jpg","isAdmin":null}
+3.3.2025, 16:51:16 - INFO - Up and running on http://localhost:3000
+3.3.2025, 17:01:03 - INFO - Up and running on http://localhost:3000
+3.3.2025, 17:15:50 - INFO - Up and running on http://localhost:3000
+3.3.2025, 17:25:53 - INFO - Up and running on http://localhost:3000
+3.3.2025, 17:26:06 - INFO - Up and running on http://localhost:3000
+3.3.2025, 17:26:14 - INFO - Up and running on http://localhost:3000
+3.3.2025, 17:29:56 - INFO - Up and running on http://localhost:3000
+3.3.2025, 17:30:00 - INFO - Up and running on http://localhost:3000
+3.3.2025, 17:35:01 - INFO - Up and running on http://localhost:3000
+3.3.2025, 17:35:18 - INFO - Up and running on http://localhost:3000
+3.3.2025, 17:35:32 - INFO - Up and running on http://localhost:3000
+3.3.2025, 17:35:47 - INFO - Up and running on http://localhost:3000
+3.3.2025, 17:35:55 - INFO - Up and running on http://localhost:3000
+3.3.2025, 17:36:13 - INFO - Up and running on http://localhost:3000
+3.3.2025, 17:39:51 - INFO - Up and running on http://localhost:3000
+3.3.2025, 17:40:10 - INFO - Up and running on http://localhost:3000
+3.3.2025, 17:42:54 - INFO - Up and running on http://localhost:3000
+3.3.2025, 17:42:57 - INFO - Up and running on http://localhost:3000
+3.3.2025, 17:43:02 - INFO - Up and running on http://localhost:3000
+3.3.2025, 17:43:06 - INFO - Up and running on http://localhost:3000
+3.3.2025, 17:43:09 - INFO - Up and running on http://localhost:3000
+3.3.2025, 17:45:06 - INFO - Up and running on http://localhost:3000
+3.3.2025, 17:45:13 - INFO - Up and running on http://localhost:3000
+3.3.2025, 17:45:25 - INFO - Up and running on http://localhost:3000
+3.3.2025, 17:45:31 - INFO - Up and running on http://localhost:3000
+3.3.2025, 17:46:18 - INFO - Up and running on http://localhost:3000
+3.3.2025, 17:47:02 - INFO - Up and running on http://localhost:3000
+3.3.2025, 17:47:07 - INFO - Up and running on http://localhost:3000
+3.3.2025, 17:47:14 - INFO - Up and running on http://localhost:3000
+3.3.2025, 17:47:26 - INFO - Up and running on http://localhost:3000
+3.3.2025, 17:47:28 - INFO - Up and running on http://localhost:3000
+3.3.2025, 17:47:52 - INFO - Up and running on http://localhost:3000
+3.3.2025, 17:50:59 - INFO - Up and running on http://localhost:3000
+3.3.2025, 17:53:35 - INFO - Up and running on http://localhost:3000
+3.3.2025, 17:53:40 - INFO - Up and running on http://localhost:3000
+3.3.2025, 17:53:48 - INFO - Up and running on http://localhost:3000
+3.3.2025, 17:53:57 - INFO - Up and running on http://localhost:3000
+3.3.2025, 17:54:01 - INFO - Up and running on http://localhost:3000
+3.3.2025, 18:10:19 - INFO - Up and running on http://localhost:3000
+3.3.2025, 18:10:25 - INFO - Up and running on http://localhost:3000
+3.3.2025, 18:11:10 - INFO - Up and running on http://localhost:3000
+3.3.2025, 18:11:17 - INFO - Up and running on http://localhost:3000
+3.3.2025, 18:11:23 - INFO - Up and running on http://localhost:3000
+3.3.2025, 18:11:27 - INFO - Up and running on http://localhost:3000
+3.3.2025, 18:12:16 - INFO - Up and running on http://localhost:3000
+3.3.2025, 18:28:36 - INFO - Up and running on http://localhost:3000
+3.3.2025, 18:29:26 - INFO - Up and running on http://localhost:3000
+3.3.2025, 18:29:30 - INFO - Up and running on http://localhost:3000
+3.3.2025, 18:29:59 - INFO - Up and running on http://localhost:3000
+3.3.2025, 18:30:20 - INFO - Up and running on http://localhost:3000
+3.3.2025, 18:30:23 - INFO - Up and running on http://localhost:3000
+3.3.2025, 18:30:30 - INFO - Up and running on http://localhost:3000
+3.3.2025, 18:30:49 - INFO - Up and running on http://localhost:3000
+3.3.2025, 18:34:46 - INFO - Up and running on http://localhost:3000
+3.3.2025, 18:35:22 - INFO - Up and running on http://localhost:3000
+3.3.2025, 18:35:57 - INFO - Up and running on http://localhost:3000
+3.3.2025, 18:36:02 - INFO - Up and running on http://localhost:3000
+3.3.2025, 18:36:16 - INFO - Up and running on http://localhost:3000
+3.3.2025, 18:37:11 - INFO - Up and running on http://localhost:3000
+3.3.2025, 18:40:13 - INFO - Up and running on http://localhost:3000
+3.3.2025, 18:40:19 - INFO - Up and running on http://localhost:3000
+3.3.2025, 18:40:25 - INFO - Up and running on http://localhost:3000
+3.3.2025, 18:41:03 - INFO - Up and running on http://localhost:3000
+<<<<<<< HEAD
+3.3.2025, 22:22:28 - INFO - Up and running on http://localhost:3000
+4.3.2025, 0:17:58 - INFO - Up and running on http://localhost:3000
+4.3.2025, 0:26:26 - ERROR - cannot update board undefined | BSONError: hex string must be 24 characters
+4.3.2025, 0:26:26 - ERROR - hex string must be 24 characters
+4.3.2025, 0:26:49 - ERROR - cannot update board undefined | BSONError: hex string must be 24 characters
+4.3.2025, 0:26:49 - ERROR - hex string must be 24 characters
+4.3.2025, 0:29:10 - INFO - Up and running on http://localhost:3000
+4.3.2025, 0:29:21 - INFO - Up and running on http://localhost:3000
+4.3.2025, 0:29:31 - ERROR - cannot update board undefined | BSONError: hex string must be 24 characters
+4.3.2025, 0:29:31 - ERROR - hex string must be 24 characters
+4.3.2025, 0:30:39 - INFO - Up and running on http://localhost:3000
+4.3.2025, 0:30:40 - ERROR - cannot update board undefined | BSONError: hex string must be 24 characters
+4.3.2025, 0:30:40 - ERROR - hex string must be 24 characters
+4.3.2025, 0:31:11 - ERROR - cannot update board undefined | BSONError: hex string must be 24 characters
+4.3.2025, 0:31:11 - ERROR - hex string must be 24 characters
+4.3.2025, 0:32:22 - ERROR - cannot update board undefined | BSONError: hex string must be 24 characters
+4.3.2025, 0:32:22 - ERROR - hex string must be 24 characters
+4.3.2025, 0:33:04 - INFO - Up and running on http://localhost:3000
+4.3.2025, 0:33:05 - ERROR - cannot update board undefined | BSONError: hex string must be 24 characters
+4.3.2025, 0:33:05 - ERROR - hex string must be 24 characters
+4.3.2025, 0:36:01 - ERROR - cannot remove board undefined | BSONError: hex string must be 24 characters
+4.3.2025, 0:36:01 - ERROR - hex string must be 24 characters
+4.3.2025, 0:36:17 - INFO - Up and running on http://localhost:3000
+4.3.2025, 0:36:30 - INFO - Up and running on http://localhost:3000
+4.3.2025, 0:36:34 - ERROR - cannot remove board undefined | BSONError: hex string must be 24 characters
+4.3.2025, 0:36:34 - ERROR - hex string must be 24 characters
+4.3.2025, 0:36:59 - INFO - Up and running on http://localhost:3000
+4.3.2025, 0:37:02 - ERROR - cannot remove board undefined | BSONError: hex string must be 24 characters
+4.3.2025, 0:37:02 - ERROR - hex string must be 24 characters
+4.3.2025, 0:38:29 - ERROR - cannot remove board undefined | BSONError: hex string must be 24 characters
+4.3.2025, 0:38:29 - ERROR - hex string must be 24 characters
+4.3.2025, 0:38:52 - ERROR - cannot remove board undefined | BSONError: hex string must be 24 characters
+4.3.2025, 0:38:52 - ERROR - hex string must be 24 characters
+4.3.2025, 0:40:20 - ERROR - cannot remove board undefined | BSONError: hex string must be 24 characters
+4.3.2025, 0:40:20 - ERROR - hex string must be 24 characters
+4.3.2025, 0:40:32 - ERROR - cannot remove board undefined | BSONError: hex string must be 24 characters
+4.3.2025, 0:40:32 - ERROR - hex string must be 24 characters
+4.3.2025, 0:40:50 - INFO - Up and running on http://localhost:3000
+4.3.2025, 0:42:36 - ERROR - cannot remove board undefined | BSONError: hex string must be 24 characters
+4.3.2025, 0:42:36 - ERROR - hex string must be 24 characters
+4.3.2025, 0:42:37 - ERROR - cannot remove board undefined | BSONError: hex string must be 24 characters
+4.3.2025, 0:42:37 - ERROR - hex string must be 24 characters
+4.3.2025, 0:42:38 - ERROR - cannot remove board undefined | BSONError: hex string must be 24 characters
+4.3.2025, 0:42:38 - ERROR - hex string must be 24 characters
+4.3.2025, 0:43:28 - ERROR - cannot remove board undefined | BSONError: hex string must be 24 characters
+4.3.2025, 0:43:28 - ERROR - hex string must be 24 characters
+4.3.2025, 0:43:29 - ERROR - cannot remove board undefined | BSONError: hex string must be 24 characters
+4.3.2025, 0:43:29 - ERROR - hex string must be 24 characters
+4.3.2025, 0:46:26 - ERROR - cannot remove board undefined | BSONError: hex string must be 24 characters
+4.3.2025, 0:46:26 - ERROR - hex string must be 24 characters
+4.3.2025, 0:46:27 - ERROR - cannot remove board undefined | BSONError: hex string must be 24 characters
+4.3.2025, 0:46:27 - ERROR - hex string must be 24 characters
+4.3.2025, 0:46:38 - ERROR - cannot remove board undefined | BSONError: hex string must be 24 characters
+4.3.2025, 0:46:38 - ERROR - hex string must be 24 characters
+4.3.2025, 12:59:55 - INFO - Up and running on http://localhost:3000
+4.3.2025, 17:37:28 - INFO - Up and running on http://localhost:3000
+6.3.2025, 1:51:42 - INFO - Up and running on http://localhost:3000
+6.3.2025, 2:01:17 - INFO - Up and running on http://localhost:3000
+6.3.2025, 2:04:16 - INFO - Up and running on http://localhost:3000
+=======
+4.3.2025, 15:58:56 - INFO - Up and running on http://localhost:3000
+4.3.2025, 16:03:29 - DEBUG - auth.service - login with email: kiwi@gmail.com
+4.3.2025, 16:03:29 - INFO - User login:  | {"_id":"67c45c55c2f1ef4df8072022","email":"kiwi@gmail.com","fullName":"Kiwi","id":"E3iHE","imgUrl":"https://res.cloudinary.com/danlxus36/image/upload/v1740682607/3_iij9dg.jpg"}
+4.3.2025, 16:13:53 - INFO - Up and running on http://localhost:3000
+4.3.2025, 16:15:16 - INFO - Up and running on http://localhost:3000
+4.3.2025, 16:16:04 - INFO - Up and running on http://localhost:3000
+4.3.2025, 16:16:08 - INFO - Up and running on http://localhost:3000
+4.3.2025, 16:16:32 - INFO - Up and running on http://localhost:3000
+4.3.2025, 17:24:08 - INFO - Up and running on http://localhost:3000
+4.3.2025, 17:26:29 - INFO - Up and running on http://localhost:3000
+4.3.2025, 18:16:59 - INFO - Up and running on http://localhost:3000
+>>>>>>> c842188a5be60b084fabd2d13b05b683faaa6b35
+6.3.2025, 2:19:01 - INFO - Up and running on http://localhost:3000
+6.3.2025, 3:21:39 - INFO - Up and running on http://localhost:3000
+6.3.2025, 16:42:10 - INFO - Up and running on http://localhost:3000
+6.3.2025, 16:42:26 - DEBUG - auth.service - login with email: kiwi@gmail.com
+6.3.2025, 16:42:26 - INFO - User login:  | {"_id":"67c45c55c2f1ef4df8072022","email":"kiwi@gmail.com","fullName":"Kiwi","id":"E3iHE","imgUrl":"https://res.cloudinary.com/danlxus36/image/upload/v1740682607/3_iij9dg.jpg"}
+6.3.2025, 18:03:12 - INFO - Up and running on http://localhost:3000
+6.3.2025, 18:06:23 - INFO - Up and running on http://localhost:3000
+6.3.2025, 18:06:34 - DEBUG - auth.service - login with email: kiwi@gmail.com
+6.3.2025, 18:06:34 - INFO - User login:  | {"_id":"67c45c55c2f1ef4df8072022","email":"kiwi@gmail.com","fullName":"Kiwi","id":"E3iHE","imgUrl":"https://res.cloudinary.com/danlxus36/image/upload/v1740682607/3_iij9dg.jpg"}
+7.3.2025, 2:32:49 - INFO - Up and running on http://localhost:3000
+7.3.2025, 2:33:04 - DEBUG - auth.service - login with email: kiwi@gmail.com
+7.3.2025, 2:33:04 - INFO - User login:  | {"_id":"67c45c55c2f1ef4df8072022","email":"kiwi@gmail.com","fullName":"Kiwi","id":"E3iHE","imgUrl":"https://res.cloudinary.com/danlxus36/image/upload/v1740682607/3_iij9dg.jpg"}
+5.3.2025, 17:18:47 - INFO - Up and running on http://localhost:3000
+5.3.2025, 18:31:03 - INFO - Up and running on http://localhost:3000
+5.3.2025, 21:24:12 - INFO - Up and running on http://localhost:3000

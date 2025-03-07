@@ -4,7 +4,7 @@ import ChatIcon from "@mui/icons-material/MapsUgcOutlined"
 import { openModal, closeModal } from "../../store/actions/boards.actions.js"
 import { useSelector } from "react-redux"
 import { utilService } from "../../services/util.service.js"
-import { boardService } from "../../services/board.service.js"
+import { boardService } from "../../services/board"
 import ReactDOM from 'react-dom'
 import { getSvg } from "../../services/svg.service.jsx"
 import { DeleteTaskModal } from './modals/DeleteTaskModal.jsx'
@@ -29,9 +29,6 @@ export function TaskTitle({
 }) {
 
   //edit task title
-
-    console.log(cellInfo)
-
   const [onEditMode, setOnEditMode] = useState(false)
   const [textToEdit, setTextToEdit] = useState(cellInfo.value.title)
 
@@ -53,7 +50,7 @@ export function TaskTitle({
 
   // delete task
 
-  const deleteTaskModal = openModals.some((modalId) => modalId === 'delete-'+ cellInfo.taskId)
+  const deleteTaskModal = openModals.some((modalId) => modalId === 'delete-' + cellInfo.taskId)
 
   const deleteTaskModalRef = useRef(null)
   const dotsRef = useRef(null)
@@ -110,7 +107,7 @@ export function TaskTitle({
 
   function onAddComment(comment, sentAt) {
     const newComment = {
-      userId: loggedinUser.id,
+      userId: loggedinUser._id,
       sentAt,
       text: comment,
       replies: [],
@@ -123,7 +120,7 @@ export function TaskTitle({
 
   function onAddReply(commentSentTime, replyTxt) {
     const newReply = {
-      userId: loggedinUser.id,
+      userId: loggedinUser._id,
       sentAt: new Date().getTime(),
       text: replyTxt,
     };
@@ -179,8 +176,8 @@ export function TaskTitle({
   // close and open delete modal as needed
   function deleteModalToggle() {
     deleteTaskModal
-    ? closeModal('delete-'+ cellInfo.taskId)
-    : openModal('delete-'+ cellInfo.taskId)
+      ? closeModal('delete-' + cellInfo.taskId)
+      : openModal('delete-' + cellInfo.taskId)
   }
 
   //if user click outside delete modal close it
@@ -192,12 +189,12 @@ export function TaskTitle({
 
   // open listener to handleClickOutsideModal only when modal open
   useEffect(() => {
-      if (deleteTaskModal) document.addEventListener
-          ('mousedown', handleClickOutsideModal)
-        else document.removeEventListener
-          ('mousedown', handleClickOutsideModal)
-      return () => document.removeEventListener
-          ('mousedown', handleClickOutsideModal)
+    if (deleteTaskModal) document.addEventListener
+      ('mousedown', handleClickOutsideModal)
+    else document.removeEventListener
+      ('mousedown', handleClickOutsideModal)
+    return () => document.removeEventListener
+      ('mousedown', handleClickOutsideModal)
 
   }, [deleteTaskModal])
 
@@ -207,8 +204,9 @@ export function TaskTitle({
       <section className="task-title">
 
         <div className="white-cover">
-          <div ref={dotsRef}className="dots" 
-            style={{ visibility: deleteTaskModal || (taskHovering === cellInfo.taskId) ? 'visible' : 'hidden' ,
+          <div ref={dotsRef} className="dots"
+            style={{
+              visibility: deleteTaskModal || (taskHovering === cellInfo.taskId) ? 'visible' : 'hidden',
               backgroundColor: deleteTaskModal && '#CAE3FD'
             }}
             onClick={deleteModalToggle}>
@@ -216,11 +214,11 @@ export function TaskTitle({
           </div>
           {
             deleteTaskModal && <div ref={deleteTaskModalRef}>
-              <DeleteTaskModal 
-              removeTask={removeTask}
-              boardId={boardId} 
-              groupId={group.id} 
-              taskId={cellInfo.taskId}/>
+              <DeleteTaskModal
+                removeTask={removeTask}
+                boardId={boardId}
+                groupId={group.id}
+                taskId={cellInfo.taskId} />
             </div>
           }
         </div>

@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import BoardDetails from "./BoardDetails.jsx";
 import { useNavigate } from "react-router";
-import { loadBoards, setFavories } from "../store/actions/boards.actions.js";
+import { loadBoards } from "../store/actions/boards.actions.js";
 import { addBoard, updateBoardName } from "../store/actions/boards.actions.js";
 import { loadUsers, logout } from "../store/actions/user.actions.js";
 import { BoardCard } from "./BoardCard.jsx";
@@ -29,15 +29,14 @@ export function MainInnerIndex({ user, isBoard, boards }) {
     updateBoardName(id, title);
   }
 
-  async function handleFavorite(boardId){
-    await setFavories(boardId);
-    console.log(boardId)
-  }
+  // async function handleFavorite(boardId) {
+  //   await setFavories(boardId);
+  // }
 
   return !isBoard ? (
     <div className="main-inner-index">
       <section className="welcome-section">
-        <small>Hello {user.fullName}!</small>
+        <small>Hello {user?.fullName}!</small>
         <small id="bold">
           Quickly access your recent boards, Inbox and workspaces
         </small>
@@ -51,10 +50,10 @@ export function MainInnerIndex({ user, isBoard, boards }) {
           <div className="boards-container">
             {boards.map((board) => (
               <BoardCard
-                key={board.id}
+                key={board._id}
                 board={board}
                 onUpdateBoardName={onUpdateBoardName}
-                handleFavorite={handleFavorite}
+              // handleFavorite={handleFavorite}
               />
             ))}
           </div>

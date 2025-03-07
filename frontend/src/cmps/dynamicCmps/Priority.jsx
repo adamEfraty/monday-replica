@@ -3,7 +3,7 @@ import { PriorityModal } from './modals/PriorityModal.jsx'
 import { openModal, closeModal } from '../../store/actions/boards.actions.js'
 import { useSelector } from "react-redux";
 
-export function Priority({cellInfo, onTaskUpdate, labelWidth}) {
+export function Priority({ cellInfo, onTaskUpdate, labelWidth }) {
     const openModals = useSelector(state => state.boardModule.openModals)
     const modal = openModals.some(modalId => modalId === (cellInfo.taskId + cellInfo.labelId))
 
@@ -13,13 +13,12 @@ export function Priority({cellInfo, onTaskUpdate, labelWidth}) {
     // close and open modal as needed
     function modalToggle() {
         modal
-        ? closeModal(cellInfo.taskId + cellInfo.labelId)
-        : openModal(cellInfo.taskId + cellInfo.labelId)
+            ? closeModal(cellInfo.taskId + cellInfo.labelId)
+            : openModal(cellInfo.taskId + cellInfo.labelId)
     }
 
-    function onPriorityChange(priority){
-        console.log(priority, {...cellInfo, value: priority})
-        onTaskUpdate({...cellInfo, value: priority})
+    function onPriorityChange(priority) {
+        onTaskUpdate({ ...cellInfo, value: priority })
         modalToggle()
     }
 
@@ -34,7 +33,7 @@ export function Priority({cellInfo, onTaskUpdate, labelWidth}) {
     useEffect(() => {
         if (modal) document.addEventListener
             ('mousedown', handleClickOutsideModal)
-         else document.removeEventListener
+        else document.removeEventListener
             ('mousedown', handleClickOutsideModal)
         return () => document.removeEventListener
             ('mousedown', handleClickOutsideModal)
@@ -44,20 +43,20 @@ export function Priority({cellInfo, onTaskUpdate, labelWidth}) {
     return (
         <section className="priority">
             {/* priority cell*/}
-            <div 
-            className="priority-cell" 
-            ref={priorityCellRef}
-            onClick={modalToggle}
-            style={{ backgroundColor: cellInfo.value.color }}>
+            <div
+                className="priority-cell"
+                ref={priorityCellRef}
+                onClick={modalToggle}
+                style={{ backgroundColor: cellInfo.value.color }}>
                 {cellInfo.value.text}
             </div>
 
             {/* priority modal*/}
-            {modal && 
+            {modal &&
                 <div ref={modalRef}>
-                    <PriorityModal 
-                    onPriorityChange={onPriorityChange}
-                    labelWidth={labelWidth}/>
+                    <PriorityModal
+                        onPriorityChange={onPriorityChange}
+                        labelWidth={labelWidth} />
                 </div>
             }
         </section>
