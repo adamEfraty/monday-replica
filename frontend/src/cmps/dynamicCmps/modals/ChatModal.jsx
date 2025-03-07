@@ -187,7 +187,7 @@ export function ChatModal({
   // later users going to be the only users in board,
   // therfore im not using getById function in user service
   function getUserById(userId) {
-    return users.find((member) => member.id === userId) || {};
+    return users.find((member) => member._id === userId) || {};
   }
 
   function handleCommentSubmit(event) {
@@ -387,6 +387,7 @@ export function ChatModal({
               <ul className="comments-list">
                 {cellInfo.value.chat.map((comment) => {
                   const commenter = getUserById(comment.userId);
+                  console.log(commenter, comment, ' chat modal fixing')
                   return (
                     <li key={comment.sentAt} className="comment">
                       <div className="comment-info">

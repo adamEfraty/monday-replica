@@ -150,6 +150,7 @@
 3.3.2025, 18:40:19 - INFO - Up and running on http://localhost:3000
 3.3.2025, 18:40:25 - INFO - Up and running on http://localhost:3000
 3.3.2025, 18:41:03 - INFO - Up and running on http://localhost:3000
+<<<<<<< HEAD
 3.3.2025, 22:22:28 - INFO - Up and running on http://localhost:3000
 4.3.2025, 0:17:58 - INFO - Up and running on http://localhost:3000
 4.3.2025, 0:26:26 - ERROR - cannot update board undefined | BSONError: hex string must be 24 characters
@@ -206,6 +207,23 @@
 4.3.2025, 0:46:38 - ERROR - hex string must be 24 characters
 4.3.2025, 12:59:55 - INFO - Up and running on http://localhost:3000
 4.3.2025, 17:37:28 - INFO - Up and running on http://localhost:3000
+6.3.2025, 1:51:42 - INFO - Up and running on http://localhost:3000
+6.3.2025, 2:01:17 - INFO - Up and running on http://localhost:3000
+6.3.2025, 2:04:16 - INFO - Up and running on http://localhost:3000
+=======
+4.3.2025, 15:58:56 - INFO - Up and running on http://localhost:3000
+4.3.2025, 16:03:29 - DEBUG - auth.service - login with email: kiwi@gmail.com
+4.3.2025, 16:03:29 - INFO - User login:  | {"_id":"67c45c55c2f1ef4df8072022","email":"kiwi@gmail.com","fullName":"Kiwi","id":"E3iHE","imgUrl":"https://res.cloudinary.com/danlxus36/image/upload/v1740682607/3_iij9dg.jpg"}
+4.3.2025, 16:13:53 - INFO - Up and running on http://localhost:3000
+4.3.2025, 16:15:16 - INFO - Up and running on http://localhost:3000
+4.3.2025, 16:16:04 - INFO - Up and running on http://localhost:3000
+4.3.2025, 16:16:08 - INFO - Up and running on http://localhost:3000
+4.3.2025, 16:16:32 - INFO - Up and running on http://localhost:3000
+4.3.2025, 17:24:08 - INFO - Up and running on http://localhost:3000
+4.3.2025, 17:26:29 - INFO - Up and running on http://localhost:3000
+4.3.2025, 18:16:59 - INFO - Up and running on http://localhost:3000
+>>>>>>> c842188a5be60b084fabd2d13b05b683faaa6b35
+6.3.2025, 2:19:01 - INFO - Up and running on http://localhost:3000
 5.3.2025, 17:18:47 - INFO - Up and running on http://localhost:3000
 5.3.2025, 18:31:03 - INFO - Up and running on http://localhost:3000
 5.3.2025, 21:24:12 - INFO - Up and running on http://localhost:3000
