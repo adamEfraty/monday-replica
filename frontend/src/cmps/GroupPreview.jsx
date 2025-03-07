@@ -135,7 +135,6 @@ export const GroupPreview = ({
                 expanded={expanded}
                 attributes={attributes}
                 listeners={listeners}
-                listeners={listeners}
                 handleGroupNameChange={handleGroupNameChange}
                 handelExpandedChange={handelExpandedChange}
                 handelGroupTitleChange={handelGroupTitleChange}
