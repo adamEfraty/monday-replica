@@ -235,3 +235,11 @@
 7.3.2025, 2:32:49 - INFO - Up and running on http://localhost:3000
 7.3.2025, 2:33:04 - DEBUG - auth.service - login with email: kiwi@gmail.com
 7.3.2025, 2:33:04 - INFO - User login:  | {"_id":"67c45c55c2f1ef4df8072022","email":"kiwi@gmail.com","fullName":"Kiwi","id":"E3iHE","imgUrl":"https://res.cloudinary.com/danlxus36/image/upload/v1740682607/3_iij9dg.jpg"}
+5.3.2025, 17:18:47 - INFO - Up and running on http://localhost:3000
+5.3.2025, 18:31:03 - INFO - Up and running on http://localhost:3000
+5.3.2025, 21:24:12 - INFO - Up and running on http://localhost:3000
+7.3.2025, 3:43:00 - INFO - Up and running on http://localhost:3000
+7.3.2025, 3:53:35 - DEBUG - auth.service - signup with email: efraty665@gmail.com, fullName: adam
+7.3.2025, 3:53:35 - DEBUG - auth.route - new account created: {"email":"efraty665@gmail.com","password":"$2b$10$SgPAW3XxTeNui11kudP4/eO.RWjmdV.R1yEC0jkPnCkk/tvEOzwsC","fullName":"adam","imgUrl":"https://res.cloudinary.com/danlxus36/image/upload/v1741312413/best-selfie_xlxkpb.jpg","_id":"67ca519f85c61510baa798fd"}
+7.3.2025, 3:53:35 - DEBUG - auth.service - login with email: efraty665@gmail.com
+7.3.2025, 3:53:35 - INFO - User signup: | {"_id":"67ca519f85c61510baa798fd","email":"efraty665@gmail.com","fullName":"adam","imgUrl":"https://res.cloudinary.com/danlxus36/image/upload/v1741312413/best-selfie_xlxkpb.jpg","isAdmin":null}

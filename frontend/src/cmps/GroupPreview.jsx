@@ -42,6 +42,7 @@ export const GroupPreview = ({
   boardScroll,
   updateFixedGroup,
   fixedGroup,
+  updateExpandedGroups,
 
 }) => {
   const [expanded, setExpanded] = useState(true);
@@ -88,6 +89,10 @@ export const GroupPreview = ({
 
   }, [boardScroll])
 
+  useEffect(()=>{
+    updateExpandedGroups(group.id, expanded)
+  },[expanded])
+
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -118,7 +123,7 @@ export const GroupPreview = ({
 
 
       {
-        titlePositionY < 260 &&
+        expanded && fixedGroup && fixedGroup.id === group.id && 
         <>
           <div className="fixed-area">
             <div className="fixed-group-title">
@@ -148,23 +153,23 @@ export const GroupPreview = ({
 
 
       <GroupTitle
-        titleRef={titleRef}
-        boardId={boardId}
-        group={group}
-        groupTitle={groupTitle}
-        handleClick2={handleClick2}
-        id2={id2}
-        open2={open2}
-        anchorE2={anchorE2}
-        handleClose2={handleClose2}
-        titleHead={titleHead}
-        expanded={expanded}
-        attributes={attributes}
-        listeners={listeners}
-        handleGroupNameChange={handleGroupNameChange}
-        handelExpandedChange={handelExpandedChange}
-        handelGroupTitleChange={handelGroupTitleChange}
-        handleDelete={handleDelete}
+          titleRef={titleRef}
+          boardId={boardId}
+          group={group} 
+          groupTitle={groupTitle}
+          handleClick2={handleClick2} 
+          id2={id2}
+          open2={open2} 
+          anchorE2={anchorE2} 
+          handleClose2={handleClose2}
+          titleHead={titleHead}
+          expanded={expanded}
+          attributes={attributes}
+          listeners={listeners}
+          handleGroupNameChange={handleGroupNameChange}
+          handelExpandedChange={handelExpandedChange}
+          handelGroupTitleChange={handelGroupTitleChange}
+          handleDelete={handleDelete}
       />
 
 
@@ -181,6 +186,7 @@ export const GroupPreview = ({
               handleMasterCheckboxClick={handleMasterCheckboxClick}
               checkedGroups={checkedGroups}
               isFixed={false}
+              expanded={expanded}
             />
 
 

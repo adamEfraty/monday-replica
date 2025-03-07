@@ -138,25 +138,21 @@ export function SideBar({ boards, user, onRemoveBoard }) {
                 <PlusIcon style={{ width: 28, height: 26 }} />
               </button>
               <Popover
-                id={popoverId}
-                open={popoverOpen}
-                anchorEl={anchorEl}
-                onClose={() => setAnchorEl(null)}
-                anchorOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                transformOrigin={{
-                  vertical: "right",
-                  horizontal: "bottom",
-                }}
-              >
-                <MenuModal type="addItem" handleOpenModal={() => {
-                  console.log('im heree')
-                  setOpenModal(!addBoardModalState)
-                }
-                } />
-              </Popover>
+              id={popoverId}
+              open={popoverOpen}
+              anchorEl={anchorEl}
+              onClose={() => setAnchorEl(null)}
+              anchorOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+              transformOrigin={{
+                vertical: "right",
+                horizontal: "bottom",
+              }}
+            >
+                <MenuModal type="addItem" handleOpenModal={() => setOpenModal(!addBoardModalState)} />
+            </Popover>
             </div>
           </div>
 
