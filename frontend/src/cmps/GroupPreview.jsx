@@ -43,6 +43,7 @@ export const GroupPreview = ({
   updateFixedGroup,
   fixedGroup,
   updateExpandedGroups,
+  isDragging,
 
 }) => {
   const [expanded, setExpanded] = useState(true);
@@ -89,9 +90,9 @@ export const GroupPreview = ({
 
   }, [boardScroll])
 
-  useEffect(()=>{
+  useEffect(() => {
     updateExpandedGroups(group.id, expanded)
-  },[expanded])
+  }, [expanded])
 
 
   const handleClick = (event) => {
@@ -123,7 +124,7 @@ export const GroupPreview = ({
 
 
       {
-        expanded && fixedGroup && fixedGroup.id === group.id && 
+        expanded && fixedGroup && fixedGroup.id === group.id &&
         <>
           <div className="fixed-area">
             <div className="fixed-group-title">
@@ -153,30 +154,30 @@ export const GroupPreview = ({
 
 
       <GroupTitle
-          titleRef={titleRef}
-          boardId={boardId}
-          group={group} 
-          groupTitle={groupTitle}
-          handleClick2={handleClick2} 
-          id2={id2}
-          open2={open2} 
-          anchorE2={anchorE2} 
-          handleClose2={handleClose2}
-          titleHead={titleHead}
-          expanded={expanded}
-          attributes={attributes}
-          listeners={listeners}
-          handleGroupNameChange={handleGroupNameChange}
-          handelExpandedChange={handelExpandedChange}
-          handelGroupTitleChange={handelGroupTitleChange}
-          handleDelete={handleDelete}
+        titleRef={titleRef}
+        boardId={boardId}
+        group={group}
+        groupTitle={groupTitle}
+        handleClick2={handleClick2}
+        id2={id2}
+        open2={open2}
+        anchorE2={anchorE2}
+        handleClose2={handleClose2}
+        titleHead={titleHead}
+        expanded={expanded}
+        attributes={attributes}
+        listeners={listeners}
+        handleGroupNameChange={handleGroupNameChange}
+        handelExpandedChange={handelExpandedChange}
+        handelGroupTitleChange={handelGroupTitleChange}
+        handleDelete={handleDelete}
       />
 
 
       <section className="task-list">
         {/* Render group labels by labels array */}
 
-        {expanded && (
+        {!isDragging && expanded && (
           <div>
 
             <LabelsGrid
@@ -192,26 +193,28 @@ export const GroupPreview = ({
 
             {/* Render tasks by cmp order */}
 
-            <SortableContext items={group.tasks.map(task => task.id)} strategy={verticalListSortingStrategy}> {/* for dnd Radwan */}
-              {group.tasks.map((task) => (
+            <SortableContext items={group.tasks?.map(task => task?.id)} strategy={verticalListSortingStrategy}> {/* for dnd Radwan */}
+              {group.tasks.map((task) => {
+                return (
 
-                <TaskPreview
-                  id={task.id}
-                  key={task.id}
-                  task={task}
-                  group={group}
-                  labels={labels}
-                  loggedinUser={loggedinUser}
-                  onTaskUpdate={onTaskUpdate}
-                  removeTask={removeTask}
-                  boardId={boardId}
-                  users={users}
-                  chatTempInfoUpdate={chatTempInfoUpdate}
-                  openChat={openChat}
-                  checkedBoxes={checkedBoxes}
-                  handleCheckBoxClick={handleCheckBoxClick}
-                />
-              ))}
+                  <TaskPreview
+                    id={task?.id}
+                    key={task.id}
+                    task={task}
+                    group={group}
+                    labels={labels}
+                    loggedinUser={loggedinUser}
+                    onTaskUpdate={onTaskUpdate}
+                    removeTask={removeTask}
+                    boardId={boardId}
+                    users={users}
+                    chatTempInfoUpdate={chatTempInfoUpdate}
+                    openChat={openChat}
+                    checkedBoxes={checkedBoxes}
+                    handleCheckBoxClick={handleCheckBoxClick}
+                  />
+                )
+              })}
             </SortableContext>
             <AddTask group={group} handleAddTask={handleAddTask} />
 
