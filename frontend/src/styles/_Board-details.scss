@@ -328,7 +328,7 @@ section.labels-grid {
 div.group-title {
   position: sticky;
   left: 0px;
-  width: 100%;
+  width: calc(100vw - 320px);
   padding: 1rem;
   background-color: white;
   z-index: 4;
