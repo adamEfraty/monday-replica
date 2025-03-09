@@ -46,7 +46,7 @@ export function AppHeader() {
             className="account-logo-img"
             src="https://cdn.monday.com/images/logos/monday_logo_icon.png"
           ></img>
-          {/* <h4>{user.email[0].toUpperCase()}</h4> */}
+          <h4>{user.email[0].toUpperCase()}</h4>
         </div>
       </section>
     </div>
