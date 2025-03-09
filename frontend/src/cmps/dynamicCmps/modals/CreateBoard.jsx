@@ -22,7 +22,6 @@ export function CreateBoard({ handleAddBoard }) {
           <button type="submit">Create</button>
         </section>
       </form>
-      <h6 className="x-btn" style={{ cursor: 'pointer' }} onClick={closeModal}>X</h6>
     </section>
   );
 }
