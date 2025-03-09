@@ -6,7 +6,11 @@ import { Date } from "./dynamicCmps/Date";
 import { Members } from "./dynamicCmps/Members";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
+import { DeleteTaskModal } from "./dynamicCmps/modals/DeleteTaskModal";
+import { useSelector } from "react-redux"
+import { openModal, closeModal } from "../store/actions/boards.actions";
+
 
 export function TaskPreview({
     task,
@@ -34,10 +38,55 @@ export function TaskPreview({
 
     const [taskHovering, setTaskHovering] = useState(null)
 
+    // dlete modal
+    const openModals = useSelector((state) => state.boardModule.openModals)
+    const deleteTaskModal = openModals.some((modalId) => modalId === 'delete-' + id)
+    const deleteTaskModalRef = useRef(null)
+    const dotsRef = useRef(null)
+
+    function deleteModalToggle() {
+        deleteTaskModal
+        ? closeModal('delete-' + id)
+        : openModal('delete-' + id)
+    }
+
+    // if user click outside delete modal close it
+    function handleClickOutsideModal(event) {
+    if (!deleteTaskModalRef.current.contains(event.target)
+        && !dotsRef.current.contains(event.target))
+        deleteModalToggle()
+    }
+
+    // // open listener to handleClickOutsideModal only when modal open
+    useEffect(() => {
+    if (deleteTaskModal) document.addEventListener
+        ('mousedown', handleClickOutsideModal)
+    else document.removeEventListener
+        ('mousedown', handleClickOutsideModal)
+    return () => document.removeEventListener
+        ('mousedown', handleClickOutsideModal)
+
+    }, [deleteTaskModal])
+
     return (
         <section className="task-preview" 
         onMouseOver={()=>setTaskHovering(task.id)} 
         onMouseLeave={()=>setTaskHovering(null)}>
+
+            {deleteTaskModal ? 
+                <div ref={deleteTaskModalRef}>
+                    <DeleteTaskModal
+                    removeTask={removeTask}
+                    boardId={boardId}
+                    groupId={group.id}
+                    taskId={id} 
+                    />
+
+                </div>
+
+
+            : ''}
+
             <section
                 ref={setNodeRef}
                 className="group-grid"
@@ -70,6 +119,8 @@ export function TaskPreview({
                                 taskHovering={taskHovering}
                                 removeTask={removeTask}
                                 boardId={boardId}
+                                deleteModalToggle={deleteModalToggle}
+                                dotsRef={dotsRef}
                             />
                         </section>
                     )
@@ -98,6 +149,8 @@ function DynamicCmp({
     taskHovering,
     removeTask,
     boardId,
+    deleteModalToggle,
+    dotsRef
 }) {
     switch (label.type) {
         case "priority":
@@ -127,6 +180,8 @@ function DynamicCmp({
                     taskHovering={taskHovering}
                     removeTask={removeTask}
                     boardId={boardId}
+                    deleteModalToggle={deleteModalToggle}
+                    dotsRef={dotsRef}
                 />
             );
 

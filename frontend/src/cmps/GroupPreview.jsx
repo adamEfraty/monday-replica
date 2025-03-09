@@ -193,7 +193,7 @@ export const GroupPreview = ({
             {/* Render tasks by cmp order */}
 
             <SortableContext items={group.tasks.map(task => task.id)} strategy={verticalListSortingStrategy}> {/* for dnd Radwan */}
-              {group.tasks.map((task) => (
+              {group.tasks.map((task, index) => (
 
                 <TaskPreview
                   id={task.id}
@@ -210,6 +210,7 @@ export const GroupPreview = ({
                   openChat={openChat}
                   checkedBoxes={checkedBoxes}
                   handleCheckBoxClick={handleCheckBoxClick}
+                  taskIndex={index}
                 />
               ))}
             </SortableContext>
