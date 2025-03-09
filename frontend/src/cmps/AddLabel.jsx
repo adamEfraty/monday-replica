@@ -83,6 +83,8 @@ export function AddLabel({groupId, boardId, isFixed}){
                     
                 </section>
             }
+
+            {isFixed && <div className="fixed-space"/>}
         </section>
     )
 }

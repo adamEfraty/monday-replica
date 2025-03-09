@@ -16,7 +16,7 @@ export function LabelsGrid({
             className="labels-grid"
             style={{
             borderTopLeftRadius: 5,
-            gridTemplateColumns: `10px ${labels.map(label => `${label.width}px`).join(' ')} 100px`
+            gridTemplateColumns: `10px ${labels.map(label => `${label.width}px`).join(' ')} auto`
             }}
         >
             <section className="ghost "></section>

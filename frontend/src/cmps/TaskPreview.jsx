@@ -26,6 +26,7 @@ export function TaskPreview({
     id,
     removeTask,
     boardId,
+    boardScroll,
 }) {
 
 
@@ -80,6 +81,8 @@ export function TaskPreview({
                     boardId={boardId}
                     groupId={group.id}
                     taskId={id} 
+                    dotsRef={dotsRef}
+                    boardScroll={boardScroll}
                     />
 
                 </div>
@@ -89,8 +92,8 @@ export function TaskPreview({
 
             <section
                 ref={setNodeRef}
-                className="group-grid"
-                style={{ ...style, gridTemplateColumns: `${labels.map(label => `${label.width}px`).join(' ')} 100px` }}
+                className="task-grid"
+                style={{ ...style, gridTemplateColumns: `${labels.map(label => `${label.width}px`).join(' ')} auto` }}
                 key={`task-${task.id}`}
             >
 
@@ -125,6 +128,8 @@ export function TaskPreview({
                         </section>
                     )
                 })}
+
+                <div className="empty-space"/>
             </section >
         </section>
         

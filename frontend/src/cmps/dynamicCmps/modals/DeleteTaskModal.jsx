@@ -1,10 +1,11 @@
 import { getSvg } from '../../../services/svg.service.jsx'
 
-export function DeleteTaskModal({removeTask, boardId, groupId, taskId}){
+export function DeleteTaskModal({removeTask, boardId, groupId, taskId, boardScroll}){
 
     // style={{top: `${taskIndex < 2 ? 30 : -45}px`}}
     return(
-        <section className="delete-task-modal">
+        <section className="delete-task-modal"
+        style={{left: boardScroll.x -17}}>
             <button onClick={()=>
                 {removeTask(boardId, groupId, taskId)}}>
                 {getSvg('trash2')}
