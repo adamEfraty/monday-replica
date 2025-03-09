@@ -38,6 +38,7 @@ export function BoardDetailsHeader({ handleAddTask, boardTitle, boardId, boardCo
   }
   return (
     <header className="board-details-header">
+      <div className="white-cover"/>
       <br />
       <div className="boardTitle">
         <h2>{boardTitle}</h2>
