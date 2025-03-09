@@ -59,6 +59,9 @@ const BoardDetails = () => {
 
   const [expandedGroupsId, setExpandedGroupsId] = useState([])
 
+  const [isDragging, setIsDragging] = useState(false)
+
+
   useEffect(() => {
     const index = boards.findIndex((board) => board._id === boardId);
     index < 0 &&
@@ -146,13 +149,13 @@ const BoardDetails = () => {
     }
   }, [])
 
-  useEffect(()=>{
-    if(groups.length){
+  useEffect(() => {
+    if (groups.length) {
       setFixedGroup(groups[0])
       setGoupTitlesYPosition({})
     }
-    else  setFixedGroup(null)
-  },[groups])
+    else setFixedGroup(null)
+  }, [groups])
 
   //...............................
 
@@ -282,26 +285,60 @@ const BoardDetails = () => {
     return currentBoard.labels.findIndex((label) => label.id === id);
   }
 
+  console.log('is dragging ?', isDragging)
+
+
+  function handleDragStart(event) {
+    const { active } = event;
+
+    if (active.id.startsWith("g")) {
+      setIsDragging(true);
+    }
+  }
+
   async function handleDragEnd(event) {
     const { active, over } = event;
 
-    if (active === over) return;
+    // If no valid drop target or dropped in the same position, exit
+    if (!over || active.id === over.id) {
+      if (active.id.startsWith("g"))
+        setIsDragging(false); // Stop dragging when the drag ends
 
-    if (active.id[0] === "l") {
-      const originalLabelPos = getLabelPos(active.id);
-      const moveToLabel = getLabelPos(over.id);
-      console.log(originalLabelPos, moveToLabel, "rico poko");
-      const newLabelArray = arrayMove(
-        currentBoard.labels,
-        originalLabelPos,
-        moveToLabel
-      );
+      return;
+    }
+    // If the dragged item is a group, reset `isDragging` to false
+    if (active.id.startsWith("g")) {
+      setIsDragging(false); // Stop dragging when the drag ends
 
-      await replaceLabels(boardId, newLabelArray);
+      const originalPos = getGroupPos(active.id);
+      const moveToPos = getGroupPos(over.id);
 
-      await replaceLabels(boardId, newLabelArray);
+      if (originalPos !== moveToPos) {
+        const newGroupArray = arrayMove(groups, originalPos, moveToPos);
+
+        // Persist changes to the backend using the replaceGroups function
+        await replaceGroups(boardId, newGroupArray);
+      }
     }
 
+    // Handle label reordering
+    if (active.id.startsWith("l")) {
+      const originalLabelPos = getLabelPos(active.id);
+      const moveToLabel = getLabelPos(over.id);
+
+      if (originalLabelPos !== moveToLabel) {
+        const newLabelArray = arrayMove(
+          currentBoard.labels,
+          originalLabelPos,
+          moveToLabel
+        );
+
+        // Persist changes to the backend using the replaceLabels function
+        await replaceLabels(boardId, newLabelArray);
+      }
+    }
+
+    // Handle task reordering
     if (active.id.length === 5) {
       const { groupIndex: originalGroupPos, taskIndex: originalTaskPos } =
         getTaskPos(active.id);
@@ -309,59 +346,59 @@ const BoardDetails = () => {
         getTaskPos(over.id);
 
       if (originalGroupPos !== moveToGroupPos) {
-        console.log("move to another group");
         const movedTask = groups[originalGroupPos].tasks[originalTaskPos];
 
+        // Move task between groups
         groups[originalGroupPos].tasks.splice(originalTaskPos, 1);
-
         groups[moveToGroupPos].tasks.splice(moveToTaskPos, 0, movedTask);
+
+        // Persist changes to the backend using the replaceGroups function
+        await replaceGroups(boardId, groups);
+      } else {
+        const newTaskOrder = arrayMove(
+          groups[originalGroupPos].tasks,
+          originalTaskPos,
+          moveToTaskPos
+        );
+
+        // Update the task order within the group
+        groups[originalGroupPos].tasks = newTaskOrder;
+
+        // Persist changes to the backend using the replaceGroups function
+        await replaceGroups(boardId, groups);
       }
-
-      const newTaskOrder = arrayMove(
-        groups[originalGroupPos].tasks,
-        originalTaskPos,
-        moveToTaskPos
-      );
-      groups[originalGroupPos].tasks = newTaskOrder;
-
-      console.log(newTaskOrder);
     }
-
-    const originalPos = getGroupPos(active.id);
-    const moveToPos = getGroupPos(over.id);
-    const newGroupsOrder = arrayMove(groups, originalPos, moveToPos);
-    console.log(newGroupsOrder);
-
-    await replaceGroups(boardId, newGroupsOrder);
   }
+
+
 
   function updateFixedGroup(groupId, yPos) {
     setGoupTitlesYPosition(prev => ({ ...prev, [groupId]: yPos }))
     let groupIdToFixed = ''
     let highestFixedHeight = -Infinity
     for (const groupId in goupTitlesYPosition) {
-      if (goupTitlesYPosition[groupId] < 260 && 
+      if (goupTitlesYPosition[groupId] < 260 &&
         goupTitlesYPosition[groupId] >= highestFixedHeight) {
-          highestFixedHeight = goupTitlesYPosition[groupId]
-          groupIdToFixed = groupId
+        highestFixedHeight = goupTitlesYPosition[groupId]
+        groupIdToFixed = groupId
       }
     }
 
     setFixedGroup(groups.find(group => group.id === groupIdToFixed))
   }
-  
+
   function updateExpandedGroups(groupId, expanded) {
     setExpandedGroupsId(prev => {
-        if (expanded) 
-            return prev.includes(groupId) ? prev : [...prev, groupId]
-         else 
-            return prev.filter(id => id !== groupId)
+      if (expanded)
+        return prev.includes(groupId) ? prev : [...prev, groupId]
+      else
+        return prev.filter(id => id !== groupId)
     })
   }
 
-  function isFixedGroupExpanded(){
-    return fixedGroup && expandedGroupsId && 
-    expandedGroupsId.some(groupId=> groupId === fixedGroup.id)
+  function isFixedGroupExpanded() {
+    return fixedGroup && expandedGroupsId &&
+      expandedGroupsId.some(groupId => groupId === fixedGroup.id)
   }
 
 
@@ -377,25 +414,26 @@ const BoardDetails = () => {
 
 
       {
-          isFixedGroupExpanded() &&
-          <div className="sticky-labels">
-            <LabelsGrid 
-                    boardId={boardId}
-                    group={fixedGroup}
-                    labels={currentBoard.labels}
-                    handleMasterCheckboxClick={handleMasterCheckboxClick}
-                    checkedGroups={checkedGroups}
-                    isFixed={true}
-              />
-          </div>
+        isFixedGroupExpanded() &&
+        <div className="sticky-labels">
+          <LabelsGrid
+            boardId={boardId}
+            group={fixedGroup}
+            labels={currentBoard.labels}
+            handleMasterCheckboxClick={handleMasterCheckboxClick}
+            checkedGroups={checkedGroups}
+            isFixed={true}
+          />
+        </div>
 
       }
 
       {currentBoard.groups.length > 0 ? (
         <section className="group-list"
-        style={{marginTop:`${isFixedGroupExpanded() ? '-37px' : '0px'}`}}>
+          style={{ marginTop: `${isFixedGroupExpanded() ? '-37px' : '0px'}` }}>
           <DndContext
             onDragEnd={handleDragEnd}
+            onDragStart={handleDragStart}
             collisionDetection={closestCorners}
           >
             <SortableContext
@@ -426,6 +464,7 @@ const BoardDetails = () => {
                   updateFixedGroup={updateFixedGroup}
                   fixedGroup={fixedGroup}
                   updateExpandedGroups={updateExpandedGroups}
+                  isDragging={isDragging}
                 />
               ))}
             </SortableContext>
