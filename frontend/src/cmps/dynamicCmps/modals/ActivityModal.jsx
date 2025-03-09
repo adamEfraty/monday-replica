@@ -21,6 +21,12 @@ export function ActivityModal({ activities }) {
       </section>
       <ul className="activities-modal">
         {activities.map((activity) => {
+          console.log(
+            "A bunch of different data: ",
+            users,
+            activity,
+            boards
+          )
           const user = users.find((user) => user._id === activity.userId);
           const idx = boards.findIndex((board) =>
             board.groups.some((group) => group.id === activity.activity.groupId)
@@ -28,7 +34,6 @@ export function ActivityModal({ activities }) {
           const group = boards[idx].groups.find(
             (group) => group.id === activity.activity.groupId
           );
-          console.log(group);
           const task = group.tasks.find((task) => task.id === activity.taskId);
           const userName = user.fullName
             .split(" ")
@@ -52,9 +57,15 @@ export function ActivityModal({ activities }) {
                     <p>{activity.activity.field}</p>
                   )}
                   {activity.activity.type === "Added" ||
-                  activity.activity.type === "Removed" ? (
-                      <p>{activity.activity.type}</p>
-                    ) : activity.activity.type === "created" ||
+                  activity.activity.type === "Removed" ? 
+                  Array.isArray(activity.activity.item) && activity.activity.item[0].fullName ? (
+                      <div className="added-member">
+                       <p>{activity.activity.type}</p>
+                       <p>{activity.activity.item[0].fullName}</p>
+                      </div>
+                   ) : (
+                    <p>{activity.activity.type}</p>
+                   ) : activity.activity.type === "created" ||
                     activity.activity.type === "Duplicated" ? (
                     <div className="created">
                       <p>{activity.activity.type}</p>

@@ -310,7 +310,7 @@ async function updateTaskInGroup(boardId, userId, newCell) {
       activity:
         newCell.type === 'members'
           ? {
-              roupId: board.groups[groupIndex].id,
+              groupId: board.groups[groupIndex].id,
               field: 'members',
               type:
                 board.groups[groupIndex].tasks[taskIndex].cells[cellIndex].value
