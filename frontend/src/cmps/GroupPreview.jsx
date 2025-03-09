@@ -124,7 +124,7 @@ export const GroupPreview = ({
 
 
       {
-        expanded && fixedGroup && fixedGroup.id === group.id &&
+        !isDragging && expanded && fixedGroup && fixedGroup.id === group.id &&
         <>
           <div className="fixed-area">
             <div className="fixed-group-title">
@@ -179,43 +179,43 @@ export const GroupPreview = ({
 
         {!isDragging && expanded && (
           <div>
-
-            <LabelsGrid
-              boardId={boardId}
-              group={group}
-              labels={labels}
-              handleMasterCheckboxClick={handleMasterCheckboxClick}
-              checkedGroups={checkedGroups}
-              isFixed={false}
-              expanded={expanded}
-            />
+            {!isDragging &&
+              <LabelsGrid
+                boardId={boardId}
+                group={group}
+                labels={labels}
+                handleMasterCheckboxClick={handleMasterCheckboxClick}
+                checkedGroups={checkedGroups}
+                isFixed={false}
+                expanded={expanded}
+              />}
 
 
             {/* Render tasks by cmp order */}
-
-            <SortableContext items={group.tasks?.map(task => task?.id)} strategy={verticalListSortingStrategy}> {/* for dnd Radwan */}
-              {group.tasks.map((task) => {
-                return (
-
-                  <TaskPreview
-                    id={task?.id}
-                    key={task.id}
-                    task={task}
-                    group={group}
-                    labels={labels}
-                    loggedinUser={loggedinUser}
-                    onTaskUpdate={onTaskUpdate}
-                    removeTask={removeTask}
-                    boardId={boardId}
-                    users={users}
-                    chatTempInfoUpdate={chatTempInfoUpdate}
-                    openChat={openChat}
-                    checkedBoxes={checkedBoxes}
-                    handleCheckBoxClick={handleCheckBoxClick}
-                  />
-                )
-              })}
+            <SortableContext
+              items={group.tasks.map((task) => task.id)} // Context for tasks in this group
+              strategy={verticalListSortingStrategy}
+            >
+              {group.tasks.map((task) => (
+                <TaskPreview
+                  id={task?.id}
+                  key={task.id}
+                  task={task}
+                  group={group}
+                  labels={labels}
+                  loggedinUser={loggedinUser}
+                  onTaskUpdate={onTaskUpdate}
+                  removeTask={removeTask}
+                  boardId={boardId}
+                  users={users}
+                  chatTempInfoUpdate={chatTempInfoUpdate}
+                  openChat={openChat}
+                  checkedBoxes={checkedBoxes}
+                  handleCheckBoxClick={handleCheckBoxClick}
+                />
+              ))}
             </SortableContext>
+
             <AddTask group={group} handleAddTask={handleAddTask} />
 
             {/* Render progress by progress array */}

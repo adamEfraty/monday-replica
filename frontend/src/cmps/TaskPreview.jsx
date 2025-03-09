@@ -35,9 +35,9 @@ export function TaskPreview({
     const [taskHovering, setTaskHovering] = useState(null)
 
     return (
-        <section className="task-preview" 
-        onMouseOver={()=>setTaskHovering(task.id)} 
-        onMouseLeave={()=>setTaskHovering(null)}>
+        <section className="task-preview"
+            onMouseOver={() => setTaskHovering(task.id)}
+            onMouseLeave={() => setTaskHovering(null)}>
             <section
                 ref={setNodeRef}
                 className="group-grid"
@@ -76,8 +76,8 @@ export function TaskPreview({
                 })}
             </section >
         </section>
-        
-        
+
+
     );
 }
 
