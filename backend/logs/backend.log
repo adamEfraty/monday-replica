@@ -250,3 +250,19 @@
 10.3.2025, 0:36:50 - INFO - Up and running on http://localhost:3000
 10.3.2025, 0:37:54 - DEBUG - auth.service - login with email: kiwi@gmail.com
 10.3.2025, 0:37:54 - INFO - User login:  | {"_id":"67c45c55c2f1ef4df8072022","email":"kiwi@gmail.com","fullName":"Kiwi","id":"E3iHE","imgUrl":"https://res.cloudinary.com/danlxus36/image/upload/v1740682607/3_iij9dg.jpg"}
+10.3.2025, 5:19:20 - INFO - Up and running on http://localhost:3000
+10.3.2025, 5:19:54 - INFO - Up and running on http://localhost:3000
+10.3.2025, 5:19:56 - INFO - Up and running on http://localhost:3000
+10.3.2025, 5:20:03 - INFO - Up and running on http://localhost:3000
+10.3.2025, 5:20:10 - INFO - Up and running on http://localhost:3000
+10.3.2025, 5:20:17 - INFO - Up and running on http://localhost:3000
+10.3.2025, 5:21:46 - INFO - Up and running on http://localhost:3000
+10.3.2025, 5:23:37 - INFO - Up and running on http://localhost:3000
+10.3.2025, 5:24:26 - INFO - Up and running on http://localhost:3000
+10.3.2025, 5:25:17 - INFO - Up and running on http://localhost:3000
+10.3.2025, 5:25:19 - INFO - Up and running on http://localhost:3000
+10.3.2025, 5:25:55 - INFO - Up and running on http://localhost:3000
+10.3.2025, 5:26:17 - INFO - Up and running on http://localhost:3000
+10.3.2025, 5:26:23 - INFO - Up and running on http://localhost:3000
+10.3.2025, 5:26:31 - INFO - Up and running on http://localhost:3000
+10.3.2025, 5:26:46 - INFO - Up and running on http://localhost:3000
