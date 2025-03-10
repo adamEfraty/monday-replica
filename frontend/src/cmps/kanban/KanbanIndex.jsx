@@ -11,7 +11,7 @@ export function KanbanIndex() {
     const [currentBoard, setCurrentBoard] = useState({});
     const groups = currentBoard.groups;
     const loggedInUser = useSelector((state) => state.userModule.user);
-    const users = useSelector((state) => state.userModule.users)
+    const users = useSelector((state) => state.userModule.users);
 
     useEffect(() => {
         const fetchBoard = async () => {
@@ -21,7 +21,6 @@ export function KanbanIndex() {
         fetchBoard();
     }, [boards, boardId]);
 
-
     async function getBoardById() {
         return await boardService.getById(boardId);
     }
@@ -30,20 +29,12 @@ export function KanbanIndex() {
         await updateTask(currentBoard._id, loggedInUser._id, newCell);
     };
 
-    console.log(groups)
     return (
         <div className="kanban-container">
-
             <div className="kanban-groups-container">
-
-                {
-                    groups?.map((group) => {
-                        return (<KanbanGroup key={group.id} group={group} onTaskUpdate={onTaskUpdate} users={users} />)
-                    })
-
-                }
-
-
+                {groups?.map((group) => (
+                    <KanbanGroup key={group.id} group={group} onTaskUpdate={onTaskUpdate} users={users} />
+                ))}
             </div>
         </div>
     );
