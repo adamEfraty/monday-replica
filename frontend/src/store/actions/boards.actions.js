@@ -74,7 +74,7 @@ export async function addGroup(boardId) {
 export async function addItem(
   boardId,
   groupId,
-  taskTitle,
+  taskTitle = '',
   isStart = null,
   userId
 ) {
