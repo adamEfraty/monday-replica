@@ -36,7 +36,7 @@ export async function updateUser(user) {
 export async function login(credentials) {
   try {
     const user = await userService.login(credentials)
-
+    console.log("user: ", user)
     await store.dispatch({
       type: SET_USER,
       user,
@@ -51,6 +51,7 @@ export async function login(credentials) {
 export async function signup(credentials) {
   try {
     const user = await userService.signup(credentials)
+    console.log("user: ", user)
     store.dispatch({
       type: SET_USER,
       user,
