@@ -49,6 +49,9 @@ export function TaskTitle({
 
   const deleteTaskModal = openModals.some((modalId) => modalId === 'delete-' + cellInfo.taskId)
 
+  const isChecked = checkedBoxes.some((subArr) => subArr[1] == cellInfo.taskId)
+
+
   useEffect(() => {
     // in this way the modal wont show itself after refresh
     setTimeout(() => setOpenAnimation(false), 50);
@@ -168,6 +171,7 @@ export function TaskTitle({
   }
 
 
+
   return (
     <>
       <section className="task-title">
@@ -189,11 +193,18 @@ export function TaskTitle({
           <div className="input-styles">
             <input
               type="checkbox"
-              checked={checkedBoxes.some(
-                (subArr) => subArr[1] == cellInfo.taskId
-              )}
+              checked={isChecked}
               onChange={() => handleCheckBoxClick(group.id, cellInfo.taskId)}
+              style={{backgroundColor: isChecked ? `#0073EA` : 'white',
+                border: isChecked && 'none',
+              }}
             />
+            <div className="check-icon"
+            onClick={() => handleCheckBoxClick(group.id, cellInfo.taskId)}>
+              {
+                isChecked && getSvg('check')
+              }
+            </div>
           </div>
           <div className="title-part ">
             {

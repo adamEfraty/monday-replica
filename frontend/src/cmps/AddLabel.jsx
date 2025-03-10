@@ -17,10 +17,10 @@ export function AddLabel({groupId, boardId, isFixed, labels}){
     const labelsLength = labels.reduce((acc, label) => acc+label.width, 0);
 
     const newLabels = [
-        {type: "status", name:"status", svg: getSvg('status-icon')},
-        {type: "priority", name:"priority", svg: getSvg('priority-icon')},
-        {type: "members", name:"members", svg: getSvg('members-icon')},
-        {type: "date", name:"date", svg: getSvg('date-icon')},
+        {type: "status", name:"Status", svg: getSvg('status-icon')},
+        {type: "priority", name:"Priority", svg: getSvg('priority-icon')},
+        {type: "members", name:"People", svg: getSvg('members-icon')},
+        {type: "date", name:"Date", svg: getSvg('date-icon')},
     ]
 
     // close and open modal as needed

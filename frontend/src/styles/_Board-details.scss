@@ -2,9 +2,10 @@
 
 .labels-grid {
   display: grid;
-  font-size: 0.8rem;
+  font-size: 0.85rem;
+  font-family: "Quicksand", serif;
   grid-template-columns: 10px 600px repeat(5, 150px) 500px;
-  grid-template-rows: 34px;
+  grid-template-rows: 35px;
   width: 100%;
 }
 
@@ -13,7 +14,7 @@
   display: grid;
   grid-template-columns: 10px 600px repeat(5, 150px) 500px;
 
-  grid-template-rows: 34px;
+  grid-template-rows: 35px;
   width: 100%; /* Set a fixed width */
 
   .invisible {
@@ -57,7 +58,7 @@
     margin-left: 10px;
     display: grid;
     grid-template-columns: 10px 600px repeat(5, 150px) 500px;
-    grid-template-rows: 34px;
+    grid-template-rows: 35px;
     background: white;
 
     .empty-space{
@@ -72,12 +73,25 @@
   position: relative;
   margin-top: -37px;
   & input[type='checkbox'] {
-    width: 20px;
-    height: 20px;
+    appearance: none; /* Remove default checkbox */
+    width: 16px;
+    height: 16px;
     display: flex;
     align-self: center;
     justify-self: center;
     cursor: pointer;
+    border: solid #C3C6D4 1px;
+    border-radius: 2px;
+
+    &:hover{
+      border-color: black;
+    }
+  }
+
+  .check-icon{
+    cursor: pointer;
+    position: absolute;
+    top: 9px;
   }
 }
 
@@ -198,7 +212,7 @@
 .labels-grid div {
   // padding: 0.7rem;
   text-align: center;
-  font-weight: 800;
+  font-weight: 500;
   border: 1px solid $table-lines-gray;
   border-left: none;
 }
@@ -396,7 +410,7 @@ div.group-title {
       cursor: col-resize;
       position: absolute;
       right: 0px;
-      width: 8px;
+      width: 7px;
       height: 100%;
       background-color: #d0d4e4;
       border-radius: 2px;
@@ -414,16 +428,33 @@ div.group-title {
 
   height: 100%;
   border-right: 1px solid $table-lines-gray;
-  padding-right: 1.34rem;
-  padding-left: 0.65rem;
+  padding-right: 14px;
+  padding-left: 4px;
 
   input {
+    appearance: none;
     position: relative;
     left: 5px;
-    height: 20px;
-    width: 20px;
+    height: 16px;
+    width: 16px;
+    border: solid #C3C6D4 1px;
+    border-radius: 2px;
+
+    &:hover{
+            border-color: black;
+          }
+  }
+
+  .check-icon{
+    cursor: pointer;
+    position: absolute;
+    top: 8px;
+    left: 9px;
+    border: none;
   }
 }
+
+
 
 .search-empty-board-image {
   width: 260px;
@@ -477,6 +508,8 @@ div.group-title {
 div.input-styles {
   border: none;
   border-right: 1px solid $table-lines-gray;
+  padding-right: 9px;
+  padding-left: 9px;
 }
 
 .change-location {

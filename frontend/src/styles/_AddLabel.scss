@@ -27,13 +27,16 @@
         }
 
         .plus{
+            display: flex;
+            align-items: center;
+            justify-content: center;
             border: none;
             transition: transform $ptt ease, color $ptt ease, margin-right $ptt ease;
         }
 
         .plus-open{
             border: none;
-            margin-right: 3px;
+            margin-top: 2px;
             color: #005EB6;
             transform: rotate(45deg);
             transition: transform $ptt ease, color $ptt ease, margin-right $ptt ease;
