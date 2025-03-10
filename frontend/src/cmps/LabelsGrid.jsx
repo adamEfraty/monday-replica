@@ -48,7 +48,7 @@ export function LabelsGrid({
             ))}
             </SortableContext >
 
-            <AddLabel groupId={group.id} boardId={boardId} isFixed={isFixed}/>
+            <AddLabel groupId={group.id} boardId={boardId} isFixed={isFixed} labels={labels}/>
         </section>
     )
 }

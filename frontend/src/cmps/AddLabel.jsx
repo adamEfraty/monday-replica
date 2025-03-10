@@ -7,12 +7,14 @@ import { blue } from "@mui/material/colors";
 
 
 
-export function AddLabel({groupId, boardId, isFixed}){
+export function AddLabel({groupId, boardId, isFixed, labels}){
     const modalId = `addlabel-${groupId}${isFixed?'fix':''}`
     const openModals = useSelector(state => state.boardModule.openModals)
     const modal = openModals.some(modId => modId === modalId)
     const modalRef = useRef(null)
     const buttonRef = useRef(null)
+
+    const labelsLength = labels.reduce((acc, label) => acc+label.width, 0);
 
     const newLabels = [
         {type: "status", name:"status", svg: getSvg('status-icon')},
@@ -84,7 +86,8 @@ export function AddLabel({groupId, boardId, isFixed}){
                 </section>
             }
 
-            {isFixed && <div className="fixed-space"/>}
+            {isFixed && <div className="fixed-space"
+            style={{width: Math.max(60, 1175 - labelsLength)}}/>}
         </section>
     )
 }

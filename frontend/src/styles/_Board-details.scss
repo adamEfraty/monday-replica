@@ -201,7 +201,6 @@
   font-weight: 800;
   border: 1px solid $table-lines-gray;
   border-left: none;
-  border-bottom: none;
 }
 
 div {
@@ -314,7 +313,7 @@ div {
 }
 
 .nothing {
-  border: 1px solid #e1dede;
+  border: 1px solid $table-lines-gray;
 }
 
 .chat-icon {
@@ -334,7 +333,7 @@ section.labels-grid {
   background-color: #fff;
 
   div {
-    border-bottom: 1px solid #e0dede;
+    border-bottom: 1px solid $table-lines-gray;
   }
 }
 
@@ -413,7 +412,8 @@ div.group-title {
   display: flex;
   align-items: center;
 
-  border-right: 1px solid #e0dede;
+  height: 100%;
+  border-right: 1px solid $table-lines-gray;
   padding-right: 1.34rem;
   padding-left: 0.65rem;
 
@@ -476,7 +476,7 @@ div.group-title {
 
 div.input-styles {
   border: none;
-  border-right: 1px solid #e0dede;
+  border-right: 1px solid $table-lines-gray;
 }
 
 .change-location {

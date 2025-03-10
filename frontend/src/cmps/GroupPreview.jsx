@@ -119,6 +119,8 @@ export const GroupPreview = ({
     setGroupTitle(newGroupTitle)
   }
 
+  const labelsLength = labels.reduce((acc, label) => acc+label.width, 0);
+
   return (
     <div style={style} ref={setNodeRef} className="group-list-dnd" >
 
@@ -188,6 +190,7 @@ export const GroupPreview = ({
               checkedGroups={checkedGroups}
               isFixed={false}
               expanded={expanded}
+              labelsLength={labelsLength}
             />
 
 
@@ -213,6 +216,7 @@ export const GroupPreview = ({
                     checkedBoxes={checkedBoxes}
                     handleCheckBoxClick={handleCheckBoxClick}
                     boardScroll={boardScroll}
+                    labelsLength={labelsLength}
                   />
                 )
               })}
@@ -243,7 +247,8 @@ export const GroupPreview = ({
                   <div className={lable.type} key={`progress-${index} `}></div>
                 )
               )}
-              <div className="empty-space"/>
+              <div className="empty-space"
+              style={{width: Math.max(90, 1210 - labelsLength)}}/>
             </section>
           </div >
         )}
