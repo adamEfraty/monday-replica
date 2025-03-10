@@ -27,6 +27,7 @@
 @use './dynamicCmps/modals/DeleteLabelConfirmation';
 @use './dynamicCmps//modals/DeleteTaskModal';
 @use './dynamicCmps/modals/ActivityModal';
+@use './MiniGroup';
 
 * {
   padding: 0;

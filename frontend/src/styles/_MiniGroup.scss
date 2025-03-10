@@ -1,0 +1,20 @@
+.minigroup-container {
+  border: 1px solid #b9b9b9;
+  display: flex;
+  gap: 3rem;
+  padding: 20px;
+  border-top-left-radius: 7px;
+  border-bottom-left-radius: 7px;
+  width: 2000px;
+  margin-top: 3rem;
+  .title-arrow-flex {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .minigroup-inner-flex {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+}
