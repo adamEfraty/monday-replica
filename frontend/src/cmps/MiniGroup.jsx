@@ -27,7 +27,7 @@ export function MiniGroup({ titleRef,
         }>
             <div className="minigroup-inner-flex">
                 <div className="title-arrow-flex" style={{ color: `${group.color}` }}>
-                    <span><ArrowRightIcon onClick={() => handelExpandedChange((prev) => !prev)} /></span>
+                    <span><ArrowRightIcon onClick={() => handelExpandedChange((prev) => !prev)} style={{ cursor: 'pointer' }} /></span>
                     <h2 >{groupTitle}</h2>
                 </div>
                 <div style={{ marginLeft: '10px' }}>{group.tasks.length} tasks</div>
