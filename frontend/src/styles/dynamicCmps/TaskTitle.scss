@@ -61,18 +61,6 @@
   justify-content: space-between;
 }
 
-.remove-btn {
-  border: none;
-  color: rgb(247, 113, 65);
-  padding: 0 5px;
-  background-color: #fff;
-
-  &:hover {
-    background-color: #dedede;
-    font-weight: 600;
-  }
-}
-
 .checkbox-taskName {
   display: flex;
   gap: 1rem;

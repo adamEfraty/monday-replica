@@ -212,6 +212,7 @@ export const GroupPreview = ({
                     openChat={openChat}
                     checkedBoxes={checkedBoxes}
                     handleCheckBoxClick={handleCheckBoxClick}
+                    boardScroll={boardScroll}
                   />
                 )
               })}
@@ -222,7 +223,7 @@ export const GroupPreview = ({
             <section
               className="progress-grid"
               style={{
-                gridTemplateColumns: `10px ${labels.map(label => `${label.width}px`).join(' ')} 100px`
+                gridTemplateColumns: `10px ${labels.map(label => `${label.width}px`).join(' ')} auto`
               }}
             >
               <div className="invisible">
@@ -242,6 +243,7 @@ export const GroupPreview = ({
                   <div className={lable.type} key={`progress-${index} `}></div>
                 )
               )}
+              <div className="empty-space"/>
             </section>
           </div >
         )}
