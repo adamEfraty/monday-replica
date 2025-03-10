@@ -3,15 +3,17 @@
   display: flex;
   padding: 20px;
   gap: 20px;
-  overflow-x: auto;
+  overflow-x: auto; /* Enable horizontal scroll */
   background-color: #f5f5f5;
   min-height: 100vh;
+  white-space: nowrap; /* Prevent line breaks for groups */
+}
 
-  .kanban-groups-container {
-    display: flex;
-    gap: 20px;
-    padding: 10px;
-  }
+/* Kanban Groups Container */
+.kanban-groups-container {
+  display: inline-flex; /* Keep groups in a row */
+  gap: 20px;
+  padding: 10px;
 }
 
 /* Kanban Group Styles */
@@ -26,6 +28,7 @@
   max-height: 90vh;
   overflow: hidden;
   position: relative; /* Important for fixed header and footer */
+  white-space: normal; /* Allow tasks to wrap within groups */
 
   .group-title {
     font-size: 16px;
@@ -64,6 +67,7 @@
   flex-direction: column;
 }
 
+/* Task Card Styles */
 .task-card {
   background-color: #fff;
   border-radius: 6px;
@@ -122,7 +126,7 @@
 .kanban-container::-webkit-scrollbar,
 .kanban-group-card::-webkit-scrollbar {
   width: 8px;
-  height: 8px;
+  height: 8px; /* Horizontal scrollbar height */
 }
 
 .kanban-container::-webkit-scrollbar-thumb,
@@ -133,5 +137,19 @@
 
 .kanban-container::-webkit-scrollbar-thumb:hover,
 .kanban-group-card::-webkit-scrollbar-thumb:hover {
+  background-color: #bbb;
+}
+
+/* Hide horizontal scrollbar but allow scroll */
+.kanban-container::-webkit-scrollbar {
+  height: 8px; /* Horizontal scrollbar height */
+}
+
+.kanban-container::-webkit-scrollbar-thumb {
+  background-color: #ccc;
+  border-radius: 4px;
+}
+
+.kanban-container::-webkit-scrollbar-thumb:hover {
   background-color: #bbb;
 }
