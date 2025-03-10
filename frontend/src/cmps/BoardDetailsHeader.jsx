@@ -10,12 +10,14 @@ import {
   getFilterContext,
 } from "../store/actions/boards.actions";
 import { boardService } from "../services/board";
+import { useNavigate } from "react-router";
 export function BoardDetailsHeader({ handleAddTask, boardTitle, boardId, boardColumnsFilter, handleFilteredLabel }) {
   const filterBy = useSelector((state) => state.boardModule.filterBy);
   const boards = useSelector((state) => state.boardModule.boards);
   const [filterByToEdit, setFilterByToEdit] = useState(filterBy);
   const [filterState, setFilterState] = useState(boardService.getFilterState());
 
+  const navigate = useNavigate()
   useEffect(() => {
     const filter = getFilterContext();
     setFilterByToEdit(filter);
@@ -51,6 +53,9 @@ export function BoardDetailsHeader({ handleAddTask, boardTitle, boardId, boardCo
           </div>
           <HorizDotsIcon style={iconStyle} />
           <hr className="highlight" />
+        </div>
+        <div onClick={() => navigate(`/board/kanban/${boardId}`)}>
+          go to kanban
         </div>
       </section>
       <hr />
