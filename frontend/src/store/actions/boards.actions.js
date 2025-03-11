@@ -228,6 +228,8 @@ export async function removeBoard(boardId) {
 
 export async function updateTask(boardId, userId, newCell) {
   console.log('It is me you looking for ', boardId, userId, newCell)
+
+  console.log(newCell, 'wtf is new cell!?')
   await boardService.updateTaskInGroup(boardId, userId, newCell)
 
   const board = await boardService.getById(boardId)

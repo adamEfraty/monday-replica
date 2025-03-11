@@ -46,6 +46,6 @@ export function KanbanGroup({ group, onTaskUpdate, users, boardId, user }) {
             </Droppable>
 
             <button className="add-item-button" onClick={addTask}>+ Add Item</button>
-        </div>
+        </div >
     );
 }

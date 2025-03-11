@@ -1,5 +1,6 @@
 .minigroup-container {
   border: 1px solid #b9b9b9;
+  background-color: #fff;
   display: flex;
   gap: 3rem;
   padding: 20px;
@@ -7,6 +8,7 @@
   border-bottom-left-radius: 7px;
   width: 2000px;
   margin-top: 1rem;
+  align-items: center;
   .title-arrow-flex {
     display: flex;
     gap: 1rem;
@@ -15,6 +17,7 @@
   .minigroup-inner-flex {
     display: flex;
     flex-direction: column;
+    width: 20%;
     gap: 1rem;
   }
 }

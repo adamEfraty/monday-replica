@@ -7,6 +7,8 @@ import { updateTask, replaceGroups } from "../../store/actions/boards.actions.js
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { AppHeader } from "../AppHeader.jsx";
 import { SideBar } from "../SideBar.jsx";
+import { loadUsers } from "../../store/actions/user.actions.js";
+
 
 export function KanbanIndex() {
     const { boardId } = useParams();
@@ -16,13 +18,19 @@ export function KanbanIndex() {
     const loggedInUser = useSelector((state) => state.userModule.user);
     const users = useSelector((state) => state.userModule.users);
 
+
+
+
     useEffect(() => {
         const fetchBoard = async () => {
             const board = await getBoardById();
+            await loadUsers()
             setCurrentBoard(board);
             setGroups(board.groups);
         };
         fetchBoard();
+        console.log(users, 'kanban')
+
     }, [boards, boardId]);
 
     async function getBoardById() {
@@ -80,10 +88,13 @@ export function KanbanIndex() {
         <>
             <AppHeader userData={loggedInUser} />
 
+            <icon1 />
             <section className="content">
+
                 <SideBar boards={boards} user={loggedInUser} />
 
                 <DragDropContext onDragEnd={handleDragEnd}>
+
                     <Droppable droppableId="all-groups" direction="horizontal" type="group">
                         {(provided) => (
                             <div
