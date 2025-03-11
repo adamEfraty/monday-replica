@@ -1,34 +1,32 @@
-.task-title{
 
-      .delete-task-modal{
-        z-index: 1;
-        position: absolute;
-        bottom: -42px; // temporary
-        left: 23px;
-        width: 200px;
+.delete-task-modal{
+    z-index: 3;
+    position: absolute;
+    top: 35px; // temporary
+    left: -20px;
+    width: 200px;
+    background-color: white;
+    padding: 7px;
+    box-shadow: 0px 4px 10px rgb(179, 179, 179);
+    border-radius: 8px;
+
+    button{
+        cursor: pointer;
+        width: 100%;
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        padding-left: 10px;
+        font-family: "Quicksand", serif;
+        color: rgb(80, 80, 80);
+        font-weight: 600;
         background-color: white;
-        padding: 7px;
-        box-shadow: 0px 4px 10px rgb(179, 179, 179);
-        border-radius: 8px;
+        height: 30px;
+        border-color: transparent;
+        border-radius: 4px;
 
-        button{
-            cursor: pointer;
-            width: 100%;
-            display: flex;
-            gap: 10px;
-            align-items: center;
-            padding-left: 10px;
-            font-family: "Quicksand", serif;
-            color: rgb(80, 80, 80);
-            font-weight: 600;
-            background-color: white;
-            height: 30px;
-            border-color: transparent;
-            border-radius: 4px;
-
-            &:hover{
-                background-color: #F0F0F1;
-            }
+        &:hover{
+            background-color: #F0F0F1;
         }
     }
 }

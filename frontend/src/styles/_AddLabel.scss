@@ -1,18 +1,21 @@
+@use 'vars' as *;
+
+
 .add-label{
     display: flex;
     align-items: center;
-    justify-content: center;
-    $add-label-width: 25px;
-    $add-label-height: 25px;
     position: relative;
-    width: $add-label-width;
+    width: 100%;
     height: 100%;
-    margin-left: 10px;
+    background-color: white;
+    padding-left: 10px;
+    border-top: solid $table-lines-gray 1px;
+    border-bottom: solid $table-lines-gray 1px;
 
     .add-column-button{
         cursor: pointer;
-        width: $add-label-width;
-        height: $add-label-height;
+        width: 25px;
+        height: 25px;
         background-color: transparent;
         border-color: transparent;
         border-radius: 4px;
@@ -39,8 +42,8 @@
 
     .add-label-modal{
         position: absolute;
-        right: $add-label-width + 5px;
-        top: -5px;
+        left: -150px;
+        top: 2px;
         width: 150px;
         background-color: white;
         padding: 10px;
@@ -65,5 +68,12 @@
                 background-color: #F0F0F1;
             }
         }
+    }
+
+    .fixed-space{
+        width: 60px;
+        height: 20px;
+        background-color: white;
+        border: none;
     }
 }

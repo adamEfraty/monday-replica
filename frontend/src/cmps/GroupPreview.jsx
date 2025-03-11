@@ -193,7 +193,6 @@ export const GroupPreview = ({
               expanded={expanded}
             />
 
-
             {/* Render tasks by cmp order */}
             <SortableContext
               items={group.tasks.map((task) => task.id)} // Context for tasks in this group
@@ -215,6 +214,7 @@ export const GroupPreview = ({
                   openChat={openChat}
                   checkedBoxes={checkedBoxes}
                   handleCheckBoxClick={handleCheckBoxClick}
+                  boardScroll={boardScroll}
                 />
               ))}
             </SortableContext>
@@ -225,7 +225,7 @@ export const GroupPreview = ({
             <section
               className="progress-grid"
               style={{
-                gridTemplateColumns: `10px ${labels.map(label => `${label.width}px`).join(' ')} 100px`
+                gridTemplateColumns: `10px ${labels.map(label => `${label.width}px`).join(' ')} auto`
               }}
             >
               <div className="invisible">
@@ -245,6 +245,7 @@ export const GroupPreview = ({
                   <div className={lable.type} key={`progress-${index} `}></div>
                 )
               )}
+              <div className="empty-space" />
             </section>
           </div >
         ) : <MiniGroup boardId={boardId}

@@ -1,3 +1,5 @@
+@use 'vars' as *;
+
 .labels-grid {
   display: grid;
   font-size: 0.8rem;
@@ -29,12 +31,18 @@
     }
   }
 
+  .empty-space {
+    border-bottom: solid $table-lines-gray 1px;
+    border-top: solid $table-lines-gray 1px;
+    width: 90px;
+  }
+
   .taskTitle {
     z-index: 1;
     position: sticky;
-    left: -33px;
+    left: 10px;
     background-color: white;
-    border-right: solid #e0dede 1px;
+    border-right: solid $table-lines-gray 1px;
     border-bottom: solid white 1px;
   }
 }
@@ -42,12 +50,16 @@
 .task-preview {
   position: relative;
 
-  .group-grid {
+  .task-grid {
     margin-left: 10px;
     display: grid;
     grid-template-columns: 10px 600px repeat(5, 150px) 500px;
     grid-template-rows: 34px;
     background: white;
+
+    .empty-space {
+      border-bottom: solid $table-lines-gray 1px;
+    }
   }
 }
 
@@ -133,7 +145,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid #e0dede;
+  border-right: 1px solid $table-lines-gray;
+  border-bottom: 1px solid $table-lines-gray;
 }
 
 .item {
@@ -183,7 +196,7 @@
   // padding: 0.7rem;
   text-align: center;
   font-weight: 800;
-  border: 1px solid #e0dede;
+  border: 1px solid $table-lines-gray;
   border-left: none;
   border-bottom: none;
 }
@@ -199,7 +212,7 @@ div {
   background-color: #fff;
   padding: 5px 10px;
   font-size: 1.3rem;
-  border: 1px solid #e1dede;
+  border: 1px solid #880000;
   border-radius: 4px;
   cursor: pointer;
 
@@ -325,13 +338,15 @@ section.labels-grid {
 div.group-title {
   position: sticky;
   left: 0px;
-  width: calc(100vw - 320px);
+  width: calc(100vw - 500px);
   padding: 1rem;
   background-color: white;
   z-index: 4;
 }
 .prog-box {
-  border: 1px solid #e0dede;
+  border-right: 1px solid $table-lines-gray;
+  border-top: 1px solid $table-lines-gray;
+  border-bottom: 1px solid $table-lines-gray;
 }
 .stick-task {
   position: sticky;
@@ -360,7 +375,7 @@ div.group-title {
     position: absolute;
     left: -47px;
     top: -1px;
-    width: 40px;
+    width: 42px;
     height: calc(100% + 3px);
     border: none;
 

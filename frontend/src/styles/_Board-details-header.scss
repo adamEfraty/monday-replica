@@ -65,6 +65,15 @@ header.board-details-header{
   top:0px;
   background-color: white;
   z-index: 11;
+
+  .white-cover{
+    position: absolute;
+    top: 0px;
+    left: -35px;
+    width: 35px;
+    height: 250px;
+    background-color: white;
+  }
 }
 
 .board-header-actions {
