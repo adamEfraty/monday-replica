@@ -368,3 +368,6 @@
 13.3.2025, 5:54:38 - DEBUG - auth.service - login with email: kiwi@gmail.com
 13.3.2025, 5:54:38 - INFO - User login:  | {"_id":"67c45c55c2f1ef4df8072022","email":"kiwi@gmail.com","fullName":"Kiwi","id":"E3iHE","imgUrl":"https://res.cloudinary.com/danlxus36/image/upload/v1740682607/3_iij9dg.jpg"}
 13.3.2025, 7:17:48 - INFO - Up and running on http://localhost:3000
+13.3.2025, 23:55:27 - INFO - Up and running on http://localhost:3000
+13.3.2025, 23:55:54 - DEBUG - auth.service - login with email: efraty665@gmail.com
+13.3.2025, 23:55:54 - INFO - User login:  | {"_id":"67ca519f85c61510baa798fd","email":"efraty665@gmail.com","fullName":"adam","imgUrl":"https://res.cloudinary.com/danlxus36/image/upload/v1741312413/best-selfie_xlxkpb.jpg","isAdmin":null}
