@@ -286,3 +286,23 @@
 11.3.2025, 2:20:20 - INFO - Up and running on http://localhost:3000
 11.3.2025, 2:20:32 - DEBUG - auth.service - login with email: kiwi@gmail.com
 11.3.2025, 2:20:32 - INFO - User login:  | {"_id":"67c45c55c2f1ef4df8072022","email":"kiwi@gmail.com","fullName":"Kiwi","id":"E3iHE","imgUrl":"https://res.cloudinary.com/danlxus36/image/upload/v1740682607/3_iij9dg.jpg"}
+11.3.2025, 17:44:06 - ERROR - while finding board by id: 41p0g | BSONError: hex string must be 24 characters
+11.3.2025, 17:44:06 - ERROR - hex string must be 24 characters
+11.3.2025, 17:44:35 - ERROR - while finding board by id: 41p0g | BSONError: hex string must be 24 characters
+11.3.2025, 17:44:35 - ERROR - hex string must be 24 characters
+11.3.2025, 17:45:30 - DEBUG - auth.service - login with email: kiwi@gmail.com
+11.3.2025, 17:45:30 - INFO - User login:  | {"_id":"67c45c55c2f1ef4df8072022","email":"kiwi@gmail.com","fullName":"Kiwi","id":"E3iHE","imgUrl":"https://res.cloudinary.com/danlxus36/image/upload/v1740682607/3_iij9dg.jpg"}
+11.3.2025, 17:46:07 - ERROR - hex string must be 24 characters
+11.3.2025, 17:46:07 - ERROR - while finding board by id: GfyUI | BSONError: hex string must be 24 characters
+11.3.2025, 17:46:12 - ERROR - while finding board by id: GfyUI | BSONError: hex string must be 24 characters
+11.3.2025, 17:46:12 - ERROR - hex string must be 24 characters
+13.3.2025, 3:25:08 - INFO - Up and running on http://localhost:3000
+13.3.2025, 3:29:57 - DEBUG - auth.service - login with email: kiwi@gmail.com
+13.3.2025, 3:29:57 - INFO - User login:  | {"_id":"67c45c55c2f1ef4df8072022","email":"kiwi@gmail.com","fullName":"Kiwi","id":"E3iHE","imgUrl":"https://res.cloudinary.com/danlxus36/image/upload/v1740682607/3_iij9dg.jpg"}
+13.3.2025, 3:32:15 - INFO - Up and running on http://localhost:3000
+13.3.2025, 3:32:16 - INFO - Up and running on http://localhost:3000
+13.3.2025, 3:32:28 - INFO - Up and running on http://localhost:3000
+13.3.2025, 3:32:33 - DEBUG - auth.service - login with email: kiwi@gmail.com
+13.3.2025, 3:32:33 - INFO - User login:  | {"_id":"67c45c55c2f1ef4df8072022","email":"kiwi@gmail.com","fullName":"Kiwi","id":"E3iHE","imgUrl":"https://res.cloudinary.com/danlxus36/image/upload/v1740682607/3_iij9dg.jpg"}
+13.3.2025, 3:34:04 - DEBUG - auth.service - login with email: kiwi@gmail.com
+13.3.2025, 3:34:04 - INFO - User login:  | {"_id":"67c45c55c2f1ef4df8072022","email":"kiwi@gmail.com","fullName":"Kiwi","id":"E3iHE","imgUrl":"https://res.cloudinary.com/danlxus36/image/upload/v1740682607/3_iij9dg.jpg"}
