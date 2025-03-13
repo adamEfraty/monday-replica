@@ -12,7 +12,6 @@ export function Members({ cellInfo, onTaskUpdate, users, labelWidth }) {
 
     const defultImg = 'https://upload.wikimedia.org/wikipedia/commons/2/2c/Default_pfp.svg'
 
-    // close and open modal as needed
     function modalToggle() {
         modal
             ? closeModal(cellInfo.taskId + cellInfo.labelId)
@@ -46,7 +45,7 @@ export function Members({ cellInfo, onTaskUpdate, users, labelWidth }) {
 
     }, [modal])
 
-    const numberOfMembersThatFits = Math.floor(labelWidth / 35) //this will changes base on images width
+    const numberOfMembersThatFits = Math.floor(labelWidth / 35)
     const displayedMembers = cellInfo?.value?.slice(0, numberOfMembersThatFits);
     const extraMembersCount = cellInfo?.value?.length - numberOfMembersThatFits;
     return (
