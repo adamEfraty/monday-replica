@@ -4,8 +4,9 @@
   .task-title {
     position: relative;
     width: 100%;
+    height: 100%;
     display: grid;
-    grid-template-columns: 1fr 70px 70px;
+    grid-template-columns: 1fr 66px;
     align-items: stretch;
     border-top: 1px solid #dedede;
 
@@ -36,11 +37,45 @@
       }
     }
 
-    .title-part {
+    .drag-part {
       display: flex;
-      gap: 1rem;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      height: 100%;
+    }
 
-      align-self: center;
+    .text-part{
+      position: absolute;
+      top: 7px;
+      left: 45px;
+
+      p{
+        cursor: text;
+        text-align: left;
+        font-family: "Quicksand", serif;
+        font-size: 0.85rem;
+        height: 60%;
+        padding: 2px 4px 2px 4px;
+        color: #323338;
+
+        &:hover{
+          border: solid #C3C6D4 1px;
+          border-radius: 3px;
+        }
+  
+      }
+  
+      input{
+        outline: none;
+        font-family: "Quicksand", serif;
+        font-size: 0.85rem;
+        font-weight: 500;
+        padding: 2px;
+        border: solid #0073EA 1px;
+        border-radius: 3px;
+        color: #323338;
+      }
     }
   }
 }
@@ -54,19 +89,8 @@
   display: flex;
 }
 
-.task-title-flex {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: space-between;
-}
-
 .checkbox-taskName {
   display: flex;
-  gap: 1rem;
-  span {
-    width: 100%;
-  }
 }
 
 .input-styles {

@@ -292,6 +292,7 @@ async function removeTaskFromGroup(boardId, groupId, taskId) {
 }
 // cell: {taskId:xxx, labelId: xxx, value: xxx, type: xxx}
 async function updateTaskInGroup(boardId, userId, newCell) {
+  console.log('newCell', newCell)
   try {
     const board = await getById(boardId) // Call directly without 'this'
     const groupIndex = board.groups.findIndex((group) =>
@@ -743,15 +744,7 @@ function getDefultCell(label, taskId) {
       return { taskId, labelId: label.id, value: [], type: label.type }
 
     case 'date': {
-      const today = new Date()
-      const formattedDate = utilService.formatDateToStr(today)
-
-      return {
-        taskId,
-        labelId: label.id,
-        value: formattedDate,
-        type: label.type,
-      }
+      return { taskId, labelId: label.id, value: null, type: label.type}
     }
 
     default:

@@ -1,31 +1,18 @@
-.prog-box.with-priority {
-  padding: 5px;
 
-  .progress-priority {
-    display: flex;
-    padding: 0px;
-    width: 100%;
-    height: 100%;
-    border: none;
+.prog-box.with-priority{
+    padding: 5px;
 
-    .color-block {
-      padding: 0px;
-      height: 100%;
-      transition: all 0.5s ease-in-out;
-
-      &:hover {
-        transform: scale(1.2);
-      }
+    .progress-priority{
+        display: flex;
+        padding: 0px;
+        width: 100%;
+        height: 100%;
+        border: none;
+    
+        .color-block{
+            padding: 0px;
+            height: 100%;
+        }
     }
-  }
-}
 
-div.color-block {
-  padding: 0px;
-  height: 100%;
-  transition: all 0.5s ease-in-out;
-
-  &:hover {
-    transform: scale(1.2);
-  }
 }

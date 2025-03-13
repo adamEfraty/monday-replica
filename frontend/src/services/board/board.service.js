@@ -771,17 +771,9 @@ function getDefultCell(label, taskId) {
     case 'members':
       return { taskId, labelId: label.id, value: [], type: label.type }
 
-    case 'date': {
-      const today = new Date()
-      const formattedDate = utilService.formatDateToStr(today)
-
-      return {
-        taskId,
-        labelId: label.id,
-        value: formattedDate,
-        type: label.type,
+      case 'date': {
+        return { taskId, labelId: label.id, value: null, type: label.type}
       }
-    }
 
     default:
       return null

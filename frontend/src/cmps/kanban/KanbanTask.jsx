@@ -1,6 +1,6 @@
 import { Priority } from "../dynamicCmps/Priority";
 import { Status } from "../dynamicCmps/Status";
-import { Date } from "../dynamicCmps/Date";
+import { DateCell } from "../dynamicCmps/DateCell";
 import { Members } from "../dynamicCmps/Members";
 import HorizontalSplitOutlinedIcon from '@mui/icons-material/HorizontalSplitOutlined';
 import PersonAddAlt1OutlinedIcon from '@mui/icons-material/PersonAddAlt1Outlined';
@@ -71,7 +71,7 @@ export function KanbanTask({ task, onTaskUpdate, users }) {
                     </div>
 
                     <div style={{ width: '50%' }} className="grid-item date">
-                        <Date
+                        <DateCell
                             cellInfo={task.cells[4]}
                             onTaskUpdate={onTaskUpdate}
                             labelWidth={20}

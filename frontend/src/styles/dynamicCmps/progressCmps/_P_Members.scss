@@ -1,5 +1,5 @@
 .prog-box.with-members{
-    padding: 0px;
+    padding: 5px;
 
     .progress-members{
         $member-image-size: 30px;
@@ -20,6 +20,10 @@
             margin-left: -10px;
         }
 
+        .defult-img{
+            border: solid #F5F6F8 2px;
+        }
+
         .extra-members{
             padding: 0px;
             font-weight: 500;
@@ -35,7 +39,7 @@
             color: white;
             font-size: 0.9em;
     
-          }
+        }
     }
 
 }

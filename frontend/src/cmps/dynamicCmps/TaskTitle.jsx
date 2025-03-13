@@ -159,7 +159,7 @@ export function TaskTitle({
   }
 
   function handleLongText(text) {
-    const maxLetters = Math.floor(labelWidth / 7) - 32
+    const maxLetters = Math.floor(labelWidth / 7) - 25
     if (text.length < maxLetters) return text
     else {
       const shortenText = `${text.slice(0, maxLetters)}...`
@@ -170,7 +170,6 @@ export function TaskTitle({
   function onUpdateTitleInChat(text) {
     onTaskUpdate({ ...cellInfo, value: { ...cellInfo.value, title: text } })
   }
-
 
 
   return (
@@ -208,11 +207,13 @@ export function TaskTitle({
               }
             </div>
           </div>
-          <div className="title-part ">
-            {
+          <div className="drag-part" style={{ cursor: "grab" }} {...listeners} {...attributes}/>
+          <div className="text-part">
+          {
               !onEditMode
-                ? <span onClick={toggleEditMode}>{handleLongText(cellInfo.value.title)}</span>
+                ? <p onClick={toggleEditMode}>{handleLongText(cellInfo.value.title)}</p>
                 : <input
+                  style={{width: `${labelWidth - 140}px`}}
                   autoFocus={true}
                   value={textToEdit}
                   onChange={event => setTextToEdit(event.target.value)}
@@ -220,13 +221,11 @@ export function TaskTitle({
                   onKeyDown={handleKeyDown}
                   type="text"
                 />
-            }
-
+          }
           </div>
         </div>
-        <div style={{ cursor: "grab" }} {...listeners} {...attributes}></div>
-        <div className="chat-icon">
-          <ChatIcon onClick={modalToggle} ref={ChatButtonRef} />
+        <div className="chat-icon"  onClick={modalToggle} ref={ChatButtonRef}>
+          {getSvg('chat-icon')}
         </div>
       </section>
 
@@ -258,3 +257,5 @@ export function TaskTitle({
     </>
   )
 }
+
+          

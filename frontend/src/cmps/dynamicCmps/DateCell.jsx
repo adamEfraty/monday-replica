@@ -1,15 +1,20 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { DateModal } from './modals/DateModal.jsx';
 import { openModal, closeModal } from '../../store/actions/boards.actions.js'
 import { useSelector } from "react-redux";
 import { utilService } from '../../services/util.service.js';
+import { getSvg } from '../../services/svg.service.jsx';
 
-export function Date({ cellInfo, onTaskUpdate, labelWidth }) {
+export function DateCell({ cellInfo, onTaskUpdate, labelWidth }) {
     const openModals = useSelector(state => state.boardModule.openModals)
     const modal = openModals.some(modalId => modalId === (cellInfo.taskId + cellInfo.labelId))
 
     const modalRef = useRef(null);
     const dateCellRef = useRef(null);
+
+    const today = utilService.formatDateToStr(new Date());
+
+    const [isHovered, setIsHovered] = useState(false);
 
     // close and open modal as needed
     function modalToggle() {
@@ -30,8 +35,6 @@ export function Date({ cellInfo, onTaskUpdate, labelWidth }) {
         ) modalToggle()
     }
 
-
-
     useEffect(() => {
         if (modal) {
             document.addEventListener('mousedown', handleClickOutsideModal);
@@ -49,18 +52,41 @@ export function Date({ cellInfo, onTaskUpdate, labelWidth }) {
         <section className="date">
             {/* Date cell */}
             <div
-                className="date-cell"
-                ref={dateCellRef}
-                onClick={modalToggle}>
-
-                {utilService.formatDateStrToPerfectStr(cellInfo.value)}
+            className="date-cell"
+            ref={dateCellRef}
+            onClick={modalToggle}
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+            >
+                <div className='frame'>
+                    {
+                        cellInfo.value ?
+                        <p>{utilService.formatDateStrToPerfectStr(cellInfo.value)}</p>
+                        :
+                        isHovered && <div className='icons'>
+                            {getSvg('plus-circle-icon')}
+                            {getSvg('calendar-icon')}
+                        </div>
+                        
+                    }
+                </div>
             </div>
+            {
+                isHovered && cellInfo.value  &&
+                <button className='remove-button'
+                onMouseEnter={() => setIsHovered(true)}
+                onMouseLeave={() => setIsHovered(false)}
+                onClick={()=>onTaskUpdate({...cellInfo, value: null})}>
+                    <i className="fa-solid fa-x"></i>
+                </button>
+            }
+
 
             {/* Date modal */}
             {modal && (
                 <div ref={modalRef}>
                     <DateModal
-                        currentDate={cellInfo.value}
+                        currentDate={cellInfo.value ? cellInfo.value : today}
                         onDateChange={onDateChange} 
                         labelWidth={labelWidth}/>
                 </div>
