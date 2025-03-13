@@ -329,3 +329,7 @@
 13.3.2025, 5:04:39 - INFO - User login:  | {"_id":"67c45c55c2f1ef4df8072022","email":"kiwi@gmail.com","fullName":"Kiwi","id":"E3iHE","imgUrl":"https://res.cloudinary.com/danlxus36/image/upload/v1740682607/3_iij9dg.jpg"}
 13.3.2025, 5:09:49 - INFO - Up and running on http://localhost:3000
 13.3.2025, 5:09:50 - INFO - Up and running on http://localhost:3000
+13.3.2025, 5:11:36 - DEBUG - auth.service - login with email: kiwi@gmail.com
+13.3.2025, 5:11:36 - INFO - User login:  | {"_id":"67c45c55c2f1ef4df8072022","email":"kiwi@gmail.com","fullName":"Kiwi","id":"E3iHE","imgUrl":"https://res.cloudinary.com/danlxus36/image/upload/v1740682607/3_iij9dg.jpg"}
+13.3.2025, 5:12:06 - INFO - Up and running on http://localhost:3000
+13.3.2025, 5:12:07 - INFO - Up and running on http://localhost:3000

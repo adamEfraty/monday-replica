@@ -4,7 +4,8 @@ import { getSvg } from "../../../services/svg.service.jsx"
 export function MembersModal({ ParticipateMembers, onAddMember, onRemoveMember, labelWidth }) {
     const users = useSelector((state) => state.userModule.users)
 
-    const nonParticipateMembers = users
+    const nonParticipateMembers = users.filter(member =>
+        !ParticipateMembers.find(cMember => cMember._id === member._id))
 
 
     return (
