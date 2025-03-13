@@ -371,7 +371,6 @@ export async function replaceGroups(boardId, newGroups) {
   }
 
   await boardService.updateBoard(boardId, updatedBoard)
-
   await store.dispatch({
     type: EDIT_BOARD,
     boardId,

@@ -66,7 +66,6 @@
 .group-list {
   font-size: 13px;
   position: relative;
-  margin-top: -37px;
   & input[type='checkbox'] {
     appearance: none; /* Remove default checkbox */
     width: 16px;
@@ -141,7 +140,6 @@
   position: sticky;
   z-index: 5;
   top: 227px;
-  margin-top: 1px;
 }
 
 /* Grid Items */

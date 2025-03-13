@@ -20,6 +20,7 @@ import { LabelTitle } from "./LabelTitle.jsx";
 import { MiniGroup } from "./MiniGroup.jsx";
 import { GroupTitle } from "./GroupTitle.jsx";
 import { LabelsGrid } from "./LabelsGrid.jsx";
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
 export const GroupPreview = ({
   labels,
@@ -44,6 +45,7 @@ export const GroupPreview = ({
   fixedGroup,
   updateExpandedGroups,
   isDragging,
+  isDraggingTask,
 
 }) => {
   const [expanded, setExpanded] = useState(true);
@@ -197,32 +199,40 @@ export const GroupPreview = ({
             />
 
             {/* Render tasks by cmp order */}
-
-            <SortableContext items={group.tasks?.map(task => task?.id)} strategy={verticalListSortingStrategy}> {/* for dnd Radwan */}
-              {group.tasks.map((task) => {
-                return (
-
-                  <TaskPreview
-                    id={task?.id}
-                    key={task.id}
-                    task={task}
-                    group={group}
-                    labels={labels}
-                    loggedinUser={loggedinUser}
-                    onTaskUpdate={onTaskUpdate}
-                    removeTask={removeTask}
-                    boardId={boardId}
-                    users={users}
-                    chatTempInfoUpdate={chatTempInfoUpdate}
-                    openChat={openChat}
-                    checkedBoxes={checkedBoxes}
-                    handleCheckBoxClick={handleCheckBoxClick}
-                    boardScroll={boardScroll}
-                    labelsLength={labelsLength}
-                  />
-                )
-              })}
-            </SortableContext>
+            <Droppable droppableId={group.id} type="task">
+              {(provided) => (
+                <div ref={provided.innerRef} {...provided.droppableProps} className="task-list">
+                  {group.tasks.map((task, index) => (
+                    <Draggable key={task.id} draggableId={task.id} index={index}>
+                      {(provided) => (
+                        <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
+                          <TaskPreview
+                            id={task?.id}
+                            key={task.id}
+                            task={task}
+                            group={group}
+                            labels={labels}
+                            loggedinUser={loggedinUser}
+                            onTaskUpdate={onTaskUpdate}
+                            removeTask={removeTask}
+                            boardId={boardId}
+                            users={users}
+                            chatTempInfoUpdate={chatTempInfoUpdate}
+                            openChat={openChat}
+                            checkedBoxes={checkedBoxes}
+                            handleCheckBoxClick={handleCheckBoxClick}
+                            boardScroll={boardScroll}
+                            labelsLength={labelsLength}
+                            isDragging={isDragging}
+                            isDraggingTask={isDraggingTask}
+                          />                        </div>
+                      )}
+                    </Draggable>
+                  ))}
+                  {provided.placeholder}
+                </div>
+              )}
+            </Droppable>
 
             <AddTask group={group} handleAddTask={handleAddTask} />
 
