@@ -8,7 +8,14 @@
     height: 100%;
 
     input{
-        width: 70%;
+        font-family: "Quicksand", serif;
+        font-weight: 500;
+        outline: none;
+        width: 95%;
+        height: 65%;
+        padding-left: 3px;
+        border: solid #0073EA 1px;
+        border-radius: 4px;
     }
 
     div{
@@ -17,7 +24,13 @@
 
     p{
         cursor:text;
+        padding: 2px 3px 2px 3px;
         border: none;
+
+        &:hover{
+            border: solid #C3C6D4 1px;
+            border-radius: 4px;
+        }
     }
 
     i{
@@ -27,12 +40,14 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 20px;
-        height: 20px;
+        width: 24px;
+        height: 24px;
         position: absolute;
         right: 10px;
+        top: 5px;
         font-size: 1.1em;
         border-radius: 3px;
+        color: #676879;
         &:hover{
             background-color: #E7E8EB;
         }
@@ -43,7 +58,7 @@
         flex-direction: column;
         z-index: 1;
         position: absolute;
-        top: -5px; // temporary
+        top: 3px; // temporary
         right: -205px; // temporary
         width: 200px;
         background-color: white;
@@ -75,8 +90,8 @@
         z-index: 1;
         cursor: col-resize;
         position: absolute;
-        right: -5px;
-        width: 8px;
+        right: -3px;
+        width: 6px;
         height: 100%;
         background-color: #D0D4E4;
         border-radius: 4px;

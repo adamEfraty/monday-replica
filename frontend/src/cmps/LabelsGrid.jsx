@@ -2,6 +2,7 @@ import { horizontalListSortingStrategy, SortableContext } from "@dnd-kit/sortabl
 import { LabelTitle } from "./LabelTitle.jsx";
 import { Label } from "./Label.jsx";
 import { AddLabel } from "./AddLabel.jsx";
+import { getSvg } from '../services/svg.service.jsx'
 
 export function LabelsGrid({
     boardId,
@@ -10,8 +11,11 @@ export function LabelsGrid({
     handleMasterCheckboxClick,
     checkedGroups,
     isFixed,
-}) {
-    return (
+}){
+
+    const isChecked = checkedGroups.includes(group.id)
+
+    return(
         <section
             className="labels-grid"
             style={{
@@ -22,33 +26,42 @@ export function LabelsGrid({
             <section className="ghost "></section>
 
             <SortableContext items={labels.map(label => label.id)} strategy={horizontalListSortingStrategy}>
-                {labels.map(label => (
-                    label.type === 'taskTitle' ?
-                        <div style={{ borderLeft: `5px solid ${group?.color}`, borderTopLeftRadius: 5 }} key={`label-${label.id}`} className="label-title">
-                            <div className="white-cover" />
-                            <section className="main-checkbox">
-                                <input
-                                    type="checkbox"
-                                    className="checkbox"
-                                    onChange={() => { }}
-                                    onClick={() => handleMasterCheckboxClick(group)}
-                                    checked={checkedGroups.includes(group.id)}
+            {labels.map(label => (
+                label.type === 'taskTitle' ?
+                <div style={{ borderLeft: `5px solid ${group?.color}`, borderTopLeftRadius: 5 }} key={`label-${label.id}`} className="label-title">
+                    <div className="white-cover"/>
+                    <section className="main-checkbox">
+                        <input
+                            type="checkbox"
+                            className="checkbox"
+                            onChange={() => { }}
+                            onClick={() => handleMasterCheckboxClick(group)}
+                            checked={checkedGroups.includes(group.id)}
+                            style={{backgroundColor: isChecked ? `#0073EA` : 'white',
+                                border: isChecked && 'none',
+                              }}
 
-                                />
-                            </section>
-                            <LabelTitle key={label.id} label={label} boardId={boardId} />
-                        </div >
-                        :
-                        <Label key={label.id}
-                            id={label.id}
-                            label={label}
-                            boardId={boardId}
-                            groupId={group.id}
-                            isFixed={isFixed} />
-                ))}
+                        />
+                        <div className="check-icon"
+                        onClick={() => handleMasterCheckboxClick(group)}>
+                        {
+                            isChecked && getSvg('check')
+                        }
+                        </div>
+                    </section>
+                    <LabelTitle key={label.id} label={label} boardId={boardId} />
+                </div >
+                :
+                <Label key={label.id} 
+                id={label.id} 
+                label={label} 
+                boardId={boardId} 
+                groupId={group.id} 
+                isFixed={isFixed}/>
+            ))}
             </SortableContext >
 
-            <AddLabel groupId={group.id} boardId={boardId} isFixed={isFixed} />
+            <AddLabel groupId={group.id} boardId={boardId} isFixed={isFixed} labels={labels}/>
         </section>
     )
 }

@@ -2,9 +2,10 @@
 
 .labels-grid {
   display: grid;
-  font-size: 0.8rem;
+  font-size: 0.85rem;
+  font-family: "Quicksand", serif;
   grid-template-columns: 10px 600px repeat(5, 150px) 500px;
-  grid-template-rows: 34px;
+  grid-template-rows: 35px;
   width: 100%;
 }
 
@@ -13,7 +14,7 @@
   display: grid;
   grid-template-columns: 10px 600px repeat(5, 150px) 500px;
 
-  grid-template-rows: 34px;
+  grid-template-rows: 35px;
   width: 100%; /* Set a fixed width */
 
   .invisible {
@@ -53,7 +54,7 @@
     margin-left: 10px;
     display: grid;
     grid-template-columns: 10px 600px repeat(5, 150px) 500px;
-    grid-template-rows: 34px;
+    grid-template-rows: 35px;
     background: white;
 
     .empty-space {
@@ -66,12 +67,25 @@
   font-size: 13px;
   position: relative;
   & input[type='checkbox'] {
-    width: 20px;
-    height: 20px;
+    appearance: none; /* Remove default checkbox */
+    width: 16px;
+    height: 16px;
     display: flex;
     align-self: center;
     justify-self: center;
     cursor: pointer;
+    border: solid #C3C6D4 1px;
+    border-radius: 2px;
+
+    &:hover{
+      border-color: black;
+    }
+  }
+
+  .check-icon{
+    cursor: pointer;
+    position: absolute;
+    top: 9px;
   }
 }
 
@@ -86,37 +100,31 @@
   padding-left: 2rem;
   padding-bottom: 3rem;
 
-  /* Style Crossbar */
+  // vertical scrollbar
   &::-webkit-scrollbar {
-    // width: 8px;
+    width: 10px;
   }
   &::-webkit-scrollbar-thumb {
-    // background: #b2b2b2;
+    background: #C1C4D2;
+  }
+
+  // horizontal scrollbar
+  &::-webkit-scrollbar:horizontal {
+    height: 15px;
+  }
+  &::-webkit-scrollbar-thumb:horizontal {
+    background: #C1C4D2;
   }
 }
 
 .fixed-area {
   z-index: 10;
   position: fixed;
-  // width: calc(100vw - 378px);
-  width: calc(100vw - 313px);
+  width: calc(100vw - 307px);
   overflow-x: hidden;
   overflow-y: hidden;
   top: 206px;
   background-color: white;
-
-  .fixed-group-title {
-  }
-
-  // .shadow{
-  //   position: fixed;
-  //   top: 305px;
-  //   left: 307px;
-  //   width: calc(100% - 400px);
-  //   height: 5px;
-  //   background-color: #2d98ce;
-  //   box-shadow: 5px 5px 10px black;
-  // }
 }
 
 .sticky-something {
@@ -190,10 +198,9 @@
 .labels-grid div {
   // padding: 0.7rem;
   text-align: center;
-  font-weight: 800;
+  font-weight: 500;
   border: 1px solid $table-lines-gray;
   border-left: none;
-  border-bottom: none;
 }
 
 div {
@@ -306,7 +313,7 @@ div {
 }
 
 .nothing {
-  border: 1px solid #e1dede;
+  border: 1px solid $table-lines-gray;
 }
 
 .chat-icon {
@@ -326,7 +333,7 @@ section.labels-grid {
   background-color: #fff;
 
   div {
-    border-bottom: 1px solid #e0dede;
+    border-bottom: 1px solid $table-lines-gray;
   }
 }
 
@@ -389,7 +396,7 @@ div.group-title {
       cursor: col-resize;
       position: absolute;
       right: 0px;
-      width: 8px;
+      width: 7px;
       height: 100%;
       background-color: #d0d4e4;
       border-radius: 2px;
@@ -410,12 +417,29 @@ div.group-title {
   padding-left: 0.65rem;
 
   input {
+    appearance: none;
     position: relative;
     left: 5px;
-    height: 20px;
-    width: 20px;
+    height: 16px;
+    width: 16px;
+    border: solid #C3C6D4 1px;
+    border-radius: 2px;
+
+    &:hover{
+            border-color: black;
+          }
+  }
+
+  .check-icon{
+    cursor: pointer;
+    position: absolute;
+    top: 8px;
+    left: 9px;
+    border: none;
   }
 }
+
+
 
 .search-empty-board-image {
   width: 260px;
@@ -468,7 +492,9 @@ div.group-title {
 
 div.input-styles {
   border: none;
-  border-right: 1px solid #e0dede;
+  border-right: 1px solid $table-lines-gray;
+  padding-right: 9px;
+  padding-left: 9px;
 }
 
 .change-location {
