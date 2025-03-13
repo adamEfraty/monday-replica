@@ -184,6 +184,7 @@ export async function removeTasks(boardId, tasksArr) {
   })
 }
 export async function removeTask(boardId, groupId, taskId) {
+  console.log('jhsbdjhsfdbjhsdbfsdgfuhbsdfjhsbdfjhsbh radwan')
   // Use the boardService to remove the task from the group in localStorage
   const board = await boardService.removeTaskFromGroup(boardId, groupId, taskId)
   if (!board) throw new Error('Board not found')
@@ -311,6 +312,7 @@ export function closeModal(modalId) {
 }
 
 export function handleFilter(filterBy) {
+  console.log('this is the filter:', filterBy)
   boardService.setFilterContextSession(filterBy)
   store.dispatch({ type: SET_FILTER_BY, filterBy })
 }

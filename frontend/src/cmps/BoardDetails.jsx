@@ -83,12 +83,15 @@ const BoardDetails = () => {
       "filteredColumns csdfsdfsdf ",
       boardColumnsFilter,
       filteredColumns,
-      boards
+      boards,
+      boardId
     );
+    console.log(filteredColumns.find((board) => board._id === boardId))
     filteredColumns &&
       setBoardColumnsFilter(
-        filteredColumns.find((board) => board._id === boardId)
+        filteredColumns.find((board) => board.id === boardId)
       );
+      console.log(boardColumnsFilter)
   }, [filteredColumns, boardId]);
 
   useEffect(() => {
@@ -105,6 +108,7 @@ const BoardDetails = () => {
     } else if (board.groups.some((group) => group.tasks.length > 0)) {
       if (filterBy.length > 0) {
         const regExp = new RegExp(filterBy, "i");
+        console.log('im here rick', boardColumnsFilter)
         const filteredGroups = board.groups
           .map((group) => ({
             ...group,
@@ -331,6 +335,13 @@ const BoardDetails = () => {
         sourceGroup.tasks = sourceTasks;
       } else {
         const destTasks = Array.from(destGroup.tasks);
+        movedTask.cells[0].value.activities = movedTask.cells[0].value.activities.map(e => ({
+          ...e,
+          activity:{
+            ...e.activity,
+            groupId: destGroup.id
+          }
+        }))
         destTasks.splice(destination.index, 0, movedTask);
         sourceGroup.tasks = sourceTasks;
         destGroup.tasks = destTasks;
