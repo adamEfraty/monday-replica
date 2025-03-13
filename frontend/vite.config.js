@@ -6,6 +6,11 @@ export default defineConfig({
   plugins: [react()],
   build: {
     outDir: '../backend/public',
-    emptyOutDir: true,
+    emptyOutDir: false, // Keep existing files in public
+    rollupOptions: {
+      output: {
+        assetFileNames: 'assets/[name][extname]', // Preserve file names without hash
+      },
+    },
   },
 })
