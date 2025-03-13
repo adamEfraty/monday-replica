@@ -22,7 +22,7 @@
     position: sticky;
     left: 0px;
 
-    .white-cover{
+    .white-cover {
       z-index: 100;
       position: absolute;
       left: -39px;
@@ -33,21 +33,18 @@
     }
   }
 
-  .empty-space{
+  .empty-space {
     border-bottom: solid $table-lines-gray 1px;
     width: 90px;
   }
 
-
-
-  .taskTitle{
+  .taskTitle {
     z-index: 1;
     position: sticky;
     left: 10px;
     background-color: white;
     // border-right: solid $table-lines-gray 1px;
     border-bottom: solid white 1px;
-
   }
 
   .round-corner{
@@ -75,17 +72,18 @@
     grid-template-rows: 35px;
     background: white;
 
-    .empty-space{
+    .empty-space {
       border-bottom: solid $table-lines-gray 1px;
     }
   }
 }
 
 .group-list {
-  width: max-content;
   font-size: 13px;
   position: relative;
-  margin-top: -37px;
+  // margin-top: -37px;
+  width: max-content;
+  
   & input[type='checkbox'] {
     appearance: none; /* Remove default checkbox */
     width: 16px;
@@ -156,12 +154,12 @@
   background-color: red;
 }
 
-.sticky-labels{
-  width: max-content;
+.sticky-labels {
   position: sticky;
   z-index: 5;
-  top: 227px;
   left: 0px;
+  top: 227px;
+  width: max-content;
   margin-top: 1px;
 }
 
@@ -437,7 +435,6 @@ div.group-title {
 .main-checkbox {
   display: flex;
   align-items: center;
-
   height: 100%;
   border-right: 1px solid $table-lines-gray;
   padding-right: 14px;

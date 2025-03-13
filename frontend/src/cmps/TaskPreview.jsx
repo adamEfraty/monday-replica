@@ -27,6 +27,8 @@ export function TaskPreview({
     removeTask,
     boardId,
     boardScroll,
+    isDragging,
+    isDraggingTask,
     labelsLength,
 }) {
 
@@ -48,25 +50,25 @@ export function TaskPreview({
 
     function deleteModalToggle() {
         deleteTaskModal
-        ? closeModal('delete-' + id)
-        : openModal('delete-' + id)
+            ? closeModal('delete-' + id)
+            : openModal('delete-' + id)
     }
 
     // if user click outside delete modal close it
     function handleClickOutsideModal(event) {
-    if (!deleteTaskModalRef.current.contains(event.target)
-        && !dotsRef.current.contains(event.target))
-        deleteModalToggle()
+        if (!deleteTaskModalRef.current.contains(event.target)
+            && !dotsRef.current.contains(event.target))
+            deleteModalToggle()
     }
 
     // // open listener to handleClickOutsideModal only when modal open
     useEffect(() => {
-    if (deleteTaskModal) document.addEventListener
-        ('mousedown', handleClickOutsideModal)
-    else document.removeEventListener
-        ('mousedown', handleClickOutsideModal)
-    return () => document.removeEventListener
-        ('mousedown', handleClickOutsideModal)
+        if (deleteTaskModal) document.addEventListener
+            ('mousedown', handleClickOutsideModal)
+        else document.removeEventListener
+            ('mousedown', handleClickOutsideModal)
+        return () => document.removeEventListener
+            ('mousedown', handleClickOutsideModal)
 
     }, [deleteTaskModal])
 
@@ -78,12 +80,12 @@ export function TaskPreview({
             {deleteTaskModal &&
                 <div ref={deleteTaskModalRef}>
                     <DeleteTaskModal
-                    removeTask={removeTask}
-                    boardId={boardId}
-                    groupId={group.id}
-                    taskId={id} 
-                    dotsRef={dotsRef}
-                    boardScroll={boardScroll}
+                        removeTask={removeTask}
+                        boardId={boardId}
+                        groupId={group.id}
+                        taskId={id}
+                        dotsRef={dotsRef}
+                        boardScroll={boardScroll}
                     />
 
                 </div>
@@ -123,6 +125,7 @@ export function TaskPreview({
                                 boardId={boardId}
                                 deleteModalToggle={deleteModalToggle}
                                 dotsRef={dotsRef}
+                                isDraggingTask={isDraggingTask}
                             />
                         </section>
                     )
@@ -132,8 +135,8 @@ export function TaskPreview({
                 style={{width: Math.max(90, 1210 - labelsLength)}}/>
             </section >
         </section>
-        
-        
+
+
     );
 }
 
@@ -155,7 +158,9 @@ function DynamicCmp({
     removeTask,
     boardId,
     deleteModalToggle,
-    dotsRef
+    dotsRef,
+    isDraggin,
+    isDraggingTask
 }) {
     switch (label.type) {
         case "priority":
@@ -187,6 +192,7 @@ function DynamicCmp({
                     boardId={boardId}
                     deleteModalToggle={deleteModalToggle}
                     dotsRef={dotsRef}
+                    isDraggingTask={isDraggingTask}
                 />
             );
 

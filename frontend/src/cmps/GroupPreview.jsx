@@ -17,9 +17,10 @@ import { CSS } from "@dnd-kit/utilities";
 import { TaskPreview } from "./TaskPreview.jsx";
 import { Label } from "./Label.jsx";
 import { LabelTitle } from "./LabelTitle.jsx";
-
+import { MiniGroup } from "./MiniGroup.jsx";
 import { GroupTitle } from "./GroupTitle.jsx";
 import { LabelsGrid } from "./LabelsGrid.jsx";
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
 export const GroupPreview = ({
   labels,
@@ -44,6 +45,7 @@ export const GroupPreview = ({
   fixedGroup,
   updateExpandedGroups,
   isDragging,
+  isDraggingTask,
 
 }) => {
   const [expanded, setExpanded] = useState(true);
@@ -124,7 +126,7 @@ export const GroupPreview = ({
 
 
       {
-        expanded && fixedGroup && fixedGroup.id === group.id &&
+        !isDragging && expanded && fixedGroup && fixedGroup.id === group.id &&
         <>
           <div className="fixed-area">
             <div className="fixed-group-title">
@@ -145,6 +147,8 @@ export const GroupPreview = ({
                 handelExpandedChange={handelExpandedChange}
                 handelGroupTitleChange={handelGroupTitleChange}
                 handleDelete={handleDelete}
+                isMiniGroup={false}
+
               />
             </div>
           </div>
@@ -152,8 +156,7 @@ export const GroupPreview = ({
       }
 
 
-
-      <GroupTitle
+      {!isDragging && expanded && <GroupTitle
         titleRef={titleRef}
         boardId={boardId}
         group={group}
@@ -171,13 +174,15 @@ export const GroupPreview = ({
         handelExpandedChange={handelExpandedChange}
         handelGroupTitleChange={handelGroupTitleChange}
         handleDelete={handleDelete}
+        isMiniGroup={false}
       />
+      }
 
 
       <section className="task-list">
         {/* Render group labels by labels array */}
 
-        {!isDragging && expanded && (
+        {!isDragging && expanded ? (
           <div>
 
             <LabelsGrid
@@ -191,35 +196,43 @@ export const GroupPreview = ({
               labelsLength={labelsLength}
             />
 
-
             {/* Render tasks by cmp order */}
+            <Droppable droppableId={group.id} type="task">
+              {(provided) => (
+                <div ref={provided.innerRef} {...provided.droppableProps} className="task-list">
+                  {group.tasks.map((task, index) => (
+                    <Draggable key={task.id} draggableId={task.id} index={index}>
+                      {(provided) => (
+                        <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
+                          <TaskPreview
+                            id={task?.id}
+                            key={task.id}
+                            task={task}
+                            group={group}
+                            labels={labels}
+                            loggedinUser={loggedinUser}
+                            onTaskUpdate={onTaskUpdate}
+                            removeTask={removeTask}
+                            boardId={boardId}
+                            users={users}
+                            chatTempInfoUpdate={chatTempInfoUpdate}
+                            openChat={openChat}
+                            checkedBoxes={checkedBoxes}
+                            handleCheckBoxClick={handleCheckBoxClick}
+                            boardScroll={boardScroll}
+                            labelsLength={labelsLength}
+                            isDragging={isDragging}
+                            isDraggingTask={isDraggingTask}
+                          />                        </div>
+                      )}
+                    </Draggable>
+                  ))}
+                  {provided.placeholder}
+                </div>
+              )}
+            </Droppable>
 
-            <SortableContext items={group.tasks?.map(task => task?.id)} strategy={verticalListSortingStrategy}> {/* for dnd Radwan */}
-              {group.tasks.map((task) => {
-                return (
-
-                  <TaskPreview
-                    id={task?.id}
-                    key={task.id}
-                    task={task}
-                    group={group}
-                    labels={labels}
-                    loggedinUser={loggedinUser}
-                    onTaskUpdate={onTaskUpdate}
-                    removeTask={removeTask}
-                    boardId={boardId}
-                    users={users}
-                    chatTempInfoUpdate={chatTempInfoUpdate}
-                    openChat={openChat}
-                    checkedBoxes={checkedBoxes}
-                    handleCheckBoxClick={handleCheckBoxClick}
-                    boardScroll={boardScroll}
-                    labelsLength={labelsLength}
-                  />
-                )
-              })}
-            </SortableContext>
-            <AddTask group={group} handleAddTask={handleAddTask} TaskTitleLength={labels[0].width}/>
+            <AddTask group={group} handleAddTask={handleAddTask} TaskTitleLength={labels[0].width} />
 
             {/* Render progress by progress array */}
             <section
@@ -252,7 +265,22 @@ export const GroupPreview = ({
               style={{width: Math.max(90, 1210 - labelsLength)}}/>
             </section>
           </div >
-        )}
+        ) : <MiniGroup boardId={boardId}
+          group={group}
+          groupTitle={groupTitle}
+          handleClick2={handleClick2}
+          id2={id2}
+          open2={open2}
+          anchorE2={anchorE2}
+          handleClose2={handleClose2}
+          titleHead={titleHead}
+          expanded={expanded}
+          attributes={attributes}
+          listeners={listeners}
+          handleGroupNameChange={handleGroupNameChange}
+          handelExpandedChange={handelExpandedChange}
+          handelGroupTitleChange={handelGroupTitleChange}
+          handleDelete={handleDelete} />}
       </section >
     </div >
   );

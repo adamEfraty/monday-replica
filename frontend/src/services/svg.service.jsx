@@ -20,6 +20,7 @@ export function getSvg(svgName) {
         </svg>
       );
 
+
     case "white-arrow":
       return (
         <svg

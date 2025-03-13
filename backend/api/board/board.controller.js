@@ -30,7 +30,7 @@ export async function addBoard(req, res) {
   const boardToSave = {title, isFavorite, groups, labels}
 
   try {
-    const savedBoard = await boardService.add(boardToSave)
+    const savedBoard = await boardService.add(boardToSave, req.loggedinUser)
     res.send(savedBoard)
   } catch (err) {
     loggerService.error(err.message)
@@ -41,7 +41,7 @@ export async function addBoard(req, res) {
 export async function removeBoard(req, res) {
   const { boardId } = req.params
   try {
-    await boardService.remove(boardId)
+    await boardService.remove(boardId, req.loggedinUser)
     res.send('Board Deleted')
   } catch (err) {
     loggerService.error(err.message)
@@ -54,7 +54,10 @@ export async function updateBoard(req, res) {
   const boardToSave = { _id, title, labels, groups, isFavorite }
 
   try {
-    const updatedBoard = await boardService.update(boardToSave)
+    const updatedBoard = await boardService.update(
+      boardToSave,
+      req.loggedinUser
+    )
     res.send(updatedBoard)
   } catch (err) {
     loggerService.error(err.message)

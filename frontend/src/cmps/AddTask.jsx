@@ -44,6 +44,8 @@ export function AddTask({ group, handleAddTask, TaskTitleLength}) {
         inputRef.current?.focus()
     }
 
+    console.log('TaskTitleLength', TaskTitleLength)
+
     return (
         <section 
         style={{ 

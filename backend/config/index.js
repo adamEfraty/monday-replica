@@ -1,10 +1,6 @@
-// import configProd from './prod.js'
 import configDev from './dev.js'
+import configProd from './prod.js'
 
 export var config
 
-config = configDev
-
-// process.env.NODE_ENV === 'production'
-// ? config = configProd
-// : config = configDev
+config = process.env.NODE_ENV === 'production' ? configProd : configDev
