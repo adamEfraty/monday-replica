@@ -24,7 +24,8 @@ export function TaskTitle({
   labelWidth,
   taskHovering,
   deleteModalToggle,
-  dotsRef
+  dotsRef,
+  isDraggingTask,
 }) {
 
   //edit task title
@@ -176,17 +177,18 @@ export function TaskTitle({
     <>
       <section className="task-title">
 
-        <div className="white-cover">
-          <div ref={dotsRef} className="dots"
-            style={{
-              visibility: deleteTaskModal || (taskHovering === cellInfo.taskId) ? 'visible' : 'hidden',
-              backgroundColor: deleteTaskModal && '#CAE3FD'
-            }}
-            onClick={deleteModalToggle}>
-            {getSvg('horizontal-dots')}
+        {!isDraggingTask &&
+          <div className="white-cover">
+            <div ref={dotsRef} className="dots"
+              style={{
+                visibility: deleteTaskModal || (taskHovering === cellInfo.taskId) ? 'visible' : 'hidden',
+                backgroundColor: deleteTaskModal && '#CAE3FD'
+              }}
+              onClick={deleteModalToggle}>
+              {getSvg('horizontal-dots')}
+            </div>
           </div>
-        </div>
-
+        }
 
 
         <div className="checkbox-taskName">

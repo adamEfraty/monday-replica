@@ -26,6 +26,7 @@ import {
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
 import { LabelsGrid } from "./LabelsGrid";
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
 
 const BoardDetails = () => {
@@ -60,6 +61,7 @@ const BoardDetails = () => {
   const [expandedGroupsId, setExpandedGroupsId] = useState([])
 
   const [isDragging, setIsDragging] = useState(false)
+  const [isDraggingTask, setIsDraggingTask] = useState(false)
   const [allTasks, setAllTasks] = useState(
     groups.flatMap(group => group.tasks.map(task => ({ ...task, groupId: group.id })))
   );
@@ -81,12 +83,15 @@ const BoardDetails = () => {
       "filteredColumns csdfsdfsdf ",
       boardColumnsFilter,
       filteredColumns,
-      boards
+      boards,
+      boardId
     );
+    console.log(filteredColumns.find((board) => board._id === boardId))
     filteredColumns &&
       setBoardColumnsFilter(
-        filteredColumns.find((board) => board._id === boardId)
+        filteredColumns.find((board) => board.id === boardId)
       );
+      console.log(boardColumnsFilter)
   }, [filteredColumns, boardId]);
 
   useEffect(() => {
@@ -103,6 +108,7 @@ const BoardDetails = () => {
     } else if (board.groups.some((group) => group.tasks.length > 0)) {
       if (filterBy.length > 0) {
         const regExp = new RegExp(filterBy, "i");
+        console.log('im here rick', boardColumnsFilter)
         const filteredGroups = board.groups
           .map((group) => ({
             ...group,
@@ -290,88 +296,67 @@ const BoardDetails = () => {
   console.log('is dragging ?', isDragging)
 
 
-  function handleDragStart(event) {
-    const { active } = event;
 
-    if (active.id.startsWith("g")) {
+
+  const handleDragStart = (start) => {
+    if (start.type === "group") {
       setIsDragging(true);
     }
-  }
+    setIsDraggingTask(true)
 
-  async function handleDragEnd(event) {
-    const { active, over } = event;
+  };
 
-    // If no valid drop target or dropped in the same position, exit
-    if (!over || active.id === over.id) {
-      if (active.id.startsWith("g"))
-        setIsDragging(false); // Stop dragging when the drag ends
+  const handleDragEnd = async (result) => {
+    const { source, destination, type } = result;
+    setIsDragging(false);
+    setIsDraggingTask(false);
 
-      return;
-    }
-    // If the dragged item is a group, reset `isDragging` to false
-    if (active.id.startsWith("g")) {
-      setIsDragging(false); // Stop dragging when the drag ends
+    if (!destination) return;
 
-      const originalPos = getGroupPos(active.id);
-      const moveToPos = getGroupPos(over.id);
+    if (type === "group") {
+      const reorderedGroups = Array.from(groups);
+      const [movedGroup] = reorderedGroups.splice(source.index, 1);
+      reorderedGroups.splice(destination.index, 0, movedGroup);
+      await replaceGroups(boardId, reorderedGroups);
 
-      if (originalPos !== moveToPos) {
-        const newGroupArray = arrayMove(groups, originalPos, moveToPos);
-
-        // Persist changes to the backend using the replaceGroups function
-        await replaceGroups(boardId, newGroupArray);
-      }
     }
 
-    // Handle label reordering
-    if (active.id.startsWith("l")) {
-      const originalLabelPos = getLabelPos(active.id);
-      const moveToLabel = getLabelPos(over.id);
+    else if (type === "task") {
+      const sourceGroup = groups.find((g) => g.id === source.droppableId);
+      const destGroup = groups.find((g) => g.id === destination.droppableId);
 
-      if (originalLabelPos !== moveToLabel) {
-        const newLabelArray = arrayMove(
-          currentBoard.labels,
-          originalLabelPos,
-          moveToLabel
-        );
+      if (!sourceGroup || !destGroup) return;
 
-        // Persist changes to the backend using the replaceLabels function
-        await replaceLabels(boardId, newLabelArray);
-      }
-    }
+      const sourceTasks = Array.from(sourceGroup.tasks);
+      const [movedTask] = sourceTasks.splice(source.index, 1);
 
-    // Handle task reordering
-    if (active.id.length === 5) {
-      const { groupIndex: originalGroupPos, taskIndex: originalTaskPos } =
-        getTaskPos(active.id);
-      const { groupIndex: moveToGroupPos, taskIndex: moveToTaskPos } =
-        getTaskPos(over.id);
-
-      if (originalGroupPos !== moveToGroupPos) {
-        const movedTask = groups[originalGroupPos].tasks[originalTaskPos];
-
-        // Move task between groups
-        groups[originalGroupPos].tasks.splice(originalTaskPos, 1);
-        groups[moveToGroupPos].tasks.splice(moveToTaskPos, 0, movedTask);
-
-        // Persist changes to the backend using the replaceGroups function
-        await replaceGroups(boardId, groups);
+      if (sourceGroup.id === destGroup.id) {
+        sourceTasks.splice(destination.index, 0, movedTask);
+        sourceGroup.tasks = sourceTasks;
       } else {
-        const newTaskOrder = arrayMove(
-          groups[originalGroupPos].tasks,
-          originalTaskPos,
-          moveToTaskPos
-        );
-
-        // Update the task order within the group
-        groups[originalGroupPos].tasks = newTaskOrder;
-
-        // Persist changes to the backend using the replaceGroups function
-        await replaceGroups(boardId, groups);
+        const destTasks = Array.from(destGroup.tasks);
+        movedTask.cells[0].value.activities = movedTask.cells[0].value.activities.map(e => ({
+          ...e,
+          activity:{
+            ...e.activity,
+            groupId: destGroup.id
+          }
+        }))
+        destTasks.splice(destination.index, 0, movedTask);
+        sourceGroup.tasks = sourceTasks;
+        destGroup.tasks = destTasks;
       }
-    }
-  }
 
+      await replaceGroups(boardId, groups);
+    }
+
+    else if (type === "label") {
+      const reorderedLabels = Array.from(currentBoard.labels);
+      const [movedLabel] = reorderedLabels.splice(source.index, 1);
+      reorderedLabels.splice(destination.index, 0, movedLabel);
+      await replaceLabels(boardId, reorderedLabels);
+    }
+  };
 
 
   function updateFixedGroup(groupId, yPos) {
@@ -433,45 +418,50 @@ const BoardDetails = () => {
       {currentBoard.groups.length > 0 ? (
         <section className="group-list"
           style={{ marginTop: `${isFixedGroupExpanded() ? '-37px' : '0px'}` }}>
-          <DndContext
-            onDragEnd={handleDragEnd}
-            onDragStart={handleDragStart}
-            collisionDetection={closestCorners}
-          >
-            {/* Outer SortableContext for Groups */}
-            <SortableContext
-              items={groups.map((group) => group.id)}
-              strategy={verticalListSortingStrategy}
-            >
-              {groups.map((group, index) => (
-                <GroupPreview
-                  id={group.id}
-                  group={group}
-                  labels={currentBoard.labels}
-                  loggedinUser={loggedinUser}
-                  progress={progress}
-                  key={group.id}
-                  onTaskUpdate={onTaskUpdate}
-                  checkedBoxes={checkedBoxes}
-                  checkedGroups={checkedGroups}
-                  handleMasterCheckboxClick={handleMasterCheckboxClick}
-                  handleCheckBoxClick={handleCheckBoxClick}
-                  handleAddTask={handleAddTask}
-                  handleGroupNameChange={handleGroupNameChange}
-                  handleDelete={handleDelete}
-                  boardId={boardId}
-                  users={users}
-                  chatTempInfoUpdate={chatTempInfoUpdate}
-                  openChat={openChat}
-                  boardScroll={boardScroll}
-                  updateFixedGroup={updateFixedGroup}
-                  fixedGroup={fixedGroup}
-                  updateExpandedGroups={updateExpandedGroups}
-                  isDragging={isDragging}
-                />
-              ))}
-            </SortableContext>
-          </DndContext>
+          <DragDropContext onDragEnd={handleDragEnd} onDragStart={handleDragStart}>
+            <Droppable droppableId="groups" type="group">
+              {(provided) => (
+                <section ref={provided.innerRef} {...provided.droppableProps} className="group-list">
+                  {groups.map((group, index) => (
+                    <Draggable key={group.id} draggableId={group.id} index={index}>
+                      {(provided) => (
+                        <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
+                          <GroupPreview
+                            id={group.id}
+                            group={group}
+                            labels={currentBoard.labels}
+                            loggedinUser={loggedinUser}
+                            progress={progress}
+                            key={group.id}
+                            onTaskUpdate={onTaskUpdate}
+                            checkedBoxes={checkedBoxes}
+                            checkedGroups={checkedGroups}
+                            handleMasterCheckboxClick={handleMasterCheckboxClick}
+                            handleCheckBoxClick={handleCheckBoxClick}
+                            handleAddTask={handleAddTask}
+                            handleGroupNameChange={handleGroupNameChange}
+                            handleDelete={handleDelete}
+                            boardId={boardId}
+                            users={users}
+                            chatTempInfoUpdate={chatTempInfoUpdate}
+                            openChat={openChat}
+                            boardScroll={boardScroll}
+                            updateFixedGroup={updateFixedGroup}
+                            fixedGroup={fixedGroup}
+                            updateExpandedGroups={updateExpandedGroups}
+                            isDragging={isDragging}
+                            isDraggingTask={isDraggingTask}
+                          />
+                        </div>
+                      )}
+                    </Draggable>
+                  ))}
+                  {provided.placeholder}
+                </section>
+              )}
+            </Droppable>
+          </DragDropContext>
+
 
           <button className="modal-save-btn" onClick={handleAddGroup}>
             +Add a new group
