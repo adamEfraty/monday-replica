@@ -3,7 +3,7 @@ import { MembersModal } from './modals/MembersModal.jsx'
 import { openModal, closeModal } from '../../store/actions/boards.actions.js'
 import { useSelector } from "react-redux";
 
-export function Members({cellInfo, onTaskUpdate, users, labelWidth }) {
+export function Members({ cellInfo, onTaskUpdate, users, labelWidth }) {
     const openModals = useSelector(state => state.boardModule.openModals)
     const modal = openModals.some(modalId => modalId === (cellInfo.taskId + cellInfo.labelId))
 
@@ -12,22 +12,20 @@ export function Members({cellInfo, onTaskUpdate, users, labelWidth }) {
 
     const defultImg = 'https://upload.wikimedia.org/wikipedia/commons/2/2c/Default_pfp.svg'
 
-    // close and open modal as needed
     function modalToggle() {
         modal
-        ? closeModal(cellInfo.taskId + cellInfo.labelId)
-        : openModal(cellInfo.taskId + cellInfo.labelId)
+            ? closeModal(cellInfo.taskId + cellInfo.labelId)
+            : openModal(cellInfo.taskId + cellInfo.labelId)
     }
 
     function onAddMember(member) {
-        modalToggle()
-        onTaskUpdate({...cellInfo, value: [...cellInfo.value, member]})
+        onTaskUpdate({ ...cellInfo, value: [...cellInfo.value, member] })
     }
 
     function onRemoveMember(memberToRemove) {
         const newMembers = cellInfo.value.filter(member =>
-            memberToRemove.id !== member.id)
-        onTaskUpdate({...cellInfo, value: newMembers})
+            memberToRemove._id !== member._id)
+        onTaskUpdate({ ...cellInfo, value: newMembers })
     }
 
     function handleClickOutsideModal(event) {
@@ -46,9 +44,9 @@ export function Members({cellInfo, onTaskUpdate, users, labelWidth }) {
 
     }, [modal])
 
-    const numberOfMembersThatFits = Math.floor(labelWidth / 35) //this will changes base on images width
-    const displayedMembers = cellInfo.value.slice(0, numberOfMembersThatFits);
-    const extraMembersCount = cellInfo.value.length - numberOfMembersThatFits;
+    const numberOfMembersThatFits = Math.floor(labelWidth / 35)
+    const displayedMembers = cellInfo?.value?.slice(0, numberOfMembersThatFits);
+    const extraMembersCount = cellInfo?.value?.length - numberOfMembersThatFits;
     return (
         <section className="members">
             <div
@@ -77,8 +75,8 @@ export function Members({cellInfo, onTaskUpdate, users, labelWidth }) {
                         ParticipateMembers={cellInfo.value}
                         onAddMember={onAddMember}
                         onRemoveMember={onRemoveMember}
-                        users={users} 
-                        labelWidth={labelWidth}/>
+                        users={users}
+                        labelWidth={labelWidth} />
 
                 </div>
             }

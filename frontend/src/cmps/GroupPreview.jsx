@@ -17,7 +17,7 @@ import { CSS } from "@dnd-kit/utilities";
 import { TaskPreview } from "./TaskPreview.jsx";
 import { Label } from "./Label.jsx";
 import { LabelTitle } from "./LabelTitle.jsx";
-
+import { MiniGroup } from "./MiniGroup.jsx";
 import { GroupTitle } from "./GroupTitle.jsx";
 import { LabelsGrid } from "./LabelsGrid.jsx";
 
@@ -124,7 +124,7 @@ export const GroupPreview = ({
 
 
       {
-        expanded && fixedGroup && fixedGroup.id === group.id &&
+        !isDragging && expanded && fixedGroup && fixedGroup.id === group.id &&
         <>
           <div className="fixed-area">
             <div className="fixed-group-title">
@@ -145,6 +145,8 @@ export const GroupPreview = ({
                 handelExpandedChange={handelExpandedChange}
                 handelGroupTitleChange={handelGroupTitleChange}
                 handleDelete={handleDelete}
+                isMiniGroup={false}
+
               />
             </div>
           </div>
@@ -152,8 +154,7 @@ export const GroupPreview = ({
       }
 
 
-
-      <GroupTitle
+      {!isDragging && expanded && <GroupTitle
         titleRef={titleRef}
         boardId={boardId}
         group={group}
@@ -171,13 +172,15 @@ export const GroupPreview = ({
         handelExpandedChange={handelExpandedChange}
         handelGroupTitleChange={handelGroupTitleChange}
         handleDelete={handleDelete}
+        isMiniGroup={false}
       />
+      }
 
 
       <section className="task-list">
         {/* Render group labels by labels array */}
 
-        {!isDragging && expanded && (
+        {!isDragging && expanded ? (
           <div>
 
             <LabelsGrid
@@ -190,33 +193,32 @@ export const GroupPreview = ({
               expanded={expanded}
             />
 
-
             {/* Render tasks by cmp order */}
-
-            <SortableContext items={group.tasks?.map(task => task?.id)} strategy={verticalListSortingStrategy}> {/* for dnd Radwan */}
-              {group.tasks.map((task) => {
-                return (
-
-                  <TaskPreview
-                    id={task?.id}
-                    key={task.id}
-                    task={task}
-                    group={group}
-                    labels={labels}
-                    loggedinUser={loggedinUser}
-                    onTaskUpdate={onTaskUpdate}
-                    removeTask={removeTask}
-                    boardId={boardId}
-                    users={users}
-                    chatTempInfoUpdate={chatTempInfoUpdate}
-                    openChat={openChat}
-                    checkedBoxes={checkedBoxes}
-                    handleCheckBoxClick={handleCheckBoxClick}
-                    boardScroll={boardScroll}
-                  />
-                )
-              })}
+            <SortableContext
+              items={group.tasks.map((task) => task.id)} // Context for tasks in this group
+              strategy={verticalListSortingStrategy}
+            >
+              {group.tasks.map((task) => (
+                <TaskPreview
+                  id={task?.id}
+                  key={task.id}
+                  task={task}
+                  group={group}
+                  labels={labels}
+                  loggedinUser={loggedinUser}
+                  onTaskUpdate={onTaskUpdate}
+                  removeTask={removeTask}
+                  boardId={boardId}
+                  users={users}
+                  chatTempInfoUpdate={chatTempInfoUpdate}
+                  openChat={openChat}
+                  checkedBoxes={checkedBoxes}
+                  handleCheckBoxClick={handleCheckBoxClick}
+                  boardScroll={boardScroll}
+                />
+              ))}
             </SortableContext>
+
             <AddTask group={group} handleAddTask={handleAddTask} />
 
             {/* Render progress by progress array */}
@@ -243,10 +245,25 @@ export const GroupPreview = ({
                   <div className={lable.type} key={`progress-${index} `}></div>
                 )
               )}
-              <div className="empty-space"/>
+              <div className="empty-space" />
             </section>
           </div >
-        )}
+        ) : <MiniGroup boardId={boardId}
+          group={group}
+          groupTitle={groupTitle}
+          handleClick2={handleClick2}
+          id2={id2}
+          open2={open2}
+          anchorE2={anchorE2}
+          handleClose2={handleClose2}
+          titleHead={titleHead}
+          expanded={expanded}
+          attributes={attributes}
+          listeners={listeners}
+          handleGroupNameChange={handleGroupNameChange}
+          handelExpandedChange={handelExpandedChange}
+          handelGroupTitleChange={handelGroupTitleChange}
+          handleDelete={handleDelete} />}
       </section >
     </div >
   );

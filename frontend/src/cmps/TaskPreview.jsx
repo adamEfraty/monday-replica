@@ -47,48 +47,48 @@ export function TaskPreview({
 
     function deleteModalToggle() {
         deleteTaskModal
-        ? closeModal('delete-' + id)
-        : openModal('delete-' + id)
+            ? closeModal('delete-' + id)
+            : openModal('delete-' + id)
     }
 
     // if user click outside delete modal close it
     function handleClickOutsideModal(event) {
-    if (!deleteTaskModalRef.current.contains(event.target)
-        && !dotsRef.current.contains(event.target))
-        deleteModalToggle()
+        if (!deleteTaskModalRef.current.contains(event.target)
+            && !dotsRef.current.contains(event.target))
+            deleteModalToggle()
     }
 
     // // open listener to handleClickOutsideModal only when modal open
     useEffect(() => {
-    if (deleteTaskModal) document.addEventListener
-        ('mousedown', handleClickOutsideModal)
-    else document.removeEventListener
-        ('mousedown', handleClickOutsideModal)
-    return () => document.removeEventListener
-        ('mousedown', handleClickOutsideModal)
+        if (deleteTaskModal) document.addEventListener
+            ('mousedown', handleClickOutsideModal)
+        else document.removeEventListener
+            ('mousedown', handleClickOutsideModal)
+        return () => document.removeEventListener
+            ('mousedown', handleClickOutsideModal)
 
     }, [deleteTaskModal])
 
     return (
-        <section className="task-preview" 
-        onMouseOver={()=>setTaskHovering(task.id)} 
-        onMouseLeave={()=>setTaskHovering(null)}>
+        <section className="task-preview"
+            onMouseOver={() => setTaskHovering(task.id)}
+            onMouseLeave={() => setTaskHovering(null)}>
 
-            {deleteTaskModal ? 
+            {deleteTaskModal ?
                 <div ref={deleteTaskModalRef}>
                     <DeleteTaskModal
-                    removeTask={removeTask}
-                    boardId={boardId}
-                    groupId={group.id}
-                    taskId={id} 
-                    dotsRef={dotsRef}
-                    boardScroll={boardScroll}
+                        removeTask={removeTask}
+                        boardId={boardId}
+                        groupId={group.id}
+                        taskId={id}
+                        dotsRef={dotsRef}
+                        boardScroll={boardScroll}
                     />
 
                 </div>
 
 
-            : ''}
+                : ''}
 
             <section
                 ref={setNodeRef}
@@ -129,11 +129,11 @@ export function TaskPreview({
                     )
                 })}
 
-                <div className="empty-space"/>
+                <div className="empty-space" />
             </section >
         </section>
-        
-        
+
+
     );
 }
 
