@@ -1,0 +1,48 @@
+@use 'vars' as *;
+
+.add-task {
+    cursor: text;
+    position: sticky;
+    left: 10px;
+    border: 1px solid $table-lines-gray;
+    border-right: none;
+    border-top: none;
+    display: flex;
+    align-items: center;
+
+  
+    &:hover {
+      opacity: 1;
+    }
+
+    .checkbox-deco{
+        display: grid;
+        justify-items: center;
+        align-items: center;
+        width: 35px;
+        height: 32px;
+        background-color: rgb(255, 255, 255);
+        border-right: solid $table-lines-gray 1px;
+
+        .box{
+            width: 16px;
+            height: 16px;
+            border: solid #E7E8EE 1px;
+            border-radius: 2px;
+        }
+    }
+  
+    .add-input {
+        outline: none;
+        border: solid blue 1px;
+        height: 22px;
+        border-radius: 4px;
+        margin-left: 10px;
+        padding-left: 5px;
+        font-family: "Quicksand", serif;
+        font-size: 0.85rem;
+        font-weight: 450;
+        
+    }
+  }
+  

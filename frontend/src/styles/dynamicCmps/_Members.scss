@@ -7,6 +7,7 @@
     color: white;
 
     .members-cell {
+      cursor: pointer;
       $member-image-size: 30px;
       display: flex;
       align-items: center;
@@ -24,6 +25,10 @@
         
       }
 
+      .defult-img{
+        border: solid #F5F6F8 2px;
+      }
+
       .extra-members{
         display: grid;
         align-items: center;
@@ -38,6 +43,14 @@
         font-size: 0.9em;
 
       }
+
+      svg{
+        position: absolute;
+        top: 9px;
+        left: 6px;
+        width: 18px;
+        height: 18px;
+        }
     }
   }
 }

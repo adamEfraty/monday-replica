@@ -3,8 +3,13 @@ import { getSvg } from "../../../services/svg.service.jsx"
 export function PriorityModal({onPriorityChange, labelWidth}){
 
     //temporary priorities selection
-    const priorities = [{text:'Low', color:'#86B6FB'},{text:'Medium', color:'#5559DF'},
-        {text:'High', color:'#401694'},{text:'Critical ⚠️', color:'#333333'}]
+    const priorities = [         
+        {text:'Critical ⚠️', color:'#333333'}, 
+        {text:'High', color:'#401694'}, 
+        {text:'Medium', color:'#5559DF'}, 
+        {text:'Low', color:'#579BFC'}, 
+        { text: '', color: '#C4C4C4' }
+    ]
 
 
     return (

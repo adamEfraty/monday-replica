@@ -2,7 +2,7 @@
 import { Priority } from "./dynamicCmps/Priority";
 import { Status } from "./dynamicCmps/Status";
 import { TaskTitle } from "./dynamicCmps/TaskTitle";
-import { Date } from "./dynamicCmps/Date";
+import { DateCell } from "./dynamicCmps/DateCell";
 import { Members } from "./dynamicCmps/Members";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
@@ -71,11 +71,11 @@ export function TaskPreview({
     }, [deleteTaskModal])
 
     return (
-        <section className="task-preview" 
+        <section className="task-preview"
         onMouseOver={()=>setTaskHovering(task.id)} 
         onMouseLeave={()=>setTaskHovering(null)}>
 
-            {deleteTaskModal ? 
+            {deleteTaskModal &&
                 <div ref={deleteTaskModalRef}>
                     <DeleteTaskModal
                     removeTask={removeTask}
@@ -87,9 +87,7 @@ export function TaskPreview({
                     />
 
                 </div>
-
-
-            : ''}
+            }
 
             <section
                 ref={setNodeRef}
@@ -213,7 +211,7 @@ function DynamicCmp({
 
         case "date":
             return (
-                <Date
+                <DateCell
                     cellInfo={cellInfo}
                     onTaskUpdate={onTaskUpdate}
                     labelWidth={label.width}

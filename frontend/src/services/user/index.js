@@ -15,5 +15,5 @@ export function getEmptyUser() {
 // const { VITE_LOCAL } = import.meta.env
 // export const userService = VITE_LOCAL === 'true' ? localService : RmoteService
 
-const local = true
+const local = false
 export const userService = local ? localService : RmoteService

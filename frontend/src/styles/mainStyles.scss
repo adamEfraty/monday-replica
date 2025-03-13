@@ -27,6 +27,7 @@
 @use './dynamicCmps/modals/DeleteLabelConfirmation';
 @use './dynamicCmps//modals/DeleteTaskModal';
 @use './dynamicCmps/modals/ActivityModal';
+@use './AddTask';
 
 * {
   padding: 0;
@@ -37,7 +38,7 @@
 body {
   overflow-x: hidden;
   overflow-y: hidden;
-  font-family: 'Quicksand';
+  font-family: "Quicksand", serif;
   background-color: #eceff8;
 }
 

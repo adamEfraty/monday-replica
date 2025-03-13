@@ -4,7 +4,9 @@ export function P_Date({tasks, labelId}){
 
     const dates = tasks.map(task=> { 
         const dateCell = task.cells.find(cell=> cell.labelId === labelId)
-        return utilService.formatStrToDate(dateCell.value)})
+        return dateCell.value ? utilService.formatStrToDate(dateCell.value) : null
+    }).filter(date=> date != null)
+
     const {firstDate, lastDate} = getFirstAndLastDate(dates)
     const finalStr = betweenDatesStr(firstDate, lastDate)
     const progressPrecentage = precentageOfToday(firstDate, lastDate)
