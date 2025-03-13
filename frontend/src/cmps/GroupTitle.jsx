@@ -22,6 +22,7 @@ export function GroupTitle({ titleRef,
   attributes,
   listeners,
   handleDelete,
+  isMiniGroup,
 
 }) {
 
@@ -55,7 +56,7 @@ export function GroupTitle({ titleRef,
 
 
         <span className="arrow" onClick={() => handelExpandedChange((prev) => !prev)}>
-          {expanded ? <ArrowDownIcon /> : <ArrowRightIcon />}
+          {!isMiniGroup && expanded ? <ArrowDownIcon /> : <ArrowRightIcon />}
         </span>
         <input
           onBlur={() => handleGroupNameChange(groupTitle, group)}

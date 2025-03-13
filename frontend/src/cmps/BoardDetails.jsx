@@ -60,7 +60,9 @@ const BoardDetails = () => {
   const [expandedGroupsId, setExpandedGroupsId] = useState([])
 
   const [isDragging, setIsDragging] = useState(false)
-
+  const [allTasks, setAllTasks] = useState(
+    groups.flatMap(group => group.tasks.map(task => ({ ...task, groupId: group.id })))
+  );
 
   useEffect(() => {
     const index = boards.findIndex((board) => board._id === boardId);
@@ -414,7 +416,7 @@ const BoardDetails = () => {
 
 
       {
-        isFixedGroupExpanded() &&
+        !isDragging && isFixedGroupExpanded() &&
         <div className="sticky-labels">
           <LabelsGrid
             boardId={boardId}
@@ -436,6 +438,7 @@ const BoardDetails = () => {
             onDragStart={handleDragStart}
             collisionDetection={closestCorners}
           >
+            {/* Outer SortableContext for Groups */}
             <SortableContext
               items={groups.map((group) => group.id)}
               strategy={verticalListSortingStrategy}
@@ -469,6 +472,7 @@ const BoardDetails = () => {
               ))}
             </SortableContext>
           </DndContext>
+
           <button className="modal-save-btn" onClick={handleAddGroup}>
             +Add a new group
           </button>

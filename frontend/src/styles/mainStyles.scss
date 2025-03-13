@@ -27,6 +27,8 @@
 @use './dynamicCmps/modals/DeleteLabelConfirmation';
 @use './dynamicCmps//modals/DeleteTaskModal';
 @use './dynamicCmps/modals/ActivityModal';
+@use './MiniGroup';
+@use './Kanban';
 
 * {
   padding: 0;
