@@ -34,7 +34,6 @@
   .empty-space {
     border-bottom: solid $table-lines-gray 1px;
     border-top: solid $table-lines-gray 1px;
-    width: 90px;
   }
 
   .taskTitle {
@@ -407,9 +406,9 @@ div.group-title {
 .main-checkbox {
   display: flex;
   align-items: center;
-
+  height: 100%;
   border-right: 1px solid #e0dede;
-  padding-right: 1.34rem;
+  padding-right: 1.4rem;
   padding-left: 0.65rem;
 
   input {
