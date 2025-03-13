@@ -8,6 +8,7 @@ import { MondayIndex } from "./pages/MondayIndex";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import { utilService } from "./services/util.service";
+import { KanbanIndex } from "./cmps/kanban/KanbanIndex";
 
 function App() {
   const loggedInUser = useSelector((state) => state.userModule.user) || null;
@@ -37,6 +38,7 @@ function App() {
             <Route path={`/${name}s-team.someday.com`} element={<MondayIndex />} />
             <Route path={`/${name}s-team.someday.com/boards/:boardId`} element={<MondayIndex isBoard={true} />} />
             <Route path={`/${name}s-team.someday.com/board`} element={<MondayIndex />} />
+            <Route path={`/board/kanban/:boardId`} element={<KanbanIndex />} />
           </Routes>
         )}
       </Router>

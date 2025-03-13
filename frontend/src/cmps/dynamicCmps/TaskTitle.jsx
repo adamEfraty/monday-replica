@@ -7,7 +7,6 @@ import { utilService } from "../../services/util.service.js"
 import { boardService } from "../../services/board"
 import ReactDOM from 'react-dom'
 import { getSvg } from "../../services/svg.service.jsx"
-import { DeleteTaskModal } from './modals/DeleteTaskModal.jsx'
 
 
 export function TaskTitle({
@@ -24,8 +23,8 @@ export function TaskTitle({
   attributes,
   labelWidth,
   taskHovering,
-  removeTask,
-  boardId,
+  deleteModalToggle,
+  dotsRef
 }) {
 
   //edit task title
@@ -48,12 +47,10 @@ export function TaskTitle({
   const chatPrevInfo = boardService.getChatTempInfo(chatId)
   const isChatWasOpen = boardService.getOpenChat()
 
-  // delete task
-
   const deleteTaskModal = openModals.some((modalId) => modalId === 'delete-' + cellInfo.taskId)
 
-  const deleteTaskModalRef = useRef(null)
-  const dotsRef = useRef(null)
+  const isChecked = checkedBoxes.some((subArr) => subArr[1] == cellInfo.taskId)
+
 
   useEffect(() => {
     // in this way the modal wont show itself after refresh
@@ -173,30 +170,6 @@ export function TaskTitle({
     onTaskUpdate({ ...cellInfo, value: { ...cellInfo.value, title: text } })
   }
 
-  // close and open delete modal as needed
-  function deleteModalToggle() {
-    deleteTaskModal
-      ? closeModal('delete-' + cellInfo.taskId)
-      : openModal('delete-' + cellInfo.taskId)
-  }
-
-  //if user click outside delete modal close it
-  function handleClickOutsideModal(event) {
-    if (!deleteTaskModalRef.current.contains(event.target)
-      && !dotsRef.current.contains(event.target))
-      deleteModalToggle()
-  }
-
-  // open listener to handleClickOutsideModal only when modal open
-  useEffect(() => {
-    if (deleteTaskModal) document.addEventListener
-      ('mousedown', handleClickOutsideModal)
-    else document.removeEventListener
-      ('mousedown', handleClickOutsideModal)
-    return () => document.removeEventListener
-      ('mousedown', handleClickOutsideModal)
-
-  }, [deleteTaskModal])
 
 
   return (
@@ -212,15 +185,6 @@ export function TaskTitle({
             onClick={deleteModalToggle}>
             {getSvg('horizontal-dots')}
           </div>
-          {
-            deleteTaskModal && <div ref={deleteTaskModalRef}>
-              <DeleteTaskModal
-                removeTask={removeTask}
-                boardId={boardId}
-                groupId={group.id}
-                taskId={cellInfo.taskId} />
-            </div>
-          }
         </div>
 
 
@@ -229,11 +193,18 @@ export function TaskTitle({
           <div className="input-styles">
             <input
               type="checkbox"
-              checked={checkedBoxes.some(
-                (subArr) => subArr[1] == cellInfo.taskId
-              )}
+              checked={isChecked}
               onChange={() => handleCheckBoxClick(group.id, cellInfo.taskId)}
+              style={{backgroundColor: isChecked ? `#0073EA` : 'white',
+                border: isChecked && 'none',
+              }}
             />
+            <div className="check-icon"
+            onClick={() => handleCheckBoxClick(group.id, cellInfo.taskId)}>
+              {
+                isChecked && getSvg('check')
+              }
+            </div>
           </div>
           <div className="title-part ">
             {

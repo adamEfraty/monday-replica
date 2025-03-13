@@ -17,7 +17,7 @@ import { CSS } from "@dnd-kit/utilities";
 import { TaskPreview } from "./TaskPreview.jsx";
 import { Label } from "./Label.jsx";
 import { LabelTitle } from "./LabelTitle.jsx";
-
+import { MiniGroup } from "./MiniGroup.jsx";
 import { GroupTitle } from "./GroupTitle.jsx";
 import { LabelsGrid } from "./LabelsGrid.jsx";
 
@@ -119,12 +119,14 @@ export const GroupPreview = ({
     setGroupTitle(newGroupTitle)
   }
 
+  const labelsLength = labels.reduce((acc, label) => acc+label.width, 0);
+
   return (
     <div style={style} ref={setNodeRef} className="group-list-dnd" >
 
 
       {
-        expanded && fixedGroup && fixedGroup.id === group.id &&
+        !isDragging && expanded && fixedGroup && fixedGroup.id === group.id &&
         <>
           <div className="fixed-area">
             <div className="fixed-group-title">
@@ -145,6 +147,8 @@ export const GroupPreview = ({
                 handelExpandedChange={handelExpandedChange}
                 handelGroupTitleChange={handelGroupTitleChange}
                 handleDelete={handleDelete}
+                isMiniGroup={false}
+
               />
             </div>
           </div>
@@ -152,8 +156,7 @@ export const GroupPreview = ({
       }
 
 
-
-      <GroupTitle
+      {!isDragging && expanded && <GroupTitle
         titleRef={titleRef}
         boardId={boardId}
         group={group}
@@ -171,13 +174,15 @@ export const GroupPreview = ({
         handelExpandedChange={handelExpandedChange}
         handelGroupTitleChange={handelGroupTitleChange}
         handleDelete={handleDelete}
+        isMiniGroup={false}
       />
+      }
 
 
       <section className="task-list">
         {/* Render group labels by labels array */}
 
-        {!isDragging && expanded && (
+        {!isDragging && expanded ? (
           <div>
 
             <LabelsGrid
@@ -188,8 +193,8 @@ export const GroupPreview = ({
               checkedGroups={checkedGroups}
               isFixed={false}
               expanded={expanded}
+              labelsLength={labelsLength}
             />
-
 
             {/* Render tasks by cmp order */}
 
@@ -212,17 +217,20 @@ export const GroupPreview = ({
                     openChat={openChat}
                     checkedBoxes={checkedBoxes}
                     handleCheckBoxClick={handleCheckBoxClick}
+                    boardScroll={boardScroll}
+                    labelsLength={labelsLength}
                   />
                 )
               })}
             </SortableContext>
+
             <AddTask group={group} handleAddTask={handleAddTask} />
 
             {/* Render progress by progress array */}
             <section
               className="progress-grid"
               style={{
-                gridTemplateColumns: `10px ${labels.map(label => `${label.width}px`).join(' ')} 100px`
+                gridTemplateColumns: `10px ${labels.map(label => `${label.width}px`).join(' ')} auto`
               }}
             >
               <div className="invisible">
@@ -242,9 +250,26 @@ export const GroupPreview = ({
                   <div className={lable.type} key={`progress-${index} `}></div>
                 )
               )}
+              <div className="empty-space"
+              style={{width: Math.max(90, 1210 - labelsLength)}}/>
             </section>
           </div >
-        )}
+        ) : <MiniGroup boardId={boardId}
+          group={group}
+          groupTitle={groupTitle}
+          handleClick2={handleClick2}
+          id2={id2}
+          open2={open2}
+          anchorE2={anchorE2}
+          handleClose2={handleClose2}
+          titleHead={titleHead}
+          expanded={expanded}
+          attributes={attributes}
+          listeners={listeners}
+          handleGroupNameChange={handleGroupNameChange}
+          handelExpandedChange={handelExpandedChange}
+          handelGroupTitleChange={handelGroupTitleChange}
+          handleDelete={handleDelete} />}
       </section >
     </div >
   );
