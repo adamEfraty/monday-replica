@@ -27,6 +27,8 @@ export function TaskPreview({
     removeTask,
     boardId,
     boardScroll,
+    isDragging,
+    isDraggingTask,
 }) {
 
 
@@ -124,6 +126,7 @@ export function TaskPreview({
                                 boardId={boardId}
                                 deleteModalToggle={deleteModalToggle}
                                 dotsRef={dotsRef}
+                                isDraggingTask={isDraggingTask}
                             />
                         </section>
                     )
@@ -155,7 +158,9 @@ function DynamicCmp({
     removeTask,
     boardId,
     deleteModalToggle,
-    dotsRef
+    dotsRef,
+    isDraggin,
+    isDraggingTask
 }) {
     switch (label.type) {
         case "priority":
@@ -187,6 +192,7 @@ function DynamicCmp({
                     boardId={boardId}
                     deleteModalToggle={deleteModalToggle}
                     dotsRef={dotsRef}
+                    isDraggingTask={isDraggingTask}
                 />
             );
 
