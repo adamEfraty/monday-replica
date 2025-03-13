@@ -198,7 +198,7 @@ export function Label({ label, id, boardId, groupId, isFixed}) {
         {...listeners} 
         {...attributes}  
         style={{transform: CSS.Transform.toString(transform), transition, 
-            backgroundColor: hoverLable || modal || isDragging ? '#F5F6F8' : 'white'}}
+            backgroundColor: hoverLable || modal || isDragging || onEditMode ? '#F5F6F8' : 'white'}}
         className="label"
         onMouseMove={handleMouseMove}
         onMouseUp={handleMouseUp}>

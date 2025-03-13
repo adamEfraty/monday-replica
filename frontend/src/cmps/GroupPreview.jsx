@@ -119,6 +119,8 @@ export const GroupPreview = ({
     setGroupTitle(newGroupTitle)
   }
 
+  const labelsLength = labels.reduce((acc, label) => acc+label.width, 0);
+
   return (
     <div style={style} ref={setNodeRef} className="group-list-dnd" >
 
@@ -191,32 +193,35 @@ export const GroupPreview = ({
               checkedGroups={checkedGroups}
               isFixed={false}
               expanded={expanded}
+              labelsLength={labelsLength}
             />
 
             {/* Render tasks by cmp order */}
-            <SortableContext
-              items={group.tasks.map((task) => task.id)} // Context for tasks in this group
-              strategy={verticalListSortingStrategy}
-            >
-              {group.tasks.map((task) => (
-                <TaskPreview
-                  id={task?.id}
-                  key={task.id}
-                  task={task}
-                  group={group}
-                  labels={labels}
-                  loggedinUser={loggedinUser}
-                  onTaskUpdate={onTaskUpdate}
-                  removeTask={removeTask}
-                  boardId={boardId}
-                  users={users}
-                  chatTempInfoUpdate={chatTempInfoUpdate}
-                  openChat={openChat}
-                  checkedBoxes={checkedBoxes}
-                  handleCheckBoxClick={handleCheckBoxClick}
-                  boardScroll={boardScroll}
-                />
-              ))}
+
+            <SortableContext items={group.tasks?.map(task => task?.id)} strategy={verticalListSortingStrategy}> {/* for dnd Radwan */}
+              {group.tasks.map((task) => {
+                return (
+
+                  <TaskPreview
+                    id={task?.id}
+                    key={task.id}
+                    task={task}
+                    group={group}
+                    labels={labels}
+                    loggedinUser={loggedinUser}
+                    onTaskUpdate={onTaskUpdate}
+                    removeTask={removeTask}
+                    boardId={boardId}
+                    users={users}
+                    chatTempInfoUpdate={chatTempInfoUpdate}
+                    openChat={openChat}
+                    checkedBoxes={checkedBoxes}
+                    handleCheckBoxClick={handleCheckBoxClick}
+                    boardScroll={boardScroll}
+                    labelsLength={labelsLength}
+                  />
+                )
+              })}
             </SortableContext>
 
             <AddTask group={group} handleAddTask={handleAddTask} />
@@ -245,7 +250,8 @@ export const GroupPreview = ({
                   <div className={lable.type} key={`progress-${index} `}></div>
                 )
               )}
-              <div className="empty-space" />
+              <div className="empty-space"
+              style={{width: Math.max(90, 1210 - labelsLength)}}/>
             </section>
           </div >
         ) : <MiniGroup boardId={boardId}

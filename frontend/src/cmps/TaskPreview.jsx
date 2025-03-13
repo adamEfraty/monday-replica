@@ -27,6 +27,7 @@ export function TaskPreview({
     removeTask,
     boardId,
     boardScroll,
+    labelsLength,
 }) {
 
 
@@ -129,7 +130,8 @@ export function TaskPreview({
                     )
                 })}
 
-                <div className="empty-space" />
+                <div className="empty-space"
+                style={{width: Math.max(90, 1210 - labelsLength)}}/>
             </section >
         </section>
 
