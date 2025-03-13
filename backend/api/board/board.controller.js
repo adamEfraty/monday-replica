@@ -26,44 +26,8 @@ export async function getBoard(req, res) {
 }
 
 export async function addBoard(req, res) {
-  const { title: boardName } = req.body
-  const boardToSave = {
-    title: boardName,
-    isFavorite: false,
-    groups: [],
-    labels: [
-      {
-        id: makeIdForLabel(),
-        type: 'taskTitle',
-        name: 'task',
-        width: 400,
-      },
-      {
-        id: makeIdForLabel(),
-        type: 'priority',
-        name: 'priority',
-        width: 150,
-      },
-      {
-        id: makeIdForLabel(),
-        type: 'status',
-        name: 'status',
-        width: 150,
-      },
-      {
-        id: makeIdForLabel(),
-        type: 'members',
-        name: 'members',
-        width: 150,
-      },
-      {
-        id: makeIdForLabel(),
-        type: 'date',
-        name: 'date',
-        width: 150,
-      },
-    ],
-  }
+  const { title, isFavorite, groups, labels} = req.body
+  const boardToSave = {title, isFavorite, groups, labels}
 
   try {
     const savedBoard = await boardService.add(boardToSave)
