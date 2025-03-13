@@ -19,13 +19,12 @@ export function Members({ cellInfo, onTaskUpdate, users, labelWidth }) {
     }
 
     function onAddMember(member) {
-        modalToggle()
         onTaskUpdate({ ...cellInfo, value: [...cellInfo.value, member] })
     }
 
     function onRemoveMember(memberToRemove) {
         const newMembers = cellInfo.value.filter(member =>
-            memberToRemove.id !== member.id)
+            memberToRemove._id !== member._id)
         onTaskUpdate({ ...cellInfo, value: newMembers })
     }
 
