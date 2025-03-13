@@ -1,7 +1,8 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { MembersModal } from './modals/MembersModal.jsx'
 import { openModal, closeModal } from '../../store/actions/boards.actions.js'
 import { useSelector } from "react-redux";
+import { getSvg } from '../../services/svg.service.jsx';
 
 export function Members({ cellInfo, onTaskUpdate, users, labelWidth }) {
     const openModals = useSelector(state => state.boardModule.openModals)
@@ -10,7 +11,9 @@ export function Members({ cellInfo, onTaskUpdate, users, labelWidth }) {
     const modalRef = useRef(null)
     const membersCellRef = useRef(null)
 
-    const defultImg = 'https://upload.wikimedia.org/wikipedia/commons/2/2c/Default_pfp.svg'
+    const defultImg = 'https://cdn.monday.com/icons/dapulse-person-column.svg'
+
+    const [isHovered, setIsHovered] = useState(false);
 
     function modalToggle() {
         modal
@@ -52,7 +55,10 @@ export function Members({ cellInfo, onTaskUpdate, users, labelWidth }) {
             <div
                 className="members-cell"
                 ref={membersCellRef}
-                onClick={modalToggle}>
+                onClick={modalToggle}
+                onMouseEnter={() => setIsHovered(true)}
+                onMouseLeave={() => setIsHovered(false)}
+                >
                 {
                     cellInfo.value.length ?
                         displayedMembers.map(member =>
@@ -61,11 +67,12 @@ export function Members({ cellInfo, onTaskUpdate, users, labelWidth }) {
                             </span>
                         )
 
-                        : <img src={defultImg} />
+                        : <img className="defult-img" src={defultImg} />
                 }
                 {extraMembersCount > 0 && (
                     <div className="extra-members">+{extraMembersCount}</div>
                 )}
+                {isHovered && getSvg('plus-circle-icon')}
             </div>
 
             {/* members modal*/}

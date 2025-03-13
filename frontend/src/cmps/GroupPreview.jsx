@@ -1,4 +1,4 @@
-import { Date } from "./dynamicCmps/Date.jsx";
+import { DateCell } from "./dynamicCmps/DateCell.jsx";
 import { Members } from "./dynamicCmps/Members.jsx";
 import { Status } from "./dynamicCmps/Status.jsx";
 import { TaskTitle } from "./dynamicCmps/TaskTitle.jsx";
@@ -79,7 +79,7 @@ export const GroupPreview = ({
   const titleRef = useRef(null)
   const [titlePositionY, setTitlePositionY] = useState(0)
 
-
+  const labelsLength = labels.reduce((acc, label) => acc+label.width, 0);
 
 
   useEffect(() => {
@@ -120,8 +120,6 @@ export const GroupPreview = ({
   function handelGroupTitleChange(newGroupTitle) {
     setGroupTitle(newGroupTitle)
   }
-
-  const labelsLength = labels.reduce((acc, label) => acc+label.width, 0);
 
   return (
     <div style={style} ref={setNodeRef} className="group-list-dnd" >
@@ -234,7 +232,7 @@ export const GroupPreview = ({
               )}
             </Droppable>
 
-            <AddTask group={group} handleAddTask={handleAddTask} />
+            <AddTask group={group} handleAddTask={handleAddTask} TaskTitleLength={labels[0].width} />
 
             {/* Render progress by progress array */}
             <section
@@ -253,11 +251,14 @@ export const GroupPreview = ({
                     <ProgressCmd
                       label={lable}
                       tasks={group.tasks}
+                      index={index}
 
                     />
                   </div>
                 ) : (
-                  <div className={lable.type} key={`progress-${index} `}></div>
+                  <div className={lable.type} key={`progress-${index} `}>
+                      {lable.type === 'taskTitle' && <div className="round-corner"/>}
+                  </div>
                 )
               )}
               <div className="empty-space"
@@ -290,6 +291,7 @@ export const GroupPreview = ({
 const ProgressCmd = ({
   label,
   tasks,
+  index,
 
 }) => {
 
@@ -299,6 +301,7 @@ const ProgressCmd = ({
         <P_Priority
           tasks={tasks}
           labelId={label.id}
+          index={index}
         />
       )
 
@@ -307,6 +310,7 @@ const ProgressCmd = ({
         <P_Status
           tasks={tasks}
           labelId={label.id}
+          index={index}
         />
       )
 
@@ -315,6 +319,7 @@ const ProgressCmd = ({
         <P_Date
           tasks={tasks}
           labelId={label.id}
+          index={index}
         />
       )
 
@@ -324,6 +329,7 @@ const ProgressCmd = ({
           tasks={tasks}
           labelId={label.id}
           labelWidth={label.width}
+          index={index}
         />
       )
 

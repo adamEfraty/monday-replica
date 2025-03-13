@@ -2,7 +2,7 @@
 
 export function P_Members({tasks, labelId, labelWidth}){
     // tasks: [{taskId: xxx, cells: [{memberCell}, ...]}, ...]
-    const defultImg = 'https://upload.wikimedia.org/wikipedia/commons/2/2c/Default_pfp.svg'
+    const defultImg = 'https://cdn.monday.com/icons/dapulse-person-column.svg'
     const allMembers = allActiveMembers(tasks)
 
     function allActiveMembers(tasks){
@@ -30,7 +30,7 @@ export function P_Members({tasks, labelId, labelWidth}){
                 allMembers.length
                 ? displayedMembers.map(member=>
                     <img key={member.id} src={member.imgUrl}/>)
-                : <img src={defultImg}/>
+                : <img className="defult-img" src={defultImg}/>
             }
             {
                 extraMembersCount > 0 && 

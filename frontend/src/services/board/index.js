@@ -5,4 +5,5 @@ import { boardService as localService } from './board.service.local.js'
 // export const boardService = VITE_LOCAL === 'true' ? localService : RmoteService
 
 const local = false
-export const boardService = local ? localService : RmoteService
+export const boardService = local ? localService : RmoteService 
+

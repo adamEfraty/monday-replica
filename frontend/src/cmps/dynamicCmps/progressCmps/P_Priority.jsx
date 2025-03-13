@@ -2,7 +2,7 @@
 
 export function P_Priority({tasks, labelId}){
 
-    const colorOrder = ['#5559DF', '#86B6FB', '#333333', '#401694', '#C4C4C4']
+    const colorOrder = ['#5559DF', '#579BFC', '#333333', '#401694', '#C4C4C4']
     const priorities = tasks.map(task=>{
         const priorityCell = task.cells.find(cell=> cell.labelId === labelId)
         return priorityCell.value})

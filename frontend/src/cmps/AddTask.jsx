@@ -1,11 +1,30 @@
-import { useState, useRef } from "react"
+import { useState, useEffect, useRef } from "react"
 import { useSelector } from "react-redux"
+import { utilService } from "../services/util.service"
 
 
-export function AddTask({ group, handleAddTask }) {
+export function AddTask({ group, handleAddTask, TaskTitleLength}) {
 
     const [newTaskTitle, setNewTaskTitle] = useState("")
     const inputRef = useRef(null)
+
+    const [isHovered, setIsHovered] = useState(false);
+    const [isFocused, setIsFocused] = useState(false);
+
+    useEffect(() => {
+        const checkFocus = () => {
+          setIsFocused(document.activeElement === inputRef.current)
+        }
+    
+        document.addEventListener("focusin", checkFocus)
+        document.addEventListener("focusout", checkFocus)
+    
+        return () => {
+          document.removeEventListener("focusin", checkFocus)
+          document.removeEventListener("focusout", checkFocus)
+        }
+    }, [])
+    
 
     function onAddTask() {
         if (newTaskTitle !== ''){
@@ -21,10 +40,26 @@ export function AddTask({ group, handleAddTask }) {
             
     }
 
+    const handleClick = () => {
+        inputRef.current?.focus()
+    }
+
+    console.log('TaskTitleLength', TaskTitleLength)
+
     return (
         <section 
-        style={{ borderLeft: `5px solid ${group?.color}`, borderBottomLeftRadius: 5}}
+        style={{ 
+        borderLeft: `5px solid rgba(${utilService.hexToRgb(group?.color)}, ${isHovered ? 1 : 0.6})`, 
+        borderBottomLeftRadius: 5,
+        width: 1210,
+        }}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+        onClick={handleClick}
         className="add-task">
+            <div className="checkbox-deco">
+                <div className="box"/>
+            </div>
             <input
                 ref={inputRef}
                 className="add-input"
@@ -34,6 +69,9 @@ export function AddTask({ group, handleAddTask }) {
                 placeholder="+Add Task"
                 value={newTaskTitle}
                 onChange={(e) => setNewTaskTitle(e.target.value)}
+                style={{width: TaskTitleLength - 60,
+                    borderColor: `${isFocused ? '#0073EA' : (isHovered ? '#C3C6D4' : 'transparent')}`
+                }}
             />
         </section>
     )
