@@ -35,13 +35,13 @@
 
   .empty-space {
     border-bottom: solid $table-lines-gray 1px;
-    width: 90px;
   }
 
   .taskTitle {
     z-index: 1;
     position: sticky;
     left: 10px;
+    margin-top: 1px;
     background-color: white;
     // border-right: solid $table-lines-gray 1px;
     border-bottom: solid white 1px;
@@ -52,7 +52,7 @@
     z-index: 2;
     position: absolute;
     right: 0px;
-    top:0px;
+    top:-1px;
     width: 6px;
     height: 35px;
     border: solid $table-lines-gray 1px;
@@ -81,8 +81,9 @@
 .group-list {
   font-size: 13px;
   position: relative;
+  width: calc(100vw - 320px);
   // margin-top: -37px;
-  width: max-content;
+  // width: max-content;
   
   & input[type='checkbox'] {
     appearance: none; /* Remove default checkbox */
@@ -164,8 +165,8 @@
   z-index: 5;
   left: 0px;
   top: 227px;
-  width: max-content;
-  margin-top: 1px;
+  // width: max-content;
+  // margin-top: 1px;
 }
 
 /* Grid Items */

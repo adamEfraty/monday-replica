@@ -66,6 +66,7 @@ const BoardDetails = () => {
     groups.flatMap(group => group.tasks.map(task => ({ ...task, groupId: group.id })))
   );
 
+
   useEffect(() => {
     const index = boards.findIndex((board) => board._id === boardId);
     index < 0 &&
@@ -155,6 +156,14 @@ const BoardDetails = () => {
       }
     }
   }, [])
+
+  useEffect(()=>{
+    if(boardDetailsRef.current){
+      const scrollPositionY = boardDetailsRef.current.scrollTop
+      const scrollPositionX = boardDetailsRef.current.scrollLeft
+      setBoardScroll({ x: scrollPositionX, y: scrollPositionY })
+    }
+  },[window.innerWidth])
 
   useEffect(() => {
     if (groups.length) {
@@ -292,9 +301,6 @@ const BoardDetails = () => {
     return currentBoard.labels.findIndex((label) => label.id === id);
   }
 
-  console.log('is dragging ?', isDragging)
-
-
 
 
   const handleDragStart = (start) => {
@@ -388,6 +394,10 @@ const BoardDetails = () => {
   }
 
 
+  if(!currentBoard) return <h2>Loading...</h2>
+
+  const labelsLength = currentBoard?.labels.reduce((acc, label) => acc+label.width, 0);
+
   return (
     <div className="board-details" ref={boardDetailsRef}>
       <BoardDetailsHeader
@@ -401,7 +411,8 @@ const BoardDetails = () => {
 
       {
         !isDragging && isFixedGroupExpanded() &&
-        <div className="sticky-labels">
+        <div className="sticky-labels"
+        style={{width: (labelsLength < window.innerWidth - 320) ? 'calc(100vw - 320px)' : `${labelsLength + 100}px`}}>
           <LabelsGrid
             boardId={boardId}
             group={fixedGroup}
@@ -416,11 +427,12 @@ const BoardDetails = () => {
 
       {currentBoard.groups.length > 0 ? (
         <section className="group-list"
-          style={{ marginTop: `${isFixedGroupExpanded() ? '-37px' : '0px'}` }}>
+          style={{ marginTop: `${isFixedGroupExpanded() ? '-37px' : '0px'}`}}>
           <DragDropContext onDragEnd={handleDragEnd} onDragStart={handleDragStart}>
             <Droppable droppableId="groups" type="group">
               {(provided) => (
-                <section ref={provided.innerRef} {...provided.droppableProps} className="group-list">
+                <section ref={provided.innerRef} {...provided.droppableProps} className="group-list"
+                style={{width: (labelsLength < window.innerWidth - 320) ? 'calc(100vw - 320px)' : `${labelsLength + 100}px`}}>
                   {groups.map((group, index) => (
                     <Draggable key={group.id} draggableId={group.id} index={index}>
                       {(provided) => (

@@ -264,8 +264,7 @@ export const GroupPreview = ({
                   </div>
                 )
               )}
-              <div className="empty-space"
-              style={{width: Math.max(90, window.innerWidth - labelsLength - 325)}}/>
+              <div className="empty-space"/>
             </section>
           </div >
         ) : <MiniGroup boardId={boardId}

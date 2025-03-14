@@ -190,7 +190,6 @@ export function Label({ label, labelId, boardId, groupId, isFixed, isLast }) {
         utilService.animateCSS(confirmationRef.current, animation, duration)
     }
 
-    console.log('isLast', isLast)
 
     return (
         <div ref={el => { // Assign both refs

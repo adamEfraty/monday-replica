@@ -131,8 +131,7 @@ export function TaskPreview({
                     )
                 })}
 
-                <div className="empty-space"
-                style={{width: Math.max(90, window.innerWidth - labelsLength - 325)}}/>
+                <div className="empty-space"/>
             </section >
         </section>
 
