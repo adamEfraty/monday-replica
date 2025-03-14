@@ -12,7 +12,7 @@ export function P_Members({tasks, labelId, labelWidth}){
                 cell.labelId === labelId)
             for(let member of membersCell.value){
                 const alreadyIn = result.some(memb=> 
-                    member.id === memb.id)
+                    member._id === memb._id)
                 if (!alreadyIn) result.push(member)
             }
         }
