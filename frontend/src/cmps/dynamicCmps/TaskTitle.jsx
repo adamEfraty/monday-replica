@@ -224,8 +224,16 @@ export function TaskTitle({
           }
           </div>
         </div>
-        <div className="chat-icon"  onClick={modalToggle} ref={ChatButtonRef}>
-          {getSvg('chat-icon')}
+        <div className="chat-icon"  onClick={modalToggle} ref={ChatButtonRef}
+        style={{color: cellInfo.value?.chat?.length > 0 && '#0073EA'}}>
+          { cellInfo.value?.chat?.length === 0 ?
+            getSvg('chat-icon-empty')
+            :
+            <div>
+              {getSvg('chat-icon')}
+              <div className="circle">{cellInfo.value?.chat?.length}</div>
+            </div>
+          }
         </div>
       </section>
 

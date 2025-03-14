@@ -343,6 +343,7 @@ div {
 }
 
 .chat-icon {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -353,6 +354,21 @@ div {
 
   &:hover {
     color: #0073EA;
+  }
+
+  .circle{
+    display: grid;
+    align-items: center;
+    justify-items: center;
+    font-size: 0.6rem;
+    position: absolute;
+    top: 14px;
+    left: 33px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    color: white;
+    background-color: #0073EA;
   }
 }
 section.labels-grid {
