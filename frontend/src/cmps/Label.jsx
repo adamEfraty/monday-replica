@@ -10,9 +10,9 @@ import { utilService } from "../services/util.service.js";
 import ReactDOM from 'react-dom'
 
 
-export function Label({ label, id, boardId, groupId, isFixed }) {
+export function Label({ label, labelId, boardId, groupId, isFixed, isLast }) {
 
-    const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id })
+    const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ labelId })
 
     const modalId = `${label.id}${groupId}${isFixed ? 'fix' : ''}`
     const openModals = useSelector(state => state.boardModule.openModals)
@@ -190,6 +190,8 @@ export function Label({ label, id, boardId, groupId, isFixed }) {
         utilService.animateCSS(confirmationRef.current, animation, duration)
     }
 
+    console.log('isLast', isLast)
+
     return (
         <div ref={el => { // Assign both refs
             setNodeRef(el);
@@ -252,7 +254,8 @@ export function Label({ label, id, boardId, groupId, isFixed }) {
                 <section
                     className="label-modal"
                     ref={modalRef}
-                    onPointerDown={e => e.stopPropagation()}>
+                    onPointerDown={e => e.stopPropagation()}
+                    style={isLast ? {left: '-205px'} : {}}>
 
                     <button onClick={toggleConfirnationModal}>
                         {getSvg('trash2')}
