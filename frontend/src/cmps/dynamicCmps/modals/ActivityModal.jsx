@@ -8,6 +8,7 @@ import ArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 export function ActivityModal({ activities }) {
   const boards = useSelector((state) => state.boardModule.boards);
   const users = useSelector((state) => state.userModule.users);
+
   return activities[0] ? (
     <div className="activities-modal-container">
       <section className="header-activities">

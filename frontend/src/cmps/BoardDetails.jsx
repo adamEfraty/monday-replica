@@ -86,7 +86,6 @@ const BoardDetails = () => {
       boards,
       boardId
     );
-    console.log(filteredColumns.find((board) => board._id === boardId))
     filteredColumns &&
       setBoardColumnsFilter(
         filteredColumns.find((board) => board.id === boardId)

@@ -44,5 +44,13 @@
         font-weight: 450;
         
     }
+
+    .empty-space{
+        position: absolute;
+        right: -100px;
+        width: 100px;
+        height: calc(100% + 1px);
+        border-bottom: solid $table-lines-gray 1px;
+    }
   }
   
