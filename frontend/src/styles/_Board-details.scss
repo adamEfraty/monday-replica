@@ -19,11 +19,11 @@
   width: 100%; /* Set a fixed width */
 
   .invisible {
+    z-index: 1;
     position: sticky;
     left: 0px;
 
     .white-cover {
-      z-index: 100;
       position: absolute;
       left: -39px;
       top: -1px;
@@ -100,10 +100,15 @@
     }
   }
 
+
   .check-icon{
     cursor: pointer;
     position: absolute;
     top: 9px;
+  }
+
+  .group-preview{
+    margin-bottom: 2px;
   }
 }
 

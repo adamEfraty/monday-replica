@@ -23,7 +23,7 @@ export function KanbanTask({ task, onTaskUpdate, users }) {
                     <div style={{ width: '50%' }} className="grid-item status">
 
                         <Status
-                            cellInfo={task.cells[1]}
+                            cellInfo={task.cells[2]}
                             onTaskUpdate={onTaskUpdate}
                             labelWidth={20}
                         />
@@ -38,7 +38,7 @@ export function KanbanTask({ task, onTaskUpdate, users }) {
                     </div>
                     <div style={{ width: '50%' }} className="grid-item priority">
                         <Priority
-                            cellInfo={task.cells[2]}
+                            cellInfo={task.cells[1]}
                             onTaskUpdate={onTaskUpdate}
                             labelWidth={20}
                         />

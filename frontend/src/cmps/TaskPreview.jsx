@@ -132,13 +132,15 @@ export function TaskPreview({
                 })}
 
                 <div className="empty-space"
-                style={{width: Math.max(90, 1210 - labelsLength)}}/>
+                style={{width: Math.max(90, window.innerWidth - labelsLength - 325)}}/>
             </section >
         </section>
 
 
     );
 }
+// style={{width: Math.max(90, 1210 - labelsLength)}}
+// {width: Math.max(90, window.innerWidth - labelsLength - 350)}
 
 
 function DynamicCmp({
