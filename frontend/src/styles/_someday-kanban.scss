@@ -1,0 +1,111 @@
+.kanban-container {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem;
+  overflow-x: auto;
+  background-color: #fff;
+
+  .kanban-group {
+    background-color: #eef0f6; // Light gray background for groups
+    min-width: 280px;
+    max-width: 300px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    height: 90vh;
+
+    .group-header {
+      padding: 10px;
+      border-radius: 8px 8px 0 0;
+      font-weight: bold;
+      text-align: center;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: small;
+
+      .task-count {
+        color: #fff;
+        font-weight: 200;
+      }
+
+      &:hover {
+        .icons-group {
+          opacity: 1;
+        }
+      }
+    }
+
+    .task-list {
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      overflow-y: scroll;
+    }
+
+    .kanban-task {
+      background: #ffffff;
+      padding: 50px;
+      border-radius: 6px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      transition: transform 0.2s ease-in-out;
+      cursor: pointer;
+
+      &:hover {
+        transform: scale(1.03);
+      }
+
+      .task-title {
+        font-size: 1rem;
+        font-weight: 600;
+        color: #333;
+        text-align: center;
+      }
+    }
+
+    &:hover {
+      .add-new-task {
+        h3 {
+          opacity: 1;
+        }
+      }
+    }
+  }
+}
+.add-new-task {
+  font-weight: 100;
+  color: #8b8b8b;
+  font-size: 0.7rem;
+  width: 90%;
+  margin: 10px auto;
+  height: 2rem;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  h3 {
+    opacity: 0;
+    padding: 10px 15px;
+  }
+  &:hover {
+    background-color: #e5e5e5;
+
+    cursor: pointer;
+  }
+}
+
+.icons-group {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  opacity: 0;
+
+  .icon-hover {
+    border-radius: 5px;
+    font-weight: 100;
+
+    &:hover {
+      filter: brightness(90%);
+    }
+  }
+}

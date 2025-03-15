@@ -122,7 +122,7 @@ export const GroupPreview = ({
   }
 
   return (
-    <div style={style} ref={setNodeRef} className="group-list-dnd" >
+    <div style={style} ref={setNodeRef} className="group-preview">
 
 
       {
@@ -232,7 +232,10 @@ export const GroupPreview = ({
               )}
             </Droppable>
 
-            <AddTask group={group} handleAddTask={handleAddTask} TaskTitleLength={labels[0].width} />
+            <AddTask group={group} 
+            handleAddTask={handleAddTask} 
+            TaskTitleLength={labels[0].width} 
+            labelsLength={labelsLength}/>
 
             {/* Render progress by progress array */}
             <section
@@ -262,7 +265,7 @@ export const GroupPreview = ({
                 )
               )}
               <div className="empty-space"
-              style={{width: Math.max(90, 1210 - labelsLength)}}/>
+              style={{width: Math.max(90, window.innerWidth - labelsLength - 325)}}/>
             </section>
           </div >
         ) : <MiniGroup boardId={boardId}
