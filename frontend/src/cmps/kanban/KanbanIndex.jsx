@@ -27,9 +27,9 @@ export function KanbanIndex() {
             await loadUsers()
             setCurrentBoard(board);
             setGroups(board.groups);
+
         };
         fetchBoard();
-        console.log(users, 'kanban')
 
     }, [boards, boardId]);
 
@@ -88,7 +88,6 @@ export function KanbanIndex() {
         <>
             <AppHeader userData={loggedInUser} />
 
-            <icon1 />
             <section className="content">
 
                 <SideBar boards={boards} user={loggedInUser} />
