@@ -35,32 +35,60 @@
         }
       }
     }
-
     .task-list {
       padding: 10px;
       display: flex;
       flex-direction: column;
       gap: 10px;
-      overflow-y: scroll;
+      overflow-y: auto; /* Keep scrolling enabled */
+      scrollbar-width: none; /* Hide scrollbar in Firefox */
+      -ms-overflow-style: none; /* Hide scrollbar in IE/Edge */
+    }
+
+    .task-list::-webkit-scrollbar {
+      display: none; /* Hide scrollbar in Chrome/Safari */
     }
 
     .kanban-task {
       background: #ffffff;
-      padding: 50px;
+      padding: 12px;
       border-radius: 6px;
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
       transition: transform 0.2s ease-in-out;
       cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 80px;
 
       &:hover {
         transform: scale(1.03);
       }
 
-      .task-title {
+      .task-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
         font-size: 1rem;
         font-weight: 600;
         color: #333;
-        text-align: center;
+      }
+
+      .task-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 8px;
+        color: #666;
+      }
+
+      .MuiIconButton-root {
+        color: #666;
+        transition: color 0.2s ease-in-out;
+
+        &:hover {
+          color: #333;
+        }
       }
     }
 
@@ -73,6 +101,7 @@
     }
   }
 }
+
 .add-new-task {
   font-weight: 100;
   color: #8b8b8b;
@@ -83,13 +112,14 @@
   border-radius: 5px;
   display: flex;
   align-items: center;
+
   h3 {
     opacity: 0;
     padding: 10px 15px;
   }
+
   &:hover {
     background-color: #e5e5e5;
-
     cursor: pointer;
   }
 }
