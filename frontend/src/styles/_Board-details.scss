@@ -144,11 +144,14 @@
 .fixed-area {
   z-index: 10;
   position: fixed;
-  width: calc(100vw - 307px);
+  width: calc(100vw - 275px);
+  height: 40px;
   overflow-x: hidden;
   overflow-y: hidden;
+  left: 265px;
   top: 206px;
   background-color: white;
+  padding-left: 32px;
 }
 
 .sticky-something {
@@ -164,7 +167,7 @@
   position: sticky;
   z-index: 5;
   left: 0px;
-  top: 227px;
+  top: 203px;
   // width: max-content;
   // margin-top: 1px;
 }
@@ -328,17 +331,6 @@ div {
   width: 100%;
 }
 
-.group-title {
-  display: flex;
-  gap: 10px;
-
-  &:hover {
-    .remove {
-      opacity: 1;
-    }
-  }
-}
-
 .nothing {
   border: 1px solid $table-lines-gray;
 }
@@ -383,14 +375,6 @@ section.labels-grid {
   }
 }
 
-div.group-title {
-  position: sticky;
-  left: 0px;
-  width: calc(100vw - 500px);
-  padding: 1rem;
-  background-color: white;
-  z-index: 4;
-}
 .prog-box {
   border-right: 1px solid $table-lines-gray;
   border-top: 0px solid $table-lines-gray;
@@ -523,13 +507,7 @@ div.input-styles {
   padding-left: 9px;
 }
 
-.change-location {
-  position: relative;
-  right: 35px;
-  top: 5px;
-  display: flex;
-  gap: 10px;
-}
+
 
 .flex-for-modal {
   display: flex;

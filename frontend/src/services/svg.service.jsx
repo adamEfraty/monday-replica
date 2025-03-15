@@ -489,6 +489,9 @@ export function getSvg(svgName) {
         <rect x="23" y="15" width="5" height="20" fill="white"/>
       </svg>
       )
+    case'group-title-arrow':
+      return(<svg viewBox="0 0 20 20" fill="currentColor" width="16" height="16" aria-hidden="true" class="icon_e25990c6e2" data-testid="icon"><path fill="currentColor" d="M12.76 10.56a.77.77 0 0 0 0-1.116L8.397 5.233a.84.84 0 0 0-1.157 0 .77.77 0 0 0 0 1.116l3.785 3.653-3.785 3.652a.77.77 0 0 0 0 1.117.84.84 0 0 0 1.157 0l4.363-4.211Z"></path></svg>)
+
       default:
       return <div />;
   }
