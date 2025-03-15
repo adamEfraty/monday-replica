@@ -230,7 +230,6 @@ export async function removeBoard(boardId) {
 export async function updateTask(boardId, userId, newCell) {
   console.log('It is me you looking for ', boardId, userId, newCell)
 
-  console.log(newCell, 'wtf is new cell!?')
   await boardService.updateTaskInGroup(boardId, userId, newCell)
 
   const board = await boardService.getById(boardId)
@@ -450,4 +449,53 @@ export async function duplicateTasks(boardId, tasksToDuplicate) {
     boardId,
     updatedBoard: newBoard,
   })
+}
+export async function updateTaskStatus(boardId, groupId, taskId, newStatus) {
+  if (newStatus === 'Blank') newStatus = ''
+  try {
+    const board = await boardService.getById(boardId)
+    if (!board) throw new Error('Board not found')
+
+    const groupIndex = board.groups.findIndex((group) => group.id === groupId)
+    if (groupIndex === -1) throw new Error('Group not found')
+
+    const taskIndex = board.groups[groupIndex].tasks.findIndex(
+      (task) => task.id === taskId
+    )
+    if (taskIndex === -1) throw new Error('Task not found')
+
+    const statusCellIndex = board.groups[groupIndex].tasks[
+      taskIndex
+    ].cells.findIndex((cell) => cell.type === 'status')
+    if (statusCellIndex === -1) throw new Error('Status cell not found')
+
+    board.groups[groupIndex].tasks[taskIndex].cells[
+      statusCellIndex
+    ].value.text = newStatus
+    board.groups[groupIndex].tasks[taskIndex].cells[
+      statusCellIndex
+    ].value.color = getStatusColor(newStatus)
+
+    await boardService.save(board)
+
+    await store.dispatch({
+      type: EDIT_BOARD,
+      boardId,
+      updatedBoard: board,
+    })
+
+    console.log(`Task ${taskId} status updated to ${newStatus}`)
+  } catch (error) {
+    console.error('Error updating task status:', error)
+  }
+}
+
+export function getStatusColor(status) {
+  const statusColors = {
+    Done: '#00C875',
+    'Working on it': '#FDAB3D',
+    Stuck: '#DF2F4A',
+    Blank: '#C4C4C4',
+  }
+  return statusColors[status] || '#C4C4C4'
 }

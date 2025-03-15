@@ -292,7 +292,6 @@ async function removeTaskFromGroup(boardId, groupId, taskId) {
 }
 // cell: {taskId:xxx, labelId: xxx, value: xxx, type: xxx}
 async function updateTaskInGroup(boardId, userId, newCell) {
-  console.log('newCell', newCell)
   try {
     const board = await getById(boardId) // Call directly without 'this'
     const groupIndex = board.groups.findIndex((group) =>
@@ -499,9 +498,7 @@ async function makeFirstBoard() {
   }
 
   const savedBoard = await save(board)
-  setFilteredColumnsSession([
-    { id: savedboard._id, labels: savedBoard.labels },
-  ])
+  setFilteredColumnsSession([{ id: savedboard._id, labels: savedBoard.labels }])
   console.log('First board created successfully')
 }
 
@@ -744,7 +741,7 @@ function getDefultCell(label, taskId) {
       return { taskId, labelId: label.id, value: [], type: label.type }
 
     case 'date': {
-      return { taskId, labelId: label.id, value: null, type: label.type}
+      return { taskId, labelId: label.id, value: null, type: label.type }
     }
 
     default:
