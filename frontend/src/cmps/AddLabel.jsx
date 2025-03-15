@@ -86,8 +86,7 @@ export function AddLabel({groupId, boardId, isFixed, labels}){
                 </section>
             }
 
-            {isFixed && <div className="fixed-space"
-            style={{width: Math.max(60, window.innerWidth - labelsLength - 350)}}/>}
+            {isFixed && <div className="fixed-space"/>}
         </section>
     )
 }

@@ -57,7 +57,8 @@ export function LabelsGrid({
                 label={label} 
                 boardId={boardId} 
                 groupId={group.id} 
-                isFixed={isFixed}/>
+                isFixed={isFixed}
+                isLast={labels[labels.length - 1]?.id === label.id}/>
             ))}
             </SortableContext >
 

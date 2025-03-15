@@ -47,35 +47,35 @@ export function AddTask({ group, handleAddTask, TaskTitleLength, labelsLength}) 
     return (
         <section 
         style={{ 
-        borderLeft: `5px solid rgba(${utilService.hexToRgb(group?.color)}, ${isHovered ? 1 : 0.6})`, 
-        borderBottomLeftRadius: 5,
-        width: (labelsLength > window.innerWidth - 350) ? window.innerWidth - 325 : labelsLength,
+
         }}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
         onClick={handleClick}
         className="add-task">
-            <div className="checkbox-deco">
-                <div className="box"/>
+            <div className="sticky-part" style={{width: TaskTitleLength,
+            borderLeft: `5px solid rgba(${utilService.hexToRgb(group?.color)}, ${isHovered ? 1 : 0.6})`, 
+            borderBottomLeftRadius: 5,
+            }}>
+                <div className="checkbox-deco">
+                    <div className="box"/>
+                </div>
+                <input
+                    ref={inputRef}
+                    className="add-input"
+                    onBlur={onAddTask}
+                    onKeyDown={handleKeyDown}
+                    type="text"
+                    placeholder="+Add task"
+                    value={newTaskTitle}
+                    onChange={(e) => setNewTaskTitle(e.target.value)}
+                    style={{width: TaskTitleLength - 60,
+                        borderColor: `${isFocused ? '#0073EA' : (isHovered ? '#C3C6D4' : 'transparent')}`
+                    }}
+                />
             </div>
-            <input
-                ref={inputRef}
-                className="add-input"
-                onBlur={onAddTask}
-                onKeyDown={handleKeyDown}
-                type="text"
-                placeholder="+Add task"
-                value={newTaskTitle}
-                onChange={(e) => setNewTaskTitle(e.target.value)}
-                style={{width: TaskTitleLength - 60,
-                    borderColor: `${isFocused ? '#0073EA' : (isHovered ? '#C3C6D4' : 'transparent')}`
-                }}
-            />
-
-            {(labelsLength < window.innerWidth - 350) && <div className="empty-space"
-            style={{width: window.innerWidth - labelsLength - 325,
-                right: -(window.innerWidth - labelsLength - 325)
-            }}/>}
+            
+            {/* <div className="empty-space"/> */}
             
         </section>
     )
