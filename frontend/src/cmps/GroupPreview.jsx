@@ -46,6 +46,7 @@ export const GroupPreview = ({
   updateExpandedGroups,
   isDragging,
   isDraggingTask,
+  labelsLength,
 
 }) => {
   const [expanded, setExpanded] = useState(true);
@@ -78,9 +79,6 @@ export const GroupPreview = ({
 
   const titleRef = useRef(null)
   const [titlePositionY, setTitlePositionY] = useState(0)
-
-  const labelsLength = labels.reduce((acc, label) => acc+label.width, 0);
-
 
   useEffect(() => {
 

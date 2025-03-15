@@ -82,6 +82,8 @@ const BoardDetails = () => {
     console.log(filteredColumns);
   }, [filteredColumns]);
 
+  // console.log(currentBoard.labels)
+
   useEffect(() => {
     console.log(
       "filteredColumns csdfsdfsdf ",
@@ -168,6 +170,14 @@ const BoardDetails = () => {
       setLabelsLength(currentBoard.labels.reduce((acc, label) => acc+label.width, 0))
     }
   },[zoomLevel])
+
+  useEffect(()=>{
+    if(currentBoard){
+      setLabelsLength(currentBoard.labels.reduce((acc, label) => acc+label.width, 0))
+    }
+  },[currentBoard])
+
+
 
   useEffect(() => {
     if (groups.length) {
@@ -471,6 +481,7 @@ const BoardDetails = () => {
                             updateExpandedGroups={updateExpandedGroups}
                             isDragging={isDragging}
                             isDraggingTask={isDraggingTask}
+                            labelsLength={labelsLength}
                           />
                         </div>
                       )}

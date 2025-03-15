@@ -33,7 +33,7 @@ export function GroupTitle({ titleRef,
         <span className="remove" onClick={handleClick2}><MoreHorizIcon />
         </span>
 
-        <Popover
+        {/* <Popover
           id={id2}
           open={open2}
           anchorEl={anchorE2}
@@ -51,7 +51,7 @@ export function GroupTitle({ titleRef,
             <Color closeAll={handleClose2} color={group.color} boardId={boardId} groupId={group.id} />
             <GarbageRemove someName={'Group'} someFunction={() => handleDelete(group.id, boardId)} />
           </div>
-        </Popover>
+        </Popover> */}
 
 
 
