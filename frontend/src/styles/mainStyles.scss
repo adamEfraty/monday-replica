@@ -30,6 +30,7 @@
 @use './MiniGroup';
 @use './Kanban';
 @use './AddTask';
+@use './someday-kanban';
 
 * {
   padding: 0;
@@ -40,7 +41,7 @@
 body {
   overflow-x: hidden;
   overflow-y: hidden;
-  font-family: "Quicksand", serif;
+  font-family: 'Quicksand', serif;
   background-color: #eceff8;
 }
 

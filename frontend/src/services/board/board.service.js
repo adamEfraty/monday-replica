@@ -169,18 +169,22 @@ async function addItemToGroup(
   idx = null
 ) {
   const taskGroupId = newItem.cells[0].value.activities[0].activity.groupId
-  if(taskGroupId !== groupId){
-    newItem.cells[0].value.activities = newItem.cells[0].value.activities.map(e => (
-      {
+  if (taskGroupId !== groupId) {
+    newItem.cells[0].value.activities = newItem.cells[0].value.activities.map(
+      (e) => ({
         ...e,
-        activity:{
+        activity: {
           ...e.activity,
-          groupId: groupId
-        }
-      }
-    ))
+          groupId: groupId,
+        },
+      })
+    )
   }
-  console.log('rick and morty: ', newItem.cells[0].value.activities[0].activity.groupId, groupId)
+  console.log(
+    'rick and morty: ',
+    newItem.cells[0].value.activities[0].activity.groupId,
+    groupId
+  )
   const board = await getById(boardId)
   if (!board) throw new Error('Board not found')
 
@@ -771,9 +775,9 @@ function getDefultCell(label, taskId) {
     case 'members':
       return { taskId, labelId: label.id, value: [], type: label.type }
 
-      case 'date': {
-        return { taskId, labelId: label.id, value: null, type: label.type}
-      }
+    case 'date': {
+      return { taskId, labelId: label.id, value: null, type: label.type }
+    }
 
     default:
       return null

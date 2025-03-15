@@ -40,7 +40,7 @@ export function BoardDetailsHeader({ handleAddTask, boardTitle, boardId, boardCo
   }
   return (
     <header className="board-details-header">
-      <div className="white-cover"/>
+      <div className="white-cover" />
       <br />
       <div className="boardTitle">
         <h2>{boardTitle}</h2>
@@ -57,6 +57,9 @@ export function BoardDetailsHeader({ handleAddTask, boardTitle, boardId, boardCo
         </div>
         <div onClick={() => navigate(`/board/kanban/${boardId}`)}>
           go to kanban
+        </div>
+        <div onClick={() => navigate(`/board/someday-kanban/${boardId}`)}>
+          kanban
         </div>
       </section>
       <hr />
