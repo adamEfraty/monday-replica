@@ -103,27 +103,34 @@ export function MondayKanbanIndex() {
             <section className="content">
                 <SideBar boards={boards} user={loggedInUser} />
 
-                <DragDropContext onDragEnd={onDragEnd}>
+                <div className="board-details">
+                    <BoardDetailsHeader handleAddTask={addTask}
+                        boardTitle={currentBoard.title}
+                        boardId={currentBoard._id}
+                    />
 
-                    <Droppable droppableId="groups-container" direction="horizontal" type="group">
-                        {(provided) => (
-                            <div className="kanban-container" ref={provided.innerRef} {...provided.droppableProps}>
+                    <DragDropContext onDragEnd={onDragEnd}>
+
+                        <Droppable droppableId="groups-container" direction="horizontal" type="group">
+                            {(provided) => (
+                                <div className="kanban-container" ref={provided.innerRef} {...provided.droppableProps}>
 
 
-                                {groups.map((status, index) => (
-                                    <Draggable key={status.text || `group-${index}`} draggableId={status.text || `group-${index}`} index={index}>
-                                        {(provided) => (
-                                            <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
-                                                <KanbanGroups addItem={addTask} title={status.text} color={status.color} tasks={tasks} onUpdateTaskTitle={onUpdateTaskTitle} />
-                                            </div>
-                                        )}
-                                    </Draggable>
-                                ))}
-                                {provided.placeholder}
-                            </div>
-                        )}
-                    </Droppable>
-                </DragDropContext>
+                                    {groups.map((status, index) => (
+                                        <Draggable key={status.text || `group-${index}`} draggableId={status.text || `group-${index}`} index={index}>
+                                            {(provided) => (
+                                                <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
+                                                    <KanbanGroups addItem={addTask} title={status.text} color={status.color} tasks={tasks} onUpdateTaskTitle={onUpdateTaskTitle} />
+                                                </div>
+                                            )}
+                                        </Draggable>
+                                    ))}
+                                    {provided.placeholder}
+                                </div>
+                            )}
+                        </Droppable>
+                    </DragDropContext>
+                </div>
             </section>
         </>
     );

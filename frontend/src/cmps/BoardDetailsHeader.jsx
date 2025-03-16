@@ -11,11 +11,13 @@ import {
 } from "../store/actions/boards.actions";
 import { boardService } from "../services/board";
 import { useNavigate } from "react-router";
+import { utilService } from "../services/util.service";
 export function BoardDetailsHeader({ handleAddTask, boardTitle, boardId, boardColumnsFilter, handleFilteredLabel }) {
   const filterBy = useSelector((state) => state.boardModule.filterBy);
   const boards = useSelector((state) => state.boardModule.boards);
   const [filterByToEdit, setFilterByToEdit] = useState(filterBy);
   const [filterState, setFilterState] = useState(boardService.getFilterState());
+  const loggedInUser = useSelector((state) => state.userModule.user) || null;
 
   const navigate = useNavigate()
   useEffect(() => {
@@ -26,6 +28,13 @@ export function BoardDetailsHeader({ handleAddTask, boardTitle, boardId, boardCo
   useEffect(() => {
     handleFilter(filterByToEdit);
   }, [filterByToEdit]);
+
+
+
+  let name = null;
+  if (loggedInUser) {
+    name = utilService.getNameFromEmail(loggedInUser?.email);
+  }
 
   const iconStyle = { width: 20, height: 18 };
 
@@ -48,7 +57,7 @@ export function BoardDetailsHeader({ handleAddTask, boardTitle, boardId, boardCo
       </div>
       <section className="board-nav">
         <div>
-          <div>
+          <div onClick={() => navigate(`/${name}s-team.someday.com/boards/${boardId}`)}>
             <HomeIcon style={iconStyle} />
             <h5>Main Table</h5>
           </div>

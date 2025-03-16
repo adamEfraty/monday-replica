@@ -8,6 +8,7 @@ import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { AppHeader } from "../AppHeader.jsx";
 import { SideBar } from "../SideBar.jsx";
 import { loadUsers } from "../../store/actions/user.actions.js";
+import { BoardDetailsHeader } from "../BoardDetailsHeader.jsx";
 
 
 export function KanbanIndex() {
@@ -90,41 +91,46 @@ export function KanbanIndex() {
 
             <section className="content">
 
-                <SideBar boards={boards} user={loggedInUser} />
+                <SideBar boards={boards} user={loggedInUser} boardId={currentBoard._id} />
+                <div className="board-details">
+                    <BoardDetailsHeader
+                        boardTitle={currentBoard.title}
+                        boardId={currentBoard._id}
+                    />
+                    <DragDropContext onDragEnd={handleDragEnd}>
 
-                <DragDropContext onDragEnd={handleDragEnd}>
-
-                    <Droppable droppableId="all-groups" direction="horizontal" type="group">
-                        {(provided) => (
-                            <div
-                                className="kanban-container"
-                                {...provided.droppableProps}
-                                ref={provided.innerRef}
-                            >
-                                {groups.map((group, index) => (
-                                    <Draggable key={group.id} draggableId={group.id} index={index}>
-                                        {(provided) => (
-                                            <div
-                                                ref={provided.innerRef}
-                                                {...provided.draggableProps}
-                                                {...provided.dragHandleProps}
-                                            >
-                                                <KanbanGroup
-                                                    group={group}
-                                                    onTaskUpdate={onTaskUpdate}
-                                                    users={users}
-                                                    boardId={boardId}
-                                                    user={loggedInUser}
-                                                />
-                                            </div>
-                                        )}
-                                    </Draggable>
-                                ))}
-                                {provided.placeholder}
-                            </div>
-                        )}
-                    </Droppable>
-                </DragDropContext>
+                        <Droppable droppableId="all-groups" direction="horizontal" type="group">
+                            {(provided) => (
+                                <div
+                                    className="kanban-container"
+                                    {...provided.droppableProps}
+                                    ref={provided.innerRef}
+                                >
+                                    {groups.map((group, index) => (
+                                        <Draggable key={group.id} draggableId={group.id} index={index}>
+                                            {(provided) => (
+                                                <div
+                                                    ref={provided.innerRef}
+                                                    {...provided.draggableProps}
+                                                    {...provided.dragHandleProps}
+                                                >
+                                                    <KanbanGroup
+                                                        group={group}
+                                                        onTaskUpdate={onTaskUpdate}
+                                                        users={users}
+                                                        boardId={boardId}
+                                                        user={loggedInUser}
+                                                    />
+                                                </div>
+                                            )}
+                                        </Draggable>
+                                    ))}
+                                    {provided.placeholder}
+                                </div>
+                            )}
+                        </Droppable>
+                    </DragDropContext>
+                </div>
             </section>
 
         </>
