@@ -29,20 +29,6 @@ export function Color({ closeAll, color, boardId, groupId }) {
     };
 
 
-    //   function handleAddTask(group = null, taskTitle = "New Task") {
-    //     addItem(boardId, group ? group.id : currentBoard.groups[0].id, taskTitle, !group && true);
-    //   }
-
-    //   async function handleGroupNameChange(groupTitle, group) {
-    //     const updatedTask = { title: groupTitle };
-
-    //     try {
-    //       await updateGroup(boardId, group.id, updatedTask);
-    //     } catch (error) {
-    //       console.error("Error updating group", error);
-    //     }
-    //   }
-
     const open = Boolean(anchorEl);
     const id = open ? 'simple-popover' : undefined;
 
