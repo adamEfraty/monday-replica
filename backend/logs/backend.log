@@ -46,3 +46,8 @@
 16.3.2025, 5:31:57 - ERROR - while finding board by id: undefined | BSONError: hex string must be 24 characters
 16.3.2025, 5:31:57 - ERROR - hex string must be 24 characters
 16.3.2025, 5:50:55 - INFO - Up and running on http://localhost:3000
+16.3.2025, 5:51:46 - DEBUG - auth.service - login with email: kiwi@gmail.com
+16.3.2025, 5:51:46 - INFO - User login:  | {"_id":"67c45c55c2f1ef4df8072022","email":"kiwi@gmail.com","fullName":"Kiwi","id":"E3iHE","imgUrl":"https://res.cloudinary.com/danlxus36/image/upload/v1740682607/3_iij9dg.jpg"}
+16.3.2025, 6:07:56 - DEBUG - auth.service - login with email: kiwi@gmail.com
+16.3.2025, 6:07:56 - INFO - User login:  | {"_id":"67c45c55c2f1ef4df8072022","email":"kiwi@gmail.com","fullName":"Kiwi","id":"E3iHE","imgUrl":"https://res.cloudinary.com/danlxus36/image/upload/v1740682607/3_iij9dg.jpg"}
+16.3.2025, 6:11:19 - INFO - Up and running on http://localhost:3000

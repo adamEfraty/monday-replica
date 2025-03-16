@@ -19,7 +19,7 @@ export function KanbanGroups({ title, color, tasks, addItem, onUpdateTaskTitle }
                 </h3>
                 <div className="icons-group">
                     <MoreHorizIcon className="icon-hover" style={{ backgroundColor: color }} />
-                    <AddIcon className="icon-hover" style={{ backgroundColor: color }} />
+                    <AddIcon className="icon-hover" style={{ backgroundColor: color }} onClick={() => addItem(title)} />
                 </div>
             </div>
 
