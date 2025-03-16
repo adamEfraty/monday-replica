@@ -72,14 +72,6 @@
   border-bottom-left-radius: 5px;
   padding:1px;
   padding-left: 5px;
-  & h4{
-    color: white;
-    background-color: black;
-    padding: 4px;
-    padding-right:10px;
-    padding-left:10px;
-    border-radius: 20px;
-  }
   .account-logo-img{
     width: 22px;
     border-radius: 50%;
@@ -89,4 +81,13 @@
     cursor: pointer;
     background-color: rgba(103, 104, 121, 0.1);
   }
+}
+
+.username-wrapper{
+  color: white;
+  background-color: black;
+  padding: 4px;
+  padding-right:9px;
+  padding-left:9px;
+  border-radius: 20px;
 }
