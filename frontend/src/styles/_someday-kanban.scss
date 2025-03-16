@@ -12,7 +12,7 @@
     border-radius: 8px;
     display: flex;
     flex-direction: column;
-    height: 90vh;
+    height: 65vh;
 
     .group-header {
       padding: 10px;
@@ -167,7 +167,7 @@
 
 .name-change-input {
   width: auto;
-  min-width: 10ch; /* Adjust based on your placeholder length */
+  min-width: 10ch;
   border: none;
   padding: 4px;
 
@@ -189,10 +189,36 @@
   outline: none;
 }
 
-/* Hidden span to measure text width */
 .hidden-input {
   position: absolute;
   visibility: hidden;
   white-space: pre;
   font-size: 1rem;
+}
+
+.board-details2 {
+  overflow: auto;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  border-top-left-radius: 12px;
+  padding-left: 2rem;
+  padding-bottom: 3rem;
+
+  // vertical scrollbar
+  &::-webkit-scrollbar {
+    width: 10px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #c1c4d2;
+  }
+
+  // horizontal scrollbar
+  &::-webkit-scrollbar:horizontal {
+    height: 15px;
+  }
+  &::-webkit-scrollbar-thumb:horizontal {
+    background: #c1c4d2;
+  }
 }
