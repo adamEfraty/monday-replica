@@ -1,3 +1,8 @@
 15.3.2025, 4:26:40 - INFO - Up and running on http://localhost:3000
 15.3.2025, 4:26:49 - DEBUG - auth.service - login with email: kiwi@gmail.com
 15.3.2025, 4:26:49 - INFO - User login:  | {"_id":"67c45c55c2f1ef4df8072022","email":"kiwi@gmail.com","fullName":"Kiwi","id":"E3iHE","imgUrl":"https://res.cloudinary.com/danlxus36/image/upload/v1740682607/3_iij9dg.jpg"}
+15.3.2025, 8:16:11 - INFO - Up and running on http://localhost:3000
+15.3.2025, 17:36:07 - INFO - Up and running on http://localhost:3000
+15.3.2025, 17:36:15 - DEBUG - auth.service - login with email: kiwi@gmail.com
+15.3.2025, 17:36:15 - INFO - User login:  | {"_id":"67c45c55c2f1ef4df8072022","email":"kiwi@gmail.com","fullName":"Kiwi","id":"E3iHE","imgUrl":"https://res.cloudinary.com/danlxus36/image/upload/v1740682607/3_iij9dg.jpg"}
+16.3.2025, 2:04:54 - INFO - Up and running on http://localhost:3000

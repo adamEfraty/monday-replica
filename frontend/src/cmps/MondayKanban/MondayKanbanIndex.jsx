@@ -8,6 +8,7 @@ import { loadUsers } from "../../store/actions/user.actions.js";
 import { KanbanGroups } from "./KanbanGroups.jsx";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { updateTaskStatus, getStatusColor } from "../../store/actions/boards.actions.js";
+import { getSvg } from "../../services/svg.service.jsx";
 
 export function MondayKanbanIndex() {
     const { boardId } = useParams();
@@ -22,7 +23,7 @@ export function MondayKanbanIndex() {
         { text: "Done", color: "#00C875" },
         { text: "Working on it", color: "#FDAB3D" },
         { text: "Stuck", color: "#DF2F4A" },
-        { text: "Blank", color: "#C4C4C4" } // Blank group handled correctly
+        { text: "Blank", color: "#C4C4C4" }
     ];
 
     useEffect(() => {
