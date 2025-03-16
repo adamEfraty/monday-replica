@@ -103,7 +103,7 @@ export function MondayKanbanIndex() {
             <section className="content">
                 <SideBar boards={boards} user={loggedInUser} />
 
-                <div className="board-details">
+                <div className="board-details2">
                     <BoardDetailsHeader handleAddTask={addTask}
                         boardTitle={currentBoard.title}
                         boardId={currentBoard._id}
