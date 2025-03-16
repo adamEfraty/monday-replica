@@ -35,13 +35,13 @@
 
   .empty-space {
     border-bottom: solid $table-lines-gray 1px;
-    width: 90px;
   }
 
   .taskTitle {
     z-index: 1;
     position: sticky;
     left: 10px;
+    margin-top: 1px;
     background-color: white;
     // border-right: solid $table-lines-gray 1px;
     border-bottom: solid white 1px;
@@ -52,7 +52,7 @@
     z-index: 2;
     position: absolute;
     right: 0px;
-    top:0px;
+    top:-1px;
     width: 6px;
     height: 35px;
     border: solid $table-lines-gray 1px;
@@ -81,8 +81,9 @@
 .group-list {
   font-size: 13px;
   position: relative;
+  width: calc(100vw - 320px);
   // margin-top: -37px;
-  width: max-content;
+  // width: max-content;
   
   & input[type='checkbox'] {
     appearance: none; /* Remove default checkbox */
@@ -143,11 +144,14 @@
 .fixed-area {
   z-index: 10;
   position: fixed;
-  width: calc(100vw - 307px);
+  width: calc(100vw - 275px);
+  height: 40px;
   overflow-x: hidden;
   overflow-y: hidden;
+  left: 265px;
   top: 206px;
   background-color: white;
+  padding-left: 32px;
 }
 
 .sticky-something {
@@ -163,9 +167,9 @@
   position: sticky;
   z-index: 5;
   left: 0px;
-  top: 227px;
-  width: max-content;
-  margin-top: 1px;
+  top: 203px;
+  // width: max-content;
+  // margin-top: 1px;
 }
 
 /* Grid Items */
@@ -327,22 +331,12 @@ div {
   width: 100%;
 }
 
-.group-title {
-  display: flex;
-  gap: 10px;
-
-  &:hover {
-    .remove {
-      opacity: 1;
-    }
-  }
-}
-
 .nothing {
   border: 1px solid $table-lines-gray;
 }
 
 .chat-icon {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -353,6 +347,21 @@ div {
 
   &:hover {
     color: #0073EA;
+  }
+
+  .circle{
+    display: grid;
+    align-items: center;
+    justify-items: center;
+    font-size: 0.6rem;
+    position: absolute;
+    top: 14px;
+    left: 33px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    color: white;
+    background-color: #0073EA;
   }
 }
 section.labels-grid {
@@ -366,14 +375,6 @@ section.labels-grid {
   }
 }
 
-div.group-title {
-  position: sticky;
-  left: 0px;
-  width: calc(100vw - 500px);
-  padding: 1rem;
-  background-color: white;
-  z-index: 4;
-}
 .prog-box {
   border-right: 1px solid $table-lines-gray;
   border-top: 0px solid $table-lines-gray;
@@ -506,13 +507,7 @@ div.input-styles {
   padding-left: 9px;
 }
 
-.change-location {
-  position: relative;
-  right: 35px;
-  top: 5px;
-  display: flex;
-  gap: 10px;
-}
+
 
 .flex-for-modal {
   display: flex;

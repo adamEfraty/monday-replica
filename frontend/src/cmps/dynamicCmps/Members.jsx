@@ -62,9 +62,7 @@ export function Members({ cellInfo, onTaskUpdate, users, labelWidth }) {
                 {
                     cellInfo.value.length ?
                         displayedMembers.map(member =>
-                            <span key={member.id}>
-                                <img src={member.imgUrl} />
-                            </span>
+                            <img key={member.id} src={member.imgUrl} />
                         )
 
                         : <img className="defult-img" src={defultImg} />
