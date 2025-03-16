@@ -28,7 +28,7 @@ async function login(email, password) {
   return user
 }
 
-async function signup({ email, password, fullName, imgUrl, isAdmin }) {
+async function signup({ email, password, fullName, color, imgUrl, isAdmin }) {
   const saltRounds = 10
 
   logger.debug(
@@ -46,6 +46,7 @@ async function signup({ email, password, fullName, imgUrl, isAdmin }) {
     password: hash,
     fullName,
     imgUrl,
+    color,
     isAdmin,
   })
 }

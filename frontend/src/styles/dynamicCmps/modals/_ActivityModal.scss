@@ -1,12 +1,78 @@
-.export-icon{
-    cursor: pointer;
+.export-icon {
+  cursor: pointer;
 }
 
-.activity-priority-modal{
-    height: 30px;
-    width: 85px;
-    border-radius: 4px;
+.activity-priority-modal {
+  height: 40px;
+  border-radius: 4px;
+  text-align: center;
+  padding-top: 8px;
+  width: 100%;
+}
+
+.activity-modal-container {
+  .time {
+    font-size: 15px;
+  }
+
+  .activity-modal {
+  padding: 8px;
     display: flex;
-    align-items: center;
-    padding-left: 24px;
+    justify-content: space-between;
+    align-items: flex-start;
+    & > div {
+      display: flex;
+      margin: 10px;
+      gap: 1rem;
+      align-items: center;
+    }
+    & div {
+      display: flex;
+    }
+    .scdColumn {
+      display: flex;
+      justify-content: space-between;
+      width: 55%;
+      & > div {
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+      }
+      .data-column {
+        min-width: 60%;
+        display: flex;
+        justify-content: space-around;
+      }
+    }
+
+    & .time {
+      display: flex;
+      align-items: center;
+    }
+
+    & .created {
+    }
+  }
+}
+
+.activities-modal-container {
+  max-height: 75vh; /* Adjust based on your needs */
+  overflow-y: auto;
+  padding: 10px;
+}
+
+.activities-modal {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.header-activities {
+  & > .newTask-button {
+    display: flex;
+  }
+  display: flex;
+  justify-content: space-between;
+  width: 94%;
+  margin-left: 3%;
 }
