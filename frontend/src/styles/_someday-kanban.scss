@@ -28,12 +28,6 @@
         color: #fff;
         font-weight: 200;
       }
-
-      &:hover {
-        .icons-group {
-          opacity: 1;
-        }
-      }
     }
     .task-list {
       padding: 10px;
@@ -51,24 +45,20 @@
 
     .kanban-task {
       background: #ffffff;
-      padding: 12px;
+      padding: 10px;
+      border: 1px solid #bbb;
       border-radius: 6px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
       transition: transform 0.2s ease-in-out;
       cursor: pointer;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      min-height: 80px;
-
-      &:hover {
-        transform: scale(1.03);
-      }
 
       .task-header {
+        height: 50%;
         display: flex;
         justify-content: space-between;
-        align-items: center;
+        align-items: flex-start;
         font-size: 1rem;
         font-weight: 600;
         color: #333;
@@ -90,6 +80,12 @@
           color: #333;
         }
       }
+
+      &:hover {
+        .task-icon-box {
+          opacity: 1;
+        }
+      }
     }
 
     &:hover {
@@ -97,6 +93,10 @@
         h3 {
           opacity: 1;
         }
+      }
+
+      .icons-group {
+        opacity: 1;
       }
     }
   }
@@ -138,4 +138,61 @@
       filter: brightness(90%);
     }
   }
+}
+
+.task-icon-box {
+  border: 1px solid #bbbbbb;
+  border-radius: 8px;
+  opacity: 0;
+  transition: all 0.25s ease-in-out;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.task-title {
+  font-size: 0.8rem;
+}
+
+.footer-icon-box {
+  display: flex;
+  gap: 1rem;
+}
+
+.kanban-group-card {
+  &:hover {
+  }
+}
+
+.name-change-input {
+  width: auto;
+  min-width: 10ch; /* Adjust based on your placeholder length */
+  border: none;
+  padding: 4px;
+
+  &::placeholder {
+    color: #333;
+  }
+
+  &:hover {
+    border: 1px solid #bbb;
+    border-radius: 8px;
+  }
+}
+.name-change-input {
+  border: none;
+  padding: 4px;
+  min-width: 50px;
+  font-size: 1rem;
+  background: transparent;
+  outline: none;
+}
+
+/* Hidden span to measure text width */
+.hidden-input {
+  position: absolute;
+  visibility: hidden;
+  white-space: pre;
+  font-size: 1rem;
 }

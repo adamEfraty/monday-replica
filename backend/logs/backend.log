@@ -1,3 +1,53 @@
 15.3.2025, 4:26:40 - INFO - Up and running on http://localhost:3000
 15.3.2025, 4:26:49 - DEBUG - auth.service - login with email: kiwi@gmail.com
 15.3.2025, 4:26:49 - INFO - User login:  | {"_id":"67c45c55c2f1ef4df8072022","email":"kiwi@gmail.com","fullName":"Kiwi","id":"E3iHE","imgUrl":"https://res.cloudinary.com/danlxus36/image/upload/v1740682607/3_iij9dg.jpg"}
+15.3.2025, 8:16:11 - INFO - Up and running on http://localhost:3000
+15.3.2025, 17:36:07 - INFO - Up and running on http://localhost:3000
+15.3.2025, 17:36:15 - DEBUG - auth.service - login with email: kiwi@gmail.com
+15.3.2025, 17:36:15 - INFO - User login:  | {"_id":"67c45c55c2f1ef4df8072022","email":"kiwi@gmail.com","fullName":"Kiwi","id":"E3iHE","imgUrl":"https://res.cloudinary.com/danlxus36/image/upload/v1740682607/3_iij9dg.jpg"}
+16.3.2025, 2:04:54 - INFO - Up and running on http://localhost:3000
+16.3.2025, 2:07:20 - INFO - Up and running on http://localhost:3000
+16.3.2025, 2:07:28 - DEBUG - auth.service - login with email: kiwi@gmail.com
+16.3.2025, 2:07:28 - INFO - User login:  | {"_id":"67c45c55c2f1ef4df8072022","email":"kiwi@gmail.com","fullName":"Kiwi","id":"E3iHE","imgUrl":"https://res.cloudinary.com/danlxus36/image/upload/v1740682607/3_iij9dg.jpg"}
+16.3.2025, 2:09:31 - ERROR - while finding board by id: undefined | BSONError: hex string must be 24 characters
+16.3.2025, 2:09:31 - ERROR - hex string must be 24 characters
+16.3.2025, 4:10:42 - INFO - Up and running on http://localhost:3000
+16.3.2025, 4:11:31 - DEBUG - auth.service - login with email: kiwi@gmail.com
+16.3.2025, 4:11:31 - INFO - User login:  | {"_id":"67c45c55c2f1ef4df8072022","email":"kiwi@gmail.com","fullName":"Kiwi","id":"E3iHE","imgUrl":"https://res.cloudinary.com/danlxus36/image/upload/v1740682607/3_iij9dg.jpg"}
+16.3.2025, 5:28:56 - INFO - Up and running on http://localhost:3000
+16.3.2025, 5:29:02 - DEBUG - auth.service - login with email: kiwi@gmail.com
+16.3.2025, 5:29:02 - INFO - User login:  | {"_id":"67c45c55c2f1ef4df8072022","email":"kiwi@gmail.com","fullName":"Kiwi","id":"E3iHE","imgUrl":"https://res.cloudinary.com/danlxus36/image/upload/v1740682607/3_iij9dg.jpg"}
+16.3.2025, 5:29:35 - ERROR - hex string must be 24 characters
+16.3.2025, 5:29:35 - ERROR - while finding board by id: undefined | BSONError: hex string must be 24 characters
+16.3.2025, 5:29:40 - ERROR - while finding board by id: undefined | BSONError: hex string must be 24 characters
+16.3.2025, 5:29:40 - ERROR - hex string must be 24 characters
+16.3.2025, 5:29:43 - ERROR - while finding board by id: undefined | BSONError: hex string must be 24 characters
+16.3.2025, 5:29:43 - ERROR - hex string must be 24 characters
+16.3.2025, 5:31:44 - ERROR - while finding board by id: undefined | BSONError: hex string must be 24 characters
+16.3.2025, 5:31:44 - ERROR - hex string must be 24 characters
+16.3.2025, 5:31:46 - ERROR - hex string must be 24 characters
+16.3.2025, 5:31:46 - ERROR - while finding board by id: undefined | BSONError: hex string must be 24 characters
+16.3.2025, 5:31:47 - ERROR - while finding board by id: undefined | BSONError: hex string must be 24 characters
+16.3.2025, 5:31:47 - ERROR - hex string must be 24 characters
+16.3.2025, 5:31:47 - ERROR - while finding board by id: undefined | BSONError: hex string must be 24 characters
+16.3.2025, 5:31:47 - ERROR - hex string must be 24 characters
+16.3.2025, 5:31:48 - ERROR - while finding board by id: undefined | BSONError: hex string must be 24 characters
+16.3.2025, 5:31:48 - ERROR - hex string must be 24 characters
+16.3.2025, 5:31:48 - ERROR - hex string must be 24 characters
+16.3.2025, 5:31:48 - ERROR - while finding board by id: undefined | BSONError: hex string must be 24 characters
+16.3.2025, 5:31:54 - ERROR - while finding board by id: undefined | BSONError: hex string must be 24 characters
+16.3.2025, 5:31:54 - ERROR - hex string must be 24 characters
+16.3.2025, 5:31:55 - ERROR - while finding board by id: undefined | BSONError: hex string must be 24 characters
+16.3.2025, 5:31:55 - ERROR - hex string must be 24 characters
+16.3.2025, 5:31:56 - ERROR - while finding board by id: undefined | BSONError: hex string must be 24 characters
+16.3.2025, 5:31:56 - ERROR - hex string must be 24 characters
+16.3.2025, 5:31:57 - ERROR - while finding board by id: undefined | BSONError: hex string must be 24 characters
+16.3.2025, 5:31:57 - ERROR - hex string must be 24 characters
+16.3.2025, 5:31:57 - ERROR - while finding board by id: undefined | BSONError: hex string must be 24 characters
+16.3.2025, 5:31:57 - ERROR - hex string must be 24 characters
+16.3.2025, 5:50:55 - INFO - Up and running on http://localhost:3000
+16.3.2025, 5:51:46 - DEBUG - auth.service - login with email: kiwi@gmail.com
+16.3.2025, 5:51:46 - INFO - User login:  | {"_id":"67c45c55c2f1ef4df8072022","email":"kiwi@gmail.com","fullName":"Kiwi","id":"E3iHE","imgUrl":"https://res.cloudinary.com/danlxus36/image/upload/v1740682607/3_iij9dg.jpg"}
+16.3.2025, 6:07:56 - DEBUG - auth.service - login with email: kiwi@gmail.com
+16.3.2025, 6:07:56 - INFO - User login:  | {"_id":"67c45c55c2f1ef4df8072022","email":"kiwi@gmail.com","fullName":"Kiwi","id":"E3iHE","imgUrl":"https://res.cloudinary.com/danlxus36/image/upload/v1740682607/3_iij9dg.jpg"}
+16.3.2025, 6:11:19 - INFO - Up and running on http://localhost:3000

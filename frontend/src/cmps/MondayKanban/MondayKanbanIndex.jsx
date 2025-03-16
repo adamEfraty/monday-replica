@@ -8,7 +8,10 @@ import { loadUsers } from "../../store/actions/user.actions.js";
 import { KanbanGroups } from "./KanbanGroups.jsx";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { updateTaskStatus, getStatusColor } from "../../store/actions/boards.actions.js";
-
+import { getSvg } from "../../services/svg.service.jsx";
+import { BoardDetailsHeader } from "../BoardDetailsHeader.jsx";
+import { addItemKanban } from "../../store/actions/boards.actions.js";
+import { updateTaskTitle } from "../../store/actions/boards.actions.js";
 export function MondayKanbanIndex() {
     const { boardId } = useParams();
     const boards = useSelector((state) => state.boardModule.boards);
@@ -22,7 +25,7 @@ export function MondayKanbanIndex() {
         { text: "Done", color: "#00C875" },
         { text: "Working on it", color: "#FDAB3D" },
         { text: "Stuck", color: "#DF2F4A" },
-        { text: "Blank", color: "#C4C4C4" } // Blank group handled correctly
+        { text: "Blank", color: "#C4C4C4" }
     ];
 
     useEffect(() => {
@@ -50,6 +53,14 @@ export function MondayKanbanIndex() {
                 groupId: group.id
             }))
         );
+    }
+
+    function addTask(status) {
+        addItemKanban(boardId, currentBoard.groups[0].id, 'new item', !currentBoard.groups[0] && true, loggedInUser._id, status);
+    }
+
+    function onUpdateTaskTitle(newTitle, task) {
+        updateTaskTitle(boardId, task.groupId, task.id, newTitle)
     }
 
     const onDragEnd = (result) => {
@@ -86,29 +97,40 @@ export function MondayKanbanIndex() {
 
     return (
         <>
+
             <AppHeader userData={loggedInUser} />
 
             <section className="content">
                 <SideBar boards={boards} user={loggedInUser} />
 
-                <DragDropContext onDragEnd={onDragEnd}>
-                    <Droppable droppableId="groups-container" direction="horizontal" type="group">
-                        {(provided) => (
-                            <div className="kanban-container" ref={provided.innerRef} {...provided.droppableProps}>
-                                {groups.map((status, index) => (
-                                    <Draggable key={status.text || `group-${index}`} draggableId={status.text || `group-${index}`} index={index}>
-                                        {(provided) => (
-                                            <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
-                                                <KanbanGroups title={status.text} color={status.color} tasks={tasks} />
-                                            </div>
-                                        )}
-                                    </Draggable>
-                                ))}
-                                {provided.placeholder}
-                            </div>
-                        )}
-                    </Droppable>
-                </DragDropContext>
+                <div className="board-details">
+                    <BoardDetailsHeader handleAddTask={addTask}
+                        boardTitle={currentBoard.title}
+                        boardId={currentBoard._id}
+                    />
+
+                    <DragDropContext onDragEnd={onDragEnd}>
+
+                        <Droppable droppableId="groups-container" direction="horizontal" type="group">
+                            {(provided) => (
+                                <div className="kanban-container" ref={provided.innerRef} {...provided.droppableProps}>
+
+
+                                    {groups.map((status, index) => (
+                                        <Draggable key={status.text || `group-${index}`} draggableId={status.text || `group-${index}`} index={index}>
+                                            {(provided) => (
+                                                <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
+                                                    <KanbanGroups addItem={addTask} title={status.text} color={status.color} tasks={tasks} onUpdateTaskTitle={onUpdateTaskTitle} />
+                                                </div>
+                                            )}
+                                        </Draggable>
+                                    ))}
+                                    {provided.placeholder}
+                                </div>
+                            )}
+                        </Droppable>
+                    </DragDropContext>
+                </div>
             </section>
         </>
     );
