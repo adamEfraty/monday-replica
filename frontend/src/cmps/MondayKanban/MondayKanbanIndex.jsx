@@ -9,7 +9,9 @@ import { KanbanGroups } from "./KanbanGroups.jsx";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { updateTaskStatus, getStatusColor } from "../../store/actions/boards.actions.js";
 import { getSvg } from "../../services/svg.service.jsx";
-
+import { BoardDetailsHeader } from "../BoardDetailsHeader.jsx";
+import { addItemKanban } from "../../store/actions/boards.actions.js";
+import { updateTaskTitle } from "../../store/actions/boards.actions.js";
 export function MondayKanbanIndex() {
     const { boardId } = useParams();
     const boards = useSelector((state) => state.boardModule.boards);
@@ -53,6 +55,14 @@ export function MondayKanbanIndex() {
         );
     }
 
+    function addTask(status) {
+        addItemKanban(boardId, currentBoard.groups[0].id, 'new item', !currentBoard.groups[0] && true, loggedInUser._id, status);
+    }
+
+    function onUpdateTaskTitle(newTitle, task) {
+        updateTaskTitle(boardId, task.groupId, task.id, newTitle)
+    }
+
     const onDragEnd = (result) => {
         const { source, destination, type } = result;
         if (!destination) return;
@@ -87,20 +97,24 @@ export function MondayKanbanIndex() {
 
     return (
         <>
+
             <AppHeader userData={loggedInUser} />
 
             <section className="content">
                 <SideBar boards={boards} user={loggedInUser} />
 
                 <DragDropContext onDragEnd={onDragEnd}>
+
                     <Droppable droppableId="groups-container" direction="horizontal" type="group">
                         {(provided) => (
                             <div className="kanban-container" ref={provided.innerRef} {...provided.droppableProps}>
+
+
                                 {groups.map((status, index) => (
                                     <Draggable key={status.text || `group-${index}`} draggableId={status.text || `group-${index}`} index={index}>
                                         {(provided) => (
                                             <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
-                                                <KanbanGroups title={status.text} color={status.color} tasks={tasks} />
+                                                <KanbanGroups addItem={addTask} title={status.text} color={status.color} tasks={tasks} onUpdateTaskTitle={onUpdateTaskTitle} />
                                             </div>
                                         )}
                                     </Draggable>

@@ -3,7 +3,7 @@ import { KanbanTasks } from "./KanbanTasks";
 import AddIcon from "@mui/icons-material/Add";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 
-export function KanbanGroups({ title, color, tasks }) {
+export function KanbanGroups({ title, color, tasks, addItem, onUpdateTaskTitle }) {
     const displayTitle = title === '' ? 'Blank' : title;
     const droppableId = title === 'Blank' ? 'BlankGroup' : title;
 
@@ -30,7 +30,7 @@ export function KanbanGroups({ title, color, tasks }) {
                             <Draggable key={task.id} draggableId={task.id} index={index}>
                                 {(provided) => (
                                     <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
-                                        <KanbanTasks title={task.cells[0].value.title} />
+                                        <KanbanTasks title={task.cells[0].value.title} task={task} onUpdateTaskTitle={onUpdateTaskTitle} />
                                     </div>
                                 )}
                             </Draggable>
@@ -41,7 +41,7 @@ export function KanbanGroups({ title, color, tasks }) {
             </Droppable>
 
             <div className="add-new-task">
-                <h3>+ Add new task</h3>
+                <h3 onClick={() => addItem(title)}>+ Add new task</h3>
             </div>
         </div>
     );
