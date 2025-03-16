@@ -13,11 +13,24 @@ import TableRowsOutlinedIcon from "@mui/icons-material/TableRowsOutlined";
 import GroupOutlinedIcon from "@mui/icons-material/GroupOutlined";
 import ContentCopyOutlinedIcon from "@mui/icons-material/ContentCopyOutlined";
 
-export function ActivityModal({ activities }) {
+export function ActivityModal({ activities, width }) {
   const boards = useSelector((state) => state.boardModule.boards);
   const users = useSelector((state) => state.userModule.users);
 
   const iconStyle = { width: 14 };
+
+  function handleLongText(text) {
+    if (text) {
+      const maxLetters = Math.floor(width / 22) - 25;
+      if (text.length < maxLetters) return text;
+      else {
+        const shortenText = `${text.slice(0, maxLetters)}...`;
+        return shortenText;
+      }
+    } else {
+      return null;
+    }
+  }
 
   return activities[0] ? (
     <div className="activities-modal-container">
@@ -53,11 +66,6 @@ export function ActivityModal({ activities }) {
 
           console.log(typeof activity.activity.postChange);
 
-          const r = (txt) => {
-            console.log(txt);
-            return typeof txt === "string" ? txt : txt.text;
-          };
-
           return (
             <section key={activityIdx}>
               {activityIdx > 0 && <hr />}
@@ -72,85 +80,92 @@ export function ActivityModal({ activities }) {
                     <p>{task.cells[0].value.title}</p>
                   </div>
                   <section className="scdColumn">
-                  {activity.activity.type !== "created" && (
-                    <div>
-                      <Icon type={activity.activity.field} />
-                      <p>{activity.activity.field}</p>
-                    </div>
-                  )}
-                  {activity.activity.type === "Added" ||
-                  activity.activity.type === "Removed" ? (
-                    Array.isArray(activity.activity.item) &&
-                    activity.activity.item[0].fullName ? (
-                      <div className="added-member">
+                    {activity.activity.type !== "created" && (
+                      <div>
+                        <Icon type={activity.activity.field} />
+                        <p>{activity.activity.field}</p>
+                      </div>
+                    )}
+                    {activity.activity.type === "Added" ||
+                    activity.activity.type === "Removed" ? (
+                      Array.isArray(activity.activity.item) &&
+                      activity.activity.item[0].fullName ? (
+                        <div className="data-column">
+                          <p>{activity.activity.type}</p>
+                          <p>{activity.activity.item[0].fullName}</p>
+                        </div>
+                      ) : (
                         <p>{activity.activity.type}</p>
-                        <p>{activity.activity.item[0].fullName}</p>
+                      )
+                    ) : activity.activity.type === "created" ||
+                      activity.activity.type === "Duplicated" ? (
+                      <div className="created">
+                        <Icon type={activity.activity.type} />
+                        <p>{activity.activity.type}</p>
                       </div>
                     ) : (
-                      <p>{activity.activity.type}</p>
-                    )
-                  ) : activity.activity.type === "created" ||
+                      <div className="data-column">
+                        <section
+                          className="activity-priority-modal"
+                          style={{
+                            backgroundColor: activity.activity.preChange?.color,
+                            color:
+                              activity.activity.preChange === null ||
+                              typeof activity.activity.preChange === "string" ||
+                              typeof activity.activity.preChange?.title ===
+                                "string"
+                                ? "black"
+                                : "white",
+                          }}
+                        >
+                          {activity.activity.preChange?.text ? (
+                            handleLongText(activity.activity.preChange.text)
+                          ) : activity.activity.preChange?.title ? (
+                            handleLongText(activity.activity.preChange.title)
+                          ) : activity.activity.preChange === null ? (
+                            <HorizontalIcon />
+                          ) : typeof activity.activity.preChange ===
+                            "string" ? (
+                            handleLongText(activity.activity.preChange)
+                          ) : null}
+                        </section>
+                        <ArrowForwardIcon style={{ width: 12 }} />
+                        <section
+                          className="activity-priority-modal"
+                          style={{
+                            backgroundColor:
+                              activity.activity.postChange?.color,
+                            minWidth:
+                              activity.activity.postChange?.text?.length > 0
+                                ? 0
+                                : 30,
+                            color:
+                              typeof activity.activity.preChange === "string" ||
+                              typeof activity.activity.preChange?.title ===
+                                "string"
+                                ? "black"
+                                : "white",
+                          }}
+                        >
+                          <p>
+                            {handleLongText(
+                              typeof activity.activity.postChange === "string"
+                                ? activity.activity.postChange
+                                : activity.activity.postChange.text
+                                ? activity.activity.postChange.text
+                                : activity.activity.postChange.title
+                            )}
+                          </p>
+                        </section>
+                      </div>
+                    )}
+                    {activity.activity.type === "created" ||
                     activity.activity.type === "Duplicated" ? (
-                    <div className="created">
-                      <Icon type={activity.activity.type} />
-                      <p>{activity.activity.type}</p>
-                    </div>
-                  ) : (
-                    <div className="data-column">
-                      <section
-                        className="activity-priority-modal"
-                        style={{
-                          backgroundColor: activity.activity.preChange?.color,
-                          minWidth:
-                            activity.activity.preChange?.text?.length > 0
-                              ? 0
-                              : 120,
-                          color:
-                            activity.activity.preChange === null ||
-                            typeof activity.activity.preChange === "string"
-                              ? "black"
-                              : "white",
-                        }}
-                      >
-                        {activity.activity.preChange?.text ||
-                        activity.activity.preChange?.title ||
-                        activity.activity.preChange === null ? (
-                          <HorizontalIcon />
-                        ) : (
-                          typeof activity.activity.preChange === "string" &&
-                          activity.activity.preChange
-                        )}
-                      </section>
-                      <ArrowForwardIcon style={{ width: 12 }} />
-                      <section
-                        className="activity-priority-modal"
-                        style={{
-                          backgroundColor: activity.activity.postChange?.color,
-                          minWidth:
-                            activity.activity.postChange?.text?.length > 0
-                              ? 0
-                              : 30,
-                          color:
-                            typeof activity.activity.postChange === "string"
-                              ? "black"
-                              : "white",
-                        }}
-                      >
-                        <p>
-                          {typeof activity.activity.postChange === "string"
-                            ? activity.activity.postChange
-                            : activity.activity.postChange.text}
-                        </p>
-                      </section>
-                    </div>
-                  )}
-                  {activity.activity.type === "created" ||
-                  activity.activity.type === "Duplicated" ? (
-                    <div className="data-column">
+                      <div className="data-column">
                         {`Group: `}
                         <p style={{ color: "blue" }}>{group.title}</p>
-                    </div>
-                  ) : null}
+                      </div>
+                    ) : null}
                   </section>
                 </section>
               </section>
