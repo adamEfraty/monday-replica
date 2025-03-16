@@ -35,11 +35,9 @@ export function ActivityModal({ activities, width }) {
   return activities[0] ? (
     <div className="activities-modal-container">
       <section className="header-activities">
-        <section className="newTask-button">
-          <div className="new-task-button">Filter Log</div>
-          <div className="arrow-down">
-            <ArrowDownIcon />
-          </div>
+        <section className="filter-button">
+          <h5>Filter log</h5>
+            <ArrowDownIcon style={{width: 18}} />
         </section>
         <ExportIcon className="export-icon" />
       </section>
@@ -76,16 +74,17 @@ export function ActivityModal({ activities, width }) {
                       <TimeIcon style={iconStyle} />
                       <p>{utilService.milisecondsTimeCalc(activity.time)}</p>
                     </section>
-                    <h4>{userName}</h4>
+                      <h4 className="username-wrapper" style={{ backgroundColor: user.color }}>{userName}</h4>
                     <p>{task.cells[0].value.title}</p>
                   </div>
                   <section className="scdColumn">
-                    {activity.activity.type !== "created" && (
-                      <div>
-                        <Icon type={activity.activity.field} />
-                        <p>{activity.activity.field}</p>
-                      </div>
-                    )}
+                    {activity.activity.type !== "created" &&
+                      activity.activity.type !== "Duplicated" && (
+                        <div>
+                          <Icon type={activity.activity.field} />
+                          <p>{activity.activity.field}</p>
+                        </div>
+                      )}
                     {activity.activity.type === "Added" ||
                     activity.activity.type === "Removed" ? (
                       Array.isArray(activity.activity.item) &&

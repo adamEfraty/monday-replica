@@ -22,7 +22,9 @@ export function SignUp() {
 
     try {
       await signup(user);
-      navigate(`/${utilService.getNameFromEmail(user.email)}s-team.someday.com`);
+      navigate(
+        `/${utilService.getNameFromEmail(user.email)}s-team.someday.com`
+      );
     } catch (err) {
       console.log(err);
     }
@@ -61,6 +63,9 @@ export function SignUp() {
               onChange={handleChange}
               placeholder="Password"
             />
+          </div>
+          <div>
+            <input type="color" name="color" onChange={handleChange} />
           </div>
           <button type="submit">Submit</button>
           <ImgUploader onUploaded={onUploaded} />
