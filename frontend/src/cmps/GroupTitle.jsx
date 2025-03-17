@@ -10,7 +10,7 @@ import Popover from '@mui/material/Popover';
 import { GarbageRemove } from "./dynamicCmps/modals/GarbageRemove.jsx";
 import { Color } from "./dynamicCmps/modals/Color.jsx";
 
-export function GroupTitle({ 
+export function GroupTitle({
   titleRef,
   boardId,
   group,
@@ -28,16 +28,14 @@ export function GroupTitle({
   listeners,
   handleDelete,
   isMiniGroup,
+  dragHandleProps
 
-}) 
-
-
-{
+}) {
 
   const [isHovered, setIsHovered] = useState(false);
   const [onEditMode, setOnEditMode] = useState(false);
 
-  function handelCloseInput(){
+  function handelCloseInput() {
     handleGroupNameChange(groupTitle, group)
     setOnEditMode(false)
   }
@@ -47,95 +45,108 @@ export function GroupTitle({
   }
 
   return (
-    <div className="group-title" 
-    ref={titleRef}
-    onMouseEnter={() => setIsHovered(true)}
-    onMouseLeave={() => setIsHovered(false)}>
-      
-        <button 
-        className="modal-button" 
+    <div className="group-title"
+      ref={titleRef}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}>
+
+      <button
+        className="modal-button"
         onClick={handleClick2}
-        style={{visibility: isHovered ? 'visible' : 'hidden'}}>
-          {getSvg('horizontal-dots')}
-        </button>
+        style={{ visibility: isHovered ? 'visible' : 'hidden' }}>
+        {getSvg('horizontal-dots')}
+      </button>
 
-        <Popover
-          id={id2}
-          open={open2}
-          anchorEl={anchorE2}
-          onClose={handleClose2}
-          anchorOrigin={{
-            vertical: 'bottom',
-            horizontal: 'right',
-          }}
-          transformOrigin={{
-            vertical: 'top',
-            horizontal: 'center',
-          }}
-        >
-          <div className="flex-for-modal">
-            <Color 
-              closeAll={handleClose2} 
-              color={group.color} 
-              boardId={boardId} 
-              groupId={group.id} />
+      <Popover
+        id={id2}
+        open={open2}
+        anchorEl={anchorE2}
+        onClose={handleClose2}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'right',
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'center',
+        }}
+      >
+        <div className="flex-for-modal">
+          <Color
+            closeAll={handleClose2}
+            color={group.color}
+            boardId={boardId}
+            groupId={group.id} />
 
-            <GarbageRemove 
-            someName={'Group'} 
+          <GarbageRemove
+            someName={'Group'}
             someFunction={() => handleDelete(group.id, boardId)} />
-          </div>
-        </Popover>
+        </div>
+      </Popover>
 
 
 
-        <span className="group-title-arrow" 
+      <span className="group-title-arrow"
         onClick={() => handelExpandedChange((prev) => !prev)}
-        style={{transform: (!isMiniGroup && expanded) ?  'rotate(90deg)' : 'rotate(0deg)',
+        style={{
+          transform: (!isMiniGroup && expanded) ? 'rotate(90deg)' : 'rotate(0deg)',
           color: group.color
         }}>
-          {getSvg('group-title-arrow')}
-        </span>
+        {getSvg('group-title-arrow')}
+      </span>
 
-        {
-          onEditMode ?
+      {
+        onEditMode ?
           <input
-          className="group-title-input"
+            className="group-title-input"
             autoFocus={true}
             onBlur={handelCloseInput}
-            style={{color: group.color}}
+            style={{ color: group.color }}
             type="text"
             value={groupTitle}
             onChange={(e) => handelGroupTitleChange(e.target.value)}
             onKeyDown={handleKeyDown}
           />
-          : <p 
-          className="group-title-p" 
-          onClick={()=>setOnEditMode(true)}
-          style={{color: group.color}}>
+          : <p
+            className="group-title-p"
+            onClick={() => setOnEditMode(true)}
+            style={{ color: group.color }}>
             {groupTitle}
           </p>
-        }
+      }
 
       <p className="tasks-amount"
-      style={{
-        opacity: (!onEditMode && isHovered) ? 1 : 0,
-        transition: "opacity 0.1s ease-in-out"}}>
+        style={{
+          opacity: (!onEditMode && isHovered) ? 1 : 0,
+          transition: "opacity 0.1s ease-in-out"
+        }}>
         {`${group.tasks.length} Tasks`}
       </p>
 
       {
         onEditMode &&
         <div className="squre-color"
-        style={{backgroundColor: group.color}}/>
+          style={{ backgroundColor: group.color }} />
       }
 
 
-      
 
-        
+      {/* ✅ Apply dragHandleProps ONLY here! */}
+      <div
+        className="grab-me"
+        {...dragHandleProps} // ✅ Now properly passed
+        ref={dragHandleProps?.ref} // ✅ Ensure it has a valid ref
+        style={{
+          cursor: "grab",
+          textAlign: "center",
+          width: '50%',
+          height: '100%',
+          padding: "5px 0", borderRadius: "4px",
+        }}
+      >
+      </div>
 
-      {/* <div  {...listeners} {...attributes} style={{ cursor: "grab", width: '100%', padding: '1rem' }}>
-      </div> */}
+
     </div>
   )
 }
