@@ -96,7 +96,7 @@ const BoardDetails = () => {
       setBoardColumnsFilter(
         filteredColumns.find((board) => board.id === boardId)
       );
-      console.log(boardColumnsFilter)
+    console.log(boardColumnsFilter)
   }, [filteredColumns, boardId]);
 
   useEffect(() => {
@@ -162,20 +162,20 @@ const BoardDetails = () => {
     }
   }, [])
 
-  useEffect(()=>{
-    if(currentBoard && boardDetailsRef.current){
+  useEffect(() => {
+    if (currentBoard && boardDetailsRef.current) {
       const scrollPositionY = boardDetailsRef.current.scrollTop
       const scrollPositionX = boardDetailsRef.current.scrollLeft
       setBoardScroll({ x: scrollPositionX, y: scrollPositionY })
-      setLabelsLength(currentBoard.labels.reduce((acc, label) => acc+label.width, 0))
+      setLabelsLength(currentBoard.labels.reduce((acc, label) => acc + label.width, 0))
     }
-  },[zoomLevel])
+  }, [zoomLevel])
 
-  useEffect(()=>{
-    if(currentBoard){
-      setLabelsLength(currentBoard.labels.reduce((acc, label) => acc+label.width, 0))
+  useEffect(() => {
+    if (currentBoard) {
+      setLabelsLength(currentBoard.labels.reduce((acc, label) => acc + label.width, 0))
     }
-  },[currentBoard])
+  }, [currentBoard])
 
 
 
@@ -188,7 +188,7 @@ const BoardDetails = () => {
   }, [groups])
 
   useEffect(() => {
-    function handleResize(){
+    function handleResize() {
       setZoomLevel(window.devicePixelRatio)
     }
     window.addEventListener("resize", handleResize);
@@ -366,7 +366,7 @@ const BoardDetails = () => {
         const destTasks = Array.from(destGroup.tasks);
         movedTask.cells[0].value.activities = movedTask.cells[0].value.activities.map(e => ({
           ...e,
-          activity:{
+          activity: {
             ...e.activity,
             groupId: destGroup.id
           }
@@ -431,7 +431,7 @@ const BoardDetails = () => {
       {
         !isDragging && isFixedGroupExpanded() &&
         <div className="sticky-labels"
-        style={{width: (labelsLength < window.innerWidth - 320) ? 'calc(100vw - 320px)' : `${labelsLength + 150}px`}}>
+          style={{ width: (labelsLength < window.innerWidth - 320) ? 'calc(100vw - 320px)' : `${labelsLength + 150}px` }}>
           <LabelsGrid
             boardId={boardId}
             group={fixedGroup}
@@ -446,16 +446,16 @@ const BoardDetails = () => {
 
       {currentBoard.groups.length > 0 ? (
         <section className="group-list"
-          style={{ marginTop: `${isFixedGroupExpanded() ? '-37px' : '0px'}`}}>
+          style={{ marginTop: `${isFixedGroupExpanded() ? '-37px' : '0px'}` }}>
           <DragDropContext onDragEnd={handleDragEnd} onDragStart={handleDragStart}>
             <Droppable droppableId="groups" type="group">
               {(provided) => (
                 <section ref={provided.innerRef} {...provided.droppableProps} className="group-list"
-                style={{width: (labelsLength < window.innerWidth - 320) ? 'calc(100vw - 320px)' : `${labelsLength + 150}px`}}>
+                  style={{ width: (labelsLength < window.innerWidth - 320) ? 'calc(100vw - 320px)' : `${labelsLength + 150}px` }}>
                   {groups.map((group, index) => (
                     <Draggable key={group.id} draggableId={group.id} index={index}>
                       {(provided) => (
-                        <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
+                        <div ref={provided.innerRef} {...provided.draggableProps}>
                           <GroupPreview
                             id={group.id}
                             group={group}
@@ -482,6 +482,7 @@ const BoardDetails = () => {
                             isDragging={isDragging}
                             isDraggingTask={isDraggingTask}
                             labelsLength={labelsLength}
+                            provided={provided} // ✅ Pass full provided object instead
                           />
                         </div>
                       )}
