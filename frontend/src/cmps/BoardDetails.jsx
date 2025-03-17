@@ -82,7 +82,6 @@ const BoardDetails = () => {
     console.log(filteredColumns);
   }, [filteredColumns]);
 
-  // console.log(currentBoard.labels)
 
   useEffect(() => {
     console.log(

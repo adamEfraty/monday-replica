@@ -387,7 +387,6 @@ export function ChatModal({
               <ul className="comments-list">
                 {cellInfo.value.chat.map((comment) => {
                   const commenter = getUserById(comment.userId);
-                  console.log(commenter, comment, ' chat modal fixing')
                   return (
                     <li key={comment.sentAt} className="comment">
                       <div className="comment-info">
