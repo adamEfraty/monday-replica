@@ -10,7 +10,7 @@ import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 
 import emptyChatImg from "../../../assets/images/empty-chat.png";
-import { ActivityModal } from "./activityModal.jsx";
+import { ActivityModal } from "./ActivityModal.jsx";
 
 export function ChatModal({
   cellInfo,
