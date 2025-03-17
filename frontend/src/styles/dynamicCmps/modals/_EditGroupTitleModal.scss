@@ -1,0 +1,39 @@
+
+.group-title{
+
+
+    .edit-group-title-modal{
+        position: absolute;
+        top: 6px;
+        left: 12px;
+        display: flex;
+        flex-direction: column;
+
+        width: 200px;
+        background-color: white;
+        padding: 7px;
+        box-shadow: 0px 4px 10px rgb(179, 179, 179);
+        border-radius: 8px;
+
+        button{
+            cursor: pointer;
+            width: 100%;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            padding-left: 10px;
+            font-family: "Quicksand", serif;
+            color: rgb(80, 80, 80);
+            font-weight: 600;
+            background-color: white;
+            height: 30px;
+            border-color: transparent;
+            border-radius: 4px;
+    
+            &:hover{
+                background-color: #F0F0F1;
+            }
+        }
+    }
+
+}

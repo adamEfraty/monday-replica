@@ -7,6 +7,7 @@ import { openModal, closeModal } from '../store/actions/boards.actions.js'
 import { useSelector } from "react-redux";
 import { GroupTitleColorModal } from "./dynamicCmps/modals/GroupTitleColorModal.jsx";
 import { updateGroup } from '../store/actions/boards.actions.js';
+import { EditGroupTitleModal } from "./dynamicCmps/modals/EditGroupTitleModal.jsx";
 
 
 
@@ -42,11 +43,19 @@ export function GroupTitle({
   const inputRef = useRef(null)
 
   const openModals = useSelector(state => state.boardModule.openModals)
+
   const colorModalId = `${group.id}-color-modal${isFixed && '-fixed'}`
   const colorModal = openModals.some(modalId => modalId === colorModalId)
   const squreColorRef = useRef(null)
   const colorModalRef = useRef(null)
 
+  const editModalId = `${group.id}-edit-modal${isFixed && '-fixed'}`
+  const editModal = openModals.some(modalId => modalId === editModalId)
+  const editModalButtonRef = useRef(null)
+  const editModalRef = useRef(null)
+
+
+  // color modal eventListener
   useEffect(() => {
     if (onEditMode) document.addEventListener
         ('mousedown', handleClickOutsideInput)
@@ -64,7 +73,6 @@ export function GroupTitle({
       !colorModalRef.current.contains(event.target))
       handelCloseInput()
   }
-
 
   function handelCloseInput() {
     handleGroupNameChange(groupTitle, group)
@@ -88,6 +96,46 @@ export function GroupTitle({
     handelCloseInput()
   }
 
+  // edit modal eventListener
+  useEffect(() => {
+    if (editModal) document.addEventListener
+        ('mousedown', handleClickOutsideEditModal)
+    else document.removeEventListener
+        ('mousedown', handleClickOutsideEditModal)
+    return () => document.removeEventListener
+        ('mousedown', handleClickOutsideEditModal)
+
+  }, [editModal])
+
+
+  function handleClickOutsideEditModal(event) {
+    if (!editModalRef.current.contains(event.target) && 
+      !editModalButtonRef.current.contains(event.target))
+      closeModal(editModalId)
+  }
+
+  function editModalToggle() {
+    editModal
+    ? closeModal(editModalId)
+    : openModal(editModalId)
+  }
+
+  function onDelete(){
+    handleDelete(group.id, boardId)
+    closeModal(editModalId)
+  }
+
+  function onOpenColorModal(){
+    setOnEditMode(true)
+    openModal(colorModalId)
+    closeModal(editModalId)
+  }
+
+  function onRenameGroup(){
+    setOnEditMode(true)
+    closeModal(editModalId)
+  }
+
   return (
     <div className="group-title"
       ref={titleRef}
@@ -95,40 +143,12 @@ export function GroupTitle({
       onMouseLeave={() => setIsHovered(false)}>
 
       <button
+        ref={editModalButtonRef}
         className="modal-button"
-        onClick={handleClick2}
+        onClick={editModalToggle}
         style={{visibility: isHovered ? 'visible' : 'hidden'}}>
           {getSvg('horizontal-dots')}
       </button>
-      
-      {/* 
-        <Popover
-          id={id2}
-          open={open2}
-          anchorEl={anchorE2}
-          onClose={handleClose2}
-          anchorOrigin={{
-            vertical: 'bottom',
-            horizontal: 'right',
-          }}
-          transformOrigin={{
-            vertical: 'top',
-            horizontal: 'center',
-          }}
-        >
-          <div className="flex-for-modal">
-            <Color 
-              closeAll={handleClose2} 
-              color={group.color} 
-              boardId={boardId} 
-              groupId={group.id} />
-
-          <GarbageRemove
-            someName={'Group'}
-            someFunction={() => handleDelete(group.id, boardId)} />
-          </div>
-        </Popover> */}
-
 
 
       <span className="group-title-arrow"
@@ -183,6 +203,14 @@ export function GroupTitle({
         colorModalRef={colorModalRef}
         groupColor={group.color}
         onUpdateGroup={onUpdateGroup}/>
+
+      <EditGroupTitleModal
+        editModal={editModal}
+        editModalRef={editModalRef}
+        onDelete={onDelete}
+        onOpenColorModal={onOpenColorModal}
+        onRenameGroup={onRenameGroup}
+      />
 
 
     </div>
