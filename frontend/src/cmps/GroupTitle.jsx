@@ -33,6 +33,7 @@ export function GroupTitle({
   listeners,
   handleDelete,
   isMiniGroup,
+  isFixed,
 
 }) 
 
@@ -44,7 +45,7 @@ export function GroupTitle({
   const inputRef = useRef(null)
 
   const openModals = useSelector(state => state.boardModule.openModals)
-  const colorModalId = group.id + 'color-modal'
+  const colorModalId = `${group.id}-color-modal${isFixed && '-fixed'}`
   const colorModal = openModals.some(modalId => modalId === colorModalId)
   const squreColorRef = useRef(null)
   const colorModalRef = useRef(null)
@@ -102,7 +103,7 @@ export function GroupTitle({
         style={{visibility: isHovered ? 'visible' : 'hidden'}}>
           {getSvg('horizontal-dots')}
         </button>
-
+{/* 
         <Popover
           id={id2}
           open={open2}
@@ -128,7 +129,7 @@ export function GroupTitle({
             someName={'Group'} 
             someFunction={() => handleDelete(group.id, boardId)} />
           </div>
-        </Popover>
+        </Popover> */}
 
 
 

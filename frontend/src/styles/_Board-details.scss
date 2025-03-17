@@ -109,7 +109,7 @@
   }
 
   .group-preview{
-    margin-bottom: 2px;
+    margin-bottom: 40px;
   }
 }
 
@@ -146,8 +146,7 @@
   position: fixed;
   width: calc(100vw - 275px);
   height: 40px;
-  overflow-x: hidden;
-  overflow-y: hidden;
+  overflow: visible;
   left: 265px;
   top: 206px;
   background-color: white;

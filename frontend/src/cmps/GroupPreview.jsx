@@ -127,28 +127,27 @@ export const GroupPreview = ({
         !isDragging && expanded && fixedGroup && fixedGroup.id === group.id &&
         <>
           <div className="fixed-area">
-            <div className="fixed-group-title">
-              <GroupTitle
-                boardId={boardId}
-                group={group}
-                groupTitle={groupTitle}
-                handleClick2={handleClick2}
-                id2={id2}
-                open2={open2}
-                anchorE2={anchorE2}
-                handleClose2={handleClose2}
-                titleHead={titleHead}
-                expanded={expanded}
-                attributes={attributes}
-                listeners={listeners}
-                handleGroupNameChange={handleGroupNameChange}
-                handelExpandedChange={handelExpandedChange}
-                handelGroupTitleChange={handelGroupTitleChange}
-                handleDelete={handleDelete}
-                isMiniGroup={false}
+            <GroupTitle
+              boardId={boardId}
+              group={group}
+              groupTitle={groupTitle}
+              handleClick2={handleClick2}
+              id2={id2}
+              open2={open2}
+              anchorE2={anchorE2}
+              handleClose2={handleClose2}
+              titleHead={titleHead}
+              expanded={expanded}
+              attributes={attributes}
+              listeners={listeners}
+              handleGroupNameChange={handleGroupNameChange}
+              handelExpandedChange={handelExpandedChange}
+              handelGroupTitleChange={handelGroupTitleChange}
+              handleDelete={handleDelete}
+              isMiniGroup={false}
+              isFixed={true}
 
-              />
-            </div>
+            />
           </div>
         </>
       }
@@ -173,6 +172,7 @@ export const GroupPreview = ({
         handelGroupTitleChange={handelGroupTitleChange}
         handleDelete={handleDelete}
         isMiniGroup={false}
+        isFixed={false}
       />
       }
 
