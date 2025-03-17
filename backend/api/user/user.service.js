@@ -95,6 +95,7 @@ async function add(user) {
       password: user.password,
       fullName: user.fullName,
       imgUrl: user.imgUrl,
+      color: user.color,
       isAdmin: user.isAdmin,
     }
     const collection = await dbService.getCollection('user')

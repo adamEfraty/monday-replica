@@ -89,11 +89,10 @@ header.board-details-header {
   }
   .newTask-button {
     display: flex;
-    gap: 0px;
     align-items: end;
     border: none;
     color: #3f3f3f;
-    background-color: #fff;
+    background-color: #ffffff;
     cursor: pointer;
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;
@@ -113,7 +112,7 @@ header.board-details-header {
       background-color: #0073ea;
       border-top-right-radius: 5px;
       border-bottom-right-radius: 5px;
-      border-left: 1px solid #3c3c3c;
+      border-left: 1px solid #5e4f4f;
       padding: 1px;
       padding-bottom: 0px;
       padding-top: 6px;

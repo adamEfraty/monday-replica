@@ -1,7 +1,6 @@
 import { boardService } from '../../services/board'
 import { utilService } from '../../services/util.service'
 import { store } from '../store'
-
 import {
   EDIT_BOARD,
   REMOVE_BOARD,
@@ -107,6 +106,77 @@ export async function addItem(
         : boardService.getDefultCell(label, taskId)
     ),
   }
+  await boardService.addItemToGroup(boardId, groupId, newItem, isStart)
+  const updatedBoard = await boardService.getById(boardId)
+
+  if (!updatedBoard) return
+
+  await store.dispatch({
+    type: EDIT_BOARD,
+    boardId,
+    updatedBoard,
+  })
+}
+
+const statusArray = [
+  { text: 'Done', color: '#00C875' },
+  { text: 'Working on it', color: '#FDAB3D' },
+  { text: 'Stuck', color: '#DF2F4A' },
+  { text: 'Blank', color: '#C4C4C4' },
+]
+
+export async function addItemKanban(
+  boardId,
+  groupId,
+  taskTitle = '',
+  isStart = null,
+  userId,
+  status = 'Blank'
+) {
+  const board = await boardService.getById(boardId)
+  const labels = [...board.labels]
+  const taskId = utilService.makeId()
+
+  // Find the matching status object
+  let statusValue = statusArray.find((s) => s.text === status)
+
+  // If status is "Blank", set text to "", but keep the gray color
+  if (status === 'Blank') {
+    statusValue = { text: '', color: '#C4C4C4' }
+  }
+
+  const newItem = {
+    id: taskId,
+    cells: labels.map((label) =>
+      label.type === 'taskTitle'
+        ? {
+            taskId,
+            labelId: label.id,
+            value: {
+              title: taskTitle,
+              chat: [],
+              activities: [
+                {
+                  time: Date.now(),
+                  taskId,
+                  userId,
+                  activity: { field: 'taskTitle', type: 'created', groupId },
+                },
+              ],
+            },
+            type: label.type,
+          }
+        : label.type === 'status'
+        ? {
+            taskId,
+            labelId: label.id,
+            value: statusValue, // Ensures correct format
+            type: label.type,
+          }
+        : boardService.getDefultCell(label, taskId)
+    ),
+  }
+
   await boardService.addItemToGroup(boardId, groupId, newItem, isStart)
   const updatedBoard = await boardService.getById(boardId)
 
@@ -487,6 +557,43 @@ export async function updateTaskStatus(boardId, groupId, taskId, newStatus) {
     console.log(`Task ${taskId} status updated to ${newStatus}`)
   } catch (error) {
     console.error('Error updating task status:', error)
+  }
+}
+
+export async function updateTaskTitle(boardId, groupId, taskId, newTitle) {
+  try {
+    const board = await boardService.getById(boardId)
+    if (!board) throw new Error('Board not found')
+
+    const groupIndex = board.groups.findIndex((group) => group.id === groupId)
+    if (groupIndex === -1) throw new Error('Group not found')
+
+    const taskIndex = board.groups[groupIndex].tasks.findIndex(
+      (task) => task.id === taskId
+    )
+    if (taskIndex === -1) throw new Error('Task not found')
+
+    const titleCellIndex = board.groups[groupIndex].tasks[
+      taskIndex
+    ].cells.findIndex((cell) => cell.type === 'taskTitle')
+    if (titleCellIndex === -1) throw new Error('Task title cell not found')
+
+    // Update the task title
+    board.groups[groupIndex].tasks[taskIndex].cells[
+      titleCellIndex
+    ].value.title = newTitle
+
+    await boardService.save(board)
+
+    await store.dispatch({
+      type: EDIT_BOARD,
+      boardId,
+      updatedBoard: board,
+    })
+
+    console.log(`Task ${taskId} title updated to "${newTitle}"`)
+  } catch (error) {
+    console.error('Error updating task title:', error)
   }
 }
 
