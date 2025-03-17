@@ -81,3 +81,7 @@
 16.3.2025, 17:05:28 - DEBUG - auth.route - new account created: {"email":"dfgdfg@g.com","password":"$2b$10$k5y18Af2OVzL5H7zGPRb2.wj/ZbJxHUCYqgUuDDIpoqSTek/c9bZe","fullName":"ddgfdfggd","imgUrl":"https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png","color":"#c22929","_id":"67d6e8b8c13f7c724959eb2c"}
 16.3.2025, 17:05:28 - DEBUG - auth.service - login with email: dfgdfg@g.com
 16.3.2025, 17:05:28 - INFO - User signup: | {"_id":"67d6e8b8c13f7c724959eb2c","email":"dfgdfg@g.com","fullName":"ddgfdfggd","imgUrl":"https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png","color":"#c22929","isAdmin":null}
+17.3.2025, 6:04:44 - INFO - Up and running on http://localhost:3000
+17.3.2025, 6:30:38 - INFO - Up and running on http://localhost:3000
+17.3.2025, 6:30:49 - DEBUG - auth.service - login with email: kiwi@gmail.com
+17.3.2025, 6:30:49 - INFO - User login:  | {"_id":"67c45c55c2f1ef4df8072022","email":"kiwi@gmail.com","fullName":"Kiwi","id":"E3iHE","imgUrl":"https://res.cloudinary.com/danlxus36/image/upload/v1740682607/3_iij9dg.jpg"}

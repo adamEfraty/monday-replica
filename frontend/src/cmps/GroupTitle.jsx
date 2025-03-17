@@ -15,7 +15,7 @@ import Popover from '@mui/material/Popover';
 import { GarbageRemove } from "./dynamicCmps/modals/GarbageRemove.jsx";
 import { Color } from "./dynamicCmps/modals/Color.jsx";
 
-export function GroupTitle({ 
+export function GroupTitle({
   titleRef,
   boardId,
   group,
@@ -35,10 +35,7 @@ export function GroupTitle({
   isMiniGroup,
   isFixed,
 
-}) 
-
-
-{
+}) {
 
   const [isHovered, setIsHovered] = useState(false)
   const [onEditMode, setOnEditMode] = useState(false)
@@ -69,7 +66,7 @@ export function GroupTitle({
   }
 
 
-  function handelCloseInput(){
+  function handelCloseInput() {
     handleGroupNameChange(groupTitle, group)
     setOnEditMode(false)
     closeModal(colorModalId)
@@ -92,18 +89,19 @@ export function GroupTitle({
   }
 
   return (
-    <div className="group-title" 
-    ref={titleRef}
-    onMouseEnter={() => setIsHovered(true)}
-    onMouseLeave={() => setIsHovered(false)}>
-      
-        <button 
-        className="modal-button" 
+    <div className="group-title"
+      ref={titleRef}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}>
+
+      <button
+        className="modal-button"
         onClick={handleClick2}
         style={{visibility: isHovered ? 'visible' : 'hidden'}}>
           {getSvg('horizontal-dots')}
-        </button>
-{/* 
+      </button>
+      
+      {/* 
         <Popover
           id={id2}
           open={open2}
@@ -125,24 +123,25 @@ export function GroupTitle({
               boardId={boardId} 
               groupId={group.id} />
 
-            <GarbageRemove 
-            someName={'Group'} 
+          <GarbageRemove
+            someName={'Group'}
             someFunction={() => handleDelete(group.id, boardId)} />
           </div>
         </Popover> */}
 
 
 
-        <span className="group-title-arrow" 
+      <span className="group-title-arrow"
         onClick={() => handelExpandedChange((prev) => !prev)}
-        style={{transform: (!isMiniGroup && expanded) ?  'rotate(90deg)' : 'rotate(0deg)',
+        style={{
+          transform: (!isMiniGroup && expanded) ? 'rotate(90deg)' : 'rotate(0deg)',
           color: group.color
         }}>
-          {getSvg('group-title-arrow')}
-        </span>
+        {getSvg('group-title-arrow')}
+      </span>
 
-        {
-          onEditMode ?
+      {
+        onEditMode ?
           <input
           ref={inputRef}
           className="group-title-input"
@@ -153,18 +152,19 @@ export function GroupTitle({
             onChange={(e) => handelGroupTitleChange(e.target.value)}
             onKeyDown={handleKeyDown}
           />
-          : <p 
-          className="group-title-p" 
-          onClick={()=>setOnEditMode(true)}
-          style={{color: group.color}}>
+          : <p
+            className="group-title-p"
+            onClick={() => setOnEditMode(true)}
+            style={{ color: group.color }}>
             {groupTitle}
           </p>
-        }
+      }
 
       <p className="tasks-amount"
-      style={{
-        opacity: (!onEditMode && isHovered) ? 1 : 0,
-        transition: "opacity 0.1s ease-in-out"}}>
+        style={{
+          opacity: (!onEditMode && isHovered) ? 1 : 0,
+          transition: "opacity 0.1s ease-in-out"
+        }}>
         {`${group.tasks.length} Tasks`}
       </p>
 
@@ -185,12 +185,6 @@ export function GroupTitle({
         onUpdateGroup={onUpdateGroup}/>
 
 
-      
-
-        
-
-      {/* <div  {...listeners} {...attributes} style={{ cursor: "grab", width: '100%', padding: '1rem' }}>
-      </div> */}
     </div>
   )
 }

@@ -47,6 +47,7 @@ export const GroupPreview = ({
   isDragging,
   isDraggingTask,
   labelsLength,
+  provided,
 
 }) => {
   const [expanded, setExpanded] = useState(true);
@@ -146,6 +147,7 @@ export const GroupPreview = ({
               handleDelete={handleDelete}
               isMiniGroup={false}
               isFixed={true}
+              dragHandleProps={provided.dragHandleProps}
 
             />
           </div>
@@ -173,6 +175,8 @@ export const GroupPreview = ({
         handleDelete={handleDelete}
         isMiniGroup={false}
         isFixed={false}
+        dragHandleProps={provided.dragHandleProps}
+
       />
       }
 
@@ -230,10 +234,10 @@ export const GroupPreview = ({
               )}
             </Droppable>
 
-            <AddTask group={group} 
-            handleAddTask={handleAddTask} 
-            TaskTitleLength={labels[0].width} 
-            labelsLength={labelsLength}/>
+            <AddTask group={group}
+              handleAddTask={handleAddTask}
+              TaskTitleLength={labels[0].width}
+              labelsLength={labelsLength} />
 
             {/* Render progress by progress array */}
             <section
@@ -258,11 +262,11 @@ export const GroupPreview = ({
                   </div>
                 ) : (
                   <div className={lable.type} key={`progress-${index} `}>
-                      {lable.type === 'taskTitle' && <div className="round-corner"/>}
+                    {lable.type === 'taskTitle' && <div className="round-corner" />}
                   </div>
                 )
               )}
-              <div className="empty-space"/>
+              <div className="empty-space" />
             </section>
           </div >
         ) : <MiniGroup boardId={boardId}
@@ -280,7 +284,9 @@ export const GroupPreview = ({
           handleGroupNameChange={handleGroupNameChange}
           handelExpandedChange={handelExpandedChange}
           handelGroupTitleChange={handelGroupTitleChange}
-          handleDelete={handleDelete} />}
+          handleDelete={handleDelete}
+          dragHandleProps={provided.dragHandleProps} />}
+
       </section >
     </div >
   );
