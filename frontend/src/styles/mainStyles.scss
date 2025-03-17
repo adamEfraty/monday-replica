@@ -32,6 +32,7 @@
 @use './AddTask';
 @use './someday-kanban';
 @use './GroupTitle';
+@use './dynamicCmps/modals/GroupTitleColorModal';
 
 * {
   padding: 0;

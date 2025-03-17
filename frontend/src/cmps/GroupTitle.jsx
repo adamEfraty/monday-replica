@@ -3,6 +3,11 @@ import { ArrowRightIcon } from "@mui/x-date-pickers/icons";
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import { getSvg } from "../services/svg.service";
 import { useState, useRef, useEffect } from "react"
+import { openModal, closeModal } from '../store/actions/boards.actions.js'
+import { useSelector } from "react-redux";
+import { GroupTitleColorModal } from "./dynamicCmps/modals/GroupTitleColorModal.jsx";
+import { updateGroup } from '../store/actions/boards.actions.js';
+
 
 
 
@@ -34,16 +39,55 @@ export function GroupTitle({
 
 {
 
-  const [isHovered, setIsHovered] = useState(false);
-  const [onEditMode, setOnEditMode] = useState(false);
+  const [isHovered, setIsHovered] = useState(false)
+  const [onEditMode, setOnEditMode] = useState(false)
+  const inputRef = useRef(null)
+
+  const openModals = useSelector(state => state.boardModule.openModals)
+  const colorModalId = group.id + 'color-modal'
+  const colorModal = openModals.some(modalId => modalId === colorModalId)
+  const squreColorRef = useRef(null)
+  const colorModalRef = useRef(null)
+
+  useEffect(() => {
+    if (onEditMode) document.addEventListener
+        ('mousedown', handleClickOutsideInput)
+    else document.removeEventListener
+        ('mousedown', handleClickOutsideInput)
+    return () => document.removeEventListener
+        ('mousedown', handleClickOutsideInput)
+
+  }, [onEditMode])
+
+
+  function handleClickOutsideInput(event) {
+    if (!inputRef.current.contains(event.target) && 
+      !squreColorRef.current.contains(event.target) &&
+      !colorModalRef.current.contains(event.target))
+      handelCloseInput()
+  }
+
 
   function handelCloseInput(){
     handleGroupNameChange(groupTitle, group)
     setOnEditMode(false)
+    closeModal(colorModalId)
   }
 
   function handleKeyDown(event) {
     if (event.key === "Enter") handelCloseInput()
+  }
+
+
+  function colorModalToggle() {
+    colorModal
+    ? closeModal(colorModalId)
+    : openModal(colorModalId)
+  }
+
+  async function onUpdateGroup(newColor){
+    await updateGroup(boardId, group.id, { color: newColor })
+    handelCloseInput()
   }
 
   return (
@@ -99,9 +143,9 @@ export function GroupTitle({
         {
           onEditMode ?
           <input
+          ref={inputRef}
           className="group-title-input"
-            autoFocus={true}
-            onBlur={handelCloseInput}
+            autoFocus={true}            
             style={{color: group.color}}
             type="text"
             value={groupTitle}
@@ -125,9 +169,19 @@ export function GroupTitle({
 
       {
         onEditMode &&
-        <div className="squre-color"
-        style={{backgroundColor: group.color}}/>
+        <div 
+        ref={squreColorRef}
+        className="squre-color"
+        style={{backgroundColor: group.color}}
+        onClick={colorModalToggle}/>
       }
+
+
+      <GroupTitleColorModal 
+        colorModal={colorModal}
+        colorModalRef={colorModalRef}
+        groupColor={group.color}
+        onUpdateGroup={onUpdateGroup}/>
 
 
       
