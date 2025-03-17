@@ -89,7 +89,7 @@ export const GroupPreview = ({
       updateFixedGroup(group.id, yPosition)
     }
 
-  }, [boardScroll])
+  }, [boardScroll, group.color])
 
   useEffect(() => {
     updateExpandedGroups(group.id, expanded)
