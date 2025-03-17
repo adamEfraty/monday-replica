@@ -81,3 +81,6 @@
 16.3.2025, 17:05:28 - DEBUG - auth.route - new account created: {"email":"dfgdfg@g.com","password":"$2b$10$k5y18Af2OVzL5H7zGPRb2.wj/ZbJxHUCYqgUuDDIpoqSTek/c9bZe","fullName":"ddgfdfggd","imgUrl":"https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png","color":"#c22929","_id":"67d6e8b8c13f7c724959eb2c"}
 16.3.2025, 17:05:28 - DEBUG - auth.service - login with email: dfgdfg@g.com
 16.3.2025, 17:05:28 - INFO - User signup: | {"_id":"67d6e8b8c13f7c724959eb2c","email":"dfgdfg@g.com","fullName":"ddgfdfggd","imgUrl":"https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png","color":"#c22929","isAdmin":null}
+17.3.2025, 16:06:36 - INFO - Up and running on http://localhost:3000
+17.3.2025, 16:06:56 - DEBUG - auth.service - login with email: efraty665@gmail.com
+17.3.2025, 16:06:57 - INFO - User login:  | {"_id":"67ca519f85c61510baa798fd","email":"efraty665@gmail.com","fullName":"adam","imgUrl":"https://res.cloudinary.com/danlxus36/image/upload/v1741312413/best-selfie_xlxkpb.jpg","isAdmin":null}
