@@ -12,14 +12,20 @@ import {
 import { boardService } from "../services/board";
 import { useNavigate } from "react-router";
 import { utilService } from "../services/util.service";
-export function BoardDetailsHeader({ handleAddTask, boardTitle, boardId, boardColumnsFilter, handleFilteredLabel }) {
+export function BoardDetailsHeader({
+  handleAddTask,
+  boardTitle,
+  boardId,
+  boardColumnsFilter,
+  handleFilteredLabel,
+}) {
   const filterBy = useSelector((state) => state.boardModule.filterBy);
   const boards = useSelector((state) => state.boardModule.boards);
+  const loggedInUser = useSelector((state) => state.userModule.user) || null;
   const [filterByToEdit, setFilterByToEdit] = useState(filterBy);
   const [filterState, setFilterState] = useState(boardService.getFilterState());
-  const loggedInUser = useSelector((state) => state.userModule.user) || null;
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   useEffect(() => {
     const filter = getFilterContext();
     setFilterByToEdit(filter);
@@ -28,8 +34,6 @@ export function BoardDetailsHeader({ handleAddTask, boardTitle, boardId, boardCo
   useEffect(() => {
     handleFilter(filterByToEdit);
   }, [filterByToEdit]);
-
-
 
   let name = null;
   if (loggedInUser) {
@@ -57,7 +61,7 @@ export function BoardDetailsHeader({ handleAddTask, boardTitle, boardId, boardCo
       </div>
       <section className="board-nav">
         <div>
-          <div onClick={() => navigate(`/${name}s-team.someday.com/boards/${boardId}`)}>
+        <div onClick={() => navigate(`/${name}s-team.someday.com/boards/${boardId}`)}>
             <HomeIcon style={iconStyle} />
             <h5>Main Table</h5>
           </div>
@@ -71,7 +75,7 @@ export function BoardDetailsHeader({ handleAddTask, boardTitle, boardId, boardCo
           kanban
         </div>
       </section>
-      <hr />
+      <hr className="main-hr" />
       <section className="board-header-actions">
         <div className="newTask-button">
           <div className="new-task-button" onClick={() => handleAddTask()}>
@@ -91,7 +95,7 @@ export function BoardDetailsHeader({ handleAddTask, boardTitle, boardId, boardCo
           className={filterState ? "filter-input" : "choice-div"}
           tabIndex={0} // Make the div focusable
         >
-          <SearchIcon style={{ width: 24, height: 24 }} />
+          <SearchIcon style={{ width: 22, height: 22 }} />
           {filterState ? (
             <>
               <input
@@ -100,7 +104,11 @@ export function BoardDetailsHeader({ handleAddTask, boardTitle, boardId, boardCo
                 value={filterByToEdit}
                 autoFocus
               />
-              <FilterModal boardId={boardId} boardColumnsFilter={boardColumnsFilter} handleFilteredLabel={handleFilteredLabel} />
+              <FilterModal
+                boardId={boardId}
+                boardColumnsFilter={boardColumnsFilter}
+                handleFilteredLabel={handleFilteredLabel}
+              />
             </>
           ) : (
             <small>Search</small>

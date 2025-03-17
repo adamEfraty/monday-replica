@@ -19,9 +19,9 @@ export function ActivityModal({ activities, width }) {
 
   const iconStyle = { width: 14 };
 
-  function handleLongText(text) {
+  function handleLongText(text, relation = 22) {
     if (text) {
-      const maxLetters = Math.floor(width / 22) - 25;
+      const maxLetters = Math.floor(width / relation) - 25;
       if (text.length < maxLetters) return text;
       else {
         const shortenText = `${text.slice(0, maxLetters)}...`;
@@ -37,7 +37,7 @@ export function ActivityModal({ activities, width }) {
       <section className="header-activities">
         <section className="filter-button">
           <h5>Filter log</h5>
-            <ArrowDownIcon style={{width: 18}} />
+          <ArrowDownIcon style={{ width: 18 }} />
         </section>
         <ExportIcon className="export-icon" />
       </section>
@@ -52,17 +52,13 @@ export function ActivityModal({ activities, width }) {
             (group) => group.id === activity.activity.groupId
           );
           const task = group.tasks.find((task) => {
-            console.log(task.id, activity.taskId);
             return task.id === activity.taskId;
           });
-          console.log(task, activity.taskId);
           const userName = user.fullName
             .split(" ")
             .map((name) => name[0])
             .join("")
             .toUpperCase();
-
-          console.log(typeof activity.activity.postChange);
 
           return (
             <section key={activityIdx}>
@@ -74,8 +70,13 @@ export function ActivityModal({ activities, width }) {
                       <TimeIcon style={iconStyle} />
                       <p>{utilService.milisecondsTimeCalc(activity.time)}</p>
                     </section>
-                      <h4 className="username-wrapper" style={{ backgroundColor: user.color }}>{userName}</h4>
-                    <p>{task.cells[0].value.title}</p>
+                    <h4
+                      className="username-wrapper"
+                      style={{ backgroundColor: user.color }}
+                    >
+                      {userName}
+                    </h4>
+                    <p>{handleLongText(task.cells[0].value.title, 18)}</p>
                   </div>
                   <section className="scdColumn">
                     {activity.activity.type !== "created" &&
