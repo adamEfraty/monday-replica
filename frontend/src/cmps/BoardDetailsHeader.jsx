@@ -11,6 +11,7 @@ import {
 } from "../store/actions/boards.actions";
 import { boardService } from "../services/board";
 import { useNavigate } from "react-router";
+import { utilService } from "../services/util.service";
 export function BoardDetailsHeader({
   handleAddTask,
   boardTitle,
@@ -20,6 +21,7 @@ export function BoardDetailsHeader({
 }) {
   const filterBy = useSelector((state) => state.boardModule.filterBy);
   const boards = useSelector((state) => state.boardModule.boards);
+  const loggedInUser = useSelector((state) => state.userModule.user) || null;
   const [filterByToEdit, setFilterByToEdit] = useState(filterBy);
   const [filterState, setFilterState] = useState(boardService.getFilterState());
 
@@ -32,6 +34,11 @@ export function BoardDetailsHeader({
   useEffect(() => {
     handleFilter(filterByToEdit);
   }, [filterByToEdit]);
+
+  let name = null;
+  if (loggedInUser) {
+    name = utilService.getNameFromEmail(loggedInUser?.email);
+  }
 
   const iconStyle = { width: 20, height: 18 };
 
@@ -54,7 +61,7 @@ export function BoardDetailsHeader({
       </div>
       <section className="board-nav">
         <div>
-          <div>
+        <div onClick={() => navigate(`/${name}s-team.someday.com/boards/${boardId}`)}>
             <HomeIcon style={iconStyle} />
             <h5>Main Table</h5>
           </div>
@@ -64,8 +71,11 @@ export function BoardDetailsHeader({
         <div onClick={() => navigate(`/board/kanban/${boardId}`)}>
           go to kanban
         </div>
+        <div onClick={() => navigate(`/board/someday-kanban/${boardId}`)}>
+          kanban
+        </div>
       </section>
-      <hr />
+      <hr className="main-hr" />
       <section className="board-header-actions">
         <div className="newTask-button">
           <div className="new-task-button" onClick={() => handleAddTask()}>
@@ -101,7 +111,7 @@ export function BoardDetailsHeader({
               />
             </>
           ) : (
-            <h5>Search</h5>
+            <small>Search</small>
           )}
         </div>
       </section>

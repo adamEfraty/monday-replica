@@ -95,10 +95,9 @@ header.board-details-header {
     align-items: end;
     border: none;
     color: #3f3f3f;
-    background-color: #ffffff;
+    background-color: #0073ea;
     cursor: pointer;
-    border-top-left-radius: 5px;
-    border-bottom-left-radius: 5px;
+    border-radius: 5px;
     color: white;
     .new-task-button {
       font-size: 14px;
@@ -132,7 +131,6 @@ header.board-details-header {
     cursor: pointer;
     & small {
       font-size: 13px;
-      font-weight: 20;
     }
     &:hover {
       background-color: rgba(103, 104, 121, 0.1);
