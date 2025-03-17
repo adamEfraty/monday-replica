@@ -74,6 +74,9 @@ header.board-details-header {
     height: 170px;
     background-color: white;
   }
+  & .main-hr{
+    color:rgba(103, 104, 121, 0.1)
+  }
 }
 
 .board-header-actions {
@@ -92,10 +95,9 @@ header.board-details-header {
     align-items: end;
     border: none;
     color: #3f3f3f;
-    background-color: #ffffff;
+    background-color: #0073ea;
     cursor: pointer;
-    border-top-left-radius: 5px;
-    border-bottom-left-radius: 5px;
+    border-radius: 5px;
     color: white;
     .new-task-button {
       font-size: 14px;
@@ -128,8 +130,7 @@ header.board-details-header {
     border-radius: 2.5px;
     cursor: pointer;
     & small {
-      font-size: 16px;
-      font-weight: 500;
+      font-size: 13px;
     }
     &:hover {
       background-color: rgba(103, 104, 121, 0.1);

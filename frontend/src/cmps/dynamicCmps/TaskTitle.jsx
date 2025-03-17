@@ -135,8 +135,7 @@ export function TaskTitle({
 
   function toggleEditMode() {
     if (onEditMode) {
-      if (!checkTitleValidation(textToEdit)) {
-      } else {
+      if (checkTitleValidation(textToEdit)){
         onTaskUpdate({
           ...cellInfo,
           value: { ...cellInfo.value, title: textToEdit },
