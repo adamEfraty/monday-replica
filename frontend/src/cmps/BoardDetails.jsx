@@ -178,11 +178,16 @@ const BoardDetails = () => {
   }, [currentBoard])
 
 
-
   useEffect(() => {
     if (groups.length) {
-      setFixedGroup(groups[0])
-      setGoupTitlesYPosition({})
+      if(!fixedGroup){
+        setFixedGroup(groups[0])
+        setGoupTitlesYPosition({})
+      }
+      else if(!groups.find(group=>group.id === fixedGroup.id)){
+        setFixedGroup(groups[0])
+        setGoupTitlesYPosition({})
+      }
     }
     else setFixedGroup(null)
   }, [groups])
