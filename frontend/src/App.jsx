@@ -14,10 +14,6 @@ import { MondayKanbanIndex } from "./cmps/MondayKanban/MondayKanbanIndex";
 function App() {
   const loggedInUser = useSelector((state) => state.userModule.user) || null;
 
-  useEffect(() => {
-    console.log(loggedInUser);
-  }, [loggedInUser]);
-
   let name = null;
   if (loggedInUser) {
     name = utilService.getNameFromEmail(loggedInUser?.email);
