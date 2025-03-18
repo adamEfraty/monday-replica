@@ -33,7 +33,7 @@ export function MiniGroup({ titleRef,
                 <div style={{ marginLeft: '10px' }}>{group.tasks.length} tasks</div>
             </div>
             <div
-                {...dragHandleProps} // ✅ Now properly assigned
+                {...dragHandleProps}
                 style={{
                     cursor: "grab",
                     width: "100%",

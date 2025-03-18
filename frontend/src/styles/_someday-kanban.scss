@@ -34,13 +34,13 @@
       display: flex;
       flex-direction: column;
       gap: 10px;
-      overflow-y: auto; /* Keep scrolling enabled */
-      scrollbar-width: none; /* Hide scrollbar in Firefox */
-      -ms-overflow-style: none; /* Hide scrollbar in IE/Edge */
+      overflow-y: auto;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
     }
 
     .task-list::-webkit-scrollbar {
-      display: none; /* Hide scrollbar in Chrome/Safari */
+      display: none;
     }
 
     .kanban-task {

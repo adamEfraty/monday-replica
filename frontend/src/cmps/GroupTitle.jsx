@@ -35,6 +35,7 @@ export function GroupTitle({
   handleDelete,
   isMiniGroup,
   isFixed,
+  dragHandleProps,
 
 }) {
 
@@ -58,17 +59,17 @@ export function GroupTitle({
   // color modal eventListener
   useEffect(() => {
     if (onEditMode) document.addEventListener
-        ('mousedown', handleClickOutsideInput)
+      ('mousedown', handleClickOutsideInput)
     else document.removeEventListener
-        ('mousedown', handleClickOutsideInput)
+      ('mousedown', handleClickOutsideInput)
     return () => document.removeEventListener
-        ('mousedown', handleClickOutsideInput)
+      ('mousedown', handleClickOutsideInput)
 
   }, [onEditMode])
 
 
   function handleClickOutsideInput(event) {
-    if (!inputRef.current.contains(event.target) && 
+    if (!inputRef.current.contains(event.target) &&
       !squreColorRef.current.contains(event.target) &&
       !colorModalRef.current.contains(event.target))
       handelCloseInput()
@@ -87,11 +88,11 @@ export function GroupTitle({
 
   function colorModalToggle() {
     colorModal
-    ? closeModal(colorModalId)
-    : openModal(colorModalId)
+      ? closeModal(colorModalId)
+      : openModal(colorModalId)
   }
 
-  async function onUpdateGroup(newColor){
+  async function onUpdateGroup(newColor) {
     await updateGroup(boardId, group.id, { color: newColor })
     handelCloseInput()
   }
@@ -99,39 +100,39 @@ export function GroupTitle({
   // edit modal eventListener
   useEffect(() => {
     if (editModal) document.addEventListener
-        ('mousedown', handleClickOutsideEditModal)
+      ('mousedown', handleClickOutsideEditModal)
     else document.removeEventListener
-        ('mousedown', handleClickOutsideEditModal)
+      ('mousedown', handleClickOutsideEditModal)
     return () => document.removeEventListener
-        ('mousedown', handleClickOutsideEditModal)
+      ('mousedown', handleClickOutsideEditModal)
 
   }, [editModal])
 
 
   function handleClickOutsideEditModal(event) {
-    if (!editModalRef.current.contains(event.target) && 
+    if (!editModalRef.current.contains(event.target) &&
       !editModalButtonRef.current.contains(event.target))
       closeModal(editModalId)
   }
 
   function editModalToggle() {
     editModal
-    ? closeModal(editModalId)
-    : openModal(editModalId)
+      ? closeModal(editModalId)
+      : openModal(editModalId)
   }
 
-  function onDelete(){
+  function onDelete() {
     handleDelete(group.id, boardId)
     closeModal(editModalId)
   }
 
-  function onOpenColorModal(){
+  function onOpenColorModal() {
     setOnEditMode(true)
     openModal(colorModalId)
     closeModal(editModalId)
   }
 
-  function onRenameGroup(){
+  function onRenameGroup() {
     setOnEditMode(true)
     closeModal(editModalId)
   }
@@ -146,8 +147,8 @@ export function GroupTitle({
         ref={editModalButtonRef}
         className="modal-button"
         onClick={editModalToggle}
-        style={{visibility: isHovered ? 'visible' : 'hidden'}}>
-          {getSvg('horizontal-dots')}
+        style={{ visibility: isHovered ? 'visible' : 'hidden' }}>
+        {getSvg('horizontal-dots')}
       </button>
 
 
@@ -163,10 +164,10 @@ export function GroupTitle({
       {
         onEditMode ?
           <input
-          ref={inputRef}
-          className="group-title-input"
-            autoFocus={true}            
-            style={{color: group.color}}
+            ref={inputRef}
+            className="group-title-input"
+            autoFocus={true}
+            style={{ color: group.color }}
             type="text"
             value={groupTitle}
             onChange={(e) => handelGroupTitleChange(e.target.value)}
@@ -190,19 +191,19 @@ export function GroupTitle({
 
       {
         onEditMode &&
-        <div 
-        ref={squreColorRef}
-        className="squre-color"
-        style={{backgroundColor: group.color}}
-        onClick={colorModalToggle}/>
+        <div
+          ref={squreColorRef}
+          className="squre-color"
+          style={{ backgroundColor: group.color }}
+          onClick={colorModalToggle} />
       }
 
 
-      <GroupTitleColorModal 
+      <GroupTitleColorModal
         colorModal={colorModal}
         colorModalRef={colorModalRef}
         groupColor={group.color}
-        onUpdateGroup={onUpdateGroup}/>
+        onUpdateGroup={onUpdateGroup} />
 
       <EditGroupTitleModal
         editModal={editModal}
@@ -212,8 +213,9 @@ export function GroupTitle({
         onRenameGroup={onRenameGroup}
       />
 
+      {!onEditMode && <div {...dragHandleProps} style={{ width: '60%', padding: '.5rem' }}></div>}
+
 
     </div>
   )
 }
-// (!isMiniGroup && expanded)

@@ -2,13 +2,14 @@ import { useRef, useEffect, useState } from "react";
 import IconButton from "@mui/material/IconButton";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import { getSvg } from "../../services/svg.service";
+import { Popover, MenuItem, Typography } from "@mui/material";
 
-export function KanbanTasks({ title, task, onUpdateTaskTitle }) {
+export function KanbanTasks({ title, task, onUpdateTaskTitle, onRemove }) {
     const [inputValue, setInputValue] = useState(title);
     const inputRef = useRef(null);
     const spanRef = useRef(null);
 
-    console.log(task, 'kanban task')
+    const [anchorEl, setAnchorEl] = useState(null);
 
     useEffect(() => {
         if (inputRef.current && spanRef.current) {
@@ -16,6 +17,17 @@ export function KanbanTasks({ title, task, onUpdateTaskTitle }) {
             inputRef.current.style.width = `${spanRef.current.offsetWidth + 5}px`;
         }
     }, [inputValue, title]);
+
+    const handleClick = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
+
+
+
 
     return (
         <div className="kanban-task">
@@ -37,9 +49,25 @@ export function KanbanTasks({ title, task, onUpdateTaskTitle }) {
                 <div className="task-icon-box">
                     <IconButton>{getSvg("pen-icon")}</IconButton>
 
-                    <IconButton size="small" className="task-options">
+                    <IconButton size="small" className="task-options" onClick={handleClick}>
                         <MoreHorizIcon />
                     </IconButton>
+
+                    <Popover
+                        open={Boolean(anchorEl)}
+                        anchorEl={anchorEl}
+                        onClose={handleClose}
+                        anchorOrigin={{
+                            vertical: "bottom",
+                            horizontal: "left",
+                        }}
+                        transformOrigin={{
+                            vertical: "top",
+                            horizontal: "left",
+                        }}
+                    >
+                        <MenuItem onClick={() => onRemove(task)}>{getSvg('trash2')}<span style={{ marginLeft: '1rem', fontWeight: '100' }}>Delete Task </span></MenuItem>
+                    </Popover>
                 </div>
             </div>
 
