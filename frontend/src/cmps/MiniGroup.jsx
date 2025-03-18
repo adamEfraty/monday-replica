@@ -18,7 +18,7 @@ export function MiniGroup({ titleRef,
     attributes,
     listeners,
     handleDelete,
-
+    dragHandleProps
 }) {
 
 
@@ -32,7 +32,15 @@ export function MiniGroup({ titleRef,
                 </div>
                 <div style={{ marginLeft: '10px' }}>{group.tasks.length} tasks</div>
             </div>
-            <div {...listeners} {...attributes} style={{ cursor: "grab", width: '100%', padding: '1rem' }}  ></div>
-        </div >
+            <div
+                {...dragHandleProps} // ✅ Now properly assigned
+                style={{
+                    cursor: "grab",
+                    width: "100%",
+                    padding: "1rem",
+                    borderRadius: "4px",
+                }}
+            >
+            </div>        </div >
     )
 }

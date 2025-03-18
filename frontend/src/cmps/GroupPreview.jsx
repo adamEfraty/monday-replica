@@ -47,6 +47,7 @@ export const GroupPreview = ({
   isDragging,
   isDraggingTask,
   labelsLength,
+  provided,
 
 }) => {
   const [expanded, setExpanded] = useState(true);
@@ -88,7 +89,7 @@ export const GroupPreview = ({
       updateFixedGroup(group.id, yPosition)
     }
 
-  }, [boardScroll])
+  }, [boardScroll, group.color])
 
   useEffect(() => {
     updateExpandedGroups(group.id, expanded)
@@ -127,28 +128,28 @@ export const GroupPreview = ({
         !isDragging && expanded && fixedGroup && fixedGroup.id === group.id &&
         <>
           <div className="fixed-area">
-            <div className="fixed-group-title">
-              <GroupTitle
-                boardId={boardId}
-                group={group}
-                groupTitle={groupTitle}
-                handleClick2={handleClick2}
-                id2={id2}
-                open2={open2}
-                anchorE2={anchorE2}
-                handleClose2={handleClose2}
-                titleHead={titleHead}
-                expanded={expanded}
-                attributes={attributes}
-                listeners={listeners}
-                handleGroupNameChange={handleGroupNameChange}
-                handelExpandedChange={handelExpandedChange}
-                handelGroupTitleChange={handelGroupTitleChange}
-                handleDelete={handleDelete}
-                isMiniGroup={false}
+            <GroupTitle
+              boardId={boardId}
+              group={group}
+              groupTitle={groupTitle}
+              handleClick2={handleClick2}
+              id2={id2}
+              open2={open2}
+              anchorE2={anchorE2}
+              handleClose2={handleClose2}
+              titleHead={titleHead}
+              expanded={expanded}
+              attributes={attributes}
+              listeners={listeners}
+              handleGroupNameChange={handleGroupNameChange}
+              handelExpandedChange={handelExpandedChange}
+              handelGroupTitleChange={handelGroupTitleChange}
+              handleDelete={handleDelete}
+              isMiniGroup={false}
+              isFixed={true}
+              dragHandleProps={provided.dragHandleProps}
 
-              />
-            </div>
+            />
           </div>
         </>
       }
@@ -173,6 +174,9 @@ export const GroupPreview = ({
         handelGroupTitleChange={handelGroupTitleChange}
         handleDelete={handleDelete}
         isMiniGroup={false}
+        isFixed={false}
+        dragHandleProps={provided.dragHandleProps}
+
       />
       }
 
@@ -230,10 +234,10 @@ export const GroupPreview = ({
               )}
             </Droppable>
 
-            <AddTask group={group} 
-            handleAddTask={handleAddTask} 
-            TaskTitleLength={labels[0].width} 
-            labelsLength={labelsLength}/>
+            <AddTask group={group}
+              handleAddTask={handleAddTask}
+              TaskTitleLength={labels[0].width}
+              labelsLength={labelsLength} />
 
             {/* Render progress by progress array */}
             <section
@@ -258,11 +262,11 @@ export const GroupPreview = ({
                   </div>
                 ) : (
                   <div className={lable.type} key={`progress-${index} `}>
-                      {lable.type === 'taskTitle' && <div className="round-corner"/>}
+                    {lable.type === 'taskTitle' && <div className="round-corner" />}
                   </div>
                 )
               )}
-              <div className="empty-space"/>
+              <div className="empty-space" />
             </section>
           </div >
         ) : <MiniGroup boardId={boardId}
@@ -280,7 +284,9 @@ export const GroupPreview = ({
           handleGroupNameChange={handleGroupNameChange}
           handelExpandedChange={handelExpandedChange}
           handelGroupTitleChange={handelGroupTitleChange}
-          handleDelete={handleDelete} />}
+          handleDelete={handleDelete}
+          dragHandleProps={provided.dragHandleProps} />}
+
       </section >
     </div >
   );

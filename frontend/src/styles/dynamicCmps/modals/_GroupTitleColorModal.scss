@@ -1,0 +1,41 @@
+
+.group-title-color-modal{
+    cursor: default;
+    position: absolute;
+    top: 37px;
+    left: 44px;
+    width: 172px;
+    height: 140px;
+    padding: 7px;
+    background-color: white;
+    border: solid #C3C6D4 1px;
+    border-radius: 4px;
+
+    ul{
+        list-style-type: none;
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        grid-template-rows: repeat(4, 1fr);
+        height: 100%;
+
+        li{
+            cursor: pointer;
+            display: grid;
+            align-items: center;
+            justify-items: center;
+
+            &:hover{
+                background-color: #F0F0F1;
+                border-radius: 6px;
+            }
+
+            .color-option{
+                height: 77%;
+                width: 77%;
+                border-radius: 4px;
+            }
+
+        }
+
+    }
+}
