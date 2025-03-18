@@ -1,18 +1,24 @@
+.prog-box.with-priority {
+  padding: 5px;
 
-.prog-box.with-priority{
-    padding: 5px;
+  .progress-priority {
+    display: flex;
+    padding: 0px;
+    width: 100%;
+    height: 100%;
+    border: none;
 
-    .progress-priority{
-        display: flex;
-        padding: 0px;
-        width: 100%;
-        height: 100%;
-        border: none;
-    
-        .color-block{
-            padding: 0px;
-            height: 100%;
-        }
+    .color-block {
+      padding: 0px;
+      height: 100%;
     }
+  }
+}
 
+div.color-block {
+  transition: all 0.25s ease-in-out;
+
+  &:hover {
+    transform: scale(1.1);
+  }
 }

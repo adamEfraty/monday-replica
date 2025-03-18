@@ -220,8 +220,6 @@ export async function updateGroup(boardId, groupId, updatedGroupData) {
     ),
   }
 
-  console.log('updated: ', updatedBoard)
-
   await store.dispatch({
     type: EDIT_BOARD,
     boardId,
@@ -254,17 +252,13 @@ export async function removeTasks(boardId, tasksArr) {
   })
 }
 export async function removeTask(boardId, groupId, taskId) {
-  console.log('jhsbdjhsfdbjhsdbfsdgfuhbsdfjhsbdfjhsbh radwan')
-  // Use the boardService to remove the task from the group in localStorage
   const board = await boardService.removeTaskFromGroup(boardId, groupId, taskId)
   if (!board) throw new Error('Board not found')
 
-  // Now, we need to create the updated board structure with the modified groups
   const updatedBoard = {
     ...board,
     groups: board.groups.map((group) => {
       if (group.id === groupId) {
-        // Filter out the task from the group's tasks
         return {
           ...group,
           tasks: group.tasks.filter((task) => task.id !== taskId),
@@ -298,8 +292,6 @@ export async function removeBoard(boardId) {
 }
 
 export async function updateTask(boardId, userId, newCell) {
-  console.log('It is me you looking for ', boardId, userId, newCell)
-
   await boardService.updateTaskInGroup(boardId, userId, newCell)
 
   const board = await boardService.getById(boardId)
@@ -328,8 +320,6 @@ export async function updateTask(boardId, userId, newCell) {
         : group
     ),
   }
-
-  console.log(updatedBoard)
 
   await store.dispatch({
     type: EDIT_BOARD,
@@ -381,7 +371,6 @@ export function closeModal(modalId) {
 }
 
 export function handleFilter(filterBy) {
-  console.log('this is the filter:', filterBy)
   boardService.setFilterContextSession(filterBy)
   store.dispatch({ type: SET_FILTER_BY, filterBy })
 }
@@ -471,7 +460,6 @@ export async function setFilteredColumns(filteredColumns) {
   const newFilteredColumns = await boardService.setFilteredColumnsSession(
     filteredColumns
   )
-  console.log(newFilteredColumns)
   store.dispatch({ type: SET_FILTERED_COLUMNS, newFilteredColumns })
 }
 
@@ -553,8 +541,6 @@ export async function updateTaskStatus(boardId, groupId, taskId, newStatus) {
       boardId,
       updatedBoard: board,
     })
-
-    console.log(`Task ${taskId} status updated to ${newStatus}`)
   } catch (error) {
     console.error('Error updating task status:', error)
   }
@@ -590,8 +576,6 @@ export async function updateTaskTitle(boardId, groupId, taskId, newTitle) {
       boardId,
       updatedBoard: board,
     })
-
-    console.log(`Task ${taskId} title updated to "${newTitle}"`)
   } catch (error) {
     console.error('Error updating task title:', error)
   }

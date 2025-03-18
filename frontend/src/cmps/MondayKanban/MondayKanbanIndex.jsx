@@ -12,6 +12,9 @@ import { getSvg } from "../../services/svg.service.jsx";
 import { BoardDetailsHeader } from "../BoardDetailsHeader.jsx";
 import { addItemKanban } from "../../store/actions/boards.actions.js";
 import { updateTaskTitle } from "../../store/actions/boards.actions.js";
+import { removeTask } from "../../store/actions/boards.actions.js";
+import { P_Status } from "../dynamicCmps/progressCmps/P_Status.jsx";
+
 
 const STORAGE_KEY = "kanbanStatuses";
 
@@ -30,7 +33,6 @@ export function MondayKanbanIndex() {
             await loadUsers();
             setCurrentBoard(board);
 
-            // Load statuses from localStorage or fallback to default
             const storedStatuses = JSON.parse(localStorage.getItem(STORAGE_KEY));
             const initialStatuses = storedStatuses || [
                 { text: "Done", color: "#00C875" },
@@ -40,7 +42,7 @@ export function MondayKanbanIndex() {
             ];
 
             setGroups(initialStatuses);
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(initialStatuses)); // Save default if empty
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(initialStatuses));
             setTasks(getAllTasks(board));
         };
         fetchBoard();
@@ -70,6 +72,11 @@ export function MondayKanbanIndex() {
         updateTaskTitle(boardId, task.groupId, task.id, newTitle)
     }
 
+
+    function onDeleteTask(task) {
+        removeTask(boardId, task.groupId, task.id)
+    }
+
     const onDragEnd = (result) => {
         const { source, destination, type } = result;
         if (!destination) return;
@@ -80,7 +87,7 @@ export function MondayKanbanIndex() {
             updatedGroups.splice(destination.index, 0, movedGroup);
 
             setGroups(updatedGroups);
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(updatedGroups)); // Save to localStorage
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(updatedGroups));
         } else if (type === "task") {
             const sourceGroupId = source.droppableId;
             const destinationGroupId = destination.droppableId;
@@ -104,13 +111,14 @@ export function MondayKanbanIndex() {
         }
     };
 
+
     return (
         <>
+
             <AppHeader userData={loggedInUser} />
 
             <section className="content">
                 <SideBar boards={boards} user={loggedInUser} />
-
                 <div className="board-details2">
                     <BoardDetailsHeader handleAddTask={addTask}
                         boardTitle={currentBoard.title}
@@ -126,7 +134,7 @@ export function MondayKanbanIndex() {
                                         <Draggable key={status.text || `group-${index}`} draggableId={status.text || `group-${index}`} index={index}>
                                             {(provided) => (
                                                 <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
-                                                    <KanbanGroups addItem={addTask} title={status.text} color={status.color} tasks={tasks} onUpdateTaskTitle={onUpdateTaskTitle} />
+                                                    <KanbanGroups onRemove={onDeleteTask} addItem={addTask} title={status.text} color={status.color} tasks={tasks} onUpdateTaskTitle={onUpdateTaskTitle} />
                                                 </div>
                                             )}
                                         </Draggable>
@@ -137,7 +145,9 @@ export function MondayKanbanIndex() {
                         </Droppable>
                     </DragDropContext>
                 </div>
+
             </section>
+
         </>
     );
 }

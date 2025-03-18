@@ -24,7 +24,6 @@ export function Priority({ cellInfo, onTaskUpdate, labelWidth, isHover, setIsSel
 
     function onPriorityChange(priority) {
 
-        console.log({ ...cellInfo, priority }, 'testing stuff')
         onTaskUpdate({ ...cellInfo, value: priority })
         modalToggle()
     }
