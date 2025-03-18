@@ -119,7 +119,7 @@ const BoardDetails = () => {
             tasks: group.tasks.filter((task) => {
               return boardColumnsFilter.labels.some((column) => {
                 const index = task.cells.findIndex(
-                  (cell) => cell.type === column.type
+                  (cell) => cell.labelId === column.id
                 );
                 if (index === -1) return false;
                 return column.type === "members"

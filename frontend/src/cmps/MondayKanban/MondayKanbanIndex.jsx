@@ -13,6 +13,9 @@ import { BoardDetailsHeader } from "../BoardDetailsHeader.jsx";
 import { addItemKanban } from "../../store/actions/boards.actions.js";
 import { updateTaskTitle } from "../../store/actions/boards.actions.js";
 import { removeTask } from "../../store/actions/boards.actions.js";
+import { P_Status } from "../dynamicCmps/progressCmps/P_Status.jsx";
+
+
 const STORAGE_KEY = "kanbanStatuses";
 
 export function MondayKanbanIndex() {
@@ -70,7 +73,6 @@ export function MondayKanbanIndex() {
     }
 
 
-    //boardId, groupId, taskId
     function onDeleteTask(task) {
         removeTask(boardId, task.groupId, task.id)
     }
@@ -111,12 +113,12 @@ export function MondayKanbanIndex() {
 
 
     return (
-        <>
+        <>  <P_Status tasks={tasks} labelId={'labelAMQVZ'} />
+
             <AppHeader userData={loggedInUser} />
 
             <section className="content">
                 <SideBar boards={boards} user={loggedInUser} />
-
                 <div className="board-details2">
                     <BoardDetailsHeader handleAddTask={addTask}
                         boardTitle={currentBoard.title}
@@ -143,7 +145,9 @@ export function MondayKanbanIndex() {
                         </Droppable>
                     </DragDropContext>
                 </div>
+
             </section>
+
         </>
     );
 }
