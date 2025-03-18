@@ -113,7 +113,7 @@ export function MondayKanbanIndex() {
 
 
     return (
-        <>  <P_Status tasks={tasks} labelId={'labelAMQVZ'} />
+        <>
 
             <AppHeader userData={loggedInUser} />
 
