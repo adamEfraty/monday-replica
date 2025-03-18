@@ -30,6 +30,8 @@ export function TaskPreview({
     isDragging,
     isDraggingTask,
     labelsLength,
+    onSetHoveredTask, 
+    isHover,
 }) {
 
 
@@ -40,13 +42,14 @@ export function TaskPreview({
         transition,
     };
 
-    const [taskHovering, setTaskHovering] = useState(null)
-
     // dlete modal
     const openModals = useSelector((state) => state.boardModule.openModals)
     const deleteTaskModal = openModals.some((modalId) => modalId === 'delete-' + id)
     const deleteTaskModalRef = useRef(null)
     const dotsRef = useRef(null)
+
+    const [isSelect, setIsSelect] = useState(false)
+
 
     function deleteModalToggle() {
         deleteTaskModal
@@ -74,8 +77,8 @@ export function TaskPreview({
 
     return (
         <section className="task-preview"
-        onMouseOver={()=>setTaskHovering(task.id)} 
-        onMouseLeave={()=>setTaskHovering(null)}>
+        onMouseOver={()=>onSetHoveredTask(task.id)} 
+        onMouseLeave={()=>onSetHoveredTask(null)}>
 
             {deleteTaskModal &&
                 <div ref={deleteTaskModalRef}>
@@ -120,26 +123,27 @@ export function TaskPreview({
                                 openChat={openChat}
                                 checkedBoxes={checkedBoxes}
                                 handleCheckBoxClick={handleCheckBoxClick}
-                                taskHovering={taskHovering}
+                                isHover={isHover}
                                 removeTask={removeTask}
                                 boardId={boardId}
                                 deleteModalToggle={deleteModalToggle}
                                 dotsRef={dotsRef}
                                 isDraggingTask={isDraggingTask}
+                                setIsSelect={setIsSelect}
+                                isSelect={isSelect}
                             />
                         </section>
                     )
                 })}
 
-                <div className="empty-space"/>
+                <div className="empty-space" 
+                style={{backgroundColor: isSelect ? '#CCE5FF' : (isHover ? '#F4F5F8' : 'white')}}/>
             </section >
         </section>
 
 
     );
 }
-// style={{width: Math.max(90, 1210 - labelsLength)}}
-// {width: Math.max(90, window.innerWidth - labelsLength - 350)}
 
 
 function DynamicCmp({
@@ -155,13 +159,15 @@ function DynamicCmp({
     handleCheckBoxClick,
     listeners,
     attributes,
-    taskHovering,
+    hoveredTask,
     removeTask,
     boardId,
     deleteModalToggle,
     dotsRef,
-    isDraggin,
-    isDraggingTask
+    isHover,
+    isDraggingTask,
+    setIsSelect,
+    isSelect,
 }) {
     switch (label.type) {
         case "priority":
@@ -170,6 +176,9 @@ function DynamicCmp({
                     cellInfo={cellInfo}
                     onTaskUpdate={onTaskUpdate}
                     labelWidth={label.width}
+                    isHover={isHover}
+                    setIsSelect={setIsSelect}
+                    isSelect={isSelect}
                 />
             );
 
@@ -188,12 +197,14 @@ function DynamicCmp({
                     checkedBoxes={checkedBoxes}
                     handleCheckBoxClick={handleCheckBoxClick}
                     labelWidth={label.width}
-                    taskHovering={taskHovering}
+                    isHover={isHover}
                     removeTask={removeTask}
                     boardId={boardId}
                     deleteModalToggle={deleteModalToggle}
                     dotsRef={dotsRef}
                     isDraggingTask={isDraggingTask}
+                    setIsSelect={setIsSelect}
+                    isSelect={isSelect}
                 />
             );
 
@@ -203,6 +214,9 @@ function DynamicCmp({
                     cellInfo={cellInfo}
                     onTaskUpdate={onTaskUpdate}
                     labelWidth={label.width}
+                    isHover={isHover}
+                    setIsSelect={setIsSelect}
+                    isSelect={isSelect}
                 />
             );
 
@@ -213,6 +227,9 @@ function DynamicCmp({
                     onTaskUpdate={onTaskUpdate}
                     users={users}
                     labelWidth={label.width}
+                    isHover={isHover}
+                    setIsSelect={setIsSelect}
+                    isSelect={isSelect}
                 />
             );
 
@@ -222,6 +239,9 @@ function DynamicCmp({
                     cellInfo={cellInfo}
                     onTaskUpdate={onTaskUpdate}
                     labelWidth={label.width}
+                    isHover={isHover}
+                    setIsSelect={setIsSelect}
+                    isSelect={isSelect}
                 />
             );
 

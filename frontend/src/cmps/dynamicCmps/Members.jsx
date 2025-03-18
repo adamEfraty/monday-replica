@@ -4,7 +4,7 @@ import { openModal, closeModal } from '../../store/actions/boards.actions.js'
 import { useSelector } from "react-redux";
 import { getSvg } from '../../services/svg.service.jsx';
 
-export function Members({ cellInfo, onTaskUpdate, users, labelWidth }) {
+export function Members({ cellInfo, onTaskUpdate, users, labelWidth, isHover, setIsSelect, isSelect }) {
     const openModals = useSelector(state => state.boardModule.openModals)
     const modal = openModals.some(modalId => modalId === (cellInfo.taskId + cellInfo.labelId))
 
@@ -14,6 +14,10 @@ export function Members({ cellInfo, onTaskUpdate, users, labelWidth }) {
     const defultImg = 'https://cdn.monday.com/icons/dapulse-person-column.svg'
 
     const [isHovered, setIsHovered] = useState(false);
+    
+    useEffect(()=>{
+        setIsSelect(modal)
+    }, [modal])
 
     function modalToggle() {
         modal
@@ -51,7 +55,8 @@ export function Members({ cellInfo, onTaskUpdate, users, labelWidth }) {
     const displayedMembers = cellInfo?.value?.slice(0, numberOfMembersThatFits);
     const extraMembersCount = cellInfo?.value?.length - numberOfMembersThatFits;
     return (
-        <section className="members">
+        <section className="members" 
+        style={{backgroundColor: isSelect ? '#CCE5FF' : (isHover ? '#F4F5F8' : 'white')}}>
             <div
                 className="members-cell"
                 ref={membersCellRef}
