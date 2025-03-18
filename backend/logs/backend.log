@@ -96,3 +96,6 @@
 17.3.2025, 17:00:59 - INFO - User login:  | {"_id":"67c45c55c2f1ef4df8072022","email":"kiwi@gmail.com","fullName":"Kiwi","id":"E3iHE","imgUrl":"https://res.cloudinary.com/danlxus36/image/upload/v1740682607/3_iij9dg.jpg"}
 17.3.2025, 17:47:50 - DEBUG - auth.service - login with email: kiwi@gmail.com
 17.3.2025, 17:47:50 - INFO - User login:  | {"_id":"67c45c55c2f1ef4df8072022","email":"kiwi@gmail.com","fullName":"Kiwi","id":"E3iHE","imgUrl":"https://res.cloudinary.com/danlxus36/image/upload/v1740682607/3_iij9dg.jpg"}
+18.3.2025, 2:48:48 - INFO - Up and running on http://localhost:3000
+18.3.2025, 2:49:04 - DEBUG - auth.service - login with email: kiwi@gmail.com
+18.3.2025, 2:49:04 - INFO - User login:  | {"_id":"67c45c55c2f1ef4df8072022","email":"kiwi@gmail.com","fullName":"Kiwi","id":"E3iHE","imgUrl":"https://res.cloudinary.com/danlxus36/image/upload/v1740682607/3_iij9dg.jpg"}
