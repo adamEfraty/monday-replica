@@ -61,16 +61,16 @@ export function BoardDetailsHeader({
       </div>
       <section className="board-nav">
         <div>
-        <div onClick={() => navigate(`/${name}s-team.someday.com/boards/${boardId}`)}>
+          <div onClick={() => navigate(`/${name}s-team.someday.com/boards/${boardId}`)}>
             <HomeIcon style={iconStyle} />
             <h5>Main Table</h5>
           </div>
           <HorizDotsIcon style={iconStyle} />
           <hr className="highlight" />
         </div>
-        <div onClick={() => navigate(`/board/kanban/${boardId}`)}>
+        {/* <div onClick={() => navigate(`/board/kanban/${boardId}`)}>
           go to kanban
-        </div>
+        </div> */}
         <div onClick={() => navigate(`/board/someday-kanban/${boardId}`)}>
           kanban
         </div>

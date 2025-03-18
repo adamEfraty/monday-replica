@@ -43,7 +43,6 @@ export function ActivityModal({ activities, width }) {
       </section>
       <ul className="activities-modal">
         {activities.map((activity, activityIdx) => {
-          console.log("A bunch of different data: ", users, activity, boards);
           const user = users.find((user) => user._id === activity.userId);
           const idx = boards.findIndex((board) =>
             board.groups.some((group) => group.id === activity.activity.groupId)
@@ -87,9 +86,9 @@ export function ActivityModal({ activities, width }) {
                         </div>
                       )}
                     {activity.activity.type === "Added" ||
-                    activity.activity.type === "Removed" ? (
+                      activity.activity.type === "Removed" ? (
                       Array.isArray(activity.activity.item) &&
-                      activity.activity.item[0].fullName ? (
+                        activity.activity.item[0].fullName ? (
                         <div className="data-column">
                           <p>{activity.activity.type}</p>
                           <p>{activity.activity.item[0].fullName}</p>
@@ -111,8 +110,8 @@ export function ActivityModal({ activities, width }) {
                             backgroundColor: activity.activity.preChange?.color,
                             color:
                               activity.activity.preChange === null ||
-                              typeof activity.activity.preChange === "string" ||
-                              typeof activity.activity.preChange?.title ===
+                                typeof activity.activity.preChange === "string" ||
+                                typeof activity.activity.preChange?.title ===
                                 "string"
                                 ? "black"
                                 : "white",
@@ -141,7 +140,7 @@ export function ActivityModal({ activities, width }) {
                                 : 30,
                             color:
                               typeof activity.activity.preChange === "string" ||
-                              typeof activity.activity.preChange?.title ===
+                                typeof activity.activity.preChange?.title ===
                                 "string"
                                 ? "black"
                                 : "white",
@@ -152,15 +151,15 @@ export function ActivityModal({ activities, width }) {
                               typeof activity.activity.postChange === "string"
                                 ? activity.activity.postChange
                                 : activity.activity.postChange.text
-                                ? activity.activity.postChange.text
-                                : activity.activity.postChange.title
+                                  ? activity.activity.postChange.text
+                                  : activity.activity.postChange.title
                             )}
                           </p>
                         </section>
                       </div>
                     )}
                     {activity.activity.type === "created" ||
-                    activity.activity.type === "Duplicated" ? (
+                      activity.activity.type === "Duplicated" ? (
                       <div className="data-column">
                         {`Group: `}
                         <p style={{ color: "blue" }}>{group.title}</p>
@@ -180,7 +179,6 @@ export function ActivityModal({ activities, width }) {
 }
 
 function Icon({ type }) {
-  console.log(type);
   switch (type) {
     case "created":
       return <AddCircleOutlineIcon />;
