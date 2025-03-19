@@ -30,7 +30,7 @@ export function LabelsGrid({
             {labels.map(label => (
                 label.type === 'taskTitle' ?
 
-                <div style={{ borderLeft: `5px solid ${group?.color}`, borderTopLeftRadius: 5 ,
+                <div style={{ borderLeft: `7px solid ${group?.color}`, borderTopLeftRadius: 5 ,
                     borderBottom: isFixed ? (isBordScrollOnZero ? '' : 'solid 2px #D0D4E4') : ''}} 
                 key={`label-${label.id}`} 
                 className="label-title"

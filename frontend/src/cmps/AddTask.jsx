@@ -53,7 +53,7 @@ export function AddTask({ group, handleAddTask, TaskTitleLength, labelsLength}) 
         style={{backgroundColor: isFocused? '#CCE5FF' : (isHovered ? '#F5F6F8' : 'white')}}>
             
             <div className="sticky-part" style={{width: TaskTitleLength,
-            borderLeft: `5px solid rgba(${utilService.hexToRgb(group?.color)}, ${isHovered ? 1 : 0.6})`, 
+            borderLeft: `7px solid rgba(${utilService.hexToRgb(group?.color)}, ${isHovered ? 1 : 0.6})`, 
             borderBottomLeftRadius: 5,
 
             }}>

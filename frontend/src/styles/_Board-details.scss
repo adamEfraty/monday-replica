@@ -404,7 +404,7 @@ section.labels-grid {
     position: absolute;
     left: -47px;
     top: -1px;
-    width: 42px;
+    width: 40px;
     height: calc(100% + 3px);
     border: none;
 
@@ -440,8 +440,8 @@ section.labels-grid {
   align-items: center;
   height: 100%;
   border-right: 1px solid $table-lines-gray;
-  padding-right: 14px;
-  padding-left: 4px;
+  padding-right: 13px;
+  padding-left: 3px;
 
   input {
     appearance: none;
@@ -500,8 +500,6 @@ section.labels-grid {
 div.input-styles {
   border: none;
   border-right: 1px solid $table-lines-gray;
-  padding-right: 9px;
-  padding-left: 9px;
 }
 
 

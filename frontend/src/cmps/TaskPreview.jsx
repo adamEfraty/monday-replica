@@ -108,7 +108,7 @@ export function TaskPreview({
 
                         <section
                             key={`task-${task.id}-label-${label.id}`}
-                            style={label.type === 'taskTitle' ? { borderLeft: `5px solid ${group?.color}` } : {}}
+                            style={label.type === 'taskTitle' ? { borderLeft: `7px solid ${group?.color}` } : {}}
                             className={`grid-item ${label.type} ${label.type === 'taskTitle' ? 'stick-task' : ''}`}
                         >
                             <DynamicCmp
