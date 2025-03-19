@@ -10,6 +10,7 @@ import { useEffect } from "react";
 import { utilService } from "./services/util.service";
 import { KanbanIndex } from "./cmps/kanban/KanbanIndex";
 import { MondayKanbanIndex } from "./cmps/MondayKanban/MondayKanbanIndex";
+import { UserInfo } from "./cmps/dynamicCmps/modals/UserInfo";
 
 function App() {
   const loggedInUser = useSelector((state) => state.userModule.user) || null;
@@ -37,6 +38,7 @@ function App() {
             <Route path={`/${name}s-team.someday.com/board`} element={<MondayIndex />} />
             <Route path={`/board/kanban/:boardId`} element={<KanbanIndex />} />
             <Route path={`/board/someday-kanban/:boardId`} element={<MondayKanbanIndex />} />
+            <Route path="/abc" element={<UserInfo userInfo={loggedInUser} />} />
           </Routes>
         )}
       </Router>

@@ -108,3 +108,8 @@
 =======
 >>>>>>> origin/master
 >>>>>>> origin/master
+18.3.2025, 14:37:57 - INFO - Up and running on http://localhost:3000
+18.3.2025, 16:40:47 - DEBUG - auth.service - signup with email: ejkbfkwjejbf@d.com, fullName: kjscdbh
+18.3.2025, 16:40:47 - DEBUG - auth.route - new account created: {"email":"ejkbfkwjejbf@d.com","password":"$2b$10$jJDmZCWUTpUj3T7gPNMeQOaI16n83vOe6kh5gf9H5k9r5cpy1jNDy","fullName":"kjscdbh","imgUrl":"https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png","_id":"67d985ef39bced5efcf1cbba"}
+18.3.2025, 16:40:47 - DEBUG - auth.service - login with email: ejkbfkwjejbf@d.com
+18.3.2025, 16:40:47 - INFO - User signup: | {"_id":"67d985ef39bced5efcf1cbba","email":"ejkbfkwjejbf@d.com","fullName":"kjscdbh","imgUrl":"https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png","color":null,"isAdmin":null}

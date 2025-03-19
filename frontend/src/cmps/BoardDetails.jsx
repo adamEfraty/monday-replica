@@ -27,6 +27,7 @@ import {
 } from "@dnd-kit/sortable";
 import { LabelsGrid } from "./LabelsGrid";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import { showSuccessMsg } from "../services/event-bus.service";
 
 
 const BoardDetails = () => {
@@ -93,7 +94,9 @@ const BoardDetails = () => {
     );
     filteredColumns &&
       setBoardColumnsFilter(
-        filteredColumns.find((board) => board.id === boardId)
+    filteredColumns.find((board) => {console.log(board)
+      return board.id === boardId
+    })
       );
     console.log(boardColumnsFilter)
   }, [filteredColumns, boardId]);
@@ -312,11 +315,15 @@ const BoardDetails = () => {
   }
 
   function handleFilteredLabel(label) {
+    console.log(boardColumnsFilter, label)
     boardColumnsFilter.labels.some((column) => column.id === label.id)
       ? setFilteredColumns({
         id: currentBoard._id,
         labels: boardColumnsFilter.labels.filter(
-          (column) => column.id !== label.id
+          (column) =>{
+            console.log(column)
+            return  column.id !== label.id
+          }
         ),
       })
       : setFilteredColumns({
