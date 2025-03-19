@@ -64,32 +64,32 @@ export function DateCell({ cellInfo, onTaskUpdate, labelWidth, isHover, setIsSel
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
             style={{outline: modal? 'solid 1px #0073EA' : 'none',
-            outlineOffset: modal ? '-1px' : ''
+            outlineOffset: modal ? '-1px' : '',
             }}
 
             >
-                <div className='frame'>
-                    {
-                        cellInfo.value ?
-                        <p>{utilService.formatDateStrToPerfectStr(cellInfo.value)}</p>
-                        :
-                        isHovered && <div className='icons'>
-                            {getSvg('plus-circle-icon')}
-                            {getSvg('calendar-icon')}
-                        </div>
-   
-                    }
-                </div>
+
+                { isHovered && <div className='frame'/>}
+                {
+                    cellInfo.value ?
+                    <p>{utilService.formatDateStrToPerfectStr(cellInfo.value)}</p>
+                    :
+                    isHovered && <div className='icons'>
+                        {getSvg('plus-circle-icon')}
+                        {getSvg('calendar-icon')}
+                    </div>
+
+                }
+                {
+                    isHovered && cellInfo.value  &&
+                    <button className='remove-button'
+                        onMouseEnter={() => setIsHovered(true)}
+                        onMouseLeave={() => setIsHovered(false)}
+                        onClick={()=>onTaskUpdate({...cellInfo, value: null})}>
+                            <i className="fa-solid fa-x"></i>
+                    </button>
+                }
             </div>
-            {
-                isHovered && cellInfo.value  &&
-                <button className='remove-button'
-                onMouseEnter={() => setIsHovered(true)}
-                onMouseLeave={() => setIsHovered(false)}
-                onClick={()=>onTaskUpdate({...cellInfo, value: null})}>
-                    <i className="fa-solid fa-x"></i>
-                </button>
-            }
 
 
             {/* Date modal */}
