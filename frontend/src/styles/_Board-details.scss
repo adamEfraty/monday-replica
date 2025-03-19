@@ -43,6 +43,7 @@
     position: sticky;
     left: 10px;
     margin-top: 1px;
+    height: 40px;
     background-color: white;
     // border-right: solid $table-lines-gray 1px;
     border-bottom: solid white 1px;
@@ -74,7 +75,7 @@
     background: white;
 
     .empty-space {
-      border-bottom: solid $table-lines-gray 1px;
+      border-top: solid $table-lines-gray 1px;
     }
   }
 }
@@ -149,7 +150,7 @@
   height: 40px;
   overflow: visible;
   left: 265px;
-  top: 205px;
+  top: 202px;
   background-color: white;
   padding-left: 32px;
 }
@@ -167,7 +168,7 @@
   position: sticky;
   z-index: 5;
   left: 0px;
-  top: 202px;
+  top: 199px;
   // width: max-content;
   // margin-top: 1px;
 }

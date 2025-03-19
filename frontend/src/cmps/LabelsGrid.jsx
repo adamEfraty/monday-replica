@@ -11,6 +11,7 @@ export function LabelsGrid({
     handleMasterCheckboxClick,
     checkedGroups,
     isFixed,
+    isBordScrollOnZero,
 }){
 
     const isChecked = checkedGroups.includes(group.id)
@@ -28,7 +29,12 @@ export function LabelsGrid({
             <SortableContext items={labels.map(label => label.id)} strategy={horizontalListSortingStrategy}>
             {labels.map(label => (
                 label.type === 'taskTitle' ?
-                <div style={{ borderLeft: `5px solid ${group?.color}`, borderTopLeftRadius: 5 }} key={`label-${label.id}`} className="label-title">
+
+                <div style={{ borderLeft: `5px solid ${group?.color}`, borderTopLeftRadius: 5 ,
+                    borderBottom: isFixed ? (isBordScrollOnZero ? '' : 'solid 2px #D0D4E4') : ''}} 
+                key={`label-${label.id}`} 
+                className="label-title"
+                >
                     <div className="white-cover"/>
                     <section className="main-checkbox">
                         <input
@@ -58,7 +64,8 @@ export function LabelsGrid({
                 boardId={boardId} 
                 groupId={group.id} 
                 isFixed={isFixed}
-                isLast={labels[labels.length - 1]?.id === label.id}/>
+                isLast={labels[labels.length - 1]?.id === label.id}
+                isBordScrollOnZero={isBordScrollOnZero}/>
             ))}
             </SortableContext >
 

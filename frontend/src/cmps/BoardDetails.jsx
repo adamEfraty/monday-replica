@@ -435,7 +435,7 @@ const BoardDetails = () => {
       {
         !isDragging && isFixedGroupExpanded() &&
         <div className="sticky-labels"
-          style={{ width: (labelsLength < window.innerWidth - 320) ? 'calc(100vw - 320px)' : `${labelsLength + 150}px` }}>
+          style={{ width: (labelsLength < window.innerWidth - 320) ? 'calc(100vw - 320px)' : `${labelsLength + 150}px`}}>
           <LabelsGrid
             boardId={boardId}
             group={fixedGroup}
@@ -443,6 +443,7 @@ const BoardDetails = () => {
             handleMasterCheckboxClick={handleMasterCheckboxClick}
             checkedGroups={checkedGroups}
             isFixed={true}
+            isBordScrollOnZero={boardScroll.y <= 0}
           />
         </div>
 

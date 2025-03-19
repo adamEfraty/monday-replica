@@ -147,7 +147,9 @@ export function GroupTitle({
         ref={editModalButtonRef}
         className="modal-button"
         onClick={editModalToggle}
-        style={{ visibility: isHovered ? 'visible' : 'hidden' }}>
+        style={{ visibility: (isHovered || editModal) ? 'visible' : 'hidden' ,
+          backgroundColor: editModal ? '#C6DFF8' : ''
+        }}>
         {getSvg('horizontal-dots')}
       </button>
 
