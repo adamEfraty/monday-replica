@@ -32,6 +32,7 @@ export function TaskPreview({
     labelsLength,
     onSetHoveredTask, 
     isHover,
+    taskIndex,
 }) {
 
 
@@ -131,6 +132,7 @@ export function TaskPreview({
                                 isDraggingTask={isDraggingTask}
                                 setIsSelect={setIsSelect}
                                 isSelect={isSelect}
+                                taskIndex={taskIndex}
                             />
                         </section>
                     )

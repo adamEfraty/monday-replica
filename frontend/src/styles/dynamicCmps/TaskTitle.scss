@@ -1,4 +1,5 @@
 @use './modals/ChatModal';
+@use '../vars' as *;
 
 .grid-item.taskTitle {
   .task-title {
@@ -8,7 +9,7 @@
     display: grid;
     grid-template-columns: 1fr 66px;
     align-items: stretch;
-    border-top: 1px solid #dedede;
+    // border-bottom: 1px solid $table-lines-gray;
 
     .white-cover {
       position: absolute;

@@ -8,6 +8,7 @@
   grid-template-rows: 35px;
   width: 100%;
   color: #323338;
+  margin-bottom: -1px;
 }
 
 .progress-grid {
@@ -178,7 +179,7 @@
   align-items: center;
   justify-content: center;
   border-right: 1px solid $table-lines-gray;
-  border-bottom: 1px solid $table-lines-gray;
+  border-top: 1px solid $table-lines-gray;
 }
 
 .item {
@@ -368,10 +369,6 @@ section.labels-grid {
   // top: 227px;
   z-index: 4;
   background-color: #fff;
-
-  div {
-    border-bottom: 1px solid $table-lines-gray;
-  }
 }
 
 .prog-box {

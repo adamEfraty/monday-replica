@@ -3,6 +3,7 @@
 .add-task {
     cursor: text;
     border-bottom: 1px solid $table-lines-gray;
+    border-top: 1px solid $table-lines-gray;
     display: flex;
     align-items: center;
     margin-left: 10px;
