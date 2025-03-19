@@ -16,6 +16,7 @@ export const utilService = {
   makeIdForLabel,
   milisecondsTimeCalc,
   hexToRgb,
+  getRandomFromArray,
 }
 
 function makeId(length = 5) {
@@ -135,6 +136,10 @@ function getRandomColor() {
     color += letters[Math.floor(Math.random() * 16)]
   }
   return color
+}
+
+function getRandomFromArray(arr){
+  return arr[Math.floor(Math.random() * (arr.length + 0.99))]
 }
 
 function formatStrToDate(string) {

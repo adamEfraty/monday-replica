@@ -435,8 +435,7 @@ const BoardDetails = () => {
       {
         !isDragging && isFixedGroupExpanded() &&
         <div className="sticky-labels"
-          style={{ width: (labelsLength < window.innerWidth - 320) ? 'calc(100vw - 320px)' : `${labelsLength + 150}px`,
-          marginLeft: (boardScroll.x <= 0 && zoomLevel === 1.25) ? '1px' : ''}}>
+          style={{ width: (labelsLength < window.innerWidth - 320) ? 'calc(100vw - 320px)' : `${labelsLength + 150}px`}}>
           <LabelsGrid
             boardId={boardId}
             group={fixedGroup}
