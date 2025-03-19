@@ -63,6 +63,10 @@ export function DateCell({ cellInfo, onTaskUpdate, labelWidth, isHover, setIsSel
             onClick={modalToggle}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
+            style={{outline: modal? 'solid 1px #0073EA' : 'none',
+            outlineOffset: modal ? '-1px' : ''
+            }}
+
             >
                 <div className='frame'>
                     {
@@ -73,7 +77,7 @@ export function DateCell({ cellInfo, onTaskUpdate, labelWidth, isHover, setIsSel
                             {getSvg('plus-circle-icon')}
                             {getSvg('calendar-icon')}
                         </div>
-                        
+   
                     }
                 </div>
             </div>

@@ -182,7 +182,10 @@ export function TaskTitle({
   return (
     <>
       <section className="task-title" 
-      style={{backgroundColor: isSelect ? '#CCE5FF' : (isHover ? '#F4F5F8' : 'white')}}>
+      style={{backgroundColor: isSelect ? '#CCE5FF' : (isHover ? '#F4F5F8' : 'white'),
+        outline: (modal || onEditMode) ? 'solid 1px #0073EA' : 'none',
+        outlineOffset: (modal || onEditMode) ? '-1px' : ''
+      }}>
 
         {!isDraggingTask &&
           <div className="white-cover">
