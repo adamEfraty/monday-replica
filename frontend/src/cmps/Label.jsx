@@ -10,7 +10,7 @@ import { utilService } from "../services/util.service.js";
 import ReactDOM from 'react-dom'
 
 
-export function Label({ label, labelId, boardId, groupId, isFixed, isLast }) {
+export function Label({ label, labelId, boardId, groupId, isFixed, isLast, isBordScrollOnZero }) {
 
     const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ labelId })
 
@@ -200,7 +200,8 @@ export function Label({ label, labelId, boardId, groupId, isFixed, isLast }) {
             {...attributes}
             style={{
                 transform: CSS.Transform.toString(transform), transition,
-                backgroundColor: hoverLable || modal || isDragging ? '#F5F6F8' : 'white'
+                backgroundColor: hoverLable || modal || isDragging ? '#F5F6F8' : 'white', 
+                borderBottom: isFixed ? (isBordScrollOnZero ? '' : 'solid 2px #D0D4E4') : ''
             }}
             className="label"
             onMouseMove={handleMouseMove}

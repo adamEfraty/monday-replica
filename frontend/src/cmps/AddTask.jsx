@@ -46,19 +46,21 @@ export function AddTask({ group, handleAddTask, TaskTitleLength, labelsLength}) 
     //(labelsLength > 1150) ? window.innerWidth - 325 : 1200
     return (
         <section 
-        style={{ 
-
-        }}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
         onClick={handleClick}
-        className="add-task">
+        className="add-task"
+        style={{backgroundColor: isFocused? '#CCE5FF' : (isHovered ? '#F5F6F8' : 'white')}}>
+            
             <div className="sticky-part" style={{width: TaskTitleLength,
-            borderLeft: `5px solid rgba(${utilService.hexToRgb(group?.color)}, ${isHovered ? 1 : 0.6})`, 
+            borderLeft: `7px solid rgba(${utilService.hexToRgb(group?.color)}, ${isHovered ? 1 : 0.6})`, 
             borderBottomLeftRadius: 5,
+
             }}>
-                <div className="checkbox-deco">
-                    <div className="box"/>
+                <div className="white-cover"/>
+                <div className="checkbox-deco" 
+                style={{backgroundColor: isFocused? '#CCE5FF' : (isHovered ? '#F5F6F8' : 'white')}}>
+                    <div className="box" style={{backgroundColor: isFocused ? '#E0EFFF' : 'white'}}/>
                 </div>
                 <input
                     ref={inputRef}
@@ -70,12 +72,13 @@ export function AddTask({ group, handleAddTask, TaskTitleLength, labelsLength}) 
                     value={newTaskTitle}
                     onChange={(e) => setNewTaskTitle(e.target.value)}
                     style={{width: TaskTitleLength - 60,
-                        borderColor: `${isFocused ? '#0073EA' : (isHovered ? '#C3C6D4' : 'transparent')}`
+                        borderColor: `${isFocused ? '#0073EA' : (isHovered ? '#C3C6D4' : 'transparent')}`,
+                        backgroundColor: isFocused ? 'white' : (isHovered ? '#F5F6F8' : 'white')
+
                     }}
                 />
             </div>
             
-            {/* <div className="empty-space"/> */}
             
         </section>
     )

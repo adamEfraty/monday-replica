@@ -3,6 +3,7 @@
 .add-task {
     cursor: text;
     border-bottom: 1px solid $table-lines-gray;
+    border-top: 1px solid $table-lines-gray;
     display: flex;
     align-items: center;
     margin-left: 10px;
@@ -11,16 +12,18 @@
       }
 
     .sticky-part{
+        z-index:2;
         display: flex;
         align-items: center;
         position: sticky;
         left: 10px;
+        box-shadow: 0px 5px 8px -8px rgb(169, 169, 169);
 
         .checkbox-deco{
             display: grid;
             justify-items: center;
             align-items: center;
-            width: 35px;
+            width: 33px;
             height: 32px;
             background-color: rgb(255, 255, 255);
             border-right: solid $table-lines-gray 1px;
@@ -30,6 +33,7 @@
                 height: 16px;
                 border: solid #E7E8EE 1px;
                 border-radius: 2px;
+                background-color: white;
             }
         }
       
@@ -46,9 +50,13 @@
         }
     }
 
-    .empty-space{
+    .white-cover{
+        position: absolute;
+        left: -47px;
+        width: 40px;
         height: 35px;
-        border-bottom: solid $table-lines-gray 1px;
+        background-color: white;
+        
     }
   }
   
