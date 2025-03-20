@@ -3,12 +3,16 @@ import { StatusModal } from './modals/StatusModal.jsx'
 import { openModal, closeModal } from '../../store/actions/boards.actions.js'
 import { useSelector } from "react-redux";
 
-export function Status({cellInfo, onTaskUpdate, labelWidth}) {
+export function Status({cellInfo, onTaskUpdate, labelWidth, isHover, setIsSelect, isSelect}) {
     const openModals = useSelector(state => state.boardModule.openModals)
     const modal = openModals.some(modalId => modalId === (cellInfo.taskId + cellInfo.labelId))
 
     const modalRef = useRef(null)
     const statusCellRef = useRef(null)
+
+    useEffect(()=>{
+        setIsSelect(modal)
+    }, [modal])
 
     // close and open modal as needed
     function modalToggle() {
@@ -48,7 +52,9 @@ export function Status({cellInfo, onTaskUpdate, labelWidth}) {
                 className="status-cell"
                 ref={statusCellRef}
                 onClick={modalToggle}
-                style={{ backgroundColor: cellInfo.value.color }}>
+                style={{ backgroundColor: cellInfo.value.color,
+                    opacity: isHover ? '0.8' : '1'
+                }}>
                 {cellInfo.value.text}
             </div>
 

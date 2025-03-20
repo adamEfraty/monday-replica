@@ -22,10 +22,12 @@ export function TaskTitle({
   listeners,
   attributes,
   labelWidth,
-  taskHovering,
+  isHover,
   deleteModalToggle,
   dotsRef,
   isDraggingTask,
+  setIsSelect,
+  isSelect,
 }) {
 
   //edit task title
@@ -61,6 +63,12 @@ export function TaskTitle({
       modalToggle()
     }
   }, [])
+
+  useEffect(()=>{
+    if(isChecked || modal) setIsSelect(true)
+    else setIsSelect(onEditMode)
+  }, [isChecked, onEditMode, modal])
+
 
   function chatAnimation(isEnter) {
     if (!modalRef.current) return
@@ -173,13 +181,14 @@ export function TaskTitle({
 
   return (
     <>
-      <section className="task-title">
+      <section className="task-title" 
+      style={{backgroundColor: isSelect ? '#CCE5FF' : (isHover ? '#F4F5F8' : 'white')}}>
 
         {!isDraggingTask &&
           <div className="white-cover">
             <div ref={dotsRef} className="dots"
               style={{
-                visibility: deleteTaskModal || (taskHovering === cellInfo.taskId) ? 'visible' : 'hidden',
+                visibility: deleteTaskModal || isHover ? 'visible' : 'hidden',
                 backgroundColor: deleteTaskModal && '#CAE3FD'
               }}
               onClick={deleteModalToggle}>

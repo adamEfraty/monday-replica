@@ -8,6 +8,7 @@
   grid-template-rows: 35px;
   width: 100%;
   color: #323338;
+  margin-bottom: -1px;
 }
 
 .progress-grid {
@@ -42,6 +43,7 @@
     position: sticky;
     left: 10px;
     margin-top: 1px;
+    height: 40px;
     background-color: white;
     // border-right: solid $table-lines-gray 1px;
     border-bottom: solid white 1px;
@@ -73,7 +75,7 @@
     background: white;
 
     .empty-space {
-      border-bottom: solid $table-lines-gray 1px;
+      border-top: solid $table-lines-gray 1px;
     }
   }
 }
@@ -148,7 +150,7 @@
   height: 40px;
   overflow: visible;
   left: 265px;
-  top: 205px;
+  top: 202px;
   background-color: white;
   padding-left: 32px;
 }
@@ -166,7 +168,7 @@
   position: sticky;
   z-index: 5;
   left: 0px;
-  top: 202px;
+  top: 199px;
   // width: max-content;
   // margin-top: 1px;
 }
@@ -178,7 +180,7 @@
   align-items: center;
   justify-content: center;
   border-right: 1px solid $table-lines-gray;
-  border-bottom: 1px solid $table-lines-gray;
+  border-top: 1px solid $table-lines-gray;
 }
 
 .item {
@@ -368,10 +370,6 @@ section.labels-grid {
   // top: 227px;
   z-index: 4;
   background-color: #fff;
-
-  div {
-    border-bottom: 1px solid $table-lines-gray;
-  }
 }
 
 .prog-box {
@@ -406,7 +404,7 @@ section.labels-grid {
     position: absolute;
     left: -47px;
     top: -1px;
-    width: 42px;
+    width: 40px;
     height: calc(100% + 3px);
     border: none;
 
@@ -442,8 +440,8 @@ section.labels-grid {
   align-items: center;
   height: 100%;
   border-right: 1px solid $table-lines-gray;
-  padding-right: 14px;
-  padding-left: 4px;
+  padding-right: 13px;
+  padding-left: 3px;
 
   input {
     appearance: none;
@@ -502,8 +500,6 @@ section.labels-grid {
 div.input-styles {
   border: none;
   border-right: 1px solid $table-lines-gray;
-  padding-right: 9px;
-  padding-left: 9px;
 }
 
 

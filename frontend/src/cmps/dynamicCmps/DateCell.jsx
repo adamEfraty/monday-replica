@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import { utilService } from '../../services/util.service.js';
 import { getSvg } from '../../services/svg.service.jsx';
 
-export function DateCell({ cellInfo, onTaskUpdate, labelWidth }) {
+export function DateCell({ cellInfo, onTaskUpdate, labelWidth, isHover, setIsSelect, isSelect }) {
     const openModals = useSelector(state => state.boardModule.openModals)
     const modal = openModals.some(modalId => modalId === (cellInfo.taskId + cellInfo.labelId))
 
@@ -15,6 +15,11 @@ export function DateCell({ cellInfo, onTaskUpdate, labelWidth }) {
     const today = utilService.formatDateToStr(new Date());
 
     const [isHovered, setIsHovered] = useState(false);
+
+    
+    useEffect(()=>{
+        setIsSelect(modal)
+    }, [modal])
 
     // close and open modal as needed
     function modalToggle() {
@@ -49,7 +54,8 @@ export function DateCell({ cellInfo, onTaskUpdate, labelWidth }) {
 
 
     return (
-        <section className="date">
+        <section className="date" 
+        style={{backgroundColor: isSelect ? '#CCE5FF' : (isHover ? '#F4F5F8' : 'white')}}>
             {/* Date cell */}
             <div
             className="date-cell"

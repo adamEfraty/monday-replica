@@ -81,6 +81,9 @@ export const GroupPreview = ({
   const titleRef = useRef(null)
   const [titlePositionY, setTitlePositionY] = useState(0)
 
+  const [hoveredTask, setHoveredTask] = useState(null)
+
+
   useEffect(() => {
 
     if (titleRef.current) {
@@ -118,6 +121,10 @@ export const GroupPreview = ({
 
   function handelGroupTitleChange(newGroupTitle) {
     setGroupTitle(newGroupTitle)
+  }
+
+  function onSetHoveredTask(taskId){
+    setHoveredTask(taskId)
   }
 
   return (
@@ -225,7 +232,10 @@ export const GroupPreview = ({
                             labelsLength={labelsLength}
                             isDragging={isDragging}
                             isDraggingTask={isDraggingTask}
-                          />                        </div>
+                            onSetHoveredTask={onSetHoveredTask}
+                            isHover={hoveredTask === task.id}
+                          />                        
+                        </div>
                       )}
                     </Draggable>
                   ))}
