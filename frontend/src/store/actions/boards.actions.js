@@ -9,6 +9,9 @@ import {
   SET_FILTER_BY,
   SET_FILTERED_COLUMNS,
   SET_FAVORITES,
+  DELETE_CHECKBOXES,
+  SET_CHECKBOX,
+  SET_MASTER_CHECKBOX,
 } from "../reducer/boards.reducer";
 import { showSuccessMsg } from "../../services/event-bus.service";
 
@@ -54,7 +57,7 @@ export async function loadBoards() {
 export async function addGroup(boardId) {
   const newGroup = {
     id: utilService.makeId(),
-    title: 'New Group',
+    title: "New Group",
     color: utilService.getRandomFromArray(boardService.getGroupsColors()),
     tasks: [],
   };
@@ -246,10 +249,29 @@ export async function removeTasks(boardId, tasksArr) {
     ),
   };
 
-  await store.dispatch({
+  store.dispatch({
     type: EDIT_BOARD,
     boardId,
     updatedBoard,
+  });
+
+  store.dispatch({ type: DELETE_CHECKBOXES });
+}
+
+export function setMasterCheckbox(group) {
+  console.log(group);
+  store.dispatch({
+    type: SET_MASTER_CHECKBOX,
+    group,
+  });
+}
+
+export function setCheckBox(groupId, taskId) {
+  console.log("ricky boy!");
+  store.dispatch({
+    type: SET_CHECKBOX,
+    groupId,
+    taskId,
   });
 }
 export async function removeTask(boardId, groupId, taskId) {
@@ -277,10 +299,14 @@ export async function removeTask(boardId, groupId, taskId) {
   await boardService.save(updatedBoard);
 
   // Dispatch the updated board to Redux store
-  await store.dispatch({
+  store.dispatch({
     type: EDIT_BOARD,
     boardId,
     updatedBoard,
+  });
+
+  store.dispatch({
+    type: DELETE_CHECKBOXES,
   });
 
   // Show success message
@@ -395,7 +421,7 @@ export async function addLable(boardId, labelInfo) {
   };
   const newBoard = await boardService.addLableToBoard(boardId, newLabel);
   if (!newBoard) return;
-  await setFilteredColumns({id:boardId, newLabel});
+  await setFilteredColumns({ id: boardId, newLabel });
 
   store.dispatch({
     type: EDIT_BOARD,
@@ -505,9 +531,9 @@ export async function onUpdateLocalLabelWidth(boardId, labelId, newWidth) {
   });
 }
 
-export async function undo(prevBoard){
-  const newBoard = await boardService.save(prevBoard)
-  console.log(prevBoard, newBoard)
+export async function undo(prevBoard) {
+  const newBoard = await boardService.save(prevBoard);
+  console.log(prevBoard, newBoard);
   store.dispatch({
     type: EDIT_BOARD,
     boardId: prevBoard._id,
@@ -516,7 +542,7 @@ export async function undo(prevBoard){
 }
 
 export async function duplicateTasks(boardId, tasksToDuplicate) {
-  const board = await boardService.getById(boardId)
+  const board = await boardService.getById(boardId);
   const newBoard = await boardService.addMultipleItemsToGroup(
     boardId,
     tasksToDuplicate
@@ -530,7 +556,8 @@ export async function duplicateTasks(boardId, tasksToDuplicate) {
   showSuccessMsg(
     `Duplicated ${tasksToDuplicate.length} task${
       tasksToDuplicate.length > 1 ? "'s" : ""
-    }`, board
+    }`,
+    board
   );
 }
 export async function updateTaskStatus(boardId, groupId, taskId, newStatus) {
