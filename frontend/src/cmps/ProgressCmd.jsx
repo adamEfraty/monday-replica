@@ -6,7 +6,6 @@ import { P_Members } from "./dynamicCmps/progressCmps/P_Members"
 export function ProgressCmd({
   label,
   tasks,
-  index,
 }) {
 
   switch (label.type) {
@@ -15,7 +14,6 @@ export function ProgressCmd({
         <P_Priority
           tasks={tasks}
           labelId={label.id}
-          index={index}
         />
       )
 
@@ -24,7 +22,6 @@ export function ProgressCmd({
         <P_Status
           tasks={tasks}
           labelId={label.id}
-          index={index}
         />
       )
 
@@ -33,7 +30,6 @@ export function ProgressCmd({
         <P_Date
           tasks={tasks}
           labelId={label.id}
-          index={index}
         />
       )
 
@@ -43,7 +39,6 @@ export function ProgressCmd({
           tasks={tasks}
           labelId={label.id}
           labelWidth={label.width}
-          index={index}
         />
       )
 
