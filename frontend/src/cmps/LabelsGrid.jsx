@@ -21,7 +21,8 @@ export function LabelsGrid({
             className="labels-grid"
             style={{
                 borderTopLeftRadius: 5,
-                gridTemplateColumns: `10px ${labels.map(label => `${label.width}px`).join(' ')} auto`
+                gridTemplateColumns: `10px ${labels.map(label => `${label.width}px`).join(' ')} auto`,
+                boxShadow: isFixed ? (isBordScrollOnZero ? '' : '8px 12px 8px -12px #D0D4E4') : ''
             }}
         >
             <section className="ghost "></section>

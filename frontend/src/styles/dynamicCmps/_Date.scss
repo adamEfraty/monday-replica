@@ -18,30 +18,24 @@
     }
 
     .frame{
-      border: solid transparent 1px;
+      position: absolute;
       width: calc(100% - 10px);
       height: calc(100% - 8px);
+      border: solid #C3C6D4 1px;
       border-radius: 4px;
-      display: grid;
-      align-items: center;
-      justify-items: center;
+    }
 
+    p{
+      color: #666666;
       &:hover{
-        border-color: #C3C6D4;
+        color: #1F76CE;
       }
+    }
 
-      p{
-        color: #666666;
-        &:hover{
-          color: #1F76CE;
-        }
-      }
-
-      .icons{
-        display: flex;
-        align-items: center;
-        gap: 3px;
-      }
+    .icons{
+      display: flex;
+      align-items: center;
+      gap: 3px;
     }
 
 

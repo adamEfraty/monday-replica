@@ -53,7 +53,9 @@ export function Status({cellInfo, onTaskUpdate, labelWidth, isHover, setIsSelect
                 ref={statusCellRef}
                 onClick={modalToggle}
                 style={{ backgroundColor: cellInfo.value.color,
-                    opacity: isHover ? '0.8' : '1'
+                    opacity: isHover ? '0.8' : '1',
+                    outline: modal? 'solid 1px #0073EA' : 'none',
+                    outlineOffset: modal ? '-1px' : ''
                 }}>
                 {cellInfo.value.text}
             </div>

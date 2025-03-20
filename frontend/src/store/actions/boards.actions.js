@@ -54,8 +54,8 @@ export async function loadBoards() {
 export async function addGroup(boardId) {
   const newGroup = {
     id: utilService.makeId(),
-    title: "New Group",
-    color: utilService.getRandomColor(),
+    title: 'New Group',
+    color: utilService.getRandomFromArray(boardService.getGroupsColors()),
     tasks: [],
   };
 

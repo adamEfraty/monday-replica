@@ -34,7 +34,7 @@ export function TaskTitle({
   const [onEditMode, setOnEditMode] = useState(false)
   const [textToEdit, setTextToEdit] = useState(cellInfo.value.title)
 
-  //chat stuff
+  const inputRef = useRef(null)
 
   // so we won't see the chat before the animation
   const [openAnimation, setOpenAnimation] = useState(true)
@@ -53,6 +53,22 @@ export function TaskTitle({
   const deleteTaskModal = openModals.some((modalId) => modalId === 'delete-' + cellInfo.taskId)
 
   const isChecked = checkedBoxes.some((subArr) => subArr[1] == cellInfo.taskId)
+
+  function handleClickOutsideInput(event) {
+    if (inputRef.current &&!inputRef.current.contains(event.target))
+      toggleEditMode()
+}
+
+useEffect(() => {
+    if (onEditMode) {
+        document.addEventListener('mousedown', handleClickOutsideInput)
+    } else {
+        document.removeEventListener('mousedown', handleClickOutsideInput)
+    }
+    return () => {
+        document.removeEventListener('mousedown', handleClickOutsideInput)
+    }
+}, [onEditMode]);
 
 
   useEffect(() => {
@@ -182,7 +198,10 @@ export function TaskTitle({
   return (
     <>
       <section className="task-title" 
-      style={{backgroundColor: isSelect ? '#CCE5FF' : (isHover ? '#F4F5F8' : 'white')}}>
+      style={{backgroundColor: isSelect ? '#CCE5FF' : (isHover ? '#F4F5F8' : 'white'),
+        outline: (modal || onEditMode) ? 'solid 1px #0073EA' : 'none',
+        outlineOffset: (modal || onEditMode) ? '-1px' : ''
+      }}>
 
         {!isDraggingTask &&
           <div className="white-cover">
@@ -221,6 +240,7 @@ export function TaskTitle({
               !onEditMode
                 ? <p onClick={toggleEditMode}>{handleLongText(cellInfo.value.title)}</p>
                 : <input
+                  ref={inputRef}
                   style={{width: `${labelWidth - 140}px`}}
                   autoFocus={true}
                   value={textToEdit}

@@ -201,7 +201,8 @@ export function Label({ label, labelId, boardId, groupId, isFixed, isLast, isBor
             style={{
                 transform: CSS.Transform.toString(transform), transition,
                 backgroundColor: hoverLable || modal || isDragging ? '#F5F6F8' : 'white', 
-                borderBottom: isFixed ? (isBordScrollOnZero ? '' : 'solid 2px #D0D4E4') : ''
+                borderBottom: isFixed ? (isBordScrollOnZero ? '' : 'solid 2px #D0D4E4') : '',
+                
             }}
             className="label"
             onMouseMove={handleMouseMove}
