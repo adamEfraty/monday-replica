@@ -1,11 +1,9 @@
-
+import { utilService } from "../../../services/util.service"
+import { boardService } from "../../../services/board"
 
 export function GroupTitleColorModal({colorModal, colorModalRef, groupColor, onUpdateGroup}){
 
-    const colors = ['#037F4C', '#00C875', '#9CD326', '#CAB641', '#FFCB00', 
-        '#784BD1', '#9D50DD', '#007EB5', '#579BFC', '#66CCFF', '#BB3354', '#DF2F4A',
-    '#FF007F', '#FF5AC4', '#FF642E', '#FDAB3D', '#7F5347', '#C4C4C4', '#757575']
-
+    const colors = boardService.getGroupsColors()
     const colorOptions = colors.filter(color=> color !== groupColor)
 
     return(

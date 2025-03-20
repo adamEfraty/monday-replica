@@ -77,7 +77,7 @@ export function AddLabel({groupId, boardId, isFixed, labels}){
                                     onClick={()=>onAddLabel(boardId, labelInfo)}
                                     className="label-option">
                                     {labelInfo.svg}
-                                    {labelInfo.type}
+                                    {labelInfo.name}
                                 </li>
                             )
                         }

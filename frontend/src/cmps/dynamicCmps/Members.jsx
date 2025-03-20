@@ -56,7 +56,10 @@ export function Members({ cellInfo, onTaskUpdate, users, labelWidth, isHover, se
     const extraMembersCount = cellInfo?.value?.length - numberOfMembersThatFits;
     return (
         <section className="members" 
-        style={{backgroundColor: isSelect ? '#CCE5FF' : (isHover ? '#F4F5F8' : 'white')}}>
+        style={{backgroundColor: isSelect ? '#CCE5FF' : (isHover ? '#F4F5F8' : 'white'),
+            outline: modal? 'solid 1px #0073EA' : 'none',
+            outlineOffset: modal ? '-1px' : ''
+        }}>
             <div
                 className="members-cell"
                 ref={membersCellRef}
