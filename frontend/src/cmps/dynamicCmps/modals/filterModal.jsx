@@ -27,6 +27,8 @@ export function FilterModal({ boardId, boardColumnsFilter, handleFilteredLabel }
     setFilterBy(value);
   }
 
+  useEffect(() => console.log(boardColumnsFilter))
+
   return (
     <div
       className="filter-modal"

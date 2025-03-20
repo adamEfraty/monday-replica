@@ -28,8 +28,8 @@ function createEventEmitter() {
     eventBusService.emit('show-user-msg', msg)
   }
   
-  export function showSuccessMsg(txt) {
-    showUserMsg({ txt, type: 'success' })
+  export function showSuccessMsg(txt, data = null) {
+    showUserMsg({ txt, type: 'success', data })
   }
   
   export function showErrorMsg(txt) {

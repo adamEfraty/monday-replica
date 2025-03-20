@@ -1,25 +1,51 @@
-import { useEffect, useState } from "react"
-import { eventBusService } from "../services/event-bus.service"
+import { useEffect, useState } from "react";
+import { eventBusService } from "../services/event-bus.service";
+import { undo } from "../store/actions/boards.actions";
+import DoneIcon from "@mui/icons-material/Done";
+import XIcon from "@mui/icons-material/Clear";
 
 export function UserMsg() {
-    const [msg, setMsg] = useState(null)
+  const [msg, setMsg] = useState(null);
+  const [isVisible, setIsVisible] = useState(false)
 
-    useEffect(() => {
-        eventBusService.on('show-user-msg', msg => {
-            setMsg(msg)
-            setTimeout(closeMsg, 3000);
-        })
-    }, [])
+  useEffect(() => {
+    eventBusService.on("show-user-msg", (msg) => {
+      setMsg(msg);
+      setIsVisible(true)
+      //   setTimeout(closeMsg, 20000);
+    });
+  }, []);
 
-    function closeMsg() {
-        setMsg(null)
-    }
+  const iconStyle = { width: 20 }
 
-    if (!msg) return <></>
-    return (
-        <div className={"user-msg " + msg.type}>
-            <h4>{msg.txt}</h4>
-            <button onClick={closeMsg} className="close-btn">X</button>
-        </div>
-    )
+  function closeMsg() {
+    setMsg(null);
+    setIsVisible(false)
+  }
+
+  function handleUndo(data){
+    undo(data)
+    closeMsg()
+  }
+
+  if (!msg) return <></>;
+  console.log(msg.type);
+  return (
+    <div className={`user-msg ${msg.type} ${isVisible ? "visible" : ""}`}>
+      <div className="msg">
+        {msg.type === "success" ? (
+          <DoneIcon style={iconStyle} />
+        ) : (
+          <XIcon style={iconStyle} />
+        )}
+        <h4>{msg.txt}</h4>
+      </div>
+      {msg.data ? (
+        <button className="undo-btn btn" onClick={() => handleUndo(msg.data)}>
+          Undo
+        </button>
+      ) : null}
+        <XIcon onClick={closeMsg} className="close-btn btn"/>
+    </div>
+  );
 }

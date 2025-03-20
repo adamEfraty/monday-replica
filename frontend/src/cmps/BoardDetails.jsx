@@ -1,9 +1,7 @@
 import "../styles/_Board-Details.scss";
 import { GroupPreview } from "./GroupPreview";
 import { useState, useEffect, useRef } from "react";
-import { logout, loadUsers } from "../store/actions/user.actions";
 import {
-  loadBoards,
   removeTasks,
   replaceLabels,
   setFilteredColumns,
@@ -19,32 +17,27 @@ import { removeGroup, replaceGroups } from "../store/actions/boards.actions";
 import { BoardDetailsHeader } from "./BoardDetailsHeader";
 import { boardService } from "../services/board";
 import { utilService } from "../services/util.service";
-import { closestCorners, DndContext } from "@dnd-kit/core";
-import {
-  arrayMove,
-  SortableContext,
-  verticalListSortingStrategy,
-} from "@dnd-kit/sortable";
+import { setCheckBox } from "../store/actions/boards.actions";
+import { setMasterCheckbox } from "../store/actions/boards.actions";
 import { LabelsGrid } from "./LabelsGrid";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
-
 
 const BoardDetails = () => {
   const loggedInUser = useSelector((state) => state.userModule.user);
   const { boardId } = useParams();
   const navigate = useNavigate();
-  const [checkedBoxes, setCheckedBoxes] = useState([]);
-  const [checkedGroups, setCheckedGroups] = useState([]);
-  const boards = useSelector((state) => state.boardModule.boards);
+  const checkedBoxes = useSelector(state => state.boardModule.checkedBoxes);
+  const checkedGroups = useSelector(state => state.boardModule.checkedGroups);
+  const boards = useSelector(state => state.boardModule.boards);
   const filteredColumns = useSelector(
-    (state) => state.boardModule.filteredColumns
+    state => state.boardModule.filteredColumns
   );
   const [boardColumnsFilter, setBoardColumnsFilter] = useState({
     id: "",
     labels: [],
   });
   const [currentBoard, setcurrentBoard] = useState(
-    boards.find((board) => board._id === boardId)
+    boards.find(board => board._id === boardId)
   );
 
   const loggedinUser = useSelector((state) => state.userModule.user);
@@ -53,21 +46,22 @@ const BoardDetails = () => {
 
   const groups = currentBoard?.groups || [];
 
-  const boardDetailsRef = useRef(null)
-  const [boardScroll, setBoardScroll] = useState(0)
-  const [goupTitlesYPosition, setGoupTitlesYPosition] = useState({})
-  const [fixedGroup, setFixedGroup] = useState(null)
+  const boardDetailsRef = useRef(null);
+  const [boardScroll, setBoardScroll] = useState(0);
+  const [goupTitlesYPosition, setGoupTitlesYPosition] = useState({});
+  const [fixedGroup, setFixedGroup] = useState(null);
 
-  const [expandedGroupsId, setExpandedGroupsId] = useState([])
+  const [expandedGroupsId, setExpandedGroupsId] = useState([]);
 
-  const [isDragging, setIsDragging] = useState(false)
-  const [isDraggingTask, setIsDraggingTask] = useState(false)
+  const [isDragging, setIsDragging] = useState(false);
+  const [isDraggingTask, setIsDraggingTask] = useState(false);
   const [allTasks, setAllTasks] = useState(
-    groups.flatMap(group => group.tasks.map(task => ({ ...task, groupId: group.id })))
+    groups.flatMap((group) =>
+      group.tasks.map((task) => ({ ...task, groupId: group.id }))
+    )
   );
 
-
-  const [labelsLength, setLabelsLength] = useState()
+  const [labelsLength, setLabelsLength] = useState();
   const [zoomLevel, setZoomLevel] = useState(window.devicePixelRatio);
 
   useEffect(() => {
@@ -82,7 +76,6 @@ const BoardDetails = () => {
     console.log(filteredColumns);
   }, [filteredColumns]);
 
-
   useEffect(() => {
     console.log(
       "filteredColumns csdfsdfsdf ",
@@ -93,9 +86,12 @@ const BoardDetails = () => {
     );
     filteredColumns &&
       setBoardColumnsFilter(
-        filteredColumns.find((board) => board.id === boardId)
+        filteredColumns.find((board) => {
+          console.log(board);
+          return board.id === boardId;
+        })
       );
-    console.log(boardColumnsFilter)
+    console.log(boardColumnsFilter);
   }, [filteredColumns, boardId]);
 
   useEffect(() => {
@@ -107,12 +103,14 @@ const BoardDetails = () => {
     const board = boards.find((board) => board._id === boardId);
     if (!board) {
       navigate(
-        `/${utilService.getNameFromEmail(loggedInUser?.email)}s-team.someday.com`
+        `/${utilService.getNameFromEmail(
+          loggedInUser?.email
+        )}s-team.someday.com`
       );
     } else if (board.groups.some((group) => group.tasks.length > 0)) {
       if (filterBy.length > 0) {
         const regExp = new RegExp(filterBy, "i");
-        console.log('im here rick', boardColumnsFilter)
+        console.log("im here rick", boardColumnsFilter);
         const filteredGroups = board.groups
           .map((group) => ({
             ...group,
@@ -124,17 +122,17 @@ const BoardDetails = () => {
                 if (index === -1) return false;
                 return column.type === "members"
                   ? task.cells[index].value.some(
-                    (member) =>
-                      regExp.test(member.fullName) ||
-                      regExp.test(member.email)
-                  )
+                      (member) =>
+                        regExp.test(member.fullName) ||
+                        regExp.test(member.email)
+                    )
                   : regExp.test(
-                    column.type === "taskTitle"
-                      ? task.cells[index].value.title
-                      : column.type === "date"
+                      column.type === "taskTitle"
+                        ? task.cells[index].value.title
+                        : column.type === "date"
                         ? task.cells[index].value
                         : task.cells[index].value.text
-                  );
+                    );
               });
             }), // Filter tasks
           }))
@@ -146,60 +144,60 @@ const BoardDetails = () => {
   }, [filterBy, boardColumnsFilter]);
 
   useEffect(() => {
-
     const handleScroll = () => {
-      const scrollPositionY = boardDetailsRef.current.scrollTop
-      const scrollPositionX = boardDetailsRef.current.scrollLeft
-      setBoardScroll({ x: scrollPositionX, y: scrollPositionY })
+      const scrollPositionY = boardDetailsRef.current.scrollTop;
+      const scrollPositionX = boardDetailsRef.current.scrollLeft;
+      setBoardScroll({ x: scrollPositionX, y: scrollPositionY });
     };
 
     if (boardDetailsRef.current) {
       boardDetailsRef.current.addEventListener("scroll", handleScroll);
       return () => {
         boardDetailsRef.current?.removeEventListener("scroll", handleScroll); // Cleanup listener on unmount
-      }
+      };
     }
-  }, [])
+  }, []);
 
   useEffect(() => {
     if (currentBoard && boardDetailsRef.current) {
-      const scrollPositionY = boardDetailsRef.current.scrollTop
-      const scrollPositionX = boardDetailsRef.current.scrollLeft
-      setBoardScroll({ x: scrollPositionX, y: scrollPositionY })
-      setLabelsLength(currentBoard.labels.reduce((acc, label) => acc + label.width, 0))
+      const scrollPositionY = boardDetailsRef.current.scrollTop;
+      const scrollPositionX = boardDetailsRef.current.scrollLeft;
+      setBoardScroll({ x: scrollPositionX, y: scrollPositionY });
+      setLabelsLength(
+        currentBoard.labels.reduce((acc, label) => acc + label.width, 0)
+      );
     }
-  }, [zoomLevel])
+  }, [zoomLevel]);
 
   useEffect(() => {
     if (currentBoard) {
-      setLabelsLength(currentBoard.labels.reduce((acc, label) => acc + label.width, 0))
+      setLabelsLength(
+        currentBoard.labels.reduce((acc, label) => acc + label.width, 0)
+      );
     }
-  }, [currentBoard])
-
+  }, [currentBoard]);
 
   useEffect(() => {
     if (groups.length) {
-      if(!fixedGroup){
-        setFixedGroup(groups[0])
-        setGoupTitlesYPosition({})
+      if (!fixedGroup) {
+        setFixedGroup(groups[0]);
+        setGoupTitlesYPosition({});
+      } else if (!groups.find((group) => group.id === fixedGroup.id)) {
+        setFixedGroup(groups[0]);
+        setGoupTitlesYPosition({});
       }
-      else if(!groups.find(group=>group.id === fixedGroup.id)){
-        setFixedGroup(groups[0])
-        setGoupTitlesYPosition({})
-      }
-    }
-    else setFixedGroup(null)
-  }, [groups])
+    } else setFixedGroup(null);
+  }, [groups]);
 
   useEffect(() => {
     function handleResize() {
-      setZoomLevel(window.devicePixelRatio)
+      setZoomLevel(window.devicePixelRatio);
     }
     window.addEventListener("resize", handleResize);
     return () => {
       window.removeEventListener("resize", handleResize);
-    }
-  }, [])
+    };
+  }, []);
 
   //...............................
 
@@ -222,47 +220,21 @@ const BoardDetails = () => {
 
   // const cmpOrder = ["taskTitle", "priority", "status", "members", "date"];
 
-  const uid = () => Math.random().toString(36).slice(2);
-
   const progress = ["priority", "status", "members", "date"];
-  const handleCheckBoxClick = (groupId, taskId) => {
-    setCheckedBoxes((prev) => {
-      if (prev.some((scdArr) => scdArr[1] == taskId)) {
-        setCheckedGroups((prev) => prev.filter((id) => id !== groupId));
-        return prev.filter((scdArr) => scdArr[1] !== taskId);
-      } else {
-        return [...prev, [groupId, taskId]];
-      }
-    });
-  };
 
-  const handleMasterCheckboxClick = (group) => {
-    setCheckedGroups((prev) => {
-      if (prev.includes(group.id)) {
-        setCheckedBoxes((prev) =>
-          prev.filter((scdArr) => scdArr[0] !== group.id)
-        );
-        return prev.filter((id) => id !== group.id);
-      } else {
-        const newData = group.tasks.map((task) => [group.id, task.id]);
-        setCheckedBoxes((prev) => [...prev, ...newData]);
-        return [...prev, group.id];
-      }
-    });
-  };
-  async function handleDeleteTasks() {
-    for (const [groupId, taskId] of checkedBoxes) {
-      await removeTasks(currentBoard._id, groupId, taskId).then(() => {
-        setCheckedBoxes((prev) =>
-          prev.filter((scdArr) => scdArr[1] !== taskId)
-        );
-      });
+  function handleCheckBoxClick(props) {
+    console.log(props)
+    if (props.groupId) {
+      const { groupId, taskId } = props;
+      setCheckBox(groupId, taskId);
+    } else {
+      const { group } = props;
+      setMasterCheckbox(group);
     }
   }
+
   async function handleDeleteTasks() {
-    await removeTasks(currentBoard._id, checkedBoxes).then(() => {
-      setCheckedBoxes([]);
-    });
+    await removeTasks(currentBoard._id, checkedBoxes);
   }
 
   function handleAddTask(group = null, taskTitle = "New Task") {
@@ -312,31 +284,30 @@ const BoardDetails = () => {
   }
 
   function handleFilteredLabel(label) {
+    console.log(boardColumnsFilter, label);
     boardColumnsFilter.labels.some((column) => column.id === label.id)
       ? setFilteredColumns({
-        id: currentBoard._id,
-        labels: boardColumnsFilter.labels.filter(
-          (column) => column.id !== label.id
-        ),
-      })
+          id: currentBoard._id,
+          labels: boardColumnsFilter.labels.filter((column) => {
+            console.log(column);
+            return column.id !== label.id;
+          }),
+        })
       : setFilteredColumns({
-        id: boardId,
-        labels: [...boardColumnsFilter.labels, label],
-      });
+          id: boardId,
+          labels: [...boardColumnsFilter.labels, label],
+        });
   }
 
   function getLabelPos(id) {
     return currentBoard.labels.findIndex((label) => label.id === id);
   }
 
-
-
   const handleDragStart = (start) => {
     if (start.type === "group") {
       setIsDragging(true);
     }
-    setIsDraggingTask(true)
-
+    setIsDraggingTask(true);
   };
 
   const handleDragEnd = async (result) => {
@@ -351,10 +322,7 @@ const BoardDetails = () => {
       const [movedGroup] = reorderedGroups.splice(source.index, 1);
       reorderedGroups.splice(destination.index, 0, movedGroup);
       await replaceGroups(boardId, reorderedGroups);
-
-    }
-
-    else if (type === "task") {
+    } else if (type === "task") {
       const sourceGroup = groups.find((g) => g.id === source.droppableId);
       const destGroup = groups.find((g) => g.id === destination.droppableId);
 
@@ -368,22 +336,21 @@ const BoardDetails = () => {
         sourceGroup.tasks = sourceTasks;
       } else {
         const destTasks = Array.from(destGroup.tasks);
-        movedTask.cells[0].value.activities = movedTask.cells[0].value.activities.map(e => ({
-          ...e,
-          activity: {
-            ...e.activity,
-            groupId: destGroup.id
-          }
-        }))
+        movedTask.cells[0].value.activities =
+          movedTask.cells[0].value.activities.map((e) => ({
+            ...e,
+            activity: {
+              ...e.activity,
+              groupId: destGroup.id,
+            },
+          }));
         destTasks.splice(destination.index, 0, movedTask);
         sourceGroup.tasks = sourceTasks;
         destGroup.tasks = destTasks;
       }
 
       await replaceGroups(boardId, groups);
-    }
-
-    else if (type === "label") {
+    } else if (type === "label") {
       const reorderedLabels = Array.from(currentBoard.labels);
       const [movedLabel] = reorderedLabels.splice(source.index, 1);
       reorderedLabels.splice(destination.index, 0, movedLabel);
@@ -391,34 +358,36 @@ const BoardDetails = () => {
     }
   };
 
-
   function updateFixedGroup(groupId, yPos) {
-    setGoupTitlesYPosition(prev => ({ ...prev, [groupId]: yPos }))
-    let groupIdToFixed = ''
-    let highestFixedHeight = -Infinity
+    setGoupTitlesYPosition((prev) => ({ ...prev, [groupId]: yPos }));
+    let groupIdToFixed = "";
+    let highestFixedHeight = -Infinity;
     for (const groupId in goupTitlesYPosition) {
-      if (goupTitlesYPosition[groupId] < 260 &&
-        goupTitlesYPosition[groupId] >= highestFixedHeight) {
-        highestFixedHeight = goupTitlesYPosition[groupId]
-        groupIdToFixed = groupId
+      if (
+        goupTitlesYPosition[groupId] < 260 &&
+        goupTitlesYPosition[groupId] >= highestFixedHeight
+      ) {
+        highestFixedHeight = goupTitlesYPosition[groupId];
+        groupIdToFixed = groupId;
       }
     }
 
-    setFixedGroup(groups.find(group => group.id === groupIdToFixed))
+    setFixedGroup(groups.find((group) => group.id === groupIdToFixed));
   }
 
   function updateExpandedGroups(groupId, expanded) {
-    setExpandedGroupsId(prev => {
-      if (expanded)
-        return prev.includes(groupId) ? prev : [...prev, groupId]
-      else
-        return prev.filter(id => id !== groupId)
-    })
+    setExpandedGroupsId((prev) => {
+      if (expanded) return prev.includes(groupId) ? prev : [...prev, groupId];
+      else return prev.filter((id) => id !== groupId);
+    });
   }
 
   function isFixedGroupExpanded() {
-    return fixedGroup && expandedGroupsId &&
-      expandedGroupsId.some(groupId => groupId === fixedGroup.id)
+    return (
+      fixedGroup &&
+      expandedGroupsId &&
+      expandedGroupsId.some((groupId) => groupId === fixedGroup.id)
+    );
   }
 
   return (
@@ -431,36 +400,61 @@ const BoardDetails = () => {
         handleFilteredLabel={handleFilteredLabel}
       />
 
-
-      {
-        !isDragging && isFixedGroupExpanded() &&
-        <div className="sticky-labels"
-          style={{ width: (labelsLength < window.innerWidth - 320) ? 'calc(100vw - 320px)' : `${labelsLength + 150}px`}}>
+      {!isDragging && isFixedGroupExpanded() && (
+        <div
+          className="sticky-labels"
+          style={{
+            width:
+              labelsLength < window.innerWidth - 320
+                ? "calc(100vw - 320px)"
+                : `${labelsLength + 150}px`,
+          }}
+        >
           <LabelsGrid
             boardId={boardId}
             group={fixedGroup}
             labels={currentBoard.labels}
-            handleMasterCheckboxClick={handleMasterCheckboxClick}
+            handleMasterCheckboxClick={handleCheckBoxClick}
             checkedGroups={checkedGroups}
             isFixed={true}
             isBordScrollOnZero={boardScroll.y <= 0}
           />
         </div>
-
-      }
+      )}
 
       {currentBoard.groups.length > 0 ? (
-        <section className="group-list"
-          style={{ marginTop: `${isFixedGroupExpanded() ? '-37px' : '0px'}` }}>
-          <DragDropContext onDragEnd={handleDragEnd} onDragStart={handleDragStart}>
+        <section
+          className="group-list"
+          style={{ marginTop: `${isFixedGroupExpanded() ? "-37px" : "0px"}` }}
+        >
+          <DragDropContext
+            onDragEnd={handleDragEnd}
+            onDragStart={handleDragStart}
+          >
             <Droppable droppableId="groups" type="group">
               {(provided) => (
-                <section ref={provided.innerRef} {...provided.droppableProps} className="group-list"
-                  style={{ width: (labelsLength < window.innerWidth - 320) ? 'calc(100vw - 320px)' : `${labelsLength + 150}px` }}>
+                <section
+                  ref={provided.innerRef}
+                  {...provided.droppableProps}
+                  className="group-list"
+                  style={{
+                    width:
+                      labelsLength < window.innerWidth - 320
+                        ? "calc(100vw - 320px)"
+                        : `${labelsLength + 150}px`,
+                  }}
+                >
                   {groups.map((group, index) => (
-                    <Draggable key={group.id} draggableId={group.id} index={index}>
+                    <Draggable
+                      key={group.id}
+                      draggableId={group.id}
+                      index={index}
+                    >
                       {(provided) => (
-                        <div ref={provided.innerRef} {...provided.draggableProps}>
+                        <div
+                          ref={provided.innerRef}
+                          {...provided.draggableProps}
+                        >
                           <GroupPreview
                             id={group.id}
                             group={group}
@@ -471,7 +465,7 @@ const BoardDetails = () => {
                             onTaskUpdate={onTaskUpdate}
                             checkedBoxes={checkedBoxes}
                             checkedGroups={checkedGroups}
-                            handleMasterCheckboxClick={handleMasterCheckboxClick}
+                            handleMasterCheckboxClick={handleCheckBoxClick}
                             handleCheckBoxClick={handleCheckBoxClick}
                             handleAddTask={handleAddTask}
                             handleGroupNameChange={handleGroupNameChange}
@@ -498,7 +492,6 @@ const BoardDetails = () => {
               )}
             </Droppable>
           </DragDropContext>
-
 
           <button className="modal-save-btn" onClick={handleAddGroup}>
             +Add a new group
