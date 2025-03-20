@@ -253,7 +253,8 @@ export const GroupPreview = ({
             <section
               className="progress-grid"
               style={{
-                gridTemplateColumns: `10px ${labels.map(label => `${label.width}px`).join(' ')} auto`
+                gridTemplateColumns: `10px ${labels.map(label => `${label.width}px`).join(' ')} auto`,
+                boxShadow: '0px 5px 8px -8px rgb(169, 169, 169)',
               }}
             >
               <div className="invisible">
