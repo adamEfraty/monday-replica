@@ -1,23 +1,77 @@
-.minigroup-container {
-  border: 1px solid #b9b9b9;
-  background-color: #fff;
-  display: flex;
-  gap: 3rem;
-  padding: 10px;
-  border-top-left-radius: 7px;
-  border-bottom-left-radius: 7px;
-  width: 2000px;
-  margin-top: 1rem;
-  align-items: center;
-  .title-arrow-flex {
-    display: flex;
-    gap: 1rem;
-  }
+@use 'vars' as *;
 
-  .minigroup-inner-flex {
+.minigroup {
+  display: grid;
+  height: 58px;
+  border-top: 1px solid $table-lines-gray;
+  border-bottom: 1px solid $table-lines-gray;
+  margin-left: 10px;
+  
+
+  .minigroup-title-part {
+    position: sticky;
+    left: 10px;
+    height: 100%;
     display: flex;
     flex-direction: column;
-    width: 20%;
-    gap: 1rem;
+    justify-content: space-around;
+    cursor: grab;
+    border-top-left-radius: 7px;
+    border-bottom-left-radius: 7px;
+    border-right: solid 1px $table-lines-gray;
+    border-bottom: solid 1px $table-lines-gray;
+    background-color: white;
+
+    .minigroup-title-top-part {
+      margin-left: 5px;
+      display: flex;
+      gap: 6px;
+
+      svg{
+        cursor: pointer;
+        width: 20px;
+        height: 20px;
+      }
+
+      .minigroup-title{
+        font-size: 1.15rem;
+      }
+    }
+
+    .task-counter{
+      margin-left: 30px;
+      color: #767787;
+
+    }
+
+    .white-cover{
+      position: absolute;
+      top: -2px;
+      left: -50px;
+      width: 42px;
+      height: 63px;
+      background-color: white;
+    }
+  }
+
+  .minigroup-progress-cell{
+    display: grid;
+    grid-template-rows: auto 35px;
+    border-right: 1px solid $table-lines-gray;
+
+    .prog-box{
+      border: none;
+    }
+
+    .progress-cell{
+      height: 50px;
+    }
+
+    p{
+      text-align: center;
+      align-self: center;
+      font-size: 0.85rem;
+      font-weight: 450;
+    }
   }
 }
