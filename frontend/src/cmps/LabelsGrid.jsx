@@ -42,7 +42,7 @@ export function LabelsGrid({
                             type="checkbox"
                             className="checkbox"
                             onChange={() => { }}
-                            onClick={() => handleMasterCheckboxClick(group)}
+                            onClick={() => handleMasterCheckboxClick({group})}
                             checked={checkedGroups.includes(group.id)}
                             style={{backgroundColor: isChecked ? `#0073EA` : 'white',
                                 border: isChecked && 'none',
@@ -50,7 +50,7 @@ export function LabelsGrid({
 
                         />
                         <div className="check-icon"
-                        onClick={() => handleMasterCheckboxClick(group)}>
+                        onClick={() => handleMasterCheckboxClick({group})}>
                         {
                             isChecked && getSvg('check')
                         }
