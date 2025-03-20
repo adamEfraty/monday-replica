@@ -1,46 +1,44 @@
+import { getSvg } from "../services/svg.service";
+import { ProgressCmd } from "./ProgressCmd";
 
-import { GroupTitle } from "./GroupTitle"
-import { ArrowRightIcon } from "@mui/x-date-pickers/icons"
-export function MiniGroup({ titleRef,
-    boardId,
+export function MiniGroup({
+    labels,
     group,
     groupTitle,
-    expanded,
-    handleClick2,
-    id2,
-    open2,
-    anchorE2,
-    handleClose2,
-    titleHead,
-    handleGroupNameChange,
     handelExpandedChange,
-    handelGroupTitleChange,
-    attributes,
-    listeners,
-    handleDelete,
-    dragHandleProps
+    dragHandleProps,
 }) {
 
 
     return (
-        <div className="minigroup-container" style={{ borderLeft: `8px solid ${group.color}` }
-        }>
-            <div className="minigroup-inner-flex">
-                <div className="title-arrow-flex" style={{ color: `${group.color}` }}>
-                    <span><ArrowRightIcon onClick={() => handelExpandedChange((prev) => !prev)} style={{ cursor: 'pointer' }} /></span>
-                    <h2 >{groupTitle}</h2>
+        <div className="minigroup"
+        style={{ gridTemplateColumns: `${labels.map(label => `${label.width}px`).join(' ')} auto` }}>
+            <div className="minigroup-title-part" {...dragHandleProps}
+            style={{ borderLeft: `8px solid ${group.color}`}}>
+                <div className="minigroup-title-top-part" style={{ color: `${group.color}` }}>
+                    <div className="minigroup-arrow"
+                    onClick={() => handelExpandedChange((prev) =>!prev)}>
+                        {getSvg('group-title-arrow')}
+                    </div>
+                    <h2 className="minigroup-title">{groupTitle}</h2>
                 </div>
-                <div style={{ marginLeft: '10px' }}>{group.tasks.length} tasks</div>
+                <div className="task-counter">{group.tasks.length} Tasks</div>
+
+                <div className="white-cover"/>
             </div>
-            <div
-                {...dragHandleProps}
-                style={{
-                    cursor: "grab",
-                    width: "100%",
-                    padding: "1rem",
-                    borderRadius: "4px",
-                }}
-            >
-            </div>        </div >
+
+            {labels.slice(1).map((lable, index) =>
+                <div className="minigroup-progress-cell">
+                    <p>{lable.name}</p>
+                    <div className={`prog-box with-${lable.type}`} key={`progress-${lable.id}`}>
+                        <ProgressCmd
+                        label={lable}
+                        tasks={group.tasks}
+                        index={index}
+                        />
+                    </div>
+                </div>
+            )}
+        </div>
     )
 }

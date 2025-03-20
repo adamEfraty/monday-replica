@@ -1,6 +1,3 @@
-import ArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import { ArrowRightIcon } from "@mui/x-date-pickers/icons";
-import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import { getSvg } from "../services/svg.service";
 import { useState, useRef, useEffect } from "react"
 import { openModal, closeModal } from '../store/actions/boards.actions.js'
@@ -9,29 +6,15 @@ import { GroupTitleColorModal } from "./dynamicCmps/modals/GroupTitleColorModal.
 import { updateGroup } from '../store/actions/boards.actions.js';
 import { EditGroupTitleModal } from "./dynamicCmps/modals/EditGroupTitleModal.jsx";
 
-
-
-
-import Popover from '@mui/material/Popover';
-import { GarbageRemove } from "./dynamicCmps/modals/GarbageRemove.jsx";
-import { Color } from "./dynamicCmps/modals/Color.jsx";
-
 export function GroupTitle({
   titleRef,
   boardId,
   group,
   groupTitle,
   expanded,
-  handleClick2, //
-  id2, //
-  open2, // 
-  anchorE2, // 
-  handleClose2, //
   handleGroupNameChange,
   handelExpandedChange,
   handelGroupTitleChange,
-  attributes,
-  listeners,
   handleDelete,
   isMiniGroup,
   isFixed,

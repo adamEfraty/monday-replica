@@ -109,3 +109,5 @@
 >>>>>>> origin/master
 >>>>>>> origin/master
 18.3.2025, 3:23:19 - INFO - Up and running on http://localhost:3000
+20.3.2025, 18:42:46 - DEBUG - auth.service - login with email: seangah8@gmail.com
+20.3.2025, 18:42:46 - INFO - User login:  | {"_id":"67d14edcead629a931984ecc","email":"seangah8@gmail.com","fullName":"Sean Gah","imgUrl":"https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png","isAdmin":null}
