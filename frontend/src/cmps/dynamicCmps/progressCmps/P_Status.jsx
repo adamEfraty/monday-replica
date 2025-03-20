@@ -1,12 +1,16 @@
-
+import { useState } from "react"
+import { getSvg } from '../../../services/svg.service.jsx'
 
 export function P_Status({tasks, labelId}){
 
     const colorOrder = ['#00C875', '#FDAB3D', '#DF2F4A', '#C4C4C4']
     const statuses = tasks.map(task=>{
-        const statusCell = task.cells.find(cell=> cell.labelId === labelId)
-        return statusCell.value})
+        const statuseCell = task.cells.find(cell=> cell.labelId === labelId)
+        return statuseCell.value})
     const progressSummery = orderByColor(colorOrder, mergeByColor(statuses))
+    
+    const [modalColor, setModalColor] = useState(null)
+
 
     function mergeByColor(arr) {
         const result = []
@@ -42,7 +46,24 @@ export function P_Status({tasks, labelId}){
                     return <div key={unit.color}
                     className="color-block"
                     style={{background: unit.color, 
-                        width: `${((unit.number/statuses.length)*100)}%`}}/>
+                        width: `${((unit.number/statuses.length)*100)}%`,
+                    }}
+                    
+
+                    onMouseEnter={()=>setModalColor(unit.color)}
+                    onMouseLeave={()=>setModalColor(null)}>
+
+                        {
+                            unit.color === modalColor &&
+                            <div className="color-block-modal" style={{"--width": (unit.text === '') ? '100px' : ((unit.text === 'Working on it') ? '180px' : '')}}>
+                                <div className="modal-context">
+                                    <span>{`${(unit.text !== '') ? (unit.text + ':') : ''} ${unit.number}/${tasks.length}`}</span>
+                                    <span>{`${Math.round((unit.number/tasks.length)*100)}%`}</span>
+                                    {getSvg('black-arrow')}
+                                </div>
+                            </div>
+                        }
+                    </div>
                 })
             }
         </div>

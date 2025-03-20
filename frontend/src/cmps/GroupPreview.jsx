@@ -21,6 +21,7 @@ import { MiniGroup } from "./MiniGroup.jsx";
 import { GroupTitle } from "./GroupTitle.jsx";
 import { LabelsGrid } from "./LabelsGrid.jsx";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import { ProgressCmd } from "./ProgressCmd.jsx";
 
 export const GroupPreview = ({
   labels,
@@ -268,6 +269,7 @@ export const GroupPreview = ({
                       label={lable}
                       tasks={group.tasks}
                       index={index}
+                      inMiniGroup={false}
 
                     />
                   </div>
@@ -296,64 +298,12 @@ export const GroupPreview = ({
           handelExpandedChange={handelExpandedChange}
           handelGroupTitleChange={handelGroupTitleChange}
           handleDelete={handleDelete}
-          dragHandleProps={provided.dragHandleProps} />}
+          dragHandleProps={provided.dragHandleProps} 
+          labels={labels}
+          progress={progress}/>}
 
       </section >
     </div >
   );
 };
-
-
-
-const ProgressCmd = ({
-  label,
-  tasks,
-  index,
-
-}) => {
-
-  switch (label.type) {
-    case "priority":
-      return (
-        <P_Priority
-          tasks={tasks}
-          labelId={label.id}
-          index={index}
-        />
-      )
-
-    case "status":
-      return (
-        <P_Status
-          tasks={tasks}
-          labelId={label.id}
-          index={index}
-        />
-      )
-
-    case "date":
-      return (
-        <P_Date
-          tasks={tasks}
-          labelId={label.id}
-          index={index}
-        />
-      )
-
-    case "members":
-      return (
-        <P_Members
-          tasks={tasks}
-          labelId={label.id}
-          labelWidth={label.width}
-          index={index}
-        />
-      )
-
-    default:
-      console.error(`Unknown progress component type: ${progressType}`)
-      return <div>Unknown component: {progressType}</div>
-  }
-}
-
 

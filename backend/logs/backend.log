@@ -116,6 +116,11 @@
 18.3.2025, 16:40:47 - INFO - User signup: | {"_id":"67d985ef39bced5efcf1cbba","email":"ejkbfkwjejbf@d.com","fullName":"kjscdbh","imgUrl":"https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png","color":null,"isAdmin":null}
 =======
 18.3.2025, 3:23:19 - INFO - Up and running on http://localhost:3000
+<<<<<<< HEAD
 >>>>>>> origin/master
 20.3.2025, 15:22:19 - DEBUG - auth.service - login with email: efraty665@gmail.com
 20.3.2025, 15:22:19 - INFO - User login:  | {"_id":"67ca519f85c61510baa798fd","email":"efraty665@gmail.com","fullName":"adam","imgUrl":"https://res.cloudinary.com/danlxus36/image/upload/v1741312413/best-selfie_xlxkpb.jpg","isAdmin":null}
+=======
+20.3.2025, 18:42:46 - DEBUG - auth.service - login with email: seangah8@gmail.com
+20.3.2025, 18:42:46 - INFO - User login:  | {"_id":"67d14edcead629a931984ecc","email":"seangah8@gmail.com","fullName":"Sean Gah","imgUrl":"https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png","isAdmin":null}
+>>>>>>> origin/master

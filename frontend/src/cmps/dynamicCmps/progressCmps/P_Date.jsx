@@ -1,4 +1,5 @@
 import { utilService } from "../../../services/util.service.js"
+import { useState } from "react"
 
 export function P_Date({tasks, labelId}){
 
@@ -10,6 +11,8 @@ export function P_Date({tasks, labelId}){
     const {firstDate, lastDate} = getFirstAndLastDate(dates)
     const finalStr = betweenDatesStr(firstDate, lastDate)
     const progressPrecentage = precentageOfToday(firstDate, lastDate)
+
+    const [isHovered, setIsHovered] = useState(false)
 
     function getFirstAndLastDate(dates) {
         if (dates.length === 0) return {firstDate: null, lastDate: null}
@@ -52,11 +55,22 @@ export function P_Date({tasks, labelId}){
 
     return(
         <section className="progress-date">
-            <div className="total-bar">
+            <div className="total-bar"
+            onMouseEnter={()=>setIsHovered(true)}
+            onMouseLeave={()=>setIsHovered(false)}>
                 <div className="progress-bar"
-                style={{backgroundColor: '#579BFC', width: `${progressPrecentage}%`}}/>
+                style={{backgroundColor: isHovered ? '#257DFB' : '#579BFC', width: `${progressPrecentage}%`}}/>
             </div>
-            <p>{finalStr}</p>
+            {
+                isHovered 
+                ?<p
+                onMouseEnter={()=>setIsHovered(true)}
+                onMouseLeave={()=>setIsHovered(false)}>
+                    {`${Math.round(Math.max(1, (lastDate - firstDate)/(1000*3600*24)))} d`}
+                </p>
+                :<p>{finalStr}</p>
+            }
+            
 
 
 
