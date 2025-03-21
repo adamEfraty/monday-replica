@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 15.3.2025, 4:26:40 - INFO - Up and running on http://localhost:3000
 15.3.2025, 4:26:49 - DEBUG - auth.service - login with email: kiwi@gmail.com
 15.3.2025, 4:26:49 - INFO - User login:  | {"_id":"67c45c55c2f1ef4df8072022","email":"kiwi@gmail.com","fullName":"Kiwi","id":"E3iHE","imgUrl":"https://res.cloudinary.com/danlxus36/image/upload/v1740682607/3_iij9dg.jpg"}
@@ -108,9 +109,31 @@
 =======
 >>>>>>> origin/master
 >>>>>>> origin/master
+<<<<<<< HEAD
+18.3.2025, 14:37:57 - INFO - Up and running on http://localhost:3000
+18.3.2025, 16:40:47 - DEBUG - auth.service - signup with email: ejkbfkwjejbf@d.com, fullName: kjscdbh
+18.3.2025, 16:40:47 - DEBUG - auth.route - new account created: {"email":"ejkbfkwjejbf@d.com","password":"$2b$10$jJDmZCWUTpUj3T7gPNMeQOaI16n83vOe6kh5gf9H5k9r5cpy1jNDy","fullName":"kjscdbh","imgUrl":"https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png","_id":"67d985ef39bced5efcf1cbba"}
+18.3.2025, 16:40:47 - DEBUG - auth.service - login with email: ejkbfkwjejbf@d.com
+18.3.2025, 16:40:47 - INFO - User signup: | {"_id":"67d985ef39bced5efcf1cbba","email":"ejkbfkwjejbf@d.com","fullName":"kjscdbh","imgUrl":"https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png","color":null,"isAdmin":null}
+=======
 18.3.2025, 3:23:19 - INFO - Up and running on http://localhost:3000
+<<<<<<< HEAD
+>>>>>>> origin/master
+20.3.2025, 15:22:19 - DEBUG - auth.service - login with email: efraty665@gmail.com
+20.3.2025, 15:22:19 - INFO - User login:  | {"_id":"67ca519f85c61510baa798fd","email":"efraty665@gmail.com","fullName":"adam","imgUrl":"https://res.cloudinary.com/danlxus36/image/upload/v1741312413/best-selfie_xlxkpb.jpg","isAdmin":null}
+=======
 20.3.2025, 18:42:46 - DEBUG - auth.service - login with email: seangah8@gmail.com
 20.3.2025, 18:42:46 - INFO - User login:  | {"_id":"67d14edcead629a931984ecc","email":"seangah8@gmail.com","fullName":"Sean Gah","imgUrl":"https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png","isAdmin":null}
+>>>>>>> origin/master
+21.3.2025, 12:51:34 - INFO - Up and running on http://localhost:3000
+21.3.2025, 12:52:14 - DEBUG - auth.service - login with email: efraty665@gmail.com
+21.3.2025, 12:52:14 - INFO - User login:  | {"_id":"67ca519f85c61510baa798fd","email":"efraty665@gmail.com","fullName":"adam","imgUrl":"https://res.cloudinary.com/danlxus36/image/upload/v1741312413/best-selfie_xlxkpb.jpg","isAdmin":null}
+=======
+21.3.2025, 1:27:01 - INFO - Up and running on http://localhost:3000
+21.3.2025, 1:28:26 - DEBUG - auth.service - login with email: kiwi@gmail.com
+21.3.2025, 1:28:26 - INFO - User login:  | {"_id":"67c45c55c2f1ef4df8072022","email":"kiwi@gmail.com","fullName":"Kiwi","id":"E3iHE","imgUrl":"https://res.cloudinary.com/danlxus36/image/upload/v1740682607/3_iij9dg.jpg"}
+>>>>>>> origin/master
+21.3.2025, 13:57:58 - INFO - Up and running on http://localhost:3000
 21.3.2025, 12:45:13 - INFO - Up and running on http://localhost:3000
 21.3.2025, 12:46:56 - DEBUG - auth.service - login with email: seangah8@gmail.com
 21.3.2025, 12:46:56 - INFO - User login:  | {"_id":"67d14edcead629a931984ecc","email":"seangah8@gmail.com","fullName":"Sean Gah","imgUrl":"https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png","isAdmin":null}

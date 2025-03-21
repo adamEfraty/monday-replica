@@ -6,7 +6,7 @@ import MoveToIcon from "@mui/icons-material/ArrowForwardOutlined";
 import AppsIcon from "@mui/icons-material/ExtensionOutlined";
 import { duplicateTasks } from "../../../store/actions/boards.actions";
 
-export function SelectedTasksModal({ boardId, checkedTasks, handleDeleteTasks }) {
+export function SelectedTasksModal({ boardId, checkedTasks, toggleConfirmationModal, handleDeleteTasks }) {
   function onDuplicate(){
     duplicateTasks(boardId, checkedTasks);
   }
@@ -32,7 +32,7 @@ export function SelectedTasksModal({ boardId, checkedTasks, handleDeleteTasks })
           <ArchiveIcon />
           <h4>Archive</h4>
         </div>
-        <div onClick={handleDeleteTasks}>
+        <div onClick={toggleConfirmationModal}>
           <DeleteIcon />
           <h4>Delete</h4>
         </div>

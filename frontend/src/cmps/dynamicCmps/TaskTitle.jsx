@@ -203,7 +203,7 @@ useEffect(() => {
         outlineOffset: (modal || onEditMode) ? '-1px' : ''
       }}>
 
-        {!isDraggingTask &&
+        {!isDraggingTask ?
           <div className="white-cover">
             <div ref={dotsRef} className="dots"
               style={{
@@ -214,6 +214,7 @@ useEffect(() => {
               {getSvg('horizontal-dots')}
             </div>
           </div>
+          : null
         }
 
 
@@ -222,13 +223,13 @@ useEffect(() => {
             <input
               type="checkbox"
               checked={isChecked}
-              onChange={() => handleCheckBoxClick(group.id, cellInfo.taskId)}
+              onChange={() => handleCheckBoxClick({groupId: group.id, taskId: cellInfo.taskId})}
               style={{backgroundColor: isChecked ? `#0073EA` : 'white',
                 border: isChecked && 'none',
               }}
             />
             <div className="check-icon"
-            onClick={() => handleCheckBoxClick(group.id, cellInfo.taskId)}>
+            onClick={() => handleCheckBoxClick({groupId: group.id, taskId: cellInfo.taskId})}>
               {
                 isChecked && getSvg('check')
               }
