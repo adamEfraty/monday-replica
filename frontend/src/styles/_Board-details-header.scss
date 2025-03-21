@@ -12,9 +12,15 @@
   font-size: 1.1rem;
   display: inline-flex;
   align-items: center;
-  gap: 1rem;
+  gap: 6px;
+  padding-left: 4px;
+  border-radius: 4px;
   & > h2 {
     font-weight: 600;
+  }
+
+  svg{
+    color: #767786;
   }
   cursor: pointer;
   &:hover {
@@ -25,19 +31,22 @@
 .board-nav {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 2px;
   margin-top: 0.5rem;
-  & div {
+  & .nav-area {
+    height: 33px;
+    width: 100px;
     display: flex;
     align-items: center;
-    gap: 0.2rem;
+    justify-content: center;
+    gap: 3px;
     & h5 {
-      font-size: 14px;
+      font-size: 0.8rem;
       font-weight: 500;
     }
     margin-bottom: 0.1rem;
     padding: 0.25rem;
-    border-radius: 6px;
+    border-radius: 4px;
     position: relative; /* Add relative positioning */
     .highlight {
       position: absolute;
@@ -45,7 +54,12 @@
       left: 0;
       width: 100%;
       border: none;
-      border-top: 2px solid #0073ea; /* Adjust the border style as needed */
+      border-top: 2px solid #0073EA; /* Adjust the border style as needed */
+    }
+
+    div{
+      display: grid;
+      align-items: center;
     }
   }
 
@@ -75,49 +89,56 @@ header.board-details-header {
     background-color: white;
   }
   & .main-hr{
-    color:rgba(103, 104, 121, 0.1)
+    border-top: solid #D0D4E4 1px;
   }
 }
 
 .board-header-actions {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 14px;
   margin-top: 1rem;
   margin-bottom: 1rem;
   & > div {
     display: flex;
     align-items: center;
-    gap: 0.1rem;
   }
+
   .newTask-button {
-    display: flex;
-    align-items: end;
     border: none;
     color: #3f3f3f;
-    background-color: #0073ea;
+    background-color: #0073EA;
     cursor: pointer;
-    border-radius: 5px;
+    border-radius: 4px;
     color: white;
+
     .new-task-button {
       font-size: 14px;
       font-weight: 500;
-      padding: 6px;
-      padding-bottom: 6.5px;
-      padding-left: 8px;
-      padding-right: 8px;
-      border-top-left-radius: 5px;
-      border-bottom-left-radius: 5px;
+      padding: 7px;
+      margin-right: 0px;
+      border-top-left-radius: 4px;
+      border-bottom-left-radius: 4px;
       background-color: #0073ea;
+      transition: background-color 0.1s ease-in-out;
     }
+
     & .arrow-down {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 31px;
+      width: 27px;
       background-color: #0073ea;
-      border-top-right-radius: 5px;
-      border-bottom-right-radius: 5px;
-      border-left: 1px solid #5e4f4f;
-      padding: 1px;
-      padding-bottom: 0px;
-      padding-top: 6px;
+      border-top-right-radius: 4px;
+      border-bottom-right-radius: 4px;
+      border-left: 1px solid #0060B9;
+      transition: background-color 0.1s ease-in-out;
+
+      i{
+        font-size: 0.75rem;
+      }
+
     }
     & > div:hover {
       cursor: pointer;
@@ -126,27 +147,48 @@ header.board-details-header {
   }
   & > .choice-div {
     color: #323338;
-    padding: 4px;
-    border-radius: 2.5px;
+    padding: 6px 16px 6px 8px;
+    border-radius: 4px;
     cursor: pointer;
+    transition: background-color 0.1s ease-in-out;
+
+    svg{
+      width: 20px;
+      height: 20px;
+    }
+
     & small {
-      font-size: 13px;
+      margin-left: 4px;
+      font-size: 0.85rem;
     }
     &:hover {
-      background-color: rgba(103, 104, 121, 0.1);
+      background-color: #F0F0F1;
     }
   }
 }
 .filter-input {
-  padding-left: 5px;
+  padding-left: 7px;
   border: 1px solid #0073ea;
   border-radius: 5px;
-  height: 31px;
+  height: 32px;
+
+  svg{
+    width: 20px;
+    height: 20px;
+  }
+
+  .filter-modal{
+    svg{
+      width: 17px;
+      height: 17px;
+    }
+  }
+
   & > input {
     all: unset; /* Resets all default styles for the input */
     box-shadow: none;
     border: 2px solid transparent; /* Remove black border */
-    height: 30px;
-    font-size: 16px;
+    font-size: 0.85rem;
+
   }
 }

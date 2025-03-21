@@ -37,7 +37,7 @@ function App() {
             <Route path={`/${name}s-team.someday.com/boards/:boardId`} element={<SomedayIndex isBoard={true} />} />
             <Route path={`/${name}s-team.someday.com/board`} element={<SomedayIndex />} />
             <Route path={`/board/kanban/:boardId`} element={<KanbanIndex />} />
-            <Route path={`/board/someday-kanban/:boardId`} element={<MondayKanbanIndex />} />
+            <Route path={`/${name}s-team.someday.com/boards/:boardId/views`} element={<MondayKanbanIndex />} />
             <Route path="/abc" element={<UserInfo userInfo={loggedInUser} />} />
           </Routes>
         )}

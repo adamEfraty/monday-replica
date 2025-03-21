@@ -12,6 +12,8 @@ import {
 import { boardService } from "../services/board";
 import { useNavigate } from "react-router";
 import { utilService } from "../services/util.service";
+import { getSvg } from "../services/svg.service";
+
 export function BoardDetailsHeader({
   handleAddTask,
   boardTitle,
@@ -24,11 +26,13 @@ export function BoardDetailsHeader({
   const loggedInUser = useSelector((state) => state.userModule.user) || null;
   const [filterByToEdit, setFilterByToEdit] = useState(filterBy);
   const [filterState, setFilterState] = useState(boardService.getFilterState());
+  const [inKanban, setInKanban] = useState(null)
 
   const navigate = useNavigate();
   useEffect(() => {
     const filter = getFilterContext();
     setFilterByToEdit(filter);
+    setInKanban(isInKanban())
   }, []);
 
   useEffect(() => {
@@ -51,6 +55,12 @@ export function BoardDetailsHeader({
     boardService.setFilterStateSession(state);
     !filterState == state && setFilterState(state);
   }
+
+  function isInKanban() {
+    console.log('window.location.hash', window.location.hash)
+    return window.location.hash.endsWith('views');
+  }
+
   return (
     <header className="board-details-header">
       <div className="white-cover" />
@@ -61,28 +71,42 @@ export function BoardDetailsHeader({
       </div>
       <section className="board-nav">
         <div>
-          <div onClick={() => navigate(`/${name}s-team.someday.com/boards/${boardId}`)}>
-            <HomeIcon style={iconStyle} />
+          <div className="nav-area" onClick={() => 
+          navigate(`/${name}s-team.someday.com/boards/${boardId}`)}>
             <h5>Main Table</h5>
+          { !inKanban && 
+            <div>
+              <HorizDotsIcon style={iconStyle} />
+              <hr className="highlight"/> 
+            </div>
+          }
+
           </div>
-          <HorizDotsIcon style={iconStyle} />
-          <hr className="highlight" />
         </div>
         {/* <div onClick={() => navigate(`/board/kanban/${boardId}`)}>
           go to kanban
         </div> */}
-        <div onClick={() => navigate(`/board/someday-kanban/${boardId}`)}>
-          kanban
+        <div className="nav-area" onClick={() =>
+          navigate(`/${name}s-team.someday.com/boards/${boardId}/views`)}>
+          <h5>Kanban</h5>
+
+          { inKanban && 
+          <div>
+            <HorizDotsIcon style={iconStyle} />
+            <hr className="highlight"/> 
+          </div>
+          }
+
         </div>
       </section>
       <hr className="main-hr" />
       <section className="board-header-actions">
         <div className="newTask-button">
           <div className="new-task-button" onClick={() => handleAddTask()}>
-            New Item
+            New task
           </div>
           <div className="arrow-down">
-            <ArrowDownIcon style={{ ...iconStyle, height: 20 }} />
+            <i class="fa-solid fa-angle-down"></i>
           </div>
         </div>
         <div
@@ -95,13 +119,14 @@ export function BoardDetailsHeader({
           className={filterState ? "filter-input" : "choice-div"}
           tabIndex={0} // Make the div focusable
         >
-          <SearchIcon style={{ width: 22, height: 22 }} />
+          {getSvg('search-icon')}
           {filterState ? (
             <>
               <input
                 onChange={handleFilterChange}
                 type="text"
                 value={filterByToEdit}
+                placeholder='Search this board'
                 autoFocus
               />
               <FilterModal

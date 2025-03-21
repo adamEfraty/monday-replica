@@ -27,15 +27,13 @@ export function FilterModal({ boardId, boardColumnsFilter, handleFilteredLabel }
     setFilterBy(value);
   }
 
-  useEffect(() => console.log(boardColumnsFilter))
-
   return (
     <div
       className="filter-modal"
       style={{ cursor: "pointer", paddingRight: 6, paddingTop: 4 }}
     >
       <section onClick={modalToggle} className="filter-modal">
-        <OptionsIcon style={{ width: 24, height: 24 }} />
+        {getSvg('settings-icon')}
       </section>
       {modal && (
         <div className="filter-modal-content">
