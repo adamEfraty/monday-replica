@@ -124,7 +124,7 @@ export const GroupPreview = ({
     setGroupTitle(newGroupTitle)
   }
 
-  function onSetHoveredTask(taskId){
+  function onSetHoveredTask(taskId) {
     setHoveredTask(taskId)
   }
 
@@ -235,7 +235,7 @@ export const GroupPreview = ({
                             isDraggingTask={isDraggingTask}
                             onSetHoveredTask={onSetHoveredTask}
                             isHover={hoveredTask === task.id}
-                          />                        
+                          />
                         </div>
                       )}
                     </Draggable>
@@ -299,9 +299,11 @@ export const GroupPreview = ({
           handelGroupTitleChange={handelGroupTitleChange}
           toggleConfirmationModal={toggleConfirmationModal}
           handleDelete={handleDelete}
-          dragHandleProps={provided.dragHandleProps} 
+          dragHandleProps={provided.dragHandleProps}
           labels={labels}
-          progress={progress}/>}
+          progress={progress}
+          isDragging={isDragging} />}
+
 
       </section >
     </div >
