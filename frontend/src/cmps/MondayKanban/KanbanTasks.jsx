@@ -78,9 +78,7 @@ export function KanbanTasks({ title, task, onUpdateTaskTitle, onRemove }) {
                     <IconButton size="small" className="task-icon">
                         {getSvg("chat-icon")}
                     </IconButton>
-                    <IconButton size="small" className="task-icon">
-                        {getSvg("drag-handle")}
-                    </IconButton>
+
                 </div>
             </div>
         </div>
