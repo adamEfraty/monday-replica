@@ -16,6 +16,19 @@ export function getSvg(svgName) {
         </svg>
       );
 
+    case "black-arrow":
+      return (
+        <svg
+        width="18"
+        height="9"
+        viewBox="0 0 24 12"
+        xmlns="http://www.w3.org/2000/svg"
+        style={{ transform: 'scaleY(-1)' }}
+        >
+          <polygon points="0,12 24,12 12,0" fill="#333333" />
+        </svg>
+      );
+
     case "trash":
       return (
         <svg width="24" height="18">
