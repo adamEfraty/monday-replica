@@ -49,7 +49,7 @@ export const GroupPreview = ({
   isDraggingTask,
   labelsLength,
   provided,
-
+  toggleConfirmationModal
 }) => {
   const [expanded, setExpanded] = useState(true);
   const [groupTitle, setGroupTitle] = useState(group.title);
@@ -143,6 +143,7 @@ export const GroupPreview = ({
               handleClick2={handleClick2}
               id2={id2}
               open2={open2}
+              toggleConfirmationModal={toggleConfirmationModal}
               anchorE2={anchorE2}
               handleClose2={handleClose2}
               titleHead={titleHead}
@@ -152,11 +153,9 @@ export const GroupPreview = ({
               handleGroupNameChange={handleGroupNameChange}
               handelExpandedChange={handelExpandedChange}
               handelGroupTitleChange={handelGroupTitleChange}
-              handleDelete={handleDelete}
               isMiniGroup={false}
               isFixed={true}
               dragHandleProps={provided.dragHandleProps}
-
             />
           </div>
         </>
@@ -169,6 +168,7 @@ export const GroupPreview = ({
         group={group}
         groupTitle={groupTitle}
         handleClick2={handleClick2}
+        toggleConfirmationModal={toggleConfirmationModal}
         id2={id2}
         open2={open2}
         anchorE2={anchorE2}
@@ -180,7 +180,6 @@ export const GroupPreview = ({
         handleGroupNameChange={handleGroupNameChange}
         handelExpandedChange={handelExpandedChange}
         handelGroupTitleChange={handelGroupTitleChange}
-        handleDelete={handleDelete}
         isMiniGroup={false}
         isFixed={false}
         dragHandleProps={provided.dragHandleProps}
@@ -222,9 +221,10 @@ export const GroupPreview = ({
                             labels={labels}
                             loggedinUser={loggedinUser}
                             onTaskUpdate={onTaskUpdate}
-                            removeTask={removeTask}
+                            toggleConfirmationModal={toggleConfirmationModal}
                             boardId={boardId}
                             users={users}
+                            removeTask={removeTask}
                             chatTempInfoUpdate={chatTempInfoUpdate}
                             openChat={openChat}
                             checkedBoxes={checkedBoxes}
@@ -297,6 +297,7 @@ export const GroupPreview = ({
           handleGroupNameChange={handleGroupNameChange}
           handelExpandedChange={handelExpandedChange}
           handelGroupTitleChange={handelGroupTitleChange}
+          toggleConfirmationModal={toggleConfirmationModal}
           handleDelete={handleDelete}
           dragHandleProps={provided.dragHandleProps} 
           labels={labels}
@@ -306,4 +307,3 @@ export const GroupPreview = ({
     </div >
   );
 };
-

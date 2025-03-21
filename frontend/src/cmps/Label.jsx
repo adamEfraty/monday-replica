@@ -75,7 +75,7 @@ export function Label({ label, labelId, boardId, groupId, isFixed, isLast, isBor
     }, [modal])
 
     function onDeleteLable() {
-        toggleConfirnationModal()
+        toggleConfirmationModal()
         setTimeout(() => deleteLable(boardId, label.id), 50)
     }
 
@@ -163,7 +163,7 @@ export function Label({ label, labelId, boardId, groupId, isFixed, isLast, isBor
         setIsDragging(true)
     }
 
-    function toggleConfirnationModal() {
+    function toggleConfirmationModal() {
 
         const animationDuration = 0.2
         closeModal(modalId)
@@ -258,7 +258,7 @@ export function Label({ label, labelId, boardId, groupId, isFixed, isLast, isBor
                     onPointerDown={e => e.stopPropagation()}
                     style={isLast ? {left: '-205px'} : {}}>
 
-                    <button onClick={toggleConfirnationModal}>
+                    <button onClick={toggleConfirmationModal}>
                         {getSvg('trash2')}
                         Delete
                     </button>
@@ -275,7 +275,7 @@ export function Label({ label, labelId, boardId, groupId, isFixed, isLast, isBor
                 ReactDOM.createPortal(
                     <DeleteLabelConfirmation
                         onDeleteLable={onDeleteLable}
-                        toggleConfirnationModal={toggleConfirnationModal}
+                        toggleConfirmationModal={toggleConfirmationModal}
                         confirmationRef={confirmationRef}
                         animationActive={animationActive}
                         labelName={label.name} />

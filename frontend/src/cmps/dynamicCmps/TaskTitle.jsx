@@ -203,7 +203,7 @@ useEffect(() => {
         outlineOffset: (modal || onEditMode) ? '-1px' : ''
       }}>
 
-        {!isDraggingTask &&
+        {!isDraggingTask ?
           <div className="white-cover">
             <div ref={dotsRef} className="dots"
               style={{
@@ -214,6 +214,7 @@ useEffect(() => {
               {getSvg('horizontal-dots')}
             </div>
           </div>
+          : null
         }
 
 
