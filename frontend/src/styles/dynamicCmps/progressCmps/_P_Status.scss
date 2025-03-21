@@ -12,13 +12,15 @@
       border: none;
   
       .color-block {
+        cursor: pointer;
         position: relative;
         padding: 0px;
         height: 25px;
-        transition: height 0.15s ease;
+        transition: height 0.15s ease, width 0.25s ease-in-out;
   
         &:hover{
           height: 30px;
+          border-radius: 2px;
         }
   
         .color-block-modal{
