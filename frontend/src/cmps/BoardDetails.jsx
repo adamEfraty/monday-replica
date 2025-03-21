@@ -6,6 +6,8 @@ import {
   replaceLabels,
   setFilteredColumns,
   updateTask,
+  closeModal,
+  removeTask,
 } from "../store/actions/boards.actions";
 import { SelectedTasksModal } from "./dynamicCmps/modals/SelectedTasksModal";
 import { useSelector } from "react-redux";
@@ -21,23 +23,25 @@ import { setCheckBox } from "../store/actions/boards.actions";
 import { setMasterCheckbox } from "../store/actions/boards.actions";
 import { LabelsGrid } from "./LabelsGrid";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import { DeleteTaskConfirmation } from "./dynamicCmps/modals/DeleteTaskConfirmation";
+import ReactDOM from "react-dom";
 
 const BoardDetails = () => {
   const loggedInUser = useSelector((state) => state.userModule.user);
   const { boardId } = useParams();
   const navigate = useNavigate();
-  const checkedBoxes = useSelector(state => state.boardModule.checkedBoxes);
-  const checkedGroups = useSelector(state => state.boardModule.checkedGroups);
-  const boards = useSelector(state => state.boardModule.boards);
+  const checkedBoxes = useSelector((state) => state.boardModule.checkedBoxes);
+  const checkedGroups = useSelector((state) => state.boardModule.checkedGroups);
+  const boards = useSelector((state) => state.boardModule.boards);
   const filteredColumns = useSelector(
-    state => state.boardModule.filteredColumns
+    (state) => state.boardModule.filteredColumns
   );
   const [boardColumnsFilter, setBoardColumnsFilter] = useState({
     id: "",
     labels: [],
   });
   const [currentBoard, setcurrentBoard] = useState(
-    boards.find(board => board._id === boardId)
+    boards.find((board) => board._id === boardId)
   );
 
   const loggedinUser = useSelector((state) => state.userModule.user);
@@ -48,11 +52,14 @@ const BoardDetails = () => {
 
   const boardDetailsRef = useRef(null);
   const [boardScroll, setBoardScroll] = useState(0);
+  const [animationActive, setAnimationActive] = useState(false);
   const [goupTitlesYPosition, setGoupTitlesYPosition] = useState({});
   const [fixedGroup, setFixedGroup] = useState(null);
 
   const [expandedGroupsId, setExpandedGroupsId] = useState([]);
 
+  const [deleteConfirmationModal, setDeleteConfirmationModal] = useState(false);
+  const [deleteConfirmationData, setDeleteConfirmationData] = useState("");
   const [isDragging, setIsDragging] = useState(false);
   const [isDraggingTask, setIsDraggingTask] = useState(false);
   const [allTasks, setAllTasks] = useState(
@@ -61,8 +68,13 @@ const BoardDetails = () => {
     )
   );
 
+  useEffect(() => {
+    console.log(deleteConfirmationData);
+  }, [deleteConfirmationData]);
+
   const [labelsLength, setLabelsLength] = useState();
   const [zoomLevel, setZoomLevel] = useState(window.devicePixelRatio);
+  const confirmationRef = useRef(null);
 
   useEffect(() => {
     const index = boards.findIndex((board) => board._id === boardId);
@@ -202,6 +214,7 @@ const BoardDetails = () => {
   //...............................
 
   function handleAddGroup() {
+    console.log('group')
     addGroup(boardId);
   }
 
@@ -223,7 +236,7 @@ const BoardDetails = () => {
   const progress = ["priority", "status", "members", "date"];
 
   function handleCheckBoxClick(props) {
-    console.log(props)
+    console.log(props);
     if (props.groupId) {
       const { groupId, taskId } = props;
       setCheckBox(groupId, taskId);
@@ -234,7 +247,13 @@ const BoardDetails = () => {
   }
 
   async function handleDeleteTasks() {
+    console.log(deleteConfirmationData);
     await removeTasks(currentBoard._id, checkedBoxes);
+  }
+
+  async function handleDeleteTask(boardId, groupId, taskId) {
+    console.log(deleteConfirmationData);
+    await removeTask(boardId, groupId, taskId);
   }
 
   function handleAddTask(group = null, taskTitle = "New Task") {
@@ -257,7 +276,7 @@ const BoardDetails = () => {
     }
   }
 
-  function handleDelete(groupId, boardId) {
+  function handleDeleteGroup(groupId, boardId) {
     removeGroup(boardId, groupId);
   }
 
@@ -358,6 +377,12 @@ const BoardDetails = () => {
     }
   };
 
+  function confirmationAnimation(isEnter, duration) {
+    if (!confirmationRef.current) return;
+    const animation = isEnter ? "fadeInDown" : "fadeOutUp";
+    utilService.animateCSS(confirmationRef.current, animation, duration);
+  }
+
   function updateFixedGroup(groupId, yPos) {
     setGoupTitlesYPosition((prev) => ({ ...prev, [groupId]: yPos }));
     let groupIdToFixed = "";
@@ -388,6 +413,37 @@ const BoardDetails = () => {
       expandedGroupsId &&
       expandedGroupsId.some((groupId) => groupId === fixedGroup.id)
     );
+  }
+
+  function toggleConfirmationModal(
+    modalId = null,
+    type = null,
+    boardId = null,
+    groupId = null,
+    taskId = null
+  ) {
+    console.log("im here");
+    const animationDuration = 0.2;
+    if (modalId) closeModal(modalId);
+    console.log(type, deleteConfirmationModal);
+    if (deleteConfirmationModal) {
+      confirmationAnimation(false, animationDuration);
+      setTimeout(() => {
+        setDeleteConfirmationModal((prev) => !prev);
+      }, animationDuration * 500);
+    } else {
+      setAnimationActive(true);
+      if (type === "task" || type === "group") {
+        setDeleteConfirmationData({ type: type, boardId, groupId, taskId });
+      } else if (type === "tasks") {
+        setDeleteConfirmationData({ type: type });
+      }
+      setDeleteConfirmationModal((prev) => !prev);
+      setTimeout(() => {
+        confirmationAnimation(true, animationDuration);
+        setAnimationActive(false);
+      }, 10);
+    }
   }
 
   return (
@@ -469,7 +525,7 @@ const BoardDetails = () => {
                             handleCheckBoxClick={handleCheckBoxClick}
                             handleAddTask={handleAddTask}
                             handleGroupNameChange={handleGroupNameChange}
-                            handleDelete={handleDelete}
+                            toggleConfirmationModal={toggleConfirmationModal}
                             boardId={boardId}
                             users={users}
                             chatTempInfoUpdate={chatTempInfoUpdate}
@@ -500,6 +556,9 @@ const BoardDetails = () => {
             <SelectedTasksModal
               boardId={boardId}
               checkedTasks={checkedBoxes}
+              toggleConfirmationModal={() =>
+                toggleConfirmationModal(null, "tasks")
+              }
               handleDeleteTasks={handleDeleteTasks}
             />
           )}
@@ -527,7 +586,36 @@ const BoardDetails = () => {
           </section>
         ))
       )}
-      {/* </section> */}
+      {deleteConfirmationModal &&
+        ReactDOM.createPortal(
+          <DeleteTaskConfirmation
+            onDelete={() => {
+              deleteConfirmationData.type === "tasks"
+                ? handleDeleteTasks()
+                : deleteConfirmationData.type === "task"
+                ? 
+                    handleDeleteTask(
+                      deleteConfirmationData.boardId,
+                      deleteConfirmationData.groupId,
+                      deleteConfirmationData.taskId
+                    )
+                : deleteConfirmationData.type === "group"
+                ? 
+                    handleDeleteGroup(
+                      deleteConfirmationData.groupId,
+                      deleteConfirmationData.boardId
+                    )
+                : null;
+              toggleConfirmationModal();
+            }}
+            toggleConfirmationModal={toggleConfirmationModal}
+            confirmationRef={confirmationRef}
+            animationActive={animationActive}
+            type={deleteConfirmationData.type}
+          />,
+
+          document.body // Appends the modal properly
+        )}
     </div>
   );
 };

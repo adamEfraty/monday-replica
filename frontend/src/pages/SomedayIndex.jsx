@@ -6,7 +6,7 @@ import { removeBoard } from "../store/actions/boards.actions";
 import { CreateBoard } from "../cmps/dynamicCmps/modals/CreateBoard";
 import { addBoard } from "../store/actions/boards.actions";
 
-export function MondayIndex({ isBoard = false }) {
+export function SomedayIndex({ isBoard = false }) {
   const user = useSelector((state) => state.userModule.user);
   const boards = useSelector((state) => state.boardModule.boards);
   const addBoardModalState = useSelector(

@@ -15,11 +15,10 @@ export function GroupTitle({
   handleGroupNameChange,
   handelExpandedChange,
   handelGroupTitleChange,
-  handleDelete,
   isMiniGroup,
   isFixed,
   dragHandleProps,
-
+  toggleConfirmationModal
 }) {
 
   const [isHovered, setIsHovered] = useState(false)
@@ -104,10 +103,10 @@ export function GroupTitle({
       : openModal(editModalId)
   }
 
-  function onDelete() {
-    handleDelete(group.id, boardId)
-    closeModal(editModalId)
-  }
+  // function onDelete() {
+  //   handleDelete(group.id, boardId)
+  //   closeModal(editModalId)
+  // }
 
   function onOpenColorModal() {
     setOnEditMode(true)
@@ -193,7 +192,7 @@ export function GroupTitle({
       <EditGroupTitleModal
         editModal={editModal}
         editModalRef={editModalRef}
-        onDelete={onDelete}
+        toggleConfirmationModal={() => toggleConfirmationModal(editModalId, "group", boardId, group.id)}
         onOpenColorModal={onOpenColorModal}
         onRenameGroup={onRenameGroup}
       />

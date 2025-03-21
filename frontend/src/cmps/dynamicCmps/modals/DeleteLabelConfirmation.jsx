@@ -2,7 +2,7 @@ import { useRef } from "react";
 
 
 export function DeleteLabelConfirmation({ onDeleteLable, 
-    toggleConfirnationModal, 
+    toggleConfirmationModal, 
     confirmationRef, 
     animationActive, 
     labelName }) {
@@ -14,13 +14,13 @@ export function DeleteLabelConfirmation({ onDeleteLable,
             className="delete-label-confirmation" 
             ref={confirmationRef}>
                 <div className="upper-modal">
-                    <button onClick={toggleConfirnationModal}>×</button>
+                    <button onClick={toggleConfirmationModal}>×</button>
                     <h4>{`Delete ${labelName} column?`}</h4>
                     <p>We'll keep it in your trash for 30 days, and then permanently delete it.</p>
                 </div>
 
                 <div className="lower-modal">
-                    <button onClick={toggleConfirnationModal} className="cancel">Cancel</button>
+                    <button onClick={toggleConfirmationModal} className="cancel">Cancel</button>
                     <button onClick={onDeleteLable} className="delete">Delete</button>
                 </div>
                 
