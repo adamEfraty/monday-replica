@@ -54,22 +54,6 @@ export function TaskTitle({
 
   const isChecked = checkedBoxes.some((subArr) => subArr[1] == cellInfo.taskId)
 
-  function handleClickOutsideInput(event) {
-    if (inputRef.current &&!inputRef.current.contains(event.target))
-      toggleEditMode()
-}
-
-useEffect(() => {
-    if (onEditMode) {
-        document.addEventListener('mousedown', handleClickOutsideInput)
-    } else {
-        document.removeEventListener('mousedown', handleClickOutsideInput)
-    }
-    return () => {
-        document.removeEventListener('mousedown', handleClickOutsideInput)
-    }
-}, [onEditMode]);
-
 
   useEffect(() => {
     // in this way the modal wont show itself after refresh
@@ -203,7 +187,7 @@ useEffect(() => {
         outlineOffset: (modal || onEditMode) ? '-1px' : ''
       }}>
 
-        {!isDraggingTask ?
+        {!isDraggingTask &&
           <div className="white-cover">
             <div ref={dotsRef} className="dots"
               style={{
@@ -214,7 +198,6 @@ useEffect(() => {
               {getSvg('horizontal-dots')}
             </div>
           </div>
-          : null
         }
 
 
@@ -223,13 +206,13 @@ useEffect(() => {
             <input
               type="checkbox"
               checked={isChecked}
-              onChange={() => handleCheckBoxClick({groupId: group.id, taskId: cellInfo.taskId})}
+              onChange={() => handleCheckBoxClick(group.id, cellInfo.taskId)}
               style={{backgroundColor: isChecked ? `#0073EA` : 'white',
                 border: isChecked && 'none',
               }}
             />
             <div className="check-icon"
-            onClick={() => handleCheckBoxClick({groupId: group.id, taskId: cellInfo.taskId})}>
+            onClick={() => handleCheckBoxClick(group.id, cellInfo.taskId)}>
               {
                 isChecked && getSvg('check')
               }

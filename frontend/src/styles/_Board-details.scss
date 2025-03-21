@@ -313,21 +313,25 @@ div {
 
 .modal-save-btn {
   position: sticky;
-  left: 0px;
-  margin-top: 20px;
-  background-color: #67bfec;
-  color: white;
+  left: 10px;
+  display: flex;
+  align-items: center;
+  color: #323338;
   border: none;
-  padding: 8px 16px;
-  width: 10rem;
-
-  font-size: 14px;
+  padding: 6px 8px 6px 8px;
+  background-color: white;
+  border: solid #C3C6D4 1px;
+  font-family: "Quicksand", serif;
+  font-weight: 500;
+  font-size: 0.85rem;
   cursor: pointer;
   border-radius: 4px;
-  transition: background-color 0.3s;
-
   &:hover {
-    background-color: #2d98ce;
+    background-color: #F0F0F1;
+  }
+
+  svg{
+    margin-right: 5px;
   }
 }
 
