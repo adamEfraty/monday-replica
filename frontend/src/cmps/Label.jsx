@@ -212,7 +212,7 @@ export function Label({
         className="label"
         style={{
           backgroundColor:
-            hoverLable || modal || isDragging ? "#F5F6F8" : "white",
+            hoverLable || modal || isDragging || onEditMode ? "#F5F6F8" : "white",
           borderBottom: isFixed
             ? isBordScrollOnZero
               ? ""

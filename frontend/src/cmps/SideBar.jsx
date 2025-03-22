@@ -47,11 +47,17 @@ export function SideBar({ boards, user, onRemoveBoard }) {
 
   const iconStyle = { width: 22, height: 22 };
 
+  function isInKanban() {
+    console.log('window.location.hash', window.location.hash)
+    return window.location.hash.endsWith('views');
+  }
+
   return (
     <nav className="side-bar">
       {/* Home Section */}
       <section
         className="sidebar-home"
+        style={{backgroundColor:  window.location.hash.endsWith('.com') ? '#CCE5FF' : ''}}
         onClick={() =>
           onChangeAdressOnce(
             `/${utilService.getNameFromEmail(user.email)}s-team.someday.com`
@@ -91,24 +97,26 @@ export function SideBar({ boards, user, onRemoveBoard }) {
             <li key={board._id}>
               <div
                 className="sidebar-board"
+                style={{backgroundColor:  window.location.hash.endsWith(board._id) || 
+                  window.location.hash.endsWith(`${board._id}/views`) ? '#CCE5FF' : ''}}
                 onClick={() => {
                   onChangeAdressOnce(
                     `/${utilService.getNameFromEmail(
                       user.email
                     )}s-team.someday.com/boards/${board._id}`
-                  );
+                  )
                 }}
               >
                 <section>
-                  <BoardIcon style={iconStyle} />
+                  {getSvg('board-icon')}
                   {/* Board Title Navigation */}
                   <h3>{board.title}</h3>
                 </section>
-                <HorizDotsIcon
-                  onClick={(event) => handleDotsClick(event, board._id)}
-                  className="horizontal-dots-icon"
-                  style={iconStyle}
-                />
+
+                <div className="horizontal-dots-icon"
+                onClick={(event) => handleDotsClick(event, board._id)}>
+                  {getSvg('horizontal-dots')}
+                </div>
               </div>
             </li>
           ))}
@@ -164,12 +172,14 @@ export function SideBar({ boards, user, onRemoveBoard }) {
               <li key={board._id}>
                 <div
                   className="sidebar-board"
+                  style={{backgroundColor:  window.location.hash.endsWith(board._id) || 
+                    window.location.hash.endsWith(`${board._id}/views`) ? '#CCE5FF' : ''}}
                   onClick={() => {
                     onChangeAdressOnce(
                       `/${utilService.getNameFromEmail(
                         user.email
                       )}s-team.someday.com/boards/${board._id}`
-                    );
+                    )
                   }}
                 >
                   <section>
@@ -178,17 +188,10 @@ export function SideBar({ boards, user, onRemoveBoard }) {
                     <h3>{board.title}</h3>
                   </section>
 
-                  {/* <button
-                className="options-menu"
-                onClick={() => onRemoveBoard(board._id)}
-              >
-                X
-              </button> */}
-                  <HorizDotsIcon
-                    onClick={(event) => handleDotsClick(event, board._id)}
-                    className="horizontal-dots-icon"
-                    style={iconStyle}
-                  />
+                  <div className="horizontal-dots-icon"
+                  onClick={(event) => handleDotsClick(event, board._id)}>
+                    {getSvg('horizontal-dots')}
+                  </div>
                 </div>
               </li>
             ))}
