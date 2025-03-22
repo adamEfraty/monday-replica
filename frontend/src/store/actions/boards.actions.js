@@ -194,10 +194,13 @@ export async function addItemKanban(
 }
 
 export async function removeGroup(boardId, groupId) {
+  const prevBoard = await boardService.getById(boardId);
   await boardService.removeGroupFromBoard(boardId, groupId);
 
   const board = await boardService.getById(boardId);
   if (!board) throw new Error("Board not found");
+
+  showSuccessMsg("Removed group", prevBoard);
 
   const updatedBoard = {
     ...board,
@@ -232,8 +235,14 @@ export async function updateGroup(boardId, groupId, updatedGroupData) {
 }
 
 export async function removeTasks(boardId, tasksArr) {
+  const prevBoard = await boardService.getById(boardId);
   const board = await boardService.removeTasksFromGroup(boardId, tasksArr);
   if (!board) return;
+
+  showSuccessMsg(
+    `Removed ${tasksArr.length} task${tasksArr.length > 1 ? "s" : ""}`,
+    prevBoard
+  );
 
   const updatedBoard = {
     ...board,
@@ -275,12 +284,15 @@ export function setCheckBox(groupId, taskId) {
   });
 }
 export async function removeTask(boardId, groupId, taskId) {
+  const prevBoard = await boardService.getById(boardId);
   const board = await boardService.removeTaskFromGroup(
     boardId,
     groupId,
     taskId
   );
   if (!board) throw new Error("Board not found");
+
+  showSuccessMsg(`Removed 1 task`, prevBoard);
 
   const updatedBoard = {
     ...board,
@@ -555,7 +567,7 @@ export async function duplicateTasks(boardId, tasksToDuplicate) {
   });
   showSuccessMsg(
     `Duplicated ${tasksToDuplicate.length} task${
-      tasksToDuplicate.length > 1 ? "'s" : ""
+      tasksToDuplicate.length > 1 ? "s" : ""
     }`,
     board
   );
