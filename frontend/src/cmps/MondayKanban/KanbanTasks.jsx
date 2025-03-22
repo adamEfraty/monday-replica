@@ -4,7 +4,7 @@ import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import { getSvg } from "../../services/svg.service";
 import { Popover, MenuItem, Typography } from "@mui/material";
 
-export function KanbanTasks({ title, task, onUpdateTaskTitle, onRemove }) {
+export function KanbanTasks({ title, task, onUpdateTaskTitle, onRemove, groupId }) {
     const [inputValue, setInputValue] = useState(title);
     const inputRef = useRef(null);
     const spanRef = useRef(null);
@@ -42,7 +42,7 @@ export function KanbanTasks({ title, task, onUpdateTaskTitle, onRemove }) {
                         placeholder={inputValue}
                         value={inputValue}
                         onChange={(e) => setInputValue(e.target.value)}
-                        onBlur={() => onUpdateTaskTitle(inputValue, task)}
+                        onBlur={() => onUpdateTaskTitle(inputValue, task, groupId)}
                     />
                 </span>
 
@@ -66,7 +66,7 @@ export function KanbanTasks({ title, task, onUpdateTaskTitle, onRemove }) {
                             horizontal: "left",
                         }}
                     >
-                        <MenuItem onClick={() => onRemove(task)}>{getSvg('trash2')}<span style={{ marginLeft: '1rem', fontWeight: '100' }}>Delete Task </span></MenuItem>
+                        <MenuItem onClick={() => onRemove(task, groupId)}>{getSvg('trash2')}<span style={{ marginLeft: '1rem', fontWeight: '100' }}>Delete Task </span></MenuItem>
                     </Popover>
                 </div>
             </div>
