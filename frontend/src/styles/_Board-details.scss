@@ -232,12 +232,13 @@
 
 /* Labels and Progress Sections */
 
-.labels-grid div {
+.labels-grid{
   // padding: 0.7rem;
   text-align: center;
   font-weight: 500;
   border: 1px solid $table-lines-gray;
   border-left: none;
+  border-right: none;
 }
 
 div {
@@ -403,12 +404,13 @@ section.labels-grid {
 // }
 
 .label-title {
-  z-index: 1;
+  z-index: 2;
   position: sticky;
   left: 10px;
   display: flex;
   align-items: center;
   background-color: white;
+  border-right: solid $table-lines-gray 1px;
 
   .white-cover {
     position: absolute;

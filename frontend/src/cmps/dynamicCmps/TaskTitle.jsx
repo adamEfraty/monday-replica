@@ -206,13 +206,13 @@ export function TaskTitle({
             <input
               type="checkbox"
               checked={isChecked}
-              onChange={() => handleCheckBoxClick(group.id, cellInfo.taskId)}
+              onChange={() => handleCheckBoxClick({ groupId: group.id, taskId: cellInfo.taskId})}
               style={{backgroundColor: isChecked ? `#0073EA` : 'white',
                 border: isChecked && 'none',
               }}
             />
             <div className="check-icon"
-            onClick={() => handleCheckBoxClick(group.id, cellInfo.taskId)}>
+            onClick={() => handleCheckBoxClick({ groupId: group.id, taskId: cellInfo.taskId})}>
               {
                 isChecked && getSvg('check')
               }

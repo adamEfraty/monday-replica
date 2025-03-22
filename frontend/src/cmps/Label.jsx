@@ -193,12 +193,18 @@ export function Label({
     utilService.animateCSS(confirmationRef.current, animation, duration);
   }
 
+  function shortLabelText(str){
+    const sorthenStr = str.slice(0, (label.width / 8) - 7)
+    return `${sorthenStr}${(sorthenStr.length < str.length) ? '...' : ''}`
+  }
+
   return (
     <div
       ref={setNodeRef}
       style={{
         transition,
         transform: CSS.Transform.toString(transform),
+        border: 'none'
       }}
     >
       <div
@@ -210,12 +216,14 @@ export function Label({
           borderBottom: isFixed
             ? isBordScrollOnZero
               ? ""
-              : "solid 2px #D0D4E4"
+              : "solid 1px #D0D4E4"
             : "",
         }}
       >
+        <div className="drag-label" {...attributes} {...listeners}/>
+
         <div
-          className="drag-label"
+          className="resize-label"
           onPointerDown={(e) => e.stopPropagation()}
           onMouseDown={handleMouseDown}
           style={{
@@ -225,21 +233,13 @@ export function Label({
         ></div>
 
         {!onEditMode ? (
-          <section
-            style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr" }}
-          >
-            <div
-              {...attributes}
-              {...listeners}
-              style={{ border: "none" }}
-            ></div>
-
+          <section className="text-area">
             <i
               ref={buttonRef}
               className="fa-solid fa-ellipsis"
               onClick={modalToggle}
             ></i>
-            <p onClick={toggleEditMode}>{label.name}</p>
+            <p onClick={toggleEditMode}>{shortLabelText(label.name)}</p>
           </section>
         ) : (
           <input

@@ -237,8 +237,6 @@ const BoardDetails = () => {
   const progress = ["priority", "status", "members", "date"];
 
   function handleCheckBoxClick(props) {
-    console.log('handleCheckBoxClick')
-    console.log('props', props);
     if (props.groupId) {
       const { groupId, taskId } = props;
       setCheckBox(groupId, taskId);
