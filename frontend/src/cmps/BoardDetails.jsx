@@ -238,7 +238,7 @@ const BoardDetails = () => {
 
   function handleCheckBoxClick(props) {
     console.log('handleCheckBoxClick')
-    console.log(props);
+    console.log('props', props);
     if (props.groupId) {
       const { groupId, taskId } = props;
       setCheckBox(groupId, taskId);

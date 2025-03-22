@@ -33,13 +33,6 @@ export function AppHeader() {
         </div>
       </section>
       <section className="icons-section">
-        <NotificationsNoneIcon style={iconStyle} />
-        <InboxIcon style={iconStyle} />
-        <PersonAddAltIcon style={iconStyle} />
-        <ExtensionIcon style={iconStyle} />
-        <div className="vertical-line"></div> {/* Vertical line separator */}
-        <SearchIcon style={iconStyle} />
-        <QuestionMarkIcon style={iconStyle} />
         <div className="account-logo" onClick={onLogOut}>
           <img
             sizes="10px"

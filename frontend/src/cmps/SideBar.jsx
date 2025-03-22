@@ -51,26 +51,20 @@ export function SideBar({ boards, user, onRemoveBoard }) {
     <nav className="side-bar">
       {/* Home Section */}
       <section
+        className="sidebar-home"
         onClick={() =>
           onChangeAdressOnce(
             `/${utilService.getNameFromEmail(user.email)}s-team.someday.com`
           )
         }
       >
-        <HomeIcon className="side-bar-icon home" style={iconStyle} />
+        {getSvg('home-icon')}
         <p>Home</p>
       </section>
-      {/* My Work Section */}
-      <section>
-        <MyWorkIcon className="side-bar-icon myWork" style={iconStyle} />
-        <p>My Work</p>
-      </section>
-
-      <hr />
 
       {/* Favorites Section */}
-      <section className="favorites">
-        <div>
+      <section className="favorites" onClick={() => setFavoritesOpen(!favoritesOpen)}>
+        <div className="left-part">
           <SvgCmp
             type={!favoritesOpen ? `empty-rating-icon` : `full-rating-icon`}
             className="side-bar-icon favorites"
@@ -78,11 +72,16 @@ export function SideBar({ boards, user, onRemoveBoard }) {
           />
           <p>Favorites</p>
         </div>
-        {favoritesOpen ? (
-          <ArrowUpIcon onClick={() => setFavoritesOpen(!favoritesOpen)} />
-        ) : (
-          <ArrowDownIcon onClick={() => setFavoritesOpen(!favoritesOpen)} />
-        )}
+        {favoritesOpen ? 
+          <div style={{transform: 'rotate(-90deg)'}}>
+            {getSvg('group-title-arrow')}
+          </div>
+          
+          : 
+          <div style={{transform: 'rotate(90deg)'}}>
+            {getSvg('group-title-arrow')}
+          </div>
+        }
       </section>
 
       {/* Workspaces Section */}
@@ -119,22 +118,26 @@ export function SideBar({ boards, user, onRemoveBoard }) {
           <hr />
           <div className="workspaces">
             <section>
-              <WorkspacesIcon
-                className="side-bar-icon work"
-                style={iconStyle}
-              />
+              {getSvg('workspaces-icon')}
               <p>Workspaces</p>
             </section>
             <div className="add-board">
               <div>
-                <h3>Main Workspace</h3>
-                <ArrowDownIcon style={iconStyle} />
+                <span className="m-icon">M</span>
+                <div className="small-house-icon">
+                  {getSvg('small-house')}
+                </div>
+                <h3>Main workspace</h3>
+
+                <div className="arrow-down-workspace">
+                  {getSvg('group-title-arrow')}
+                </div>
               </div>
               <button
                 className="add-board-button"
                 onClick={(ev) => setAnchorEl(ev.currentTarget)}
               >
-                <PlusIcon style={{ width: 28, height: 26 }} />
+                {getSvg('thin-plus')}
               </button>
               <Popover
                 id={popoverId}
@@ -170,7 +173,7 @@ export function SideBar({ boards, user, onRemoveBoard }) {
                   }}
                 >
                   <section>
-                    <BoardIcon style={iconStyle} />
+                    {getSvg('board-icon')}
                     {/* Board Title Navigation */}
                     <h3>{board.title}</h3>
                   </section>
