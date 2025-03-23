@@ -12,17 +12,20 @@
     border: none;
 
     .color-block {
+      cursor: pointer;
       position: relative;
       padding: 0px;
       height: 25px;
-      transition: height 0.15s ease;
+      transition: height 0.15s ease, width 0.25s ease-in-out;
+
 
       &:hover{
         height: 30px;
+        border-radius: 2px;
       }
 
       .color-block-modal{
-        --width: 130px;
+        --width: 140px;
         display: grid;
         align-items: center;
         justify-items: center;
@@ -40,9 +43,16 @@
 
       .modal-context{
         display: flex;
-        gap: 10px;
         color: white;
         font-size: 0.83rem;
+
+        .s-amount{
+          margin-left: 8px;
+        }
+
+        .s-precentage{
+          margin-left: 8px;
+        }
       }
 
       svg{

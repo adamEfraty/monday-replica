@@ -58,22 +58,6 @@ export function TaskTitle({
 
   const isChecked = checkedBoxes.some((subArr) => subArr[1] == cellInfo.taskId);
 
-  function handleClickOutsideInput(event) {
-    if (inputRef.current && !inputRef.current.contains(event.target))
-      toggleEditMode();
-  }
-
-  useEffect(() => {
-    if (onEditMode) {
-      document.addEventListener("mousedown", handleClickOutsideInput);
-    } else {
-      document.removeEventListener("mousedown", handleClickOutsideInput);
-    }
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutsideInput);
-    };
-  }, [onEditMode]);
-
   useEffect(() => {
     // in this way the modal wont show itself after refresh
     setTimeout(() => setOpenAnimation(false), 50);
@@ -198,15 +182,13 @@ export function TaskTitle({
 
   return (
     <>
-      <section
-        className="task-title"
-        style={{
-          backgroundColor: isSelect ? "#CCE5FF" : isHover ? "#F4F5F8" : "white",
-          outline: modal || onEditMode ? "solid 1px #0073EA" : "none",
-          outlineOffset: modal || onEditMode ? "-1px" : "",
-        }}
-      >
-        {!isDraggingTask ? (
+      <section className="task-title" 
+      style={{backgroundColor: isSelect ? '#CCE5FF' : (isHover ? '#F4F5F8' : 'white'),
+        outline: (modal || onEditMode) ? 'solid 1px #0073EA' : 'none',
+        outlineOffset: (modal || onEditMode) ? '-1px' : ''
+      }}>
+
+        {!isDraggingTask &&
           <div className="white-cover">
             <div
               ref={dotsRef}
@@ -220,31 +202,22 @@ export function TaskTitle({
               {getSvg("horizontal-dots")}
             </div>
           </div>
-        ) : null}
+        }
 
         <div className="checkbox-taskName">
           <div className="input-styles">
             <input
               type="checkbox"
               checked={isChecked}
-              onChange={() =>
-                handleCheckBoxClick({
-                  groupId: group.id,
-                  taskId: cellInfo.taskId,
-                })
-              }
-              style={{
-                backgroundColor: isChecked ? `#0073EA` : "white",
-                border: isChecked && "none",
+              onChange={() => handleCheckBoxClick({ groupId: group.id, taskId: cellInfo.taskId})}
+              style={{backgroundColor: isChecked ? `#0073EA` : 'white',
+                border: isChecked && 'none',
               }}
             />
-            <div
-              className="check-icon"
-              onClick={() =>
-                handleCheckBoxClick({
-                  groupId: group.id,
-                  taskId: cellInfo.taskId,
-                })
+            <div className="check-icon"
+            onClick={() => handleCheckBoxClick({ groupId: group.id, taskId: cellInfo.taskId})}>
+              {
+                isChecked && getSvg('check')
               }
             >
               {isChecked && getSvg("check")}

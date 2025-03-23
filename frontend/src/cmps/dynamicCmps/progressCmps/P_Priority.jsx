@@ -57,8 +57,9 @@ export function P_Priority({tasks, labelId}){
                             unit.color === modalColor &&
                             <div className="color-block-modal" style={{"--width": (unit.text === '') ? '100px' : ''}}>
                                 <div className="modal-context">
-                                    <span>{`${(unit.text !== '') ? (unit.text + ':') : ''} ${unit.number}/${tasks.length}`}</span>
-                                    <span>{`${Math.round((unit.number/tasks.length)*100)}%`}</span>
+                                    <span>{`${unit.text}`}</span>
+                                    <span className="s-amount">{`${unit.number}/${tasks.length}`}</span>
+                                    <span className="s-precentage">{`${Math.round((unit.number/tasks.length)*100)}%`}</span>
                                     {getSvg('black-arrow')}
                                 </div>
                             </div>

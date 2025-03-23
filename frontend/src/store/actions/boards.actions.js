@@ -279,7 +279,7 @@ export function setCheckBox(groupId, taskId) {
     type: SET_CHECKBOX,
     groupId,
     taskId,
-  });
+  })
 }
 export async function removeTask(boardId, groupId, taskId) {
   const prevBoard = await boardService.getById(boardId);

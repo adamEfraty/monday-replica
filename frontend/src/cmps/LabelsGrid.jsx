@@ -60,7 +60,7 @@ export function LabelsGrid({
                                 style={{
                                     borderLeft: `7px solid ${group?.color}`,
                                     borderTopLeftRadius: 5,
-                                    borderBottom: isFixed ? (isBordScrollOnZero ? "" : "solid 2px #D0D4E4") : "",
+                                    borderBottom: isFixed ? (isBordScrollOnZero ? "" : "solid 1px #D0D4E4") : "",
                                 }}
                                 key={`label-${label.id}`}
                                 className="label-title"

@@ -25,14 +25,16 @@ export function Members({ cellInfo, onTaskUpdate, users, labelWidth, isHover, se
             : openModal(cellInfo.taskId + cellInfo.labelId)
     }
 
-    function onAddMember(member) {
-        onTaskUpdate({ ...cellInfo, value: [...cellInfo.value, member] })
+    async function onAddMember(member) {
+        await onTaskUpdate({ ...cellInfo, value: [...cellInfo.value, member] })
+        bounceCell()
     }
 
-    function onRemoveMember(memberToRemove) {
+    async function onRemoveMember(memberToRemove) {
         const newMembers = cellInfo.value.filter(member =>
             memberToRemove._id !== member._id)
-        onTaskUpdate({ ...cellInfo, value: newMembers })
+        await onTaskUpdate({ ...cellInfo, value: newMembers })
+        bounceCell()
     }
 
     function handleClickOutsideModal(event) {
@@ -50,6 +52,12 @@ export function Members({ cellInfo, onTaskUpdate, users, labelWidth, isHover, se
             ('mousedown', handleClickOutsideModal)
 
     }, [modal])
+
+    function bounceCell(){
+    membersCellRef.current.style.transition = 'transform 0.05s ease-in-out'
+    membersCellRef.current.style.transform = 'scale(0.80)'
+    setTimeout(() => {membersCellRef.current.style.transform = 'scale(1)'}, 50)
+    }
 
     const numberOfMembersThatFits = Math.floor(labelWidth / 35)
     const displayedMembers = cellInfo?.value?.slice(0, numberOfMembersThatFits);

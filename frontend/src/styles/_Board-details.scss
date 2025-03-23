@@ -108,6 +108,18 @@
     cursor: pointer;
     position: absolute;
     top: 9px;
+
+    svg{
+      clip-path: inset(0 100% 0 0);
+      animation: revealClip 0.25s ease-in-out forwards;
+    }
+  }
+
+  
+  @keyframes revealClip {
+    to {
+      clip-path: inset(0 0% 0 0);
+    }
   }
 
   .group-preview{
@@ -150,7 +162,7 @@
   height: 40px;
   overflow: visible;
   left: 265px;
-  top: 201px;
+  top: 202px;
   background-color: white;
   padding-left: 32px;
 }
@@ -168,7 +180,7 @@
   position: sticky;
   z-index: 5;
   left: 0px;
-  top: 198px;
+  top: 199px;
   // width: max-content;
   // margin-top: 1px;
 }
@@ -220,12 +232,13 @@
 
 /* Labels and Progress Sections */
 
-.labels-grid div {
+.labels-grid{
   // padding: 0.7rem;
   text-align: center;
   font-weight: 500;
   border: 1px solid $table-lines-gray;
   border-left: none;
+  border-right: none;
 }
 
 div {
@@ -301,21 +314,25 @@ div {
 
 .modal-save-btn {
   position: sticky;
-  left: 0px;
-  margin-top: 20px;
-  background-color: #67bfec;
-  color: white;
+  left: 10px;
+  display: flex;
+  align-items: center;
+  color: #323338;
   border: none;
-  padding: 8px 16px;
-  width: 10rem;
-
-  font-size: 14px;
+  padding: 6px 8px 6px 8px;
+  background-color: white;
+  border: solid #C3C6D4 1px;
+  font-family: "Quicksand", serif;
+  font-weight: 500;
+  font-size: 0.85rem;
   cursor: pointer;
   border-radius: 4px;
-  transition: background-color 0.3s;
-
   &:hover {
-    background-color: #2d98ce;
+    background-color: #F0F0F1;
+  }
+
+  svg{
+    margin-right: 5px;
   }
 }
 
@@ -387,12 +404,13 @@ section.labels-grid {
 // }
 
 .label-title {
-  z-index: 1;
+  z-index: 2;
   position: sticky;
   left: 10px;
   display: flex;
   align-items: center;
   background-color: white;
+  border-right: solid $table-lines-gray 1px;
 
   .white-cover {
     position: absolute;
@@ -454,9 +472,14 @@ section.labels-grid {
   .check-icon{
     cursor: pointer;
     position: absolute;
-    top: 8px;
-    left: 9px;
+    top: 9px;
+    left: 8px;
     border: none;
+
+    svg{
+      clip-path: inset(0 100% 0 0);
+      animation: revealClip 0.25s ease-in-out forwards;
+    }
   }
 }
 
@@ -474,6 +497,7 @@ section.labels-grid {
   height: 100%;
   & h1 {
     color: #676879;
+    margin-bottom: 30px;
   }
 }
 .dots {

@@ -26,6 +26,7 @@ import { LabelsGrid } from "./LabelsGrid";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { DeleteTaskConfirmation } from "./dynamicCmps/modals/DeleteTaskConfirmation";
 import ReactDOM from "react-dom";
+import { getSvg } from "../services/svg.service";
 
 const BoardDetails = () => {
   const loggedInUser = useSelector((state) => state.userModule.user);
@@ -506,7 +507,8 @@ const BoardDetails = () => {
           </DragDropContext>
 
           <button className="modal-save-btn" onClick={handleAddGroup}>
-            +Add a new group
+            {getSvg('thin-plus-bold')}
+            Add new group
           </button>
           {checkedBoxes.length > 0 && (
             <SelectedTasksModal

@@ -48,8 +48,6 @@ export function P_Status({tasks, labelId}){
                     style={{background: unit.color, 
                         width: `${((unit.number/statuses.length)*100)}%`,
                     }}
-                    
-
                     onMouseEnter={()=>setModalColor(unit.color)}
                     onMouseLeave={()=>setModalColor(null)}>
 
@@ -57,8 +55,9 @@ export function P_Status({tasks, labelId}){
                             unit.color === modalColor &&
                             <div className="color-block-modal" style={{"--width": (unit.text === '') ? '100px' : ((unit.text === 'Working on it') ? '180px' : '')}}>
                                 <div className="modal-context">
-                                    <span>{`${(unit.text !== '') ? (unit.text + ':') : ''} ${unit.number}/${tasks.length}`}</span>
-                                    <span>{`${Math.round((unit.number/tasks.length)*100)}%`}</span>
+                                    <span>{`${unit.text}`}</span>
+                                    <span className="s-amount">{`${unit.number}/${tasks.length}`}</span>
+                                    <span className="s-precentage">{`${Math.round((unit.number/tasks.length)*100)}%`}</span>
                                     {getSvg('black-arrow')}
                                 </div>
                             </div>

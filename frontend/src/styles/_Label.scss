@@ -1,3 +1,5 @@
+@use 'vars' as *;
+
 .label {
   cursor: grab;
   position: relative;
@@ -5,8 +7,10 @@
   align-items: center;
   justify-content: center;
   height: 100%;
+  border-right: 1px solid $table-lines-gray;;
 
   input {
+    z-index: 1;
     font-family: 'Quicksand', serif;
     font-weight: 500;
     outline: none;
@@ -17,20 +21,21 @@
     border-radius: 4px;
   }
 
-  div {
-    border: solid black 10px;
-  }
-
-  p {
-    cursor: text;
-    padding: 2px 3px 2px 3px;
-    border: none;
-
-    &:hover {
-      border: solid #c3c6d4 1px;
-      border-radius: 4px;
+  .text-area{
+    z-index: 1;
+    p {
+      cursor: text;
+      padding: 2px 3px 2px 3px;
+      border: none;
+  
+      &:hover {
+        border: solid #c3c6d4 1px;
+        border-radius: 4px;
+      }
     }
+
   }
+
 
   i {
     cursor: pointer;
@@ -55,7 +60,7 @@
   .label-modal {
     display: flex;
     flex-direction: column;
-    z-index: 1;
+    z-index: 2;
     position: absolute;
     top: 3px; // temporary
     right: -205px; // temporary
@@ -85,7 +90,7 @@
     }
   }
 
-  .drag-label {
+  .resize-label {
     z-index: 1;
     cursor: col-resize;
     position: absolute;
@@ -98,5 +103,14 @@
     &:hover {
       background-color: #0073ea;
     }
+  }
+
+
+  .drag-label{
+    position: absolute;
+    top:0px;
+    left: 0px;
+    height: 100%;
+    width: 100%;
   }
 }

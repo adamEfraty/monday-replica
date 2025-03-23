@@ -33,7 +33,7 @@ export function FilterModal({ boardId, boardColumnsFilter, handleFilteredLabel }
       style={{ cursor: "pointer", paddingRight: 6, paddingTop: 4 }}
     >
       <section onClick={modalToggle} className="filter-modal">
-        <OptionsIcon style={{ width: 20, height: 22, marginBottom: 2 }} />
+        {getSvg('settings-icon')}
       </section>
       {modal && (
         <div className="filter-modal-content">
