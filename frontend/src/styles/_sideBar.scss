@@ -102,7 +102,9 @@
   }
 
   .sidebar-boardlist {
-    // margin-left: -17px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
     list-style: none;
     width: 95%;
 
@@ -141,6 +143,7 @@
         .horizontal-dots-icon {
           visibility: visible;
         }
+
       }
 
       section {
@@ -154,6 +157,43 @@
 
       p {
         border: none;
+      }
+    }
+
+    .remove-board-modal{
+      z-index: 12;
+      position: absolute;
+      top: 0px; // temporary
+      left: 237px;
+      width: 225px;
+      background-color: white;
+      padding: 7px;
+      box-shadow: 0px 4px 10px rgb(179, 179, 179);
+      border-radius: 8px;
+    }
+
+    button{
+      cursor: pointer;
+      width: 100%;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      padding-left: 10px;
+      font-family: "Quicksand", serif;
+      color: rgb(80, 80, 80);
+      font-weight: 600;
+      background-color: white;
+      height: 30px;
+      border-color: transparent;
+      border-radius: 4px;
+
+      &:hover{
+          background-color: #F0F0F1;
+      }
+
+      svg{
+        width: 18px;
+        height: 18px;
       }
     }
   }

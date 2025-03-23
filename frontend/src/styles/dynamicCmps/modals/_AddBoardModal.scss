@@ -32,6 +32,8 @@
 
         border-radius: 8px;
 
+        box-shadow: 0px 30px 30px rgba(0, 0, 0, 0.4);
+
         .close-button{
             width: 27px;
             height: 27px;
@@ -56,14 +58,14 @@
         }
 
         h1{
-            margin-bottom: 30px;
+            margin-bottom: 27px;
             font-size: 2rem;
             font-family: "Quicksand", serif;
             font-weight: 600;
         }
 
         p{
-            margin-bottom: 5px;
+            margin-bottom: 8px;
             margin-left: 0px;
             font-size: 0.8rem;
             font-weight: 550;

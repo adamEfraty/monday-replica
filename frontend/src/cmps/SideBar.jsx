@@ -1,12 +1,12 @@
 import { useNavigate, useLocation } from "react-router";
-import { addBoard } from "../store/actions/boards.actions";
+import { addBoard, removeBoard } from "../store/actions/boards.actions";
 import { utilService } from "../services/util.service";
 import { useState, useRef, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { getSvg, SvgCmp } from "../services/svg.service";
 import { useDispatch } from "react-redux";
 import { SET_MODAL } from "../store/reducer/boards.reducer";
-import { openModal, closeModal } from '../store/actions/boards.actions.js'
+import { openModal, closeModal, updateBoardFavorite } from '../store/actions/boards.actions.js'
 import { AddBoardModal } from "./dynamicCmps/modals/AddBoardModal.jsx";
 
 
@@ -15,6 +15,7 @@ export function SideBar({ boards, user, onRemoveBoard }) {
   const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const horizontalDotsRefs = useRef([])
 
   const openModals = useSelector(state => state.boardModule.openModals)
   const preAddBoardModal = openModals.some(modalId => modalId === 'pre-add-board-modal')
@@ -22,6 +23,9 @@ export function SideBar({ boards, user, onRemoveBoard }) {
   const preAddBoardButtonRef = useRef(null)
 
   const [addBoardModal, setAddBoardModal] = useState(false)
+
+  const [removeBoardId, setRemoveBoardId] = useState(null)
+  const removeBoardModalRef = useRef(null)
 
   function addBoardModalToggle() {
     setAddBoardModal(prev=>!prev)
@@ -34,7 +38,7 @@ export function SideBar({ boards, user, onRemoveBoard }) {
   }
 
   //if user click outside modal close it
-  function handleClickOutsideModal(event) {
+  function handleClickOutsideAddModal(event) {
       if (!preAddBoardModalRef.current.contains(event.target) && 
         !preAddBoardButtonRef.current.contains(event.target))
         preAddBoardModalToggle()
@@ -43,11 +47,11 @@ export function SideBar({ boards, user, onRemoveBoard }) {
   // open listener to handleClickOutsideModal only when modal open
   useEffect(() => {
       if (preAddBoardModal) document.addEventListener
-          ('mousedown', handleClickOutsideModal)
+          ('mousedown', handleClickOutsideAddModal)
       else document.removeEventListener
-          ('mousedown', handleClickOutsideModal)
+          ('mousedown', handleClickOutsideAddModal)
       return () => document.removeEventListener
-          ('mousedown', handleClickOutsideModal)
+          ('mousedown', handleClickOutsideAddModal)
 
   }, [preAddBoardModal])
 
@@ -57,10 +61,22 @@ export function SideBar({ boards, user, onRemoveBoard }) {
     }
   }
 
-  function handleDotsClick(event, boardId) {
-    event.stopPropagation();
-    onRemoveBoard(boardId);
+
+  function handleClickOutsideRemoveModal(event) {
+    if (!removeBoardModalRef.current.contains(event.target))
+      setRemoveBoardId(null)
   }
+
+  useEffect(() => {
+      if (removeBoardId) document.addEventListener
+          ('mousedown', handleClickOutsideRemoveModal)
+      else document.removeEventListener
+          ('mousedown', handleClickOutsideRemoveModal)
+      return () => document.removeEventListener
+          ('mousedown', handleClickOutsideRemoveModal)
+
+  }, [removeBoardId])
+
 
   const iconStyle = { width: 22, height: 22 };
 
@@ -105,7 +121,7 @@ export function SideBar({ boards, user, onRemoveBoard }) {
       {/* Workspaces Section */}
       {favoritesOpen ? (
         <ul className="sidebar-boardlist">
-          {boards.map((board) => board.isFavorite && (
+          {boards.map((board, index) => board.isFavorite && (
             <li key={board._id}>
               <div
                 className="sidebar-board"
@@ -125,10 +141,27 @@ export function SideBar({ boards, user, onRemoveBoard }) {
                   <h3>{board.title}</h3>
                 </section>
 
-                <div className="horizontal-dots-icon"
-                onClick={(event) => handleDotsClick(event, board._id)}>
-                  {getSvg('horizontal-dots')}
+                <div className="horizontal-dots-icon" ref={el => horizontalDotsRefs.current[index] = el}
+                  onClick={() => setRemoveBoardId(board._id)}>
+                    {getSvg('horizontal-dots')}
                 </div>
+
+                {
+                  removeBoardId === board._id &&
+                  <div className="remove-board-modal" ref={removeBoardModalRef}>
+                    
+                    <button onClick={()=>{
+                      updateBoardFavorite(board._id)
+                      setRemoveBoardId(null)
+                    }}>{getSvg('empty-rating-icon')}{`${board.isFavorite ? 'Remove from' : 'Add to'} favorites`}</button>
+
+                    <button onClick={()=>{
+                      removeBoard(board._id)
+                      setRemoveBoardId(null)
+                      }}>{getSvg('trash2')}Delete</button>
+
+                  </div>
+                }
               </div>
             </li>
           ))}
@@ -174,13 +207,14 @@ export function SideBar({ boards, user, onRemoveBoard }) {
 
           {/* Board List */}
           <ul className="sidebar-boardlist">
-            {boards.map((board) => (
+            {boards.map((board, index) => (
               <li key={board._id}>
                 <div
                   className="sidebar-board"
                   style={{backgroundColor:  window.location.hash.endsWith(board._id) || 
                     window.location.hash.endsWith(`${board._id}/views`) ? '#CCE5FF' : ''}}
-                  onClick={() => {
+                  onClick={event => {
+                    !horizontalDotsRefs.current.some(ref=>ref && ref.contains(event.target)) &&
                     onChangeAdressOnce(
                       `/${utilService.getNameFromEmail(
                         user.email
@@ -194,10 +228,27 @@ export function SideBar({ boards, user, onRemoveBoard }) {
                     <h3>{board.title}</h3>
                   </section>
 
-                  <div className="horizontal-dots-icon"
-                  onClick={(event) => handleDotsClick(event, board._id)}>
+                  <div className="horizontal-dots-icon" ref={el => horizontalDotsRefs.current[index] = el}
+                  onClick={() => setRemoveBoardId(board._id)}>
                     {getSvg('horizontal-dots')}
                   </div>
+
+                  {
+                    removeBoardId === board._id &&
+                    <div className="remove-board-modal" ref={removeBoardModalRef}>
+                      
+                      <button onClick={()=>{
+                        updateBoardFavorite(board._id)
+                        setRemoveBoardId(null)
+                      }}>{getSvg('empty-rating-icon')}{`${board.isFavorite ? 'Remove from' : 'Add to'} favorites`}</button>
+
+                      <button onClick={()=>{
+                        removeBoard(board._id)
+                        setRemoveBoardId(null)
+                        }}>{getSvg('trash2')}Delete</button>
+
+                    </div>
+                  }
                 </div>
               </li>
             ))}
