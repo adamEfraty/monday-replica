@@ -7,6 +7,7 @@ import {
   setFilteredColumns,
   updateTask,
   closeModal,
+  handleCloseSelectedModal,
   removeTask,
 } from "../store/actions/boards.actions";
 import { SelectedTasksModal } from "./dynamicCmps/modals/SelectedTasksModal";
@@ -517,7 +518,7 @@ const BoardDetails = () => {
               toggleConfirmationModal={() =>
                 toggleConfirmationModal(null, "tasks")
               }
-              handleDeleteTasks={handleDeleteTasks}
+              handleClose={handleCloseSelectedModal}
             />
           )}
         </section>

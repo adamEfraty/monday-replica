@@ -653,3 +653,10 @@ export function getStatusColor(status) {
   };
   return statusColors[status] || "#C4C4C4";
 }
+
+export function handleCloseSelectedModal(){
+  store.dispatch({
+    type: SET_CHECKBOX,
+    emptyArr: true
+  })
+}
