@@ -1,0 +1,119 @@
+.add-board-modal{
+    z-index: 12;
+    font-family: "Quicksand", serif;
+    
+
+    
+    .dark-background{
+        cursor: default;
+        position: fixed;
+        top: 0px;
+        left: 0px;
+        width: 100vw;
+        height: 100vw;
+        background-color: rgba(59, 63, 89, 0.75);
+    }
+
+    .add-board-window{
+        $window-width: 500px;
+        $window-height: 270px;
+        cursor: default;
+        position: fixed;
+        top: calc(50vh - $window-height/2);
+        left: calc(50vw - $window-width/2);
+        background-color: white;
+        padding: 20px;
+        width: $window-width;
+        height: $window-height;
+
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+
+        border-radius: 8px;
+
+        .close-button{
+            width: 27px;
+            height: 27px;
+            display: grid;
+            align-items: center;
+            justify-items: center;
+            cursor: pointer;
+            align-self: end;
+            background-color: transparent;
+            border-color: transparent;
+            border-radius: 4px;
+            padding: 0px;
+
+            svg{
+                width: 21px;
+                height: 21px;
+            }
+
+            &:hover{
+                background-color: #F0F0F1;
+            }
+        }
+
+        h1{
+            margin-bottom: 30px;
+            font-size: 2rem;
+            font-family: "Quicksand", serif;
+            font-weight: 600;
+        }
+
+        p{
+            margin-bottom: 5px;
+            margin-left: 0px;
+            font-size: 0.8rem;
+            font-weight: 550;
+        }
+
+        input{
+            margin-bottom: 30px;
+            width: 100%;
+            padding: 10px;
+            outline-color: #2085ED;
+            border: solid #CBCDD9 1px;
+            font-size: 1rem;
+            font-weight: 500;
+            color: rgb(58, 58, 58);
+            border-radius: 3px;
+        }
+
+        .buttons-area{
+            align-self: flex-end;
+            gap: 10px
+        }
+
+        button{
+            cursor: pointer;
+            height: 40px;
+            padding: 8px 12px 8px 12px;
+            font-family: "Quicksand", serif;
+            font-weight: 500;
+            font-size: 0.95rem;
+            border-radius: 4px;
+            border-color: transparent;
+        }
+
+        .cancel-button{
+            background-color: transparent;
+
+            &:hover{
+                background-color: #F0F0F1;
+            }
+        }
+
+        .create-button{
+            background-color: #0073EA;
+            color: white;
+
+            &:hover{
+                background-color: #0060B9;
+            }
+        }
+    }
+
+}
+

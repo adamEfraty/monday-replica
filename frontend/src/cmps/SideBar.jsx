@@ -1,38 +1,55 @@
-import HomeIcon from "@mui/icons-material/HomeOutlined";
-import MyWorkIcon from "@mui/icons-material/EventAvailableOutlined";
-import WorkspacesIcon from "@mui/icons-material/GridViewOutlined";
 import { useNavigate, useLocation } from "react-router";
 import { addBoard } from "../store/actions/boards.actions";
 import { utilService } from "../services/util.service";
-import ArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import ArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
-import PlusIcon from "@mui/icons-material/AddOutlined";
-import BoardIcon from "@mui/icons-material/SpaceDashboardOutlined";
-import HorizDotsIcon from "@mui/icons-material/MoreHorizOutlined";
-import { MenuModal } from "./dynamicCmps/modals/menu/MenuModal";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { getSvg, SvgCmp } from "../services/svg.service";
-import Popover from "@mui/material/Popover";
-import { CreateBoard } from "./dynamicCmps/modals/CreateBoard";
 import { useDispatch } from "react-redux";
 import { SET_MODAL } from "../store/reducer/boards.reducer";
+import { openModal, closeModal } from '../store/actions/boards.actions.js'
+import { AddBoardModal } from "./dynamicCmps/modals/AddBoardModal.jsx";
+
 
 export function SideBar({ boards, user, onRemoveBoard }) {
-  const [menuDisplay, setMenuDisplay] = useState(false);
   const [favoritesOpen, setFavoritesOpen] = useState(false);
-  const favorites = useSelector((state) => state.boardModule.favorites);
   const location = useLocation();
   const navigate = useNavigate();
-  const [anchorEl, setAnchorEl] = useState(null);
-  const popoverOpen = Boolean(anchorEl);
-  const popoverId = popoverOpen ? "add-item-popover" : undefined;
-  const addBoardModalState = useSelector((state) => state.boardModule.addBoardModalState);
   const dispatch = useDispatch();
 
-  function setOpenModal(value) {
-    dispatch({ type: SET_MODAL, value });
+  const openModals = useSelector(state => state.boardModule.openModals)
+  const preAddBoardModal = openModals.some(modalId => modalId === 'pre-add-board-modal')
+  const preAddBoardModalRef = useRef(null)
+  const preAddBoardButtonRef = useRef(null)
+
+  const [addBoardModal, setAddBoardModal] = useState(false)
+
+  function addBoardModalToggle() {
+    setAddBoardModal(prev=>!prev)
   }
+
+  function preAddBoardModalToggle() {
+    preAddBoardModal
+    ? closeModal('pre-add-board-modal')
+    : openModal('pre-add-board-modal')
+  }
+
+  //if user click outside modal close it
+  function handleClickOutsideModal(event) {
+      if (!preAddBoardModalRef.current.contains(event.target) && 
+        !preAddBoardButtonRef.current.contains(event.target))
+        preAddBoardModalToggle()
+  }
+
+  // open listener to handleClickOutsideModal only when modal open
+  useEffect(() => {
+      if (preAddBoardModal) document.addEventListener
+          ('mousedown', handleClickOutsideModal)
+      else document.removeEventListener
+          ('mousedown', handleClickOutsideModal)
+      return () => document.removeEventListener
+          ('mousedown', handleClickOutsideModal)
+
+  }, [preAddBoardModal])
 
   function onChangeAdressOnce(fullAddress) {
     if (location.pathname !== fullAddress) {
@@ -46,11 +63,6 @@ export function SideBar({ boards, user, onRemoveBoard }) {
   }
 
   const iconStyle = { width: 22, height: 22 };
-
-  function isInKanban() {
-    console.log('window.location.hash', window.location.hash)
-    return window.location.hash.endsWith('views');
-  }
 
   return (
     <nav className="side-bar">
@@ -141,28 +153,22 @@ export function SideBar({ boards, user, onRemoveBoard }) {
                   {getSvg('group-title-arrow')}
                 </div>
               </div>
-              <button
-                className="add-board-button"
-                onClick={(ev) => setAnchorEl(ev.currentTarget)}
-              >
+              <button className="add-board-button" ref={preAddBoardButtonRef}
+              onClick={preAddBoardModalToggle}>
                 {getSvg('thin-plus')}
               </button>
-              <Popover
-                id={popoverId}
-                open={popoverOpen}
-                anchorEl={anchorEl}
-                onClose={() => setAnchorEl(null)}
-                anchorOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                transformOrigin={{
-                  vertical: "right",
-                  horizontal: "bottom",
-                }}
-              >
-                <MenuModal type="addItem" handleOpenModal={() => setOpenModal(!addBoardModalState)} />
-              </Popover>
+              {
+                preAddBoardModal &&
+                <section className="pre-add-board-modal" ref={preAddBoardModalRef}>
+                  <button onClick={()=>{
+                    addBoardModalToggle()
+                    preAddBoardModalToggle()
+                  }}>
+                    {getSvg('board-icon')}
+                    Add new board
+                    </button>
+                </section>
+              }
             </div>
           </div>
 
@@ -198,6 +204,14 @@ export function SideBar({ boards, user, onRemoveBoard }) {
           </ul>
         </>
       )}
+
+      {
+        addBoardModal &&
+        <AddBoardModal 
+        addBoardModalToggle={addBoardModalToggle} 
+        addBoard={addBoard}
+        userEmail={utilService.getNameFromEmail(user.email)}/>
+      }
     </nav>
   );
 }

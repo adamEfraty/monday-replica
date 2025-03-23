@@ -3,7 +3,6 @@
 .side-bar {
   grid-column: 1 / 2;
   height: 100%;
-  overflow-y: auto;
   color: #333;
   background: linear-gradient(135deg, #ffffff 5%, #eceff8 100%);
   display: flex;
@@ -13,11 +12,14 @@
   font-family: "Roboto", sans-serif;
   border-top-right-radius: 12px;
   font-size: 10px;
-  overflow-x: hidden;
 
   .sidebar-home{
     height: 32px;
     font-size: 0.85rem;
+
+    &:hover{
+      background-color: #EEEEF0;
+    }
 
     svg{
       width: 18px;
@@ -34,6 +36,10 @@
   & .favorites {
     justify-content: space-between;
     font-size: 0.85rem;
+
+    &:hover{
+      background-color: #EEEEF0;
+    }
 
     svg{
       width: 19px;
@@ -77,10 +83,6 @@
       font-size: 1rem;
       color: #888;
     }
-  }
-
-  & > section:hover {
-    background-color: #EDEDF0;
   }
 
   hr {
@@ -234,6 +236,40 @@
     &:hover {
       background-color: $primary-hover-color;
     }
+  }
+
+  .pre-add-board-modal{
+    z-index: 12;
+    position: absolute;
+    top: 0px; // temporary
+    left: 250px;
+    width: 200px;
+    background-color: white;
+    padding: 7px;
+    box-shadow: 0px 4px 10px rgb(179, 179, 179);
+    border-radius: 8px;
+
+    button{
+      cursor: pointer;
+      width: 100%;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      padding-left: 10px;
+      font-family: "Quicksand", serif;
+      color: rgb(80, 80, 80);
+      font-weight: 600;
+      background-color: white;
+      height: 30px;
+      border-color: transparent;
+      border-radius: 4px;
+
+      &:hover{
+          background-color: #F0F0F1;
+      }
+  }
+    
+  
   }
 }
 
