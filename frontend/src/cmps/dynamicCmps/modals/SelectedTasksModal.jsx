@@ -4,10 +4,13 @@ import XIcon from "@mui/icons-material/Clear";
 
 import { duplicateTasks } from "../../../store/actions/boards.actions";
 
-export function SelectedTasksModal({ boardId, checkedTasks, toggleConfirmationModal, handleDeleteTasks }) {
-  function onDuplicate(){
-    duplicateTasks(boardId, checkedTasks);
-  }
+export function SelectedTasksModal({
+  boardId,
+  checkedTasks,
+  toggleConfirmationModal,
+  handleClose,
+}) {
+  const handleDuplicate = () => duplicateTasks(boardId, checkedTasks);
 
   return (
     <footer className="selected-tasks-modal">
@@ -18,7 +21,7 @@ export function SelectedTasksModal({ boardId, checkedTasks, toggleConfirmationMo
         <h4>Task{checkedTasks.length > 1 && "s"} selected</h4>
       </section>
       <section className="selected-tasks-modal-icons">
-        <div onClick={onDuplicate}>
+        <div onClick={handleDuplicate}>
           <DuplicateIcon />
           <h4>Duplicate</h4>
         </div>
@@ -27,7 +30,7 @@ export function SelectedTasksModal({ boardId, checkedTasks, toggleConfirmationMo
           <h4>Delete</h4>
         </div>
         <div className="close-btn">
-          <XIcon className="x-icon" />
+          <XIcon className="x-icon" onClick={handleClose} />
         </div>
       </section>
     </footer>

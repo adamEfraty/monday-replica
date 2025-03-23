@@ -116,7 +116,13 @@ export const boardReducer = (state = initialState, action) => {
           };
 
     case SET_CHECKBOX:
-      return state.checkedBoxes.some((e) => e[1] === action.taskId)
+      return action.emptyArr ? 
+      {
+        ...state,
+        checkedBoxes: [],
+        checkedGroups: [],
+      } :
+      state.checkedBoxes.some((e) => e[1] === action.taskId)
         ? {
             ...state,
             checkedGroups: state.checkedGroups.filter(

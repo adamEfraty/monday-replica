@@ -1,26 +1,14 @@
-import { DateCell } from "./dynamicCmps/DateCell.jsx";
-import { Members } from "./dynamicCmps/Members.jsx";
-import { Status } from "./dynamicCmps/Status.jsx";
-import { TaskTitle } from "./dynamicCmps/TaskTitle.jsx";
-import { Priority } from "./dynamicCmps/Priority.jsx";
 import { AddTask } from "./AddTask.jsx";
-import { P_Priority } from "./dynamicCmps/progressCmps/P_Priority.jsx";
-import { P_Status } from "./dynamicCmps/progressCmps/P_Status.jsx";
-import { P_Date } from "./dynamicCmps/progressCmps/P_Date.jsx";
-import { P_Members } from "./dynamicCmps/progressCmps/P_Members.jsx";
-import { AddLabel } from "./AddLabel.jsx";
 import { useEffect, useState, useRef } from "react";
 import { useSelector } from "react-redux";
 import { removeTask } from "../store/actions/boards.actions.js";
-import { horizontalListSortingStrategy, SortableContext, useSortable, verticalListSortingStrategy } from "@dnd-kit/sortable";
+import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { TaskPreview } from "./TaskPreview.jsx";
-import { Label } from "./Label.jsx";
-import { LabelTitle } from "./LabelTitle.jsx";
 import { MiniGroup } from "./MiniGroup.jsx";
 import { GroupTitle } from "./GroupTitle.jsx";
 import { LabelsGrid } from "./LabelsGrid.jsx";
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import { Droppable, Draggable } from "react-beautiful-dnd";
 import { ProgressCmd } from "./ProgressCmd.jsx";
 
 export const GroupPreview = ({
@@ -55,9 +43,27 @@ export const GroupPreview = ({
   const [groupTitle, setGroupTitle] = useState(group.title);
   const filterBy = useSelector((state) => state.boardModule.filterBy);
 
+  useEffect(() => {
+    setGroupTitle(group.title)
+  }, [group.title])
+
 
   const [anchorEl, setAnchorEl] = useState(null);
   const [anchorE2, setAnchorE2] = useState(null);
+
+  useEffect(() => {
+
+    if (titleRef.current) {
+      const yPosition = titleRef.current.getBoundingClientRect().y
+      setTitlePositionY(yPosition)
+      updateFixedGroup(group.id, yPosition)
+    }
+
+  }, [boardScroll, group.color])
+
+  useEffect(() => {
+    updateExpandedGroups(group.id, expanded)
+  }, [expanded])
 
   const open = Boolean(anchorEl);
   const open2 = Boolean(anchorE2);
@@ -83,21 +89,6 @@ export const GroupPreview = ({
   const [titlePositionY, setTitlePositionY] = useState(0)
 
   const [hoveredTask, setHoveredTask] = useState(null)
-
-
-  useEffect(() => {
-
-    if (titleRef.current) {
-      const yPosition = titleRef.current.getBoundingClientRect().y
-      setTitlePositionY(yPosition)
-      updateFixedGroup(group.id, yPosition)
-    }
-
-  }, [boardScroll, group.color])
-
-  useEffect(() => {
-    updateExpandedGroups(group.id, expanded)
-  }, [expanded])
 
 
   const handleClick = (event) => {
