@@ -92,7 +92,6 @@ export const boardReducer = (state = initialState, action) => {
       };
 
     case SET_MASTER_CHECKBOX:
-      console.log(action);
       return state.checkedGroups.includes(action.group.id)
         ? {
             ...state,

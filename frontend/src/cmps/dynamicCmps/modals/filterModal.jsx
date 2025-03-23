@@ -52,7 +52,8 @@ export function FilterModal({ boardId, boardColumnsFilter, handleFilteredLabel }
               <small>Item columns</small>
             </div>
             <ul>
-              {boardLabels.map((label) => (
+              {boardLabels.map((label) => {
+              return (
                 <li key={label.id}>
                   <input
                     type="checkbox"
@@ -66,7 +67,7 @@ export function FilterModal({ boardId, boardColumnsFilter, handleFilteredLabel }
                     <label htmlFor={label.id}>{label.name}</label>
                   </div>
                 </li>
-              ))}
+              )})}
             </ul>
           </section>
         </div>

@@ -69,10 +69,6 @@ const BoardDetails = () => {
     )
   );
 
-  useEffect(() => {
-    console.log(deleteConfirmationData);
-  }, [deleteConfirmationData]);
-
   const [labelsLength, setLabelsLength] = useState();
   const [zoomLevel, setZoomLevel] = useState(window.devicePixelRatio);
   const confirmationRef = useRef(null);
@@ -85,26 +81,17 @@ const BoardDetails = () => {
       );
   }, [boards]);
 
+  //temporary
   useEffect(() => {
-    console.log(filteredColumns);
-  }, [filteredColumns]);
+    console.log(boardColumnsFilter)
+  }, [boardColumnsFilter])
 
   useEffect(() => {
-    console.log(
-      "filteredColumns csdfsdfsdf ",
-      boardColumnsFilter,
-      filteredColumns,
-      boards,
-      boardId
-    );
     filteredColumns &&
+    console.log('I got here ', filteredColumns, filteredColumns.find((board) => board.id === boardId))
       setBoardColumnsFilter(
-        filteredColumns.find((board) => {
-          console.log(board);
-          return board.id === boardId;
-        })
+        filteredColumns.find((board) => board.id === boardId)
       );
-    console.log(boardColumnsFilter);
   }, [filteredColumns, boardId]);
 
   useEffect(() => {
@@ -123,7 +110,6 @@ const BoardDetails = () => {
     } else if (board.groups.some((group) => group.tasks.length > 0)) {
       if (filterBy.length > 0) {
         const regExp = new RegExp(filterBy, "i");
-        console.log("im here rick", boardColumnsFilter);
         const filteredGroups = board.groups
           .map((group) => ({
             ...group,
@@ -215,7 +201,6 @@ const BoardDetails = () => {
   //...............................
 
   function handleAddGroup() {
-    console.log('group')
     addGroup(boardId);
   }
 
@@ -232,8 +217,6 @@ const BoardDetails = () => {
     await updateTask(currentBoard._id, loggedInUser._id, newCell);
   };
 
-  // const cmpOrder = ["taskTitle", "priority", "status", "members", "date"];
-
   const progress = ["priority", "status", "members", "date"];
 
   function handleCheckBoxClick(props) {
@@ -247,12 +230,10 @@ const BoardDetails = () => {
   }
 
   async function handleDeleteTasks() {
-    console.log(deleteConfirmationData);
     await removeTasks(currentBoard._id, checkedBoxes);
   }
 
   async function handleDeleteTask(boardId, groupId, taskId) {
-    console.log(deleteConfirmationData);
     await removeTask(boardId, groupId, taskId);
   }
 
@@ -283,43 +264,20 @@ const BoardDetails = () => {
   if (!currentBoard || currentBoard?._id !== boardId)
     return <div>Loading...</div>;
 
-  //................ IMPORTANT !!!
-  function getGroupPos(id) {
-    return groups.findIndex((group) => group.id === id);
-  }
-
-  function getTaskPos(taskId) {
-    for (let i = 0; i < groups.length; i++) {
-      const group = groups[i];
-
-      const taskPos = group.tasks.findIndex((task) => task.id === taskId);
-
-      if (taskPos !== -1) {
-        return { groupIndex: i, taskIndex: taskPos };
-      }
-    }
-
-    return null;
-  }
-
   function handleFilteredLabel(label) {
-    console.log(boardColumnsFilter, label);
+    console.log(boardColumnsFilter.labels)
     boardColumnsFilter.labels.some((column) => column.id === label.id)
       ? setFilteredColumns({
           id: currentBoard._id,
-          labels: boardColumnsFilter.labels.filter((column) => {
-            console.log(column);
-            return column.id !== label.id;
-          }),
+          labels: boardColumnsFilter.labels.filter(
+            (column) => column.id !== label.id
+          ),
         })
       : setFilteredColumns({
           id: boardId,
           labels: [...boardColumnsFilter.labels, label],
         });
-  }
-
-  function getLabelPos(id) {
-    return currentBoard.labels.findIndex((label) => label.id === id);
+        console.log("filteredColumns: ", filteredColumns)
   }
 
   const handleDragStart = (start) => {
@@ -422,10 +380,8 @@ const BoardDetails = () => {
     groupId = null,
     taskId = null
   ) {
-    console.log("im here");
     const animationDuration = 0.2;
     if (modalId) closeModal(modalId);
-    console.log(type, deleteConfirmationModal);
     if (deleteConfirmationModal) {
       confirmationAnimation(false, animationDuration);
       setTimeout(() => {
@@ -594,18 +550,16 @@ const BoardDetails = () => {
               deleteConfirmationData.type === "tasks"
                 ? handleDeleteTasks()
                 : deleteConfirmationData.type === "task"
-                ? 
-                    handleDeleteTask(
-                      deleteConfirmationData.boardId,
-                      deleteConfirmationData.groupId,
-                      deleteConfirmationData.taskId
-                    )
+                ? handleDeleteTask(
+                    deleteConfirmationData.boardId,
+                    deleteConfirmationData.groupId,
+                    deleteConfirmationData.taskId
+                  )
                 : deleteConfirmationData.type === "group"
-                ? 
-                    handleDeleteGroup(
-                      deleteConfirmationData.groupId,
-                      deleteConfirmationData.boardId
-                    )
+                ? handleDeleteGroup(
+                    deleteConfirmationData.groupId,
+                    deleteConfirmationData.boardId
+                  )
                 : null;
               toggleConfirmationModal();
             }}
