@@ -35,14 +35,15 @@ export function Login() {
     <>
       <AppHeader />
       <div className="container">
-        <h1>Log into you account !</h1>
+        <h1>Log in to your account</h1>
         <form className="login-form " onSubmit={handleSubmit}>
+          <p className="req-msg">Enter your work email address and password</p>
           <div className="form-section">
             <input
               type="text"
               name="email"
               onChange={handleChange}
-              placeholder="Email-adress"
+              placeholder="Example@company.com"
             />
           </div>
           <div className="form-section">
@@ -53,8 +54,9 @@ export function Login() {
               placeholder="Password"
             />
           </div>
-          <button type="submit">Submit</button>
+          <button type="submit">Login</button>
         </form>
+        <hr/>
         <div>
           <p>
             {" "}
