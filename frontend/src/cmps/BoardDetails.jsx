@@ -87,12 +87,13 @@ const BoardDetails = () => {
   }, [boardColumnsFilter])
 
   useEffect(() => {
-    filteredColumns &&
-    console.log('I got here ', filteredColumns, filteredColumns.find((board) => board.id === boardId))
+    if (filteredColumns?.length) {
+      console.log('I got here ', filteredColumns, filteredColumns.find((board) => board.id === boardId));
       setBoardColumnsFilter(
         filteredColumns.find((board) => board.id === boardId)
       );
-  }, [filteredColumns, boardId]);
+    }
+  }, [filteredColumns, boardId])
 
   useEffect(() => {
     // if (!currentBoard || currentBoard._id !== boardId)

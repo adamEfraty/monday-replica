@@ -3,6 +3,7 @@
 @use "vars";
 @use "footer";
 @use "login";
+@use "signup";
 @use "index";
 @use "usermsg";
 @use "sideBar";
@@ -36,6 +37,7 @@
 @use "./dynamicCmps/modals/EditGroupTitleModal";
 @use "./dynamicCmps/modals/DeleteTaskConfirmation";
 @use "./dynamicCmps/modals/AddBoardModal";
+@use "./ImageUploader";
 
 * {
   padding: 0;
