@@ -21,6 +21,7 @@
     "animate.css": "^4.1.1",
     "axios": "^1.8.1",
     "dayjs": "^1.11.13",
+    "dotenv": "^16.4.7",
     "gh-pages": "^6.3.0",
     "quill": "^2.0.3",
     "react": "^18.3.1",
@@ -33,6 +34,7 @@
     "redux": "^5.0.1",
     "sass": "^1.83.1",
     "sass-loader": "^16.0.4",
+    "socket.io-client": "^4.8.1",
     "xlsx": "^0.18.5"
   },
   "devDependencies": {

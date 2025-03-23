@@ -136,3 +136,16 @@
 21.3.2025, 13:57:58 - INFO - Up and running on http://localhost:3000
 22.3.2025, 15:45:52 - DEBUG - auth.service - login with email: efraty665@gmail.com
 22.3.2025, 15:45:52 - INFO - User login:  | {"_id":"67ca519f85c61510baa798fd","email":"efraty665@gmail.com","fullName":"adam","imgUrl":"https://res.cloudinary.com/danlxus36/image/upload/v1741312413/best-selfie_xlxkpb.jpg","isAdmin":null}
+23.3.2025, 3:34:01 - INFO - Up and running on http://localhost:3000
+23.3.2025, 4:33:19 - INFO - Up and listening to port http://localhost:3000
+23.3.2025, 4:33:32 - INFO - Up and listening to port http://localhost:3000
+23.3.2025, 4:42:01 - INFO - Up and listening to port http://localhost:3000
+23.3.2025, 4:43:59 - INFO - Up and listening to port http://localhost:3000
+23.3.2025, 4:45:50 - INFO - Up and listening to port http://localhost:3000
+23.3.2025, 5:14:17 - INFO - Up and listening to port http://localhost:3000
+23.3.2025, 5:32:23 - INFO - Up and listening to port http://localhost:3000
+23.3.2025, 5:32:52 - INFO - Up and listening to port http://localhost:3000
+23.3.2025, 5:37:40 - DEBUG - auth.service - signup with email: cdhj@g.com, fullName: דגכ
+23.3.2025, 5:37:40 - DEBUG - auth.route - new account created: {"email":"cdhj@g.com","password":"$2b$10$W6usGkXk/2WPAa7zRzTI/.UHEcthviixl3jof2Yc2R/q068fZc/uS","fullName":"דגכ","imgUrl":"https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png","_id":"67df8204105395b350828cf4"}
+23.3.2025, 5:37:40 - DEBUG - auth.service - login with email: cdhj@g.com
+23.3.2025, 5:37:40 - INFO - User signup: | {"_id":"67df8204105395b350828cf4","email":"cdhj@g.com","fullName":"דגכ","imgUrl":"https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png","color":null,"isAdmin":null}
