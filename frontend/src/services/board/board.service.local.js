@@ -501,7 +501,6 @@ async function makeFirstBoard() {
   setFilteredColumnsSession([
     { id: savedboard._id, labels: savedBoard.labels },
   ]);
-  console.log("First board created successfully");
 }
 
 // newComments = [width: xxx, scroll: xxx, open: xxx, comments: [{id: xxx, comment: xxx}, ...]]
@@ -593,19 +592,17 @@ function setFilterContextSession(txt) {
 }
 
 function setFilteredColumnsSession(newColumn) {
-  console.log("columns: ", newColumn);
+  console.log(newColumn)
   const filteredColumnsArr = JSON.parse(
     sessionStorage.getItem("filteredColumns")
   );
   if (filteredColumnsArr && filteredColumnsArr[0]) {
-    console.log("filteredColumnsArr: ", filteredColumnsArr);
     const index = filteredColumnsArr.findIndex(
       (column) => column.id === newColumn.id
     );
     index < 0
       ? filteredColumnsArr.push(newColumn)
       : (filteredColumnsArr[index].labels.push(newColumn.newLabel));
-    console.log("filteredColumnsArr: ", filteredColumnsArr);
     sessionStorage.setItem(
       "filteredColumns",
       JSON.stringify(
