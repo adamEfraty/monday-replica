@@ -143,3 +143,6 @@
 22.3.2025, 12:46:40 - INFO - Up and running on http://localhost:3000
 22.3.2025, 12:47:13 - DEBUG - auth.service - login with email: seangah8@gmail.com
 22.3.2025, 12:47:14 - INFO - User login:  | {"_id":"67d14edcead629a931984ecc","email":"seangah8@gmail.com","fullName":"Sean Gah","imgUrl":"https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png","isAdmin":null}
+22.3.2025, 22:32:31 - INFO - Up and running on http://localhost:3000
+22.3.2025, 22:32:48 - DEBUG - auth.service - login with email: seangah8@gmail.com
+22.3.2025, 22:32:48 - INFO - User login:  | {"_id":"67d14edcead629a931984ecc","email":"seangah8@gmail.com","fullName":"Sean Gah","imgUrl":"https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png","isAdmin":null}
