@@ -27,15 +27,13 @@ export function FilterModal({ boardId, boardColumnsFilter, handleFilteredLabel }
     setFilterBy(value);
   }
 
-  useEffect(() => console.log(boardColumnsFilter))
-
   return (
     <div
       className="filter-modal"
       style={{ cursor: "pointer", paddingRight: 6, paddingTop: 4 }}
     >
       <section onClick={modalToggle} className="filter-modal">
-        <OptionsIcon style={{ width: 24, height: 24 }} />
+        <OptionsIcon style={{ width: 20, height: 22, marginBottom: 2 }} />
       </section>
       {modal && (
         <div className="filter-modal-content">
@@ -54,7 +52,8 @@ export function FilterModal({ boardId, boardColumnsFilter, handleFilteredLabel }
               <small>Item columns</small>
             </div>
             <ul>
-              {boardLabels.map((label) => (
+              {boardLabels.map((label) => {
+              return (
                 <li key={label.id}>
                   <input
                     type="checkbox"
@@ -68,7 +67,7 @@ export function FilterModal({ boardId, boardColumnsFilter, handleFilteredLabel }
                     <label htmlFor={label.id}>{label.name}</label>
                   </div>
                 </li>
-              ))}
+              )})}
             </ul>
           </section>
         </div>

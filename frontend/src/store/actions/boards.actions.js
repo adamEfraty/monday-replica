@@ -268,7 +268,6 @@ export async function removeTasks(boardId, tasksArr) {
 }
 
 export function setMasterCheckbox(group) {
-  console.log(group);
   store.dispatch({
     type: SET_MASTER_CHECKBOX,
     group,
@@ -276,7 +275,6 @@ export function setMasterCheckbox(group) {
 }
 
 export function setCheckBox(groupId, taskId) {
-  console.log("ricky boy!");
   store.dispatch({
     type: SET_CHECKBOX,
     groupId,
@@ -504,9 +502,11 @@ export async function replaceLabels(boardId, newLabels) {
 }
 
 export async function setFilteredColumns(filteredColumns) {
+  console.log("filtered: ", filteredColumns)
   const newFilteredColumns = await boardService.setFilteredColumnsSession(
     filteredColumns
   );
+  console.log(newFilteredColumns)
   store.dispatch({ type: SET_FILTERED_COLUMNS, newFilteredColumns });
 }
 
@@ -545,7 +545,6 @@ export async function onUpdateLocalLabelWidth(boardId, labelId, newWidth) {
 
 export async function undo(prevBoard) {
   const newBoard = await boardService.save(prevBoard);
-  console.log(prevBoard, newBoard);
   store.dispatch({
     type: EDIT_BOARD,
     boardId: prevBoard._id,

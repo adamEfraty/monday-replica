@@ -1,7 +1,7 @@
 export function getSvg(svgName) {
   switch (svgName) {
     case "home-icon":
-      return (<svg viewBox="0 0 20 20" fill="currentColor" width="16"height="16" aria-hidden="true" className="icon_35c1b9ef14 icon" data-testid="icon"><path d="M9.56992 2.1408C9.82591 1.95307 10.1741 1.95307 10.4301 2.1408L17.7028 7.47413C17.8896 7.61113 18 7.82894 18 8.06061V16.7879C18 17.1895 17.6744 17.5152 17.2727 17.5152H11.9394C11.5377 17.5152 11.2121 17.1895 11.2121 16.7879V13.1515H8.78788V16.7879C8.78788 17.1895 8.46227 17.5152 8.06061 17.5152H2.72727C2.32561 17.5152 2 17.1895 2 16.7879V8.06061C2 7.82894 2.11037 7.61113 2.29719 7.47413L9.56992 2.1408ZM3.45455 8.42914V16.0606H7.33333V12.4242C7.33333 12.0226 7.65894 11.697 8.06061 11.697H11.9394C12.3411 11.697 12.6667 12.0226 12.6667 12.4242V16.0606H16.5455V8.42914L10 3.62914L3.45455 8.42914Z" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"></path></svg>);
+      return (<svg viewBox="0 0 20 20" fill="currentColor" width="16"height="16" aria-hidden="true" class="icon_35c1b9ef14 icon" data-testid="icon"><path d="M9.56992 2.1408C9.82591 1.95307 10.1741 1.95307 10.4301 2.1408L17.7028 7.47413C17.8896 7.61113 18 7.82894 18 8.06061V16.7879C18 17.1895 17.6744 17.5152 17.2727 17.5152H11.9394C11.5377 17.5152 11.2121 17.1895 11.2121 16.7879V13.1515H8.78788V16.7879C8.78788 17.1895 8.46227 17.5152 8.06061 17.5152H2.72727C2.32561 17.5152 2 17.1895 2 16.7879V8.06061C2 7.82894 2.11037 7.61113 2.29719 7.47413L9.56992 2.1408ZM3.45455 8.42914V16.0606H7.33333V12.4242C7.33333 12.0226 7.65894 11.697 8.06061 11.697H11.9394C12.3411 11.697 12.6667 12.0226 12.6667 12.4242V16.0606H16.5455V8.42914L10 3.62914L3.45455 8.42914Z" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"></path></svg>);
 
 
     case "white-arrow":
@@ -60,7 +60,7 @@ export function getSvg(svgName) {
               width="12.955"
               height="12.727"
               filterUnits="userSpaceOnUse"
-              color-interpolation-filters="sRGB"
+              colorInterpolationFilters="sRGB"
             >
               <feFlood result="BackgroundImageFix" flood-opacity="0"></feFlood>
               <feColorMatrix
@@ -89,7 +89,7 @@ export function getSvg(svgName) {
     case "priority-icon":
       return (
         <img
-          class="monday-column-icon-component__icon"
+          clasNames="monday-column-icon-component__icon"
           style={{ width: "20px", height: "20px" }}
           src="https://files.monday.com/euc1/photos/10162286/original/app_version_10162286_photo_2023_10_26_13_37_04.png?1738076366987"
           alt=""
@@ -116,7 +116,7 @@ export function getSvg(svgName) {
               width="13.48"
               height="14.645"
               filterUnits="userSpaceOnUse"
-              color-interpolation-filters="sRGB"
+              colorInterpolationFilters="sRGB"
             >
               <feFlood result="BackgroundImageFix" flood-opacity="0"></feFlood>
               <feColorMatrix
@@ -148,7 +148,7 @@ export function getSvg(svgName) {
           <g
             filter="url(#filter0_d_43912_44067)"
             fill="#fff"
-            clip-path="url(#clip0_43912_44067)"
+            clipPath="url(#clip0_43912_44067)"
           >
             <path d="M14.9666 8.1408C15.0359 8.1408 15.1024 8.11327 15.1514 8.06425 15.2004 8.01524 15.228 7.94876 15.228 7.87944V7.74876C15.228 7.33285 15.0628 6.93398 14.7687 6.63989 14.4746 6.34579 14.0757 6.18058 13.6598 6.18058H13.0064V5.42489C13.0064 5.2516 12.9376 5.0854 12.815 4.96286 12.6925 4.84033 12.5263 4.77148 12.353 4.77148 12.1797 4.77148 12.0135 4.84033 11.891 4.96286 11.7684 5.0854 11.6996 5.2516 11.6996 5.42489V6.18058H8.30185V5.42489C8.30185 5.2516 8.23301 5.0854 8.11047 4.96286 7.98793 4.84033 7.82173 4.77148 7.64844 4.77148 7.47514 4.77148 7.30895 4.84033 7.18641 4.96286 7.06387 5.0854 6.99503 5.2516 6.99503 5.42489V6.18058H6.34162C5.92571 6.18058 5.52684 6.34579 5.23275 6.63989 4.93866 6.93398 4.77344 7.33285 4.77344 7.74876V7.87944C4.77344 7.94876 4.80097 8.01524 4.84999 8.06425 4.899 8.11327 4.96548 8.1408 5.0348 8.1408H14.9666zM5.0348 8.86328C4.96548 8.86328 4.899 8.89766 4.84999 8.95886 4.80097 9.02006 4.77344 9.10307 4.77344 9.18962V13.2689C4.77344 13.7882 4.93866 14.2862 5.23275 14.6534 5.52684 15.0206 5.92571 15.2269 6.34162 15.2269H13.6598C14.0757 15.2269 14.4746 15.0206 14.7687 14.6534 15.0628 14.2862 15.228 13.7882 15.228 13.2689V9.18962C15.228 9.10307 15.2004 9.02006 15.1514 8.95886 15.1024 8.89766 15.0359 8.86328 14.9666 8.86328H5.0348z"></path>
           </g>
@@ -167,7 +167,7 @@ export function getSvg(svgName) {
               width="14.091"
               height="14.091"
               filterUnits="userSpaceOnUse"
-              color-interpolation-filters="sRGB"
+              colorInterpolationFilters="sRGB"
             >
               <feFlood result="BackgroundImageFix" flood-opacity="0"></feFlood>
               <feColorMatrix
@@ -217,7 +217,7 @@ export function getSvg(svgName) {
               width="19.068"
               height="12.64"
               filterUnits="userSpaceOnUse"
-              color-interpolation-filters="sRGB"
+              colorInterpolationFilters="sRGB"
             >
               <feFlood result="BackgroundImageFix" flood-opacity="0"></feFlood>
               <feColorMatrix
@@ -251,7 +251,7 @@ export function getSvg(svgName) {
           width="20"
           height="20"
           aria-hidden="true"
-          class="icon_9666403f60 star-component-button-icon star-component-button-icon-on noFocusStyle_ff05a1eb1d"
+          NameName="icon_9666403f60 star-component-button-icon star-component-button-icon-on noFocusStyle_ff05a1eb1d"
           data-testid="icon"
         >
           <path d="M11.2336 3.01626L10.5614 3.34904L11.234 3.01724L13.0145 6.62645L17.0025 7.20743C17.256 7.24569 17.4938 7.354 17.6891 7.52016C17.8843 7.68632 18.0293 7.90371 18.1076 8.14784C18.1859 8.39196 18.1945 8.65312 18.1324 8.90186C18.0703 9.15018 17.9403 9.37628 17.7569 9.55475L17.7559 9.55566L14.8738 12.3658L15.5539 16.3359L15.5542 16.3378C15.5984 16.5918 15.5704 16.8532 15.4733 17.0922C15.3759 17.3317 15.2131 17.5389 15.0034 17.6901C14.7937 17.8414 14.5457 17.9305 14.2877 17.9473C14.0313 17.964 13.7754 17.9085 13.5489 17.7874L9.99916 15.9209L6.4403 17.793C6.21381 17.9142 5.95789 17.9697 5.70148 17.953C5.44349 17.9362 5.19545 17.8471 4.98577 17.6958C4.77609 17.5446 4.61324 17.3374 4.51589 17.0979C4.41876 16.8589 4.39073 16.5975 4.43499 16.3434L4.4353 16.3417L5.11535 12.3715L2.23779 9.55909L2.23676 9.55808C2.05337 9.37963 1.92336 9.15357 1.86134 8.90529C1.79921 8.65655 1.80779 8.39539 1.88612 8.15127C1.96445 7.90714 2.10941 7.68974 2.30467 7.52359C2.49993 7.35743 2.73772 7.24912 2.99123 7.21086L2.99453 7.21037L6.9838 6.6265L8.76473 3.01626C8.87864 2.78619 9.05458 2.59254 9.27269 2.45714C9.49081 2.32175 9.74242 2.25 9.99915 2.25C10.2559 2.25 10.5075 2.32175 10.7256 2.45714C10.9437 2.59254 11.1197 2.78619 11.2336 3.01626Z"></path>
@@ -354,7 +354,7 @@ export function getSvg(svgName) {
           width="25"
           height="25"
           aria-hidden="true"
-          className="icon_da9e87501e"
+          class="icon_da9e87501e"
           data-testid="topbar-icon"
         >
           <g clipPath="url(#clip0_1150_158978)">

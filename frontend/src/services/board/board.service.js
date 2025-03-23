@@ -38,7 +38,7 @@ export const boardService = {
   addMultipleItemsToGroup,
   updateBoardFavorite,
   getGroupsColors,
-}
+};
 
 const CHAT_KEY = "chat";
 
@@ -68,7 +68,6 @@ async function remove(boardId) {
 }
 
 async function save(board) {
-  console.log("this is the board to save: ", board);
   if (board._id) {
     return await httpService.put(`board/${board._id}`, board);
   } else {
@@ -181,11 +180,7 @@ async function addItemToGroup(
       })
     );
   }
-  console.log(
-    "rick and morty: ",
-    newItem.cells[0].value.activities[0].activity.groupId,
-    groupId
-  );
+
   const board = await getById(boardId);
   if (!board) throw new Error("Board not found");
 
@@ -205,11 +200,8 @@ async function addMultipleItemsToGroup(boardId, tasksToAdd) {
   if (!board) throw new Error("Board not found");
 
   tasksToAdd.forEach((task) => {
-    console.log(task);
     const group = board.groups.find((group) => group.id === task[0]);
     if (!group) throw new Error("Group not found");
-
-    console.log(group);
 
     const taskToDuplicateIdx = group.tasks.findIndex((t) => t.id === task[1]);
     if (!group.tasks[taskToDuplicateIdx]) throw new Error("Task not found");
@@ -247,8 +239,6 @@ async function addMultipleItemsToGroup(boardId, tasksToAdd) {
             }
       ),
     };
-
-    console.log(newItem);
 
     group.tasks.splice(taskToDuplicateIdx + 1, 0, newItem);
   });
@@ -311,7 +301,6 @@ async function removeTaskFromGroup(boardId, groupId, taskId) {
 }
 // cell: {taskId:xxx, labelId: xxx, value: xxx, type: xxx}
 async function updateTaskInGroup(boardId, userId, newCell) {
-  console.log(newCell);
   try {
     const board = await getById(boardId); // Call directly without 'this'
     const groupIndex = board.groups.findIndex((group) =>
@@ -371,8 +360,6 @@ async function updateTaskInGroup(boardId, userId, newCell) {
             },
     };
 
-    console.log("newActivity", newActivity);
-    console.log("cell to update", newCell);
     const updatedBoard = {
       ...board,
       groups: board.groups.map((group) => ({
@@ -404,10 +391,7 @@ async function updateTaskInGroup(boardId, userId, newCell) {
         })),
       })),
     };
-    console.log("About to update: ", updatedBoard);
-    await save(updatedBoard).then(() => {
-      console.log("updated board", updatedBoard);
-    });
+    await save(updatedBoard);
 
     return newCell.value;
   } catch (error) {
@@ -417,11 +401,11 @@ async function updateTaskInGroup(boardId, userId, newCell) {
 }
 
 const statusArray = [
-  { text: 'Done', color: '#00C875' },
-  { text: 'Working on it', color: '#FDAB3D' },
-  { text: 'Stuck', color: '#DF2F4A' },
-  { text: 'Blank', color: '#C4C4C4' },
-]
+  { text: "Done", color: "#00C875" },
+  { text: "Working on it", color: "#FDAB3D" },
+  { text: "Stuck", color: "#DF2F4A" },
+  { text: "Blank", color: "#C4C4C4" },
+];
 
 async function updateGroupInBoard(boardId, groupId, updatedGroupData) {
   try {
@@ -555,7 +539,6 @@ async function makeFirstBoard() {
   setFilteredColumnsSession([
     { id: savedBoard._id, labels: savedBoard.labels },
   ]);
-  console.log("First board created successfully");
 }
 
 // newComments = [width: xxx, scroll: xxx, open: xxx, comments: [{id: xxx, comment: xxx}, ...]]
@@ -647,19 +630,19 @@ function setFilterContextSession(txt) {
 }
 
 function setFilteredColumnsSession(newColumn) {
-  console.log("columns: ", newColumn);
   const filteredColumnsArr = JSON.parse(
     sessionStorage.getItem("filteredColumns")
   );
   if (filteredColumnsArr && filteredColumnsArr[0]) {
-    console.log("filteredColumnsArr: ", filteredColumnsArr);
     const index = filteredColumnsArr.findIndex(
       (column) => column.id === newColumn.id
     );
     index < 0
       ? filteredColumnsArr.push(newColumn)
-      : (filteredColumnsArr[index].labels.push(newColumn.newLabel));
-    console.log("filteredColumnsArr: ", filteredColumnsArr);
+      : newColumn.newLabel
+      ? filteredColumnsArr[index].labels.push(newColumn.newLabel)
+      : filteredColumnsArr[index].labels = (newColumn.labels)
+      console.log(filteredColumnsArr[index])
     sessionStorage.setItem(
       "filteredColumns",
       JSON.stringify(
@@ -675,7 +658,6 @@ function setFilteredColumnsSession(newColumn) {
       JSON.stringify(Array.isArray(newColumn) ? newColumn : [newColumn])
     );
   }
-  sessionStorage.setItem("d", JSON.stringify([{ id: "1", name: "tal" }]));
 }
 
 function getFilteredColumnsSession() {
@@ -805,11 +787,28 @@ function getDefultCell(label, taskId) {
   }
 }
 
-function getGroupsColors(){
+function getGroupsColors() {
+  const colors = [
+    "#037F4C",
+    "#00C875",
+    "#9CD326",
+    "#CAB641",
+    "#FFCB00",
+    "#784BD1",
+    "#9D50DD",
+    "#007EB5",
+    "#579BFC",
+    "#66CCFF",
+    "#BB3354",
+    "#DF2F4A",
+    "#FF007F",
+    "#FF5AC4",
+    "#FF642E",
+    "#FDAB3D",
+    "#7F5347",
+    "#C4C4C4",
+    "#757575",
+  ];
 
-  const colors = ['#037F4C', '#00C875', '#9CD326', '#CAB641', '#FFCB00', 
-    '#784BD1', '#9D50DD', '#007EB5', '#579BFC', '#66CCFF', '#BB3354', '#DF2F4A',
-    '#FF007F', '#FF5AC4', '#FF642E', '#FDAB3D', '#7F5347', '#C4C4C4', '#757575']
-
-  return colors
+  return colors;
 }
