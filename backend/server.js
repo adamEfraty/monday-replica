@@ -8,10 +8,11 @@ import http from "http";
 import { boardRoutes } from "./api/board/board.routs.js";
 import { userRoutes } from "./api/user/user.routs.js";
 import { authRoutes } from "./api/auth/auth.routs.js";
+import { updateEmitter } from "./middlewares/updateEmitter.js";
 
 const app = express();
 const server = http.createServer(app);
-const io = new Server(server, {
+export const io = new Server(server, {
   cors: {
     origin: ["http://127.0.0.1:5173", "http://localhost:5173"],
     credentials: true,
@@ -33,36 +34,8 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(express.static("public"));
 
-// Middleware to emit an event after API response
-app.use((req, res, next) => {
-  const originalSend = res.send;
-  res.send = function (body) {
-    // Define specific routes and methods
-    const allowedRoutes = [
-      { route: "/api/board", methods: ["POST", "PUT", "DELETE"]},
-      { route: "/api/user", methods: ["POST", "PUT", "DELETE"] },
-      { route: "/api/auth", methods: ["POST", "PUT", "DELETE"] },
-    ];
-
-    const isAllowedRoute = allowedRoutes.some(
-      ({ route, methods }) =>
-        req.originalUrl.startsWith(route) && methods.includes(req.method)
-    );
-
-    if (isAllowedRoute) {
-      console.log("Emitting API response event for:", req.originalUrl);
-      io.emit("api response", {
-        method: req.method,
-        url: req.originalUrl,
-        statusCode: res.statusCode,
-        response: body,
-      });
-    }
-
-    return originalSend.call(this, body);
-  };
-  next();
-});
+// Use the updateEmitter middleware
+app.use(updateEmitter);
 
 //* Routes
 app.use("/api/board", boardRoutes);
