@@ -27,8 +27,9 @@ import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { DeleteTaskConfirmation } from "./dynamicCmps/modals/DeleteTaskConfirmation";
 import ReactDOM from "react-dom";
 import { getSvg } from "../services/svg.service";
+import { SomedayKanbanIndex } from "./MondayKanban/SomedayKanbanIndex";
 
-const BoardDetails = () => {
+const BoardDetails = ({ isKanban = false }) => {
   const loggedInUser = useSelector((state) => state.userModule.user);
   const { boardId } = useParams();
   const navigate = useNavigate();
@@ -64,11 +65,6 @@ const BoardDetails = () => {
   const [deleteConfirmationData, setDeleteConfirmationData] = useState("");
   const [isDragging, setIsDragging] = useState(false);
   const [isDraggingTask, setIsDraggingTask] = useState(false);
-  const [allTasks, setAllTasks] = useState(
-    groups.flatMap((group) =>
-      group.tasks.map((task) => ({ ...task, groupId: group.id }))
-    )
-  );
 
   const [labelsLength, setLabelsLength] = useState();
   const [zoomLevel, setZoomLevel] = useState(window.devicePixelRatio);
@@ -84,8 +80,8 @@ const BoardDetails = () => {
 
   //temporary
   useEffect(() => {
-    console.log(boardColumnsFilter)
-  }, [boardColumnsFilter])
+    console.log(boardColumnsFilter);
+  }, [boardColumnsFilter]);
 
   useEffect(() => {
     if (filteredColumns?.length) {
@@ -267,7 +263,7 @@ const BoardDetails = () => {
     return <div>Loading...</div>;
 
   function handleFilteredLabel(label) {
-    console.log(boardColumnsFilter.labels)
+    console.log(boardColumnsFilter.labels);
     boardColumnsFilter.labels.some((column) => column.id === label.id)
       ? setFilteredColumns({
           id: currentBoard._id,
@@ -279,7 +275,7 @@ const BoardDetails = () => {
           id: boardId,
           labels: [...boardColumnsFilter.labels, label],
         });
-        console.log("filteredColumns: ", filteredColumns)
+    console.log("filteredColumns: ", filteredColumns);
   }
 
   const handleDragStart = (start) => {
@@ -404,7 +400,7 @@ const BoardDetails = () => {
     }
   }
 
-  return (
+  return !isKanban ? (
     <div className="board-details" ref={boardDetailsRef}>
       <BoardDetailsHeader
         handleAddTask={handleAddTask}
@@ -508,7 +504,7 @@ const BoardDetails = () => {
           </DragDropContext>
 
           <button className="modal-save-btn" onClick={handleAddGroup}>
-            {getSvg('thin-plus-bold')}
+            {getSvg("thin-plus-bold")}
             Add new group
           </button>
           {checkedBoxes.length > 0 && (
@@ -574,6 +570,15 @@ const BoardDetails = () => {
           document.body // Appends the modal properly
         )}
     </div>
+  ) : (
+    <SomedayKanbanIndex
+      boardColumnsFilter={boardColumnsFilter}
+      handleFilteredLabel={handleFilteredLabel}
+      currentBoard={currentBoard}
+      chatTempInfoUpdate={chatTempInfoUpdate}
+      openChat={openChat}
+      onTaskUpdate={onTaskUpdate}
+    />
   );
 };
 

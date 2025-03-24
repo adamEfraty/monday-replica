@@ -571,7 +571,7 @@ export async function duplicateTasks(boardId, tasksToDuplicate) {
     board
   );
 }
-export async function updateTaskStatus(boardId, groupId, taskId, newStatus) {
+export async function updateTaskStatus(boardId, groupId, taskId, newStatus, cellId = null) {
   if (newStatus === "Blank") newStatus = "";
   try {
     const board = await boardService.getById(boardId);
@@ -587,7 +587,7 @@ export async function updateTaskStatus(boardId, groupId, taskId, newStatus) {
 
     const statusCellIndex = board.groups[groupIndex].tasks[
       taskIndex
-    ].cells.findIndex((cell) => cell.type === "status");
+    ].cells.findIndex((cell) => cellId !== null ? cell.labelId === cellId : cell.type === "status");
     if (statusCellIndex === -1) throw new Error("Status cell not found");
 
     board.groups[groupIndex].tasks[taskIndex].cells[
