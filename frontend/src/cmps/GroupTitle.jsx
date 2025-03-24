@@ -166,7 +166,7 @@ export function GroupTitle({
         className="tasks-amount"
         style={{
           opacity: !onEditMode && isHovered ? 1 : 0,
-          transition: "opacity 0.1s ease-in-out",
+          transition: "opacity 0.1s ease-in-out", 
         }}
       >
         {`${group.tasks.length} ${group.tasks.length === 1 ? "Task" : "Tasks"}`}
