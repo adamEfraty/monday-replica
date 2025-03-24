@@ -17,6 +17,7 @@ export const utilService = {
   milisecondsTimeCalc,
   hexToRgb,
   getRandomFromArray,
+  getStrTime,
 }
 
 function makeId(length = 5) {
@@ -267,5 +268,20 @@ function hexToRgb(hex){
   let g = parseInt(hex.substring(2, 4), 16);
   let b = parseInt(hex.substring(4, 6), 16);
   return `${r}, ${g}, ${b}`;
+}
+
+function getStrTime(){
+
+  const time = new Date()
+  const hour = time.getHours()
+  let resultStr = ''
+  
+  if(hour < 5) resultStr='night'
+  else if(hour < 12) resultStr='morning'
+  else if(hour < 18) resultStr='afternoon'
+  else if(hour < 22) resultStr='evening'
+  else resultStr='night'
+
+  return resultStr
 }
 

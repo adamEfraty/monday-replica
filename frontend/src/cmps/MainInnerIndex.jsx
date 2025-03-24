@@ -1,12 +1,9 @@
 import { useEffect } from "react";
 import BoardDetails from "./BoardDetails.jsx";
-import { useNavigate } from "react-router";
 import { updateBoardName } from "../store/actions/boards.actions.js";
 import { BoardCard } from "./BoardCard.jsx";
 import ArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import { useSelector } from "react-redux";
 import { loadBoardsAndUsers } from "../services/socket.service.js";
-import { SomedayKanbanIndex } from "./MondayKanban/SomedayKanbanIndex.jsx";
 import { addBoard } from "../store/actions/boards.actions.js";
 import { utilService } from "../services/util.service.js";
 import { AddBoardModal } from "./dynamicCmps/modals/AddBoardModal.jsx";
@@ -14,8 +11,6 @@ import { AddBoardModal } from "./dynamicCmps/modals/AddBoardModal.jsx";
 
 
 export function MainInnerIndex({ user, isBoard, isKanban, boards, addBoardModalToggle, addBoardModal}) {
-  const filteredColumns = useSelector((state) => state.boardModule.filteredColumns);
-  const navigate = useNavigate();
 
   useEffect(() => {
     loadBoardsAndUsers()
@@ -30,7 +25,7 @@ export function MainInnerIndex({ user, isBoard, isKanban, boards, addBoardModalT
   return !isBoard ? (
     <div className="main-inner-index">
       <section className="welcome-section">
-        <small>Good afternoon, {user?.fullName}!</small>
+        <small>Good {utilService.getStrTime()}, {user?.fullName}!</small>
         <small className="small-bold">
           Quickly access your recent boards, Inbox and workspaces
         </small>

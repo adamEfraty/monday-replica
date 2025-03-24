@@ -9,18 +9,19 @@
 
   .welcome-section {
     display: flex;
+    gap:3px;
     flex-direction: column;
-    gap: 5px;
-    padding-left: 1.5rem;
-    padding-top: 1rem;
+    padding: 20px 20px 20px 20px;
     box-shadow: 0px 3px 12px rgba(0, 0, 0, 0.1); /* Bottom-only box-shadow */
     font-family: "Quicksand", serif;
 
     small {
       color: #333;
       font-size: 15px;
+      font-size: 0.85rem;
     }
     .small-bold{
+      font-size: 0.95rem;
       font-weight: 650;
     }
   }
@@ -56,18 +57,16 @@
       margin-left: 1.25rem;
 
       .board-card {
+        cursor: pointer;
         background-color: #fff;
         border: 1px solid #e0e0e0;
         border-radius: 4px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         padding: 0.5rem;
-        width: 250px;
+        width: 275px;
         text-align: center;
-        transition: transform 0.3s, box-shadow 0.3s;
 
         &:hover {
-          transform: translateY(-5px);
-          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+          box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
         }
 
         img {
@@ -77,11 +76,35 @@
           margin-bottom: 0.5rem;
         }
 
-        h4 {
-          font-size: 1rem;
-          font-weight: 500;
-          color: #333;
-          margin: 0;
+        .board-card-text-area{
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          width: 100%;
+          
+          .svg-board svg{
+            margin-right: 6px;
+            display: grid;
+            align-items: center;
+            width: 22px;
+            height: 22px;
+            color: #676879;
+          }
+
+          .svg-star svg{
+            margin-right: 5px;
+            justify-self: end;
+            display: grid;
+            align-items: center;
+            opacity: 0.9;
+          }
+
+          p{
+            width: 100%;
+            text-align: start;
+            font-weight: bolder;
+            font-size: 1rem;
+          }
         }
       }
     }
