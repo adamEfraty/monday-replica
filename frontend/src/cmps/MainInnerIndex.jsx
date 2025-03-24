@@ -6,8 +6,9 @@ import { BoardCard } from "./BoardCard.jsx";
 import ArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { useSelector } from "react-redux";
 import { loadBoardsAndUsers } from "../services/socket.service.js";
+import { SomedayKanbanIndex } from "./MondayKanban/SomedayKanbanIndex.jsx";
 
-export function MainInnerIndex({ user, isBoard, boards }) {
+export function MainInnerIndex({ user, isBoard, isKanban, boards }) {
   const filteredColumns = useSelector((state) => state.boardModule.filteredColumns);
   const navigate = useNavigate();
 
@@ -48,6 +49,6 @@ export function MainInnerIndex({ user, isBoard, boards }) {
       </section>
     </div>
   ) : (
-    <BoardDetails />
+    <BoardDetails isKanban={isKanban} />
   );
 }

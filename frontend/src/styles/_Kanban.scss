@@ -6,6 +6,39 @@
   overflow-x: auto; /* Enable horizontal scroll */
   min-height: 100vh;
   white-space: nowrap; /* Prevent line breaks for groups */
+  .members-cell {
+    cursor: pointer;
+    $member-image-size: 10px;
+    display: flex;
+    align-items: center;
+    margin-left: 15px;
+
+    img {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      border: solid #f5f6f8 2px;
+      margin-left: -10px;
+      margin-bottom: 0px;
+    }
+  }
+  .task-mini-labels {
+    display: grid;
+    grid-template-columns: repeat(2, minMax(50px, 120px));
+    gap: 5px;
+    .mini-label {
+      display: inline;
+      padding: 2px;
+      text-align: center;
+      background-color: #666;
+      color: white; /* Added text color for contrast */
+      border-radius: 5px;
+    }
+    .blank-label {
+      padding-right: 70px;
+      padding-bottom: 25px;
+    }
+  }
 }
 
 /* Kanban Groups Container */
