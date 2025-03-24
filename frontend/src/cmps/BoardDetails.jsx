@@ -78,14 +78,8 @@ const BoardDetails = ({ isKanban = false }) => {
       );
   }, [boards]);
 
-  //temporary
-  useEffect(() => {
-    console.log(boardColumnsFilter);
-  }, [boardColumnsFilter]);
-
   useEffect(() => {
     if (filteredColumns?.length) {
-      console.log('I got here ', filteredColumns, filteredColumns.find((board) => board.id === boardId));
       setBoardColumnsFilter(
         filteredColumns.find((board) => board.id === boardId)
       );
@@ -263,7 +257,6 @@ const BoardDetails = ({ isKanban = false }) => {
     return <div>Loading...</div>;
 
   function handleFilteredLabel(label) {
-    console.log(boardColumnsFilter.labels);
     boardColumnsFilter.labels.some((column) => column.id === label.id)
       ? setFilteredColumns({
           id: currentBoard._id,
@@ -275,7 +268,6 @@ const BoardDetails = ({ isKanban = false }) => {
           id: boardId,
           labels: [...boardColumnsFilter.labels, label],
         });
-    console.log("filteredColumns: ", filteredColumns);
   }
 
   const handleDragStart = (start) => {
