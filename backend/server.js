@@ -2,7 +2,6 @@ import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import { Server } from "socket.io";
-
 import { loggerService } from "./services/logger.service.js";
 import http from "http";
 import { boardRoutes } from "./api/board/board.routs.js";
@@ -33,8 +32,6 @@ app.use(cors({ origin: true, credentials: true })); // TODO: change origin to cl
 app.use(express.json());
 app.use(cookieParser());
 app.use(express.static("public"));
-
-// Use the updateEmitter middleware
 app.use(updateEmitter);
 
 //* Routes

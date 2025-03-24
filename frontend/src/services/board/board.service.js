@@ -66,7 +66,6 @@ async function remove(boardId) {
 
 async function save(board) {
   if (board._id) {
-    console.log("board._id", board._id);
     return await httpService.put(`board/${board._id}`, board);
   } else {
     return await httpService.post("board", board);
@@ -640,7 +639,6 @@ function setFilteredColumnsSession(newColumn) {
       : newColumn.newLabel
       ? filteredColumnsArr[index].labels.push(newColumn.newLabel)
       : filteredColumnsArr[index].labels = (newColumn.labels)
-      console.log(filteredColumnsArr[index])
     sessionStorage.setItem(
       "filteredColumns",
       JSON.stringify(
