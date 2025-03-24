@@ -14,6 +14,9 @@ export function KanbanGroups({
   addItem,
   onUpdateTaskTitle,
   onRemove,
+  chatTempInfoUpdate,
+  openChat,
+  onTaskUpdate,
 }) {
   const [tasksToUse, setTasksToUse] = useState([]);
   const [cells, setCells] = useState({});
@@ -128,6 +131,9 @@ export function KanbanGroups({
                       title={task.cells[0].value.title}
                       task={task}
                       onUpdateTaskTitle={onUpdateTaskTitle}
+                      chatTempInfoUpdate={chatTempInfoUpdate}
+                      openChat={openChat}
+                      onTaskUpdate={onTaskUpdate}
                     />
                   </div>
                 )}}

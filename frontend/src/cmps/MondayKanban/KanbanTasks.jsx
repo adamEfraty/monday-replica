@@ -3,8 +3,12 @@ import IconButton from "@mui/material/IconButton";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import { getSvg } from "../../services/svg.service";
 import { Popover, MenuItem, Typography } from "@mui/material";
-import { openModal } from "../../store/actions/boards.actions";
+import { openModal, closeModal } from "../../store/actions/boards.actions";
 import { useSelector } from "react-redux";
+import { boardService } from "../../services/board";
+import ReactDOM from "react-dom";
+import { ChatModal } from "../dynamicCmps/modals/ChatModal";
+import { utilService } from "../../services/util.service";
 
 export function KanbanTasks({
   title,
@@ -12,13 +16,21 @@ export function KanbanTasks({
   onUpdateTaskTitle,
   onRemove,
   cellId,
+  chatTempInfoUpdate,
+  openChat,
+  onTaskUpdate
 }) {
   const openModals = useSelector((state) => state.boardModule.openModals);
+  const users = useSelector((state) => state.userModule.users);
+  const loggedinUser = useSelector((state) => state.userModule.user);
   const [inputValue, setInputValue] = useState(title);
   const inputRef = useRef(null);
   const spanRef = useRef(null);
+  const [openAnimation, setOpenAnimation] = useState(true);
 
   const [anchorEl, setAnchorEl] = useState(null);
+  const modalRef = useRef(null);
+  const isChatWasOpen = boardService.getOpenChat();
 
   const chatId = `chat-${task.id}`;
 
@@ -28,6 +40,43 @@ export function KanbanTasks({
       inputRef.current.style.width = `${spanRef.current.offsetWidth + 5}px`;
     }
   }, [inputValue, title]);
+
+  useEffect(() => {
+    // in this way the modal wont show itself after refresh
+    setTimeout(() => setOpenAnimation(false), 50);
+    // when user refresh the page while modal was open
+    if (isChatWasOpen === chatId) {
+      modalToggle(chatId);
+    }
+  }, []);
+
+  function chatAnimation(isEnter) {
+    if (!modalRef.current) return;
+
+    const missingStyle = {
+      position: "fixed",
+      top: "0px",
+      right: "0px",
+      opacity: 1,
+      zIndex: 100,
+    };
+
+    if (isEnter) {
+      utilService.animateCSS(
+        modalRef.current,
+        "fadeInRightBig",
+        0.3,
+        missingStyle
+      );
+      setOpenAnimation(false);
+    } else
+      utilService.animateCSS(
+        modalRef.current,
+        "fadeOutRightBig",
+        0.3,
+        missingStyle
+      );
+  }
 
   const miniLabels = useMemo(
     () => ({
@@ -41,6 +90,8 @@ export function KanbanTasks({
     [task, cellId]
   );
 
+  const chatPrevInfo = boardService.getChatTempInfo(chatId);
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -50,9 +101,24 @@ export function KanbanTasks({
   };
 
   function modalToggle(modalId) {
-    openModals.some((modId) => modId === modalId)
-      ? closeModal(modalId)
-      : openModal(modalId);
+    if (modalId === chatId) {
+      if (openModals.some((modId) => modId === modalId)) {
+        closeModal(modalId);
+      } else {
+        openModal(modalId);
+      }
+    } else {
+      if (openModals.some((modId) => modId === modalId)) {
+        // Close modal
+        chatAnimation(false);
+        setTimeout(() => closeModal(chatId), 275);
+      } else {
+        // Open modal
+        setOpenAnimation(true);
+        openModal(chatId);
+        setTimeout(() => chatAnimation(true), 10); // Wait for ref to exists
+      }
+    }
   }
 
   function onStatusChange(status) {
@@ -63,6 +129,46 @@ export function KanbanTasks({
   function onPriorityChange(priority) {
     onTaskUpdate({ ...miniLabels.data[1], value: priority });
     modalToggle();
+  }
+
+  function onAddReply(commentSentTime, replyTxt) {
+    const newReply = {
+      userId: loggedinUser._id,
+      sentAt: new Date().getTime(),
+      text: replyTxt,
+    };
+    const updatedChat = task.cells[0].value.chat.map((comment) => {
+      return comment.sentAt === commentSentTime
+        ? { ...comment, replies: [newReply, ...comment.replies] }
+        : comment;
+    });
+    onTaskUpdate({
+      ...task.cells[0],
+      value: { ...task.cells[0].value, chat: updatedChat },
+    });
+  }
+
+  function onAddComment(comment, sentAt) {
+    const newComment = {
+      userId: loggedinUser._id,
+      sentAt,
+      text: comment,
+      replies: [],
+    };
+    onTaskUpdate({
+      ...task.cells[0],
+      value: {
+        ...task.cells[0].value,
+        chat: [newComment, ...task.cells[0].value.chat],
+      },
+    });
+  }
+
+  function onUpdateTitleInChat(text) {
+    onTaskUpdate({
+      ...task.cells[0],
+      value: { ...task.cells[0].value, title: text },
+    });
   }
 
   return (
@@ -164,6 +270,30 @@ export function KanbanTasks({
           </IconButton>
         </div>
       </div>
+      {openModals.some((mdlId) => mdlId === chatId) &&
+        ReactDOM.createPortal(
+          <div
+            ref={modalRef}
+            style={{
+              visibility: openAnimation ? "hidden" : "visible",
+            }}
+          >
+            <ChatModal
+              onAddReply={onAddReply}
+              onAddComment={onAddComment}
+              chatId={chatId}
+              cellInfo={task.cells[0]}
+              users={[...users]}
+              loggedinUser={loggedinUser}
+              onUpdateTitleInChat={onUpdateTitleInChat}
+              modalToggle={() => modalToggle(chatId)}
+              chatTempInfoUpdate={chatTempInfoUpdate}
+              chatPrevInfo={chatPrevInfo}
+              openChat={openChat}
+            />
+          </div>,
+          document.body // Appends the modal properly
+        )}
     </div>
   );
 }
