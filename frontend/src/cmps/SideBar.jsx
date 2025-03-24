@@ -5,12 +5,11 @@ import { useState, useRef, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { getSvg, SvgCmp } from "../services/svg.service";
 import { useDispatch } from "react-redux";
-import { SET_MODAL } from "../store/reducer/boards.reducer";
 import { openModal, closeModal, updateBoardFavorite } from '../store/actions/boards.actions.js'
 import { AddBoardModal } from "./dynamicCmps/modals/AddBoardModal.jsx";
 
 
-export function SideBar({ boards, user, onRemoveBoard }) {
+export function SideBar({ boards, user, addBoardModalToggle, addBoardModal }) {
   const [favoritesOpen, setFavoritesOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
@@ -22,14 +21,8 @@ export function SideBar({ boards, user, onRemoveBoard }) {
   const preAddBoardModalRef = useRef(null)
   const preAddBoardButtonRef = useRef(null)
 
-  const [addBoardModal, setAddBoardModal] = useState(false)
-
   const [removeBoardId, setRemoveBoardId] = useState(null)
   const removeBoardModalRef = useRef(null)
-
-  function addBoardModalToggle() {
-    setAddBoardModal(prev=>!prev)
-  }
 
   function preAddBoardModalToggle() {
     preAddBoardModal

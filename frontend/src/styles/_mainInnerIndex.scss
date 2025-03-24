@@ -85,6 +85,53 @@
         }
       }
     }
+
+    .boards-empty-container{
+      display: grid;
+      grid-template-columns: 3fr 2fr;
+      border: solid #D0D4E4 1px;
+      border-radius: 8px;
+      width: 72%;
+      height: 260px;
+
+
+      .text-part{
+        padding: 70px 0px 70px 35px;
+        h4{
+          font-weight: 500;
+          font-size: 0.95rem;
+          margin-bottom: 7px;
+        }
+
+        h2{
+          font-size: 1.4rem;
+          margin-bottom: 20px;
+        }
+
+        button{
+          cursor: pointer;
+          font-family: "Quicksand", serif;
+          background-color: transparent;
+          border: solid #C3C6D4 1px;
+          border-radius: 4px;
+          width: 134px;
+          height: 40px;
+          font-size: 0.95rem;
+          font-weight: 500;
+
+          &:hover{
+            background-color: #F0F0F1;
+          }
+        }
+      }
+
+      img{
+        margin-left: 15px;
+        align-self: center;
+        width: 293px;
+        height: 212px;
+      }
+    }
   }
 }
 
