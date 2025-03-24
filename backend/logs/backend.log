@@ -67,3 +67,4 @@
 24.3.2025, 13:05:01 - INFO - Up and listening to port http://localhost:3000
 24.3.2025, 13:07:18 - DEBUG - auth.service - login with email: seangah8@gmail.com
 24.3.2025, 13:07:18 - INFO - User login:  | {"_id":"67d14edcead629a931984ecc","email":"seangah8@gmail.com","fullName":"Sean Gah","imgUrl":"https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png","isAdmin":null}
+24.3.2025, 20:50:44 - INFO - Up and listening to port http://localhost:3000
