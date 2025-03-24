@@ -54,3 +54,8 @@
 24.3.2025, 14:31:30 - INFO - Up and listening to port http://localhost:3000
 24.3.2025, 14:32:09 - DEBUG - auth.service - login with email: efraty665@gmail.com
 24.3.2025, 14:32:09 - INFO - User login:  | {"_id":"67ca519f85c61510baa798fd","email":"efraty665@gmail.com","fullName":"adam","imgUrl":"https://res.cloudinary.com/danlxus36/image/upload/v1741312413/best-selfie_xlxkpb.jpg","isAdmin":null}
+24.3.2025, 14:53:17 - INFO - Up and listening to port http://localhost:3000
+24.3.2025, 14:59:18 - INFO - Up and listening to port http://localhost:3000
+24.3.2025, 14:59:33 - INFO - Up and listening to port http://localhost:3000
+24.3.2025, 20:36:03 - INFO - Up and listening to port http://localhost:3000
+24.3.2025, 20:37:01 - INFO - Up and listening to port http://localhost:3000
