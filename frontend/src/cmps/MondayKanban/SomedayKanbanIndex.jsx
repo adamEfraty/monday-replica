@@ -18,12 +18,19 @@ import { removeTask } from "../../store/actions/boards.actions.js";
 
 const STORAGE_KEY = "kanbanStatuses";
 
-export function SomedayKanbanIndex({ boardColumnsFilter, handleFilteredLabel, currentBoard }) {
+export function SomedayKanbanIndex({
+  boardColumnsFilter,
+  handleFilteredLabel,
+  currentBoard,
+  openChat,
+  chatTempInfoUpdate,
+  onTaskUpdate
+}) {
   const { boardId } = useParams();
   const boards = useSelector((state) => state.boardModule.boards);
   const loggedInUser = useSelector((state) => state.userModule.user);
   const [groups, setGroups] = useState([]);
-  const tasks = currentBoard.groups.flatMap(group => group.tasks) || [];
+  const tasks = currentBoard.groups.flatMap((group) => group.tasks) || [];
 
   useEffect(() => {
     const fetchBoard = async () => {
@@ -42,10 +49,6 @@ export function SomedayKanbanIndex({ boardColumnsFilter, handleFilteredLabel, cu
     };
     fetchBoard();
   }, [boardId, boards]);
-
-  useEffect(() => {
-    console.log("tasks", tasks, currentBoard);
-  }, [tasks]);
 
   async function getBoardById() {
     return await boardService.getById(boardId);
@@ -121,8 +124,14 @@ export function SomedayKanbanIndex({ boardColumnsFilter, handleFilteredLabel, cu
 
       const updatedTasks = tasks.filter((task) => task.id !== movedTask.id);
       updatedTasks.push(movedTask);
-      console.log(movedTask)
-      updateTaskStatus(boardId, movedTask.cells[0].value.activities[0].activity.groupId, movedTask.id, newStatus, splitId[1]);
+      console.log(movedTask);
+      updateTaskStatus(
+        boardId,
+        movedTask.cells[0].value.activities[0].activity.groupId,
+        movedTask.id,
+        newStatus,
+        splitId[1]
+      );
     }
   };
 
@@ -132,57 +141,60 @@ export function SomedayKanbanIndex({ boardColumnsFilter, handleFilteredLabel, cu
 
       <section className="content">
         <SideBar boards={boards} user={loggedInUser} /> */}
-        <div className="board-details2">
-          <BoardDetailsHeader
-            handleAddTask={addTask}
-            boardTitle={currentBoard.title}
-            boardId={currentBoard._id}
-            boardColumnsFilter={boardColumnsFilter}
-            handleFilteredLabel={handleFilteredLabel}
-          />
+      <div className="board-details2">
+        <BoardDetailsHeader
+          handleAddTask={addTask}
+          boardTitle={currentBoard.title}
+          boardId={currentBoard._id}
+          boardColumnsFilter={boardColumnsFilter}
+          handleFilteredLabel={handleFilteredLabel}
+        />
 
-          <DragDropContext onDragEnd={onDragEnd}>
-            <Droppable
-              droppableId="groups-container"
-              direction="horizontal"
-              type="group"
-            >
-              {(provided) => (
-                <div
-                  className="kanban-container"
-                  ref={provided.innerRef}
-                  {...provided.droppableProps}
-                >
-                  {groups.map((status, index) => (
-                    <Draggable
-                      key={status.text || `group-${index}`}
-                      draggableId={status.text || `group-${index}`}
-                      index={index}
-                    >
-                      {(provided) => (
-                        <div
-                          ref={provided.innerRef}
-                          {...provided.draggableProps}
-                          {...provided.dragHandleProps}
-                        >
-                          <KanbanGroups
-                            onRemove={onDeleteTask}
-                            addItem={addTask}
-                            title={status.text}
-                            color={status.color}
-                            tasks={tasks}
-                            onUpdateTaskTitle={onUpdateTaskTitle}
-                          />
-                        </div>
-                      )}
-                    </Draggable>
-                  ))}
-                  {provided.placeholder}
-                </div>
-              )}
-            </Droppable>
-          </DragDropContext>
-        </div>
+        <DragDropContext onDragEnd={onDragEnd}>
+          <Droppable
+            droppableId="groups-container"
+            direction="horizontal"
+            type="group"
+          >
+            {(provided) => (
+              <div
+                className="kanban-container"
+                ref={provided.innerRef}
+                {...provided.droppableProps}
+              >
+                {groups.map((status, index) => (
+                  <Draggable
+                    key={status.text || `group-${index}`}
+                    draggableId={status.text || `group-${index}`}
+                    index={index}
+                  >
+                    {(provided) => (
+                      <div
+                        ref={provided.innerRef}
+                        {...provided.draggableProps}
+                        {...provided.dragHandleProps}
+                      >
+                        <KanbanGroups
+                          onRemove={onDeleteTask}
+                          addItem={addTask}
+                          title={status.text}
+                          color={status.color}
+                          tasks={tasks}
+                          onUpdateTaskTitle={onUpdateTaskTitle}
+                          chatTempInfoUpdate={chatTempInfoUpdate}
+                          openChat={openChat}
+                          onTaskUpdate={onTaskUpdate}
+                        />
+                      </div>
+                    )}
+                  </Draggable>
+                ))}
+                {provided.placeholder}
+              </div>
+            )}
+          </Droppable>
+        </DragDropContext>
+      </div>
       {/* </section> */}
     </>
   );

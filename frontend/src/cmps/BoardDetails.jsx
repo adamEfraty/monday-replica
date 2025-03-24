@@ -578,6 +578,9 @@ const BoardDetails = ({ isKanban = false }) => {
       boardColumnsFilter={boardColumnsFilter}
       handleFilteredLabel={handleFilteredLabel}
       currentBoard={currentBoard}
+      chatTempInfoUpdate={chatTempInfoUpdate}
+      openChat={openChat}
+      onTaskUpdate={onTaskUpdate}
     />
   );
 };
