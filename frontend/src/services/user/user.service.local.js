@@ -1,4 +1,5 @@
 import { storageService } from '../async-storage.service.js'
+import { boardService } from '../board/board.service.js'
 const STORAGE_KEY_LOGGEDIN_USER = 'loggedinUser'
 const STORAGE_KEY_USER_DB = 'user'
 
@@ -60,6 +61,10 @@ async function signup(userCred) {
     userCred.imgUrl =
       'https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png'
   const user = await storageService.post('user', userCred)
+
+  const boards = boardService.query()
+  if(!boards.length) boardService.makeFirstBoard()
+    
   return saveLocalUser(user)
 }
 

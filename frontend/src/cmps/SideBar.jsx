@@ -215,6 +215,7 @@ export function SideBar({ boards, user, onRemoveBoard }) {
                     window.location.hash.endsWith(`${board._id}/views`) ? '#CCE5FF' : ''}}
                   onClick={event => {
                     !horizontalDotsRefs.current.some(ref=>ref && ref.contains(event.target)) &&
+                    !removeBoardModalRef.current?.contains(event.target) &&
                     onChangeAdressOnce(
                       `/${utilService.getNameFromEmail(
                         user.email

@@ -14,12 +14,14 @@
     padding-left: 1.5rem;
     padding-top: 1rem;
     box-shadow: 0px 3px 12px rgba(0, 0, 0, 0.1); /* Bottom-only box-shadow */
+    font-family: "Quicksand", serif;
+
     small {
       color: #333;
       font-size: 15px;
     }
-    #bold {
-      font-weight: 550;
+    .small-bold{
+      font-weight: 650;
     }
   }
 

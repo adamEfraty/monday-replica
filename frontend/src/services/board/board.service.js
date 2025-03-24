@@ -48,11 +48,8 @@ const CHAT_KEY = "chat";
 async function query() {
   try {
     let boards = await httpService.get(`board`);
-    if (!boards || boards.length === 0) {
-      await makeFirstBoard();
-      boards = await httpService.get(`board`);
-    }
-    return boards;
+    if (boards)
+      return boards;
   } catch (error) {
     console.log("Error:", error);
     throw error;

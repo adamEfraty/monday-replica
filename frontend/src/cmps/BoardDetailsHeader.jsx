@@ -57,7 +57,6 @@ export function BoardDetailsHeader({
   }
 
   function isInKanban() {
-    console.log('window.location.hash', window.location.hash)
     return window.location.hash.endsWith('views');
   }
 

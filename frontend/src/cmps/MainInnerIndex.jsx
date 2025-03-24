@@ -24,8 +24,8 @@ export function MainInnerIndex({ user, isBoard, boards }) {
   return !isBoard ? (
     <div className="main-inner-index">
       <section className="welcome-section">
-        <small>Hello {user?.fullName}!</small>
-        <small id="bold">
+        <small>Good afternoon, {user?.fullName}!</small>
+        <small className="small-bold">
           Quickly access your recent boards, Inbox and workspaces
         </small>
       </section>
@@ -35,7 +35,9 @@ export function MainInnerIndex({ user, isBoard, boards }) {
             <ArrowDownIcon style={iconStyle} />
             <h4>Recently visited</h4>
           </div>
-          <div className="boards-container">
+          {
+            boards.length ?
+            <div className="boards-container">
             {boards.map((board) => (
               <BoardCard
                 key={board._id}
@@ -43,7 +45,13 @@ export function MainInnerIndex({ user, isBoard, boards }) {
                 onUpdateBoardName={onUpdateBoardName}
               />
             ))}
-          </div>
+            </div>
+            :
+            <section className="boards-empty-container">
+              <h2>No Boards</h2>
+            </section>
+          }
+
         </section>
       </section>
     </div>
