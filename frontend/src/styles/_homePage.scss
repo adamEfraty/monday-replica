@@ -12,11 +12,11 @@
 
   margin: 0 auto;
   color: #fff;
-  padding-top: 5rem;
+  padding-top: 6rem;
   text-align: center;
   display: flex;
   flex-direction: column;
-  gap: 3rem;
+  gap: 4rem;
 }
 .hero {
   h1 {
@@ -26,12 +26,13 @@
 }
 
 .hero-btn {
+  cursor: pointer;
   border: none;
-  padding: 1.5rem 3rem;
-  font-size: 1.5rem;
+  padding: 0.8rem 8rem;
+  font-size: 1.25rem;
   background-color: #5a5ad5;
   color: #fff;
-  border-radius: 2rem;
+  border-radius: 10px;
 
   &:hover {
     background-color: #4f4fa5;

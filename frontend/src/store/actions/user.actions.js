@@ -1,5 +1,6 @@
 import { userService } from '../../services/user/index.js'
 import { REMOVE_USER, SET_USER, SET_USERS } from '../reducer/user.reducer.js'
+import { boardService } from '../../services/board/board.service.js'
 
 import { store } from '../store.js'
 
