@@ -5,7 +5,6 @@ import { getSvg } from "../services/svg.service";
 
 export function AppHeader() {
   const user = useSelector((state) => state.userModule.user);
-  const iconStyle = { width: 22, height: 22 };
   const navigate = useNavigate();
 
   async function onLogOut() {
@@ -39,7 +38,7 @@ export function AppHeader() {
   ) : (
     <div
       className="header-flex"
-      style={{ backgroundColor: "#F7F7F7", padding: "14px", borderBottom: 'solid #E0E0E0 1px'}}
+      style={{ backgroundColor: "#F7F7F7", padding: "16px", borderBottom: 'solid #E0E0E0 1px'}}
     >
       <div>
         <img
@@ -48,9 +47,6 @@ export function AppHeader() {
           alt="logo"
         />
         <h2>SomeDay</h2>
-      </div>
-      <div>
-        <button onClick={() => navigate("/login")}>Log in</button>
       </div>
     </div>
   );

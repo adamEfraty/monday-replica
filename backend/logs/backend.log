@@ -59,3 +59,11 @@
 24.3.2025, 14:59:33 - INFO - Up and listening to port http://localhost:3000
 24.3.2025, 20:36:03 - INFO - Up and listening to port http://localhost:3000
 24.3.2025, 20:37:01 - INFO - Up and listening to port http://localhost:3000
+23.3.2025, 21:20:50 - INFO - Up and listening to port http://localhost:3000
+23.3.2025, 21:21:02 - DEBUG - auth.service - login with email: seangah8@gmail.com
+23.3.2025, 21:21:03 - INFO - User login:  | {"_id":"67d14edcead629a931984ecc","email":"seangah8@gmail.com","fullName":"Sean Gah","imgUrl":"https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png","isAdmin":null}
+23.3.2025, 21:33:28 - DEBUG - auth.service - login with email: seangah8@gmail.com
+23.3.2025, 21:33:28 - INFO - User login:  | {"_id":"67d14edcead629a931984ecc","email":"seangah8@gmail.com","fullName":"Sean Gah","imgUrl":"https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png","isAdmin":null}
+24.3.2025, 13:05:01 - INFO - Up and listening to port http://localhost:3000
+24.3.2025, 13:07:18 - DEBUG - auth.service - login with email: seangah8@gmail.com
+24.3.2025, 13:07:18 - INFO - User login:  | {"_id":"67d14edcead629a931984ecc","email":"seangah8@gmail.com","fullName":"Sean Gah","imgUrl":"https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png","isAdmin":null}
