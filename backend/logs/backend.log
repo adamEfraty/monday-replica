@@ -59,3 +59,41 @@
 24.3.2025, 13:05:01 - INFO - Up and listening to port http://localhost:3000
 24.3.2025, 13:07:18 - DEBUG - auth.service - login with email: seangah8@gmail.com
 24.3.2025, 13:07:18 - INFO - User login:  | {"_id":"67d14edcead629a931984ecc","email":"seangah8@gmail.com","fullName":"Sean Gah","imgUrl":"https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png","isAdmin":null}
+24.3.2025, 17:45:54 - DEBUG - auth.service - login with email: seangah8@gmail.com
+24.3.2025, 17:45:54 - INFO - User login:  | {"_id":"67d14edcead629a931984ecc","email":"seangah8@gmail.com","fullName":"Sean Gah","imgUrl":"https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png","isAdmin":null}
+24.3.2025, 17:46:07 - DEBUG - auth.service - signup with email: seangah845654@gmail.com, fullName: Sean Gah
+24.3.2025, 17:46:07 - DEBUG - auth.route - new account created: {"email":"seangah845654@gmail.com","password":"$2b$10$0SpcCv8FGyZQaiM5i9.H3OutdnYgD3tcbIwCLSEmyOwm5l8T6WdPa","fullName":"Sean Gah","imgUrl":"https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png","color":"#DF2F4A","_id":"67e17e3fbd1a67bd292f08c0"}
+24.3.2025, 17:46:07 - DEBUG - auth.service - login with email: seangah845654@gmail.com
+24.3.2025, 17:46:07 - INFO - User signup: | {"_id":"67e17e3fbd1a67bd292f08c0","email":"seangah845654@gmail.com","fullName":"Sean Gah","imgUrl":"https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png","color":"#DF2F4A","isAdmin":null}
+24.3.2025, 17:57:41 - DEBUG - auth.service - signup with email: seangah823432@gmail.com, fullName: שון גאח
+24.3.2025, 17:57:41 - DEBUG - auth.route - new account created: {"email":"seangah823432@gmail.com","password":"$2b$10$e3d6.eNYoI8Vp.wBLVuQ4.5ohcci34mwJ4nyagZvE6a/2gBb/bTJC","fullName":"שון גאח","imgUrl":"https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png","color":"#BB3354","_id":"67e180f5bd1a67bd292f08c1"}
+24.3.2025, 17:57:41 - DEBUG - auth.service - login with email: seangah823432@gmail.com
+24.3.2025, 17:57:41 - INFO - User signup: | {"_id":"67e180f5bd1a67bd292f08c1","email":"seangah823432@gmail.com","fullName":"שון גאח","imgUrl":"https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png","color":"#BB3354","isAdmin":null}
+24.3.2025, 17:58:02 - DEBUG - auth.service - login with email: seangah8@gmail.com
+24.3.2025, 17:58:02 - INFO - User login:  | {"_id":"67d14edcead629a931984ecc","email":"seangah8@gmail.com","fullName":"Sean Gah","imgUrl":"https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png","isAdmin":null}
+24.3.2025, 17:58:13 - DEBUG - auth.service - login with email: seangah8@gmail.com
+24.3.2025, 17:58:13 - INFO - User login:  | {"_id":"67d14edcead629a931984ecc","email":"seangah8@gmail.com","fullName":"Sean Gah","imgUrl":"https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png","isAdmin":null}
+24.3.2025, 17:58:26 - DEBUG - auth.service - signup with email: seangah8234@gmail.com, fullName: Sean Gah
+24.3.2025, 17:58:27 - DEBUG - auth.route - new account created: {"email":"seangah8234@gmail.com","password":"$2b$10$nEuUxCfXlCmUGsVHEXsM/u2VT/.9A.IXxTB9BW9aOFIGl9NotefvC","fullName":"Sean Gah","imgUrl":"https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png","color":"#037F4C","_id":"67e18123bd1a67bd292f08c4"}
+24.3.2025, 17:58:27 - DEBUG - auth.service - login with email: seangah8234@gmail.com
+24.3.2025, 17:58:27 - INFO - User signup: | {"_id":"67e18123bd1a67bd292f08c4","email":"seangah8234@gmail.com","fullName":"Sean Gah","imgUrl":"https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png","color":"#037F4C","isAdmin":null}
+24.3.2025, 18:00:01 - DEBUG - auth.service - signup with email: seangah8@gmail.com, fullName: Sean Gah
+24.3.2025, 18:00:01 - ERROR - Failed to signup email already taken
+24.3.2025, 18:00:15 - DEBUG - auth.service - signup with email: seangah8@gmail.com, fullName: Sean Gah
+24.3.2025, 18:00:15 - ERROR - Failed to signup email already taken
+24.3.2025, 18:00:17 - DEBUG - auth.service - signup with email: seangah8@gmail.com, fullName: Sean Gah
+24.3.2025, 18:00:17 - ERROR - Failed to signup email already taken
+24.3.2025, 18:00:52 - DEBUG - auth.service - signup with email: seangah834634523@gmail.com, fullName: Sean Gah
+24.3.2025, 18:00:52 - DEBUG - auth.route - new account created: {"email":"seangah834634523@gmail.com","password":"$2b$10$vzRcFCKtSN2W1s53xJVxj.AnePeKYU04.5fxFtvOpyAH6r6k/5lBu","fullName":"Sean Gah","imgUrl":"https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png","color":"#9D50DD","_id":"67e181b4bd1a67bd292f08c6"}
+24.3.2025, 18:00:52 - DEBUG - auth.service - login with email: seangah834634523@gmail.com
+24.3.2025, 18:00:52 - INFO - User signup: | {"_id":"67e181b4bd1a67bd292f08c6","email":"seangah834634523@gmail.com","fullName":"Sean Gah","imgUrl":"https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png","color":"#9D50DD","isAdmin":null}
+24.3.2025, 18:01:37 - DEBUG - auth.service - signup with email: seangah8345634@gmail.com, fullName: Sean Gah
+24.3.2025, 18:01:37 - DEBUG - auth.route - new account created: {"email":"seangah8345634@gmail.com","password":"$2b$10$kGNQ7zbCVKua9Wm9EjhTbO4m0rEt3akN.YpylVZ1XWgIB1Vm0TmBm","fullName":"Sean Gah","imgUrl":"https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png","color":"#DF2F4A","_id":"67e181e1bd1a67bd292f08c7"}
+24.3.2025, 18:01:37 - DEBUG - auth.service - login with email: seangah8345634@gmail.com
+24.3.2025, 18:01:37 - INFO - User signup: | {"_id":"67e181e1bd1a67bd292f08c7","email":"seangah8345634@gmail.com","fullName":"Sean Gah","imgUrl":"https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png","color":"#DF2F4A","isAdmin":null}
+24.3.2025, 18:01:55 - DEBUG - auth.service - signup with email: seangah8sdfsd@gmail.com, fullName: Sean Gah
+24.3.2025, 18:01:55 - DEBUG - auth.route - new account created: {"email":"seangah8sdfsd@gmail.com","password":"$2b$10$a1CtgmQLond3oaL/AvMMEehfKYMM98PGFzrr3Nwbo10mVbTQLhBZK","fullName":"Sean Gah","imgUrl":"https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png","color":"#C4C4C4","_id":"67e181f3bd1a67bd292f08c9"}
+24.3.2025, 18:01:55 - DEBUG - auth.service - login with email: seangah8sdfsd@gmail.com
+24.3.2025, 18:01:55 - INFO - User signup: | {"_id":"67e181f3bd1a67bd292f08c9","email":"seangah8sdfsd@gmail.com","fullName":"Sean Gah","imgUrl":"https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png","color":"#C4C4C4","isAdmin":null}
+24.3.2025, 18:02:05 - DEBUG - auth.service - login with email: seangah8@gmail.com
+24.3.2025, 18:02:05 - INFO - User login:  | {"_id":"67d14edcead629a931984ecc","email":"seangah8@gmail.com","fullName":"Sean Gah","imgUrl":"https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png","isAdmin":null}

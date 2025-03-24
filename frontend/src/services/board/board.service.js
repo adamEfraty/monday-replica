@@ -481,52 +481,38 @@ async function updateBoardFavorite(boardId) {
 }
 
 async function makeFirstBoard() {
-  const imageLinks = [
-    "https://images.pexels.com/photos/30061809/pexels-photo-30061809/free-photo-of-fashionable-woman-posing-with-colorful-headscarf.jpeg?auto=compress&cs=tinysrgb&w=600",
-    "https://images.pexels.com/photos/30007901/pexels-photo-30007901/free-photo-of-thoughtful-man-in-grey-coat-outdoors.jpeg?auto=compress&cs=tinysrgb&w=600",
-    "https://images.pexels.com/photos/28773362/pexels-photo-28773362/free-photo-of-dynamic-black-and-white-portrait-of-young-man-on-phone.jpeg?auto=compress&cs=tinysrgb&w=600",
-    "https://images.pexels.com/photos/30071289/pexels-photo-30071289/free-photo-of-portrait-of-a-bearded-man-outdoors.jpeg?auto=compress&cs=tinysrgb&w=600",
-  ];
-
-  const usersInBoard = [
-    { id: "userid0", fullName: "tal", color: "red", imgUrl: imageLinks[0] },
-    { id: "userid1", fullName: "shal", color: "green", imgUrl: imageLinks[1] },
-    { id: "userid2", fullName: "bal", color: "black", imgUrl: imageLinks[2] },
-    { id: "userid3", fullName: "shal", color: "green", imgUrl: imageLinks[3] },
-  ];
 
   const board = {
     title: "SAR default board",
-    members: usersInBoard,
     labels: [
       {
         id: utilService.makeIdForLabel(),
         type: "taskTitle",
-        name: "task",
+        name: "Task",
         width: 400,
       },
       {
         id: utilService.makeIdForLabel(),
         type: "priority",
-        name: "priority",
+        name: "Priority",
         width: 150,
       },
       {
         id: utilService.makeIdForLabel(),
         type: "status",
-        name: "status",
+        name: "Status",
         width: 150,
       },
       {
         id: utilService.makeIdForLabel(),
         type: "members",
-        name: "members",
+        name: "Members",
         width: 150,
       },
       {
         id: utilService.makeIdForLabel(),
         type: "date",
-        name: "date",
+        name: "Date",
         width: 150,
       },
     ],
