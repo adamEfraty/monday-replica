@@ -34,7 +34,7 @@ export function Login() {
   return (
     <>
       <AppHeader />
-      <div className="container">
+      <div className="login">
         <h1>Log in to your account</h1>
         <form className="login-form " onSubmit={handleSubmit}>
           <p className="req-msg">Enter your work email address and password</p>
@@ -56,7 +56,7 @@ export function Login() {
           </div>
           <button type="submit">Login</button>
         </form>
-        <hr/>
+        <hr className="login-line"/>
         <div>
           <p>
             {" "}

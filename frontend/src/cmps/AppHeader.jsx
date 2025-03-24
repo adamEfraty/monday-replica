@@ -1,11 +1,4 @@
 import { useNavigate } from "react-router";
-import AppsIcon from "@mui/icons-material/Apps";
-import QuestionMarkIcon from "@mui/icons-material/QuestionMark";
-import SearchIcon from "@mui/icons-material/Search";
-import ExtensionIcon from "@mui/icons-material/Extension";
-import PersonAddAltIcon from "@mui/icons-material/PersonAddAlt";
-import InboxIcon from "@mui/icons-material/Inbox";
-import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
 import { logout } from "../store/actions/user.actions";
 import { useSelector } from "react-redux";
 import { getSvg } from "../services/svg.service";
@@ -46,7 +39,7 @@ export function AppHeader() {
   ) : (
     <div
       className="header-flex"
-      style={{ backgroundColor: "#fff", padding: "1rem" }}
+      style={{ backgroundColor: "#F7F7F7", padding: "14px", borderBottom: 'solid #E0E0E0 1px'}}
     >
       <div>
         <img
@@ -58,7 +51,6 @@ export function AppHeader() {
       </div>
       <div>
         <button onClick={() => navigate("/login")}>Log in</button>
-        <button>Start Demo</button>
       </div>
     </div>
   );

@@ -1,0 +1,22 @@
+@use 'vars' as *;
+
+
+.image-uploader{
+    position: relative;
+
+    .input-file{
+
+    }
+
+    .profile-picture{
+        position: absolute;
+        top: -150px;
+        right: -35px;
+        width: 200px;
+        height: 200px;
+        border-radius: 15px;
+        border: solid $table-lines-gray 4px;
+        transform: rotate(-15deg);
+    }
+}
+

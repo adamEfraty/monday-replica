@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { uploadService } from "../services/upload.service";
 
 export function ImgUploader({ onUploaded = null }) {
@@ -7,8 +7,14 @@ export function ImgUploader({ onUploaded = null }) {
     height: 500,
     width: 500,
   });
+  const [isUploading, setIsUploading] = useState(false)
+  const emptyImg = 'https://t4.ftcdn.net/jpg/05/65/22/41/360_F_565224180_QNRiRQkf9Fw0dKRoZGwUknmmfk51SuSS.jpg'
+  
+  useEffect(()=>{
+    if(!imgData.imgUrl)
+      setImgData(prev=>({...prev, imgUrl: emptyImg})) 
+  },[imgData])
 
-  const [isUploading, setIsUploading] = useState(false);
 
   async function uploadImg(ev) {
     setIsUploading(true);
@@ -18,20 +24,11 @@ export function ImgUploader({ onUploaded = null }) {
     onUploaded?.(secure_url);
   }
 
-  function getUploadLabel() {
-    if (imgData.imgUrl) return "Upload Another?";
-    return isUploading ? "Uploading...." : "Upload Image";
-  }
-
   return (
-    <div className="upload-preview">
+    <section className="image-uploader">
       {imgData.imgUrl && (
-        <img
-          src={imgData.imgUrl}
-          style={{ maxWidth: "200px", float: "right" }}
-        />
+        <img className='profile-picture' src={imgData.imgUrl}/>
       )}
-      <label htmlFor="imgUpload">{getUploadLabel()}</label>
       <input
         type="file"
         onChange={uploadImg}
@@ -39,6 +36,6 @@ export function ImgUploader({ onUploaded = null }) {
         id="imgUpload"
         className="input-file"
       />
-    </div>
+    </section>
   );
 }
