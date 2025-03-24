@@ -1,86 +1,169 @@
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect, useState, useMemo } from "react";
 import IconButton from "@mui/material/IconButton";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import { getSvg } from "../../services/svg.service";
 import { Popover, MenuItem, Typography } from "@mui/material";
+import { openModal } from "../../store/actions/boards.actions";
+import { useSelector } from "react-redux";
 
-export function KanbanTasks({ title, task, onUpdateTaskTitle, onRemove }) {
-    const [inputValue, setInputValue] = useState(title);
-    const inputRef = useRef(null);
-    const spanRef = useRef(null);
+export function KanbanTasks({
+  title,
+  task,
+  onUpdateTaskTitle,
+  onRemove,
+  cellId,
+}) {
+  const openModals = useSelector((state) => state.boardModule.openModals);
+  const [inputValue, setInputValue] = useState(title);
+  const inputRef = useRef(null);
+  const spanRef = useRef(null);
 
-    const [anchorEl, setAnchorEl] = useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
 
-    useEffect(() => {
-        if (inputRef.current && spanRef.current) {
-            spanRef.current.textContent = inputValue || title;
-            inputRef.current.style.width = `${spanRef.current.offsetWidth + 5}px`;
-        }
-    }, [inputValue, title]);
+  const chatId = `chat-${task.id}`;
 
-    const handleClick = (event) => {
-        setAnchorEl(event.currentTarget);
-    };
+  useEffect(() => {
+    if (inputRef.current && spanRef.current) {
+      spanRef.current.textContent = inputValue || title;
+      inputRef.current.style.width = `${spanRef.current.offsetWidth + 5}px`;
+    }
+  }, [inputValue, title]);
 
-    const handleClose = () => {
-        setAnchorEl(null);
-    };
+  const miniLabels = useMemo(
+    () => ({
+      data: [
+        task.cells.find((cell) => cell.labelId === cellId),
+        task.cells.find((cell) => cell.type === "priority"),
+        task.cells.find((cell) => cell.type === "date"),
+      ],
+      members: task.cells.find((cell) => cell.type === "members"),
+    }),
+    [task, cellId]
+  );
 
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
 
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
+  function modalToggle(modalId) {
+    openModals.some((modId) => modId === modalId)
+      ? closeModal(modalId)
+      : openModal(modalId);
+  }
 
-    return (
-        <div className="kanban-task">
-            <div className="task-header">
-                <span className="task-title">
-                    <span ref={spanRef} className="hidden-input"></span>
+  function onStatusChange(status) {
+    onTaskUpdate({ ...miniLabels.data[0], value: status });
+    modalToggle();
+  }
 
-                    <input
-                        ref={inputRef}
-                        className="name-change-input"
-                        type="text"
-                        placeholder={inputValue}
-                        value={inputValue}
-                        onChange={(e) => setInputValue(e.target.value)}
-                        onBlur={() => onUpdateTaskTitle(inputValue, task)}
-                    />
-                </span>
+  function onPriorityChange(priority) {
+    onTaskUpdate({ ...miniLabels.data[1], value: priority });
+    modalToggle();
+  }
 
-                <div className="task-icon-box">
-                    <IconButton>{getSvg("pen-icon")}</IconButton>
+  return (
+    <div className="kanban-task">
+      <div className="task-header">
+        <span className="task-title">
+          <span ref={spanRef} className="hidden-input"></span>
 
-                    <IconButton size="small" className="task-options" onClick={handleClick}>
-                        <MoreHorizIcon />
-                    </IconButton>
+          <input
+            ref={inputRef}
+            className="name-change-input"
+            type="text"
+            placeholder={inputValue}
+            value={inputValue}
+            onChange={(e) => setInputValue(e.target.value)}
+            onBlur={() => onUpdateTaskTitle(inputValue, task)}
+          />
+        </span>
 
-                    <Popover
-                        open={Boolean(anchorEl)}
-                        anchorEl={anchorEl}
-                        onClose={handleClose}
-                        anchorOrigin={{
-                            vertical: "bottom",
-                            horizontal: "left",
-                        }}
-                        transformOrigin={{
-                            vertical: "top",
-                            horizontal: "left",
-                        }}
-                    >
-                        <MenuItem onClick={() => onRemove(task)}>{getSvg('trash2')}<span style={{ marginLeft: '1rem', fontWeight: '100' }}>Delete Task </span></MenuItem>
-                    </Popover>
-                </div>
-            </div>
+        <div className="task-icon-box">
+          <IconButton>{getSvg("pen-icon")}</IconButton>
 
-            <div className="task-footer">
-                <div> </div>
+          <IconButton
+            size="small"
+            className="task-options"
+            onClick={handleClick}
+          >
+            <MoreHorizIcon />
+          </IconButton>
 
-                <div className="footer-icon-box">
-                    <IconButton size="small" className="task-icon">
-                        {getSvg("chat-icon")}
-                    </IconButton>
-
-                </div>
-            </div>
+          <Popover
+            open={Boolean(anchorEl)}
+            anchorEl={anchorEl}
+            onClose={handleClose}
+            anchorOrigin={{
+              vertical: "bottom",
+              horizontal: "left",
+            }}
+            transformOrigin={{
+              vertical: "top",
+              horizontal: "left",
+            }}
+          >
+            <MenuItem onClick={() => onRemove(task)}>
+              {getSvg("trash2")}
+              <span style={{ marginLeft: "1rem", fontWeight: "100" }}>
+                Delete Task{" "}
+              </span>
+            </MenuItem>
+          </Popover>
         </div>
-    );
+      </div>
+
+      <section>
+        <div className="task-mini-labels">
+          {miniLabels.data
+            .filter((label) => label.value)
+            .map((label, idx) => {
+              if (!label) return null;
+              return (
+                <div
+                  key={idx}
+                  className={`mini-label ${
+                    typeof label.value.text === "string"
+                      ? label.value.text === ""
+                        ? "blank-label"
+                        : ""
+                      : ""
+                  }`}
+                  style={{
+                    backgroundColor: label.value.color,
+                  }}
+                >
+                  <span>
+                    {label.text
+                      ? label.text
+                      : typeof label.value.text === "string"
+                      ? label.value.text
+                      : label.value}
+                  </span>
+                </div>
+              );
+            })}
+        </div>
+      </section>
+
+      <div className="task-footer">
+        {miniLabels.members ? (
+          <div className="members-cell">
+            {miniLabels.members.value.slice(0, 4).map((member, idx) => (
+              <img key={idx} src={member.imgUrl} alt={member.name} />
+            ))}
+          </div>
+        ) : null}
+
+        <div className="footer-icon-box" onClick={() => modalToggle(chatId)}>
+          <IconButton size="small" className="task-icon">
+            {getSvg("chat-icon")}
+          </IconButton>
+        </div>
+      </div>
+    </div>
+  );
 }

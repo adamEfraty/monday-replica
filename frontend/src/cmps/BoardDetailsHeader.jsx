@@ -125,6 +125,7 @@ export function BoardDetailsHeader({
               <input
                 onChange={handleFilterChange}
                 type="text"
+                style={{ width: "100%" }}
                 value={filterByToEdit}
                 placeholder='Search this board'
                 autoFocus

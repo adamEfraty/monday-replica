@@ -174,7 +174,6 @@ export const GroupPreview = ({
         isMiniGroup={false}
         isFixed={false}
         dragHandleProps={provided.dragHandleProps}
-
       />
       }
 
