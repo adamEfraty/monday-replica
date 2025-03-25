@@ -16,7 +16,12 @@
         height: 200px;
         border-radius: 15px;
         border: solid $table-lines-gray 4px;
-        transform: rotate(-15deg);
+        transform: rotate(-15deg) translateX(0px);
+        transition: transform 0.5s ease-in-out;
     }
+
+    .profile-picture.move {
+        transform: translateX(200px);
+      }
 }
 
