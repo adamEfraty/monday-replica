@@ -25,6 +25,7 @@ export function ImgUploader({ onUploaded = null }) {
       setIsUploading(true)
       const { secure_url, height, width } = await uploadService.uploadImg(ev)
       setImgData({ imgUrl: secure_url, width, height })
+      onUploaded(secure_url)
       setIsUploading(false)
   
       setTimeout(() => {

@@ -16,6 +16,7 @@
         height: 200px;
         border-radius: 15px;
         border: solid $table-lines-gray 4px;
+        object-fit: cover;
         transform: rotate(-15deg) translateX(0px);
         transition: transform 0.5s ease-in-out;
     }
