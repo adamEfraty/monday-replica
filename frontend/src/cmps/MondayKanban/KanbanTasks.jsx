@@ -225,7 +225,7 @@ export function KanbanTasks({
       <section>
         <div className="task-mini-labels">
           {miniLabels.data
-            .filter((label) => label.value)
+            .filter((label) => label && label.value)
             .map((label, idx) => {
               if (!label) return null;
               return (

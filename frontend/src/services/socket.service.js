@@ -2,10 +2,15 @@ import { io } from 'socket.io-client'
 import { loadBoards } from '../store/actions/boards.actions.js'
 import { loadUsers } from '../store/actions/user.actions.js'
 
-const SOCKET_URL = 'http://localhost:3000' // Replace with your backend URL if different
+// const SOCKET_URL = 'https://someday-n1ze.onrender.com/' // Replace with your backend URL if different
+
+const SOCKET_URL =
+  process.env.NODE_ENV === 'production'
+    ? 'https://someday-n1ze.onrender.com'
+    : 'http://localhost:3000'
 
 export const socket = io(SOCKET_URL, {
-  withCredentials: true, // Ensures cookies are sent if needed
+  withCredentials: true,
 })
 
 console.log('Connecting to Socket.IO server...', socket.id)

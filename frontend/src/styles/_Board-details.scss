@@ -411,6 +411,7 @@ section.labels-grid {
   align-items: center;
   background-color: white;
   border-right: solid $table-lines-gray 1px;
+  box-shadow: 0 -10px 0 $table-lines-gray, 0 1px 0 $table-lines-gray;
 
   .white-cover {
     position: absolute;

@@ -140,7 +140,8 @@ function getRandomColor() {
 }
 
 function getRandomFromArray(arr){
-  return arr[Math.floor(Math.random() * (arr.length + 0.99))]
+  console.log('arr', arr)
+  return arr[Math.floor(Math.random() * (arr.length))]
 }
 
 function formatStrToDate(string) {

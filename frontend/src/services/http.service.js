@@ -7,10 +7,21 @@ const axios = Axios.create({ withCredentials: true })
 
 export const httpService = {
   get(endpoint, data) {
+<<<<<<< HEAD
     return ajax(endpoint, 'GET', data)
   },
   post(endpoint, data) {
     return ajax(endpoint, 'POST', data)
+=======
+    console.log("data", data);
+    console.log("endpoint", endpoint);
+    return ajax(endpoint, "GET", data);
+  },
+  post(endpoint, data) {
+    console.log("data", data);
+    console.log("endpoint", endpoint);
+    return ajax(endpoint, "POST", data);
+>>>>>>> origin/master
   },
   put(endpoint, data) {
     return ajax(endpoint, 'PUT', data)
