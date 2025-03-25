@@ -69,3 +69,9 @@
 24.3.2025, 13:07:18 - INFO - User login:  | {"_id":"67d14edcead629a931984ecc","email":"seangah8@gmail.com","fullName":"Sean Gah","imgUrl":"https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png","isAdmin":null}
 24.3.2025, 20:48:01 - INFO - Up and listening to port http://localhost:3000
 24.3.2025, 20:48:55 - INFO - Up and listening to port http://localhost:3000
+24.3.2025, 20:51:38 - DEBUG - auth.service - login with email: kiwi@gmail.com
+24.3.2025, 20:51:38 - INFO - User login:  | {"_id":"67c45c55c2f1ef4df8072022","email":"kiwi@gmail.com","fullName":"Kiwi","id":"E3iHE","imgUrl":"https://res.cloudinary.com/danlxus36/image/upload/v1740682607/3_iij9dg.jpg"}
+24.3.2025, 20:53:41 - INFO - Up and listening to port http://localhost:3000
+24.3.2025, 21:23:58 - INFO - Up and listening to port http://localhost:3000
+24.3.2025, 21:24:13 - DEBUG - auth.service - login with email: moki@gmail.com
+24.3.2025, 21:24:13 - INFO - User login:  | {"_id":"67d24d673a90ec88cba4d256","email":"moki@gmail.com","fullName":"moki","imgUrl":"https://res.cloudinary.com/danlxus36/image/upload/v1741835619/5_xaile3.jpg","isAdmin":null}
