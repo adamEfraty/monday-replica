@@ -113,20 +113,8 @@
 25.3.2025, 14:41:39 - INFO - Up and listening to port http://localhost:3000
 25.3.2025, 14:44:47 - DEBUG - auth.service - login with email: seangah8@gmail.com
 25.3.2025, 14:44:47 - INFO - User login:  | {"_id":"67d14edcead629a931984ecc","email":"seangah8@gmail.com","fullName":"Sean Gah","imgUrl":"https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png","isAdmin":null}
-25.3.2025, 14:59:55 - INFO - Up and listening to port http://localhost:3000
-25.3.2025, 15:03:13 - INFO - Up and listening to port http://localhost:3000
-25.3.2025, 15:20:01 - DEBUG - auth.service - signup with email: seangah8asdfa@gmail.com, fullName: sada
-25.3.2025, 15:20:01 - DEBUG - auth.service - login with email: seangah8asdfa@gmail.com
-25.3.2025, 15:20:01 - DEBUG - auth.route - new account created: {"email":"seangah8asdfa@gmail.com","password":"$2b$10$Qedw.OBPVhtdMPM2XsB8sO/UdZrv4r0IkRBvBKNbJZvo3IR2qdknC","fullName":"sada","imgUrl":"https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png","color":"#007EB5","_id":"67e2ad8100b65cd270d7bef9"}
-25.3.2025, 15:20:01 - INFO - User signup: | {"_id":"67e2ad8100b65cd270d7bef9","email":"seangah8asdfa@gmail.com","fullName":"sada","imgUrl":"https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png","color":"#007EB5","isAdmin":null}
-25.3.2025, 15:24:29 - DEBUG - auth.service - signup with email: seangah8@gmail.com, fullName: sdff
-25.3.2025, 15:24:29 - ERROR - Failed to signup email already taken
-25.3.2025, 15:24:33 - DEBUG - auth.service - signup with email: seangah8adsfa@gmail.com, fullName: sdff
-25.3.2025, 15:24:33 - DEBUG - auth.route - new account created: {"email":"seangah8adsfa@gmail.com","password":"$2b$10$vdKUcbkWBuToIZ2ZNEIPyOIur/4x3m8os2FktrnR8BTRqcBf0BufG","fullName":"sdff","imgUrl":"https://res.cloudinary.com/danlxus36/image/upload/v1742909062/user4_qntfur.jpg","color":"#C4C4C4","_id":"67e2ae9100b65cd270d7befa"}
-25.3.2025, 15:24:33 - DEBUG - auth.service - login with email: seangah8adsfa@gmail.com
-25.3.2025, 15:24:33 - INFO - User signup: | {"_id":"67e2ae9100b65cd270d7befa","email":"seangah8adsfa@gmail.com","fullName":"sdff","imgUrl":"https://res.cloudinary.com/danlxus36/image/upload/v1742909062/user4_qntfur.jpg","color":"#C4C4C4","isAdmin":null}
-25.3.2025, 15:25:47 - INFO - Up and listening to port http://localhost:3000
-25.3.2025, 15:37:56 - INFO - Up and listening to port http://localhost:3000
-25.3.2025, 15:40:06 - DEBUG - auth.service - login with email: seangah8@gmail.com
-25.3.2025, 15:40:06 - INFO - User login:  | {"_id":"67d14edcead629a931984ecc","email":"seangah8@gmail.com","fullName":"Sean Gah","imgUrl":"https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png","isAdmin":null}
-25.3.2025, 15:43:31 - INFO - Up and listening to port http://localhost:3000
+25.3.2025, 16:40:21 - INFO - Up and listening to port http://localhost:3000
+25.3.2025, 16:40:46 - DEBUG - auth.service - signup with email: uhadfi@g.com, fullName: dsjnsd
+25.3.2025, 16:40:47 - DEBUG - auth.route - new account created: {"email":"uhadfi@g.com","password":"$2b$10$is7OlGVLxeDFd9uHjDuE.uVySLVl/FHVmWMnPdbhc1Zhj3hdtbLSO","fullName":"dsjnsd","imgUrl":"https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png","color":"#FDAB3D","_id":"67e2c06f981027a1bd55ba4b"}
+25.3.2025, 16:40:47 - DEBUG - auth.service - login with email: uhadfi@g.com
+25.3.2025, 16:40:47 - INFO - User signup: | {"_id":"67e2c06f981027a1bd55ba4b","email":"uhadfi@g.com","fullName":"dsjnsd","imgUrl":"https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png","color":"#FDAB3D","isAdmin":null}
