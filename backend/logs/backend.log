@@ -126,3 +126,7 @@
 25.3.2025, 15:24:33 - DEBUG - auth.service - login with email: seangah8adsfa@gmail.com
 25.3.2025, 15:24:33 - INFO - User signup: | {"_id":"67e2ae9100b65cd270d7befa","email":"seangah8adsfa@gmail.com","fullName":"sdff","imgUrl":"https://res.cloudinary.com/danlxus36/image/upload/v1742909062/user4_qntfur.jpg","color":"#C4C4C4","isAdmin":null}
 25.3.2025, 15:25:47 - INFO - Up and listening to port http://localhost:3000
+25.3.2025, 15:37:56 - INFO - Up and listening to port http://localhost:3000
+25.3.2025, 15:40:06 - DEBUG - auth.service - login with email: seangah8@gmail.com
+25.3.2025, 15:40:06 - INFO - User login:  | {"_id":"67d14edcead629a931984ecc","email":"seangah8@gmail.com","fullName":"Sean Gah","imgUrl":"https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png","isAdmin":null}
+25.3.2025, 15:43:31 - INFO - Up and listening to port http://localhost:3000
