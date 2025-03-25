@@ -34,13 +34,6 @@ export function ActivityModal({ activities, width }) {
 
   return activities[0] ? (
     <div className="activities-modal-container">
-      <section className="header-activities">
-        <section className="filter-button">
-          <h5>Filter log</h5>
-          <ArrowDownIcon style={{ width: 18 }} />
-        </section>
-        <ExportIcon className="export-icon" />
-      </section>
       <ul className="activities-modal">
         {activities.map((activity, activityIdx) => {
           const user = users.find((user) => user._id === activity.userId);
