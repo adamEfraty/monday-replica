@@ -234,11 +234,12 @@ export function Label({
 
         {!onEditMode ? (
           <section className="text-area">
-            <i
+            {hoverLable && <i
               ref={buttonRef}
               className="fa-solid fa-ellipsis"
               onClick={modalToggle}
-            ></i>
+            ></i>}
+            
             <p onClick={toggleEditMode}>{shortLabelText(label.name)}</p>
           </section>
         ) : (
