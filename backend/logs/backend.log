@@ -108,28 +108,3 @@
 24.3.2025, 20:50:44 - INFO - Up and listening to port http://localhost:3000
 24.3.2025, 21:31:39 - INFO - Up and listening to port http://localhost:3000
 24.3.2025, 21:33:02 - INFO - Up and listening to port http://localhost:3000
-24.3.2025, 21:23:48 - DEBUG - auth.service - login with email: seangah8@gmail.com
-24.3.2025, 21:23:48 - INFO - User login:  | {"_id":"67d14edcead629a931984ecc","email":"seangah8@gmail.com","fullName":"Sean Gah","imgUrl":"https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png","isAdmin":null}
-24.3.2025, 21:24:12 - DEBUG - auth.service - login with email: seangah8@gmail.com
-24.3.2025, 21:24:12 - INFO - User login:  | {"_id":"67d14edcead629a931984ecc","email":"seangah8@gmail.com","fullName":"Sean Gah","imgUrl":"https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png","isAdmin":null}
-24.3.2025, 21:33:49 - DEBUG - auth.service - login with email: seangah8@gmail.com
-24.3.2025, 21:33:49 - INFO - User login:  | {"_id":"67d14edcead629a931984ecc","email":"seangah8@gmail.com","fullName":"Sean Gah","imgUrl":"https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png","isAdmin":null}
-24.3.2025, 21:39:44 - DEBUG - auth.service - signup with email: seangah8@gmail.com, fullName: Sean Gah
-24.3.2025, 21:39:44 - ERROR - Failed to signup email already taken
-24.3.2025, 21:39:48 - DEBUG - auth.service - signup with email: seangah8@gmail.com, fullName: Sean Gah
-24.3.2025, 21:39:48 - ERROR - Failed to signup email already taken
-24.3.2025, 21:40:07 - DEBUG - auth.service - signup with email: seangah8@gmail.com, fullName: Sean Gah
-24.3.2025, 21:40:07 - ERROR - Failed to signup email already taken
-24.3.2025, 21:43:31 - DEBUG - auth.service - login with email: seangah8@gmail.com
-24.3.2025, 21:43:31 - INFO - User login:  | {"_id":"67d14edcead629a931984ecc","email":"seangah8@gmail.com","fullName":"Sean Gah","imgUrl":"https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png","isAdmin":null}
-25.3.2025, 8:30:45 - INFO - Up and listening to port http://localhost:3000
-25.3.2025, 8:32:01 - DEBUG - auth.service - signup with email: seangah8@gmail.com, fullName: Sean Gah
-25.3.2025, 8:32:01 - ERROR - Failed to signup email already taken
-25.3.2025, 8:32:09 - DEBUG - auth.service - login with email: seangah8@gmail.com
-25.3.2025, 8:32:09 - INFO - User login:  | {"_id":"67d14edcead629a931984ecc","email":"seangah8@gmail.com","fullName":"Sean Gah","imgUrl":"https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png","isAdmin":null}
-25.3.2025, 11:07:30 - DEBUG - auth.service - signup with email: seangah8123@gmail.com, fullName: Sean Gah
-25.3.2025, 11:07:31 - DEBUG - auth.route - new account created: {"email":"seangah8123@gmail.com","password":"$2b$10$LJvijI/USBo8hTU3so3tt.1IVHePSvyE54/f8b1ehM7XWLOSzR/XW","fullName":"Sean Gah","imgUrl":"https://res.cloudinary.com/danlxus36/image/upload/v1742893644/Untitled_phi3kw.png","color":"#BB3354","_id":"67e27253566f1955fc7df7c9"}
-25.3.2025, 11:07:31 - DEBUG - auth.service - login with email: seangah8123@gmail.com
-25.3.2025, 11:07:31 - INFO - User signup: | {"_id":"67e27253566f1955fc7df7c9","email":"seangah8123@gmail.com","fullName":"Sean Gah","imgUrl":"https://res.cloudinary.com/danlxus36/image/upload/v1742893644/Untitled_phi3kw.png","color":"#BB3354","isAdmin":null}
-25.3.2025, 11:11:07 - DEBUG - auth.service - login with email: seangah8@gmail.com
-25.3.2025, 11:11:07 - INFO - User login:  | {"_id":"67d14edcead629a931984ecc","email":"seangah8@gmail.com","fullName":"Sean Gah","imgUrl":"https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png","isAdmin":null}
