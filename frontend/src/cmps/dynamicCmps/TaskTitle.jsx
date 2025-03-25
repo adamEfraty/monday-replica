@@ -219,7 +219,6 @@ export function TaskTitle({
               {
                 isChecked && getSvg('check')
               }
-              {isChecked && getSvg("check")}
             </div>
           </div>
           <div
