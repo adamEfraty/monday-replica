@@ -228,6 +228,7 @@ function formatDateStrToPerfectStr(dateStr) {
 }
 
 function getNameFromEmail(emailStr) {
+  console.log('emailStr:', emailStr)
   const atIndex = emailStr.indexOf('@')
   return emailStr.slice(0, atIndex)
 }
