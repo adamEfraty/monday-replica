@@ -1,8 +1,11 @@
+import SomedayLogo from '../assets/images/someday-logo.png'
+
+
 export function Footer() {
   return (
     <div className="footer">
       <img
-        src="https://agenda.agami-network.com/static/media/agenda-logo-color.cb0ce09dcc5b97c18eb5755c559acc2a.svg"
+        src={SomedayLogo}
         alt="logo"
       />
       <h2>SomeDay</h2>

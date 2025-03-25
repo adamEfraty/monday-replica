@@ -55,6 +55,11 @@ export async function signup(credentials) {
       type: SET_USER,
       user,
     })
+
+    const boards = await boardService.query()
+    console.log('boards after signup', boards)
+    if(!boards.length) boardService.makeFirstBoard()
+
     return user
   } catch (err) {
     console.log('Cannot signup', err)
