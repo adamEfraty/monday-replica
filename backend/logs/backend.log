@@ -70,3 +70,20 @@
 24.3.2025, 20:50:44 - INFO - Up and listening to port http://localhost:3000
 24.3.2025, 21:31:39 - INFO - Up and listening to port http://localhost:3000
 24.3.2025, 21:33:02 - INFO - Up and listening to port http://localhost:3000
+24.3.2025, 21:49:45 - DEBUG - auth.service - login with email: efraty665@gamil.com
+24.3.2025, 21:49:45 - ERROR - Failed to Login Invalid email or password
+24.3.2025, 21:50:15 - DEBUG - auth.service - signup with email: efraty665@gmail.com, fullName: david
+24.3.2025, 21:50:15 - ERROR - Failed to signup email already taken
+24.3.2025, 21:50:17 - DEBUG - auth.service - signup with email: efraty665@gmail.com, fullName: david
+24.3.2025, 21:50:17 - ERROR - Failed to signup email already taken
+24.3.2025, 21:50:18 - DEBUG - auth.service - signup with email: efraty665@gmail.com, fullName: david
+24.3.2025, 21:50:18 - ERROR - Failed to signup email already taken
+24.3.2025, 21:50:19 - DEBUG - auth.service - signup with email: efraty665@gmail.com, fullName: david
+24.3.2025, 21:50:19 - ERROR - Failed to signup email already taken
+24.3.2025, 21:50:19 - DEBUG - auth.service - signup with email: efraty665@gmail.com, fullName: david
+24.3.2025, 21:50:19 - ERROR - Failed to signup email already taken
+24.3.2025, 21:50:43 - DEBUG - auth.service - signup with email: uhwrfh@gma.com, fullName: iiwuefh
+24.3.2025, 21:50:43 - DEBUG - auth.route - new account created: {"email":"uhwrfh@gma.com","password":"$2b$10$AKPro2Es9e9cjrga1U.ICuu3qy.WhdcYFfmbuAADhhfWysE3mdqwu","fullName":"iiwuefh","imgUrl":"https://res.cloudinary.com/danlxus36/image/upload/v1742845844/133713637887775686_kaurez.jpg","color":"#579BFC","_id":"67e1b793c1507bb979f4d05b"}
+24.3.2025, 21:50:43 - DEBUG - auth.service - login with email: uhwrfh@gma.com
+24.3.2025, 21:50:43 - INFO - User signup: | {"_id":"67e1b793c1507bb979f4d05b","email":"uhwrfh@gma.com","fullName":"iiwuefh","imgUrl":"https://res.cloudinary.com/danlxus36/image/upload/v1742845844/133713637887775686_kaurez.jpg","color":"#579BFC","isAdmin":null}
+25.3.2025, 11:54:21 - INFO - Up and listening to port http://localhost:3000

@@ -36,14 +36,9 @@ export async function addBoard(boardName) {
 
 export async function loadBoards() {
   const boards = await boardService.query();
-  const filteredColumns = await boardService.getFilteredColumnsSession();
-  !filteredColumns &&
-    boardService.setFilteredColumnsSession(
-      boards.map((board) => ({ id: board._id, labels: board.labels }))
-    );
-  // const favorites = await setFavories(); //fix it later
-  await store.dispatch({ type: SET_BOARDS, boards });
-  await store.dispatch({
+  const filteredColumns = boardService.getFilteredColumnsSession();
+  store.dispatch({ type: SET_BOARDS, boards });
+  store.dispatch({
     type: SET_FILTERED_COLUMNS,
     newFilteredColumns: filteredColumns
       ? JSON.parse(filteredColumns)
@@ -52,6 +47,11 @@ export async function loadBoards() {
           labels: board.labels,
         })),
   });
+  !filteredColumns &&
+    boardService.setFilteredColumnsSession(
+      boards.map((board) => ({ id: board._id, labels: board.labels }))
+    );
+  // const favorites = await setFavories(); //fix it later
 }
 
 export async function addGroup(boardId) {
