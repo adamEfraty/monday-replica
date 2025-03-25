@@ -1,6 +1,6 @@
 import { HashRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import "./styles/mainStyles.scss";
-import { UserMsg } from "./cmps/Usermsg";
+import { UserMsg } from "./cmps/UserMsg";
 import { Login } from "./pages/Login";
 import { HomePage } from "./pages/HomePage";
 import { SignUp } from "./pages/SignUp";
