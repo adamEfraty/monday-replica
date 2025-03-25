@@ -34,6 +34,7 @@ export function SignUp() {
   }
 
   function onUploaded(imgUrl) {
+    console.log('imgUrl', imgUrl)
     setUser((prevCredentials) => ({ ...prevCredentials, imgUrl }));
   }
 
