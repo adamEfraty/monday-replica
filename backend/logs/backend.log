@@ -108,3 +108,8 @@
 24.3.2025, 20:50:44 - INFO - Up and listening to port http://localhost:3000
 24.3.2025, 21:31:39 - INFO - Up and listening to port http://localhost:3000
 24.3.2025, 21:33:02 - INFO - Up and listening to port http://localhost:3000
+25.3.2025, 12:57:20 - DEBUG - auth.service - login with email: seangah8@gmail.com
+25.3.2025, 12:57:20 - INFO - User login:  | {"_id":"67d14edcead629a931984ecc","email":"seangah8@gmail.com","fullName":"Sean Gah","imgUrl":"https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png","isAdmin":null}
+25.3.2025, 14:41:39 - INFO - Up and listening to port http://localhost:3000
+25.3.2025, 14:44:47 - DEBUG - auth.service - login with email: seangah8@gmail.com
+25.3.2025, 14:44:47 - INFO - User login:  | {"_id":"67d14edcead629a931984ecc","email":"seangah8@gmail.com","fullName":"Sean Gah","imgUrl":"https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png","isAdmin":null}
