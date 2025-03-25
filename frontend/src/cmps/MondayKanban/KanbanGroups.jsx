@@ -42,10 +42,8 @@ export function KanbanGroups({
         : [];
     setTasksToUse(filteredTasks);
     setCells(hMap);
-    console.log(filteredTasks, tasks);
   }, [tasks, title]);
 
-  console.log(tasksToUse);
 
   // Popover state
   const [anchorEl, setAnchorEl] = useState(null);
@@ -117,9 +115,7 @@ export function KanbanGroups({
                 draggableId={task.id + " " + cells[task.id]}
                 index={index}
               >
-                {(provided) => {
-                    console.log(provided, cells)
-                    return (
+                {(provided) => (
                   <div
                     ref={provided.innerRef}
                     {...provided.draggableProps}
@@ -136,7 +132,7 @@ export function KanbanGroups({
                       onTaskUpdate={onTaskUpdate}
                     />
                   </div>
-                )}}
+                )}
               </Draggable>
             ))}
             {provided.placeholder}

@@ -67,7 +67,6 @@ function remove(id) {
 }
 
 async function save(boardToSave) {
-  console.log("this is the board to save: ", boardToSave);
   if (boardToSave._id) {
     return storageService.put(STORAGE_KEY, boardToSave);
   } else {
@@ -181,16 +180,13 @@ async function addItemToGroup(
   await save(board);
 }
 async function addMultipleItemsToGroup(boardId, tasksToAdd) {
-  console.log("החממה?");
   const board = await getById(boardId);
   if (!board) throw new Error("Board not found");
 
   tasksToAdd.forEach((task) => {
-    console.log(task);
     const group = board.groups.find((group) => group.id === task[0]);
     if (!group) throw new Error("Group not found");
 
-    console.log(group);
 
     const taskToDuplicateIdx = group.tasks.findIndex((t) => t.id === task[1]);
     if (!group.tasks[taskToDuplicateIdx]) throw new Error("Task not found");
@@ -229,7 +225,6 @@ async function addMultipleItemsToGroup(boardId, tasksToAdd) {
       ),
     };
 
-    console.log(newItem);
 
     group.tasks.splice(taskToDuplicateIdx + 1, 0, newItem);
   });
@@ -341,8 +336,6 @@ async function updateTaskInGroup(boardId, userId, newCell) {
             },
     };
 
-    console.log("newActivity", newActivity);
-    console.log("cell to update", newCell);
     const updatedBoard = {
       ...board,
       groups: board.groups.map((group) => ({
@@ -374,10 +367,7 @@ async function updateTaskInGroup(boardId, userId, newCell) {
         })),
       })),
     };
-    console.log("About to update: ", updatedBoard);
-    await save(updatedBoard).then(() => {
-      console.log("updated board", updatedBoard);
-    });
+    await save(updatedBoard)
 
     return newCell.value;
   } catch (error) {
@@ -592,7 +582,6 @@ function setFilterContextSession(txt) {
 }
 
 function setFilteredColumnsSession(newColumn) {
-  console.log(newColumn)
   const filteredColumnsArr = JSON.parse(
     sessionStorage.getItem("filteredColumns")
   );

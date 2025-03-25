@@ -12,7 +12,7 @@ export function UserMsg() {
     eventBusService.on("show-user-msg", (msg) => {
       setMsg(msg);
       setIsVisible(true);
-      //   setTimeout(closeMsg, 20000);
+        setTimeout(closeMsg, 10000);
     });
   }, []);
 

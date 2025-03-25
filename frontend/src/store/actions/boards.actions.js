@@ -502,11 +502,9 @@ export async function replaceLabels(boardId, newLabels) {
 }
 
 export async function setFilteredColumns(filteredColumns) {
-  console.log("filtered: ", filteredColumns)
   const newFilteredColumns = await boardService.setFilteredColumnsSession(
     filteredColumns
   );
-  console.log(newFilteredColumns)
   store.dispatch({ type: SET_FILTERED_COLUMNS, newFilteredColumns });
 }
 

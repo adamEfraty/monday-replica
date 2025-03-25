@@ -124,7 +124,6 @@ export function SomedayKanbanIndex({
 
       const updatedTasks = tasks.filter((task) => task.id !== movedTask.id);
       updatedTasks.push(movedTask);
-      console.log(movedTask);
       updateTaskStatus(
         boardId,
         movedTask.cells[0].value.activities[0].activity.groupId,
