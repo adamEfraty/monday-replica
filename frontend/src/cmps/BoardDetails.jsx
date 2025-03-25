@@ -1,4 +1,3 @@
-import "../styles/_Board-Details.scss";
 import { GroupPreview } from "./GroupPreview";
 import { useState, useEffect, useRef } from "react";
 import {
