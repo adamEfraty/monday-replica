@@ -118,7 +118,16 @@
 25.3.2025, 16:40:47 - DEBUG - auth.route - new account created: {"email":"uhadfi@g.com","password":"$2b$10$is7OlGVLxeDFd9uHjDuE.uVySLVl/FHVmWMnPdbhc1Zhj3hdtbLSO","fullName":"dsjnsd","imgUrl":"https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png","color":"#FDAB3D","_id":"67e2c06f981027a1bd55ba4b"}
 25.3.2025, 16:40:47 - DEBUG - auth.service - login with email: uhadfi@g.com
 25.3.2025, 16:40:47 - INFO - User signup: | {"_id":"67e2c06f981027a1bd55ba4b","email":"uhadfi@g.com","fullName":"dsjnsd","imgUrl":"https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png","color":"#FDAB3D","isAdmin":null}
+<<<<<<< HEAD
 26.3.2025, 11:45:36 - INFO - Up and listening to port http://localhost:3000
 26.3.2025, 11:46:10 - DEBUG - auth.service - login with email: efraty665@gmail.com
 26.3.2025, 11:46:11 - INFO - User login:  | {"_id":"67ca519f85c61510baa798fd","email":"efraty665@gmail.com","fullName":"adam","imgUrl":"https://res.cloudinary.com/danlxus36/image/upload/v1741312413/best-selfie_xlxkpb.jpg","isAdmin":null}
 26.3.2025, 12:12:29 - INFO - Up and listening to port http://localhost:3000
+=======
+25.3.2025, 16:50:05 - INFO - Up and listening to port http://localhost:3000
+25.3.2025, 16:53:11 - DEBUG - auth.service - login with email: seangah8@gmail.com
+25.3.2025, 16:53:11 - INFO - User login:  | {"_id":"67d14edcead629a931984ecc","email":"seangah8@gmail.com","fullName":"Sean Gah","imgUrl":"https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png","isAdmin":null}
+25.3.2025, 16:55:08 - INFO - Up and listening to port http://localhost:3000
+>>>>>>> e1ef647d15d2b004b35ca5ee2552d3242d540128
+26.3.2025, 12:22:02 - INFO - Up and listening to port http://localhost:3000
+26.3.2025, 12:23:05 - INFO - Up and listening to port http://localhost:3000
