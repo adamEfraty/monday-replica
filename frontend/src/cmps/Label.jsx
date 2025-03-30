@@ -234,10 +234,11 @@ export function Label({
 
         {!onEditMode ? (
           <section className="text-area">
-            {hoverLable && <i
+            {(hoverLable || modal) && <i
               ref={buttonRef}
               className="fa-solid fa-ellipsis"
               onClick={modalToggle}
+              style={{backgroundColor: modal ? '#C8E1FA' : ''}}
             ></i>}
             
             <p onClick={toggleEditMode}>{shortLabelText(label.name)}</p>

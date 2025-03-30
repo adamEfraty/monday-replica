@@ -31,7 +31,7 @@ export function ImgUploader({ onUploaded = null }) {
       setTimeout(() => {
         setIsMoving(false)
       }, 250)
-    }, 250)
+    }, 500)
   }
 
   function triggerPictureAnimation() {
