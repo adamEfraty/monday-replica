@@ -128,6 +128,17 @@
 25.3.2025, 16:53:11 - DEBUG - auth.service - login with email: seangah8@gmail.com
 25.3.2025, 16:53:11 - INFO - User login:  | {"_id":"67d14edcead629a931984ecc","email":"seangah8@gmail.com","fullName":"Sean Gah","imgUrl":"https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png","isAdmin":null}
 25.3.2025, 16:55:08 - INFO - Up and listening to port http://localhost:3000
->>>>>>> e1ef647d15d2b004b35ca5ee2552d3242d540128
-26.3.2025, 12:22:02 - INFO - Up and listening to port http://localhost:3000
-26.3.2025, 12:23:05 - INFO - Up and listening to port http://localhost:3000
+25.3.2025, 18:52:05 - INFO - Up and listening to port http://localhost:3000
+25.3.2025, 20:50:41 - INFO - Up and listening to port http://localhost:3000
+25.3.2025, 20:52:55 - DEBUG - auth.service - signup with email: seangah325238@gmail.com, fullName: Sean Gah
+25.3.2025, 20:52:55 - DEBUG - auth.route - new account created: {"email":"seangah325238@gmail.com","password":"$2b$10$aoEzsn6au3aPjr3YDGCCouwxh6ksSqstLLHY5cr4f3u0CnWU7kHOy","fullName":"Sean Gah","imgUrl":"https://res.cloudinary.com/danlxus36/image/upload/v1742928763/dog-puppy-on-garden-royalty-free-image-1586966191_ytygbl.avif","color":"#784BD1","_id":"67e2fb87822ff0a284155b44"}
+25.3.2025, 20:52:55 - DEBUG - auth.service - login with email: seangah325238@gmail.com
+25.3.2025, 20:52:55 - INFO - User signup: | {"_id":"67e2fb87822ff0a284155b44","email":"seangah325238@gmail.com","fullName":"Sean Gah","imgUrl":"https://res.cloudinary.com/danlxus36/image/upload/v1742928763/dog-puppy-on-garden-royalty-free-image-1586966191_ytygbl.avif","color":"#784BD1","isAdmin":null}
+25.3.2025, 21:03:41 - INFO - Up and listening to port http://localhost:3000
+30.3.2025, 4:58:26 - INFO - Up and listening to port http://localhost:3000
+30.3.2025, 4:58:36 - DEBUG - auth.service - login with email: seangah8@gmail.com
+30.3.2025, 4:58:36 - INFO - User login:  | {"_id":"67d14edcead629a931984ecc","email":"seangah8@gmail.com","fullName":"Sean Gah","imgUrl":"https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png","isAdmin":null}
+30.3.2025, 6:24:13 - DEBUG - auth.service - signup with email: seangah8asdfasf@gmail.com, fullName: Sean Gah
+30.3.2025, 6:24:13 - DEBUG - auth.route - new account created: {"email":"seangah8asdfasf@gmail.com","password":"$2b$10$oUiMa7y7XbqXoCKZToRycu/ubc0/G/5SE3SrRvkZU.AJWA/MsJ8Ci","fullName":"Sean Gah","imgUrl":"https://res.cloudinary.com/danlxus36/image/upload/v1743305052/user2_cqqpny.jpg","color":"#9CD326","_id":"67e8b95d664b4652d44ba7c9"}
+30.3.2025, 6:24:13 - DEBUG - auth.service - login with email: seangah8asdfasf@gmail.com
+30.3.2025, 6:24:13 - INFO - User signup: | {"_id":"67e8b95d664b4652d44ba7c9","email":"seangah8asdfasf@gmail.com","fullName":"Sean Gah","imgUrl":"https://res.cloudinary.com/danlxus36/image/upload/v1743305052/user2_cqqpny.jpg","color":"#9CD326","isAdmin":null}

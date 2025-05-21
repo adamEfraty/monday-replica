@@ -30,7 +30,7 @@ export const GroupPreview = ({
   openChat,
   id,
   boardScroll,
-  updateFixedGroup,
+  updateGoupTitlesYPosition,
   fixedGroup,
   updateExpandedGroups,
   isDragging,
@@ -53,13 +53,27 @@ export const GroupPreview = ({
 
   useEffect(() => {
 
-    if (titleRef.current) {
+    if (titleRef.current && !isDraggingTask) {
       const yPosition = titleRef.current.getBoundingClientRect().y
       setTitlePositionY(yPosition)
-      updateFixedGroup(group.id, yPosition)
+      updateGoupTitlesYPosition(group.id, yPosition)
     }
 
   }, [boardScroll, group.color])
+
+  // i dont know why but there is time till the dragged groups updated at the end 
+  // of the drag, this will solve the ficed group problem while dragging groups
+  useEffect(() => {
+    if (!isDraggingTask) {
+      setTimeout(()=>{
+        const yPosition = titleRef.current.getBoundingClientRect().y
+        setTitlePositionY(yPosition)
+        updateGoupTitlesYPosition(group.id, yPosition)
+      },300)
+    }
+
+  }, [isDraggingTask])
+
 
   useEffect(() => {
     updateExpandedGroups(group.id, expanded)

@@ -189,6 +189,24 @@ const BoardDetails = ({ isKanban = false }) => {
     };
   }, []);
 
+
+  useEffect(()=>{
+    console.log('goupTitlesYPosition', goupTitlesYPosition)
+    let groupIdToFixed = "";
+    let highestFixedHeight = -Infinity;
+    for (const groupId in goupTitlesYPosition) {
+      if (
+        goupTitlesYPosition[groupId] < 260 &&
+        goupTitlesYPosition[groupId] >= highestFixedHeight
+      ) {
+        highestFixedHeight = goupTitlesYPosition[groupId];
+        groupIdToFixed = groupId;
+      }
+    }
+
+    setFixedGroup(groups.find((group) => group.id === groupIdToFixed));
+  },[goupTitlesYPosition])
+
   //...............................
 
   function handleAddGroup() {
@@ -330,21 +348,8 @@ const BoardDetails = ({ isKanban = false }) => {
     utilService.animateCSS(confirmationRef.current, animation, duration);
   }
 
-  function updateFixedGroup(groupId, yPos) {
+  function updateGoupTitlesYPosition(groupId, yPos) {
     setGoupTitlesYPosition((prev) => ({ ...prev, [groupId]: yPos }));
-    let groupIdToFixed = "";
-    let highestFixedHeight = -Infinity;
-    for (const groupId in goupTitlesYPosition) {
-      if (
-        goupTitlesYPosition[groupId] < 260 &&
-        goupTitlesYPosition[groupId] >= highestFixedHeight
-      ) {
-        highestFixedHeight = goupTitlesYPosition[groupId];
-        groupIdToFixed = groupId;
-      }
-    }
-
-    setFixedGroup(groups.find((group) => group.id === groupIdToFixed));
   }
 
   function updateExpandedGroups(groupId, expanded) {
@@ -476,7 +481,7 @@ const BoardDetails = ({ isKanban = false }) => {
                             chatTempInfoUpdate={chatTempInfoUpdate}
                             openChat={openChat}
                             boardScroll={boardScroll}
-                            updateFixedGroup={updateFixedGroup}
+                            updateGoupTitlesYPosition={updateGoupTitlesYPosition}
                             fixedGroup={fixedGroup}
                             updateExpandedGroups={updateExpandedGroups}
                             isDragging={isDragging}
