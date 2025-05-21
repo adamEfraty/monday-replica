@@ -121,16 +121,6 @@ export function KanbanTasks({
     }
   }
 
-  function onStatusChange(status) {
-    onTaskUpdate({ ...miniLabels.data[0], value: status });
-    modalToggle();
-  }
-
-  function onPriorityChange(priority) {
-    onTaskUpdate({ ...miniLabels.data[1], value: priority });
-    modalToggle();
-  }
-
   function onAddReply(commentSentTime, replyTxt) {
     const newReply = {
       userId: loggedinUser._id,

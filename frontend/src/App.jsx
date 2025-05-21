@@ -6,7 +6,6 @@ import { HomePage } from "./pages/HomePage";
 import { SignUp } from "./pages/SignUp";
 import { SomedayIndex } from "./pages/SomedayIndex";
 import { useSelector } from "react-redux";
-import { useEffect } from "react";
 import { utilService } from "./services/util.service";
 import { UserInfo } from "./cmps/dynamicCmps/modals/UserInfo";
 

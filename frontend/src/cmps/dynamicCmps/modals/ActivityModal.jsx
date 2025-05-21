@@ -19,7 +19,7 @@ export function ActivityModal({ activities, width }) {
 
   const iconStyle = { width: 14 };
 
-  function handleLongText(text, relation = 22) {
+  function Text(text, relation = 22) {
     if (text) {
       const maxLetters = Math.floor(width / relation) - 25;
       if (text.length < maxLetters) return text;
